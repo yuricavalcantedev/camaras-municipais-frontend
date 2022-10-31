@@ -1,0 +1,16 @@
+.container{
+    width: 50%;
+    height: 75%;
+    margin-top: 20px;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 20rem;
+}
+
+:host ::ng-deep .p-card-body{
+    height: 75%;
+}
