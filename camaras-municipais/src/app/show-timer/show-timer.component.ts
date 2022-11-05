@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Parlamentar } from '../domain/parlamentar.model';
+import { TimerControlDTO } from '../domain/timer-control-dto.model';
+import { POPOUT_MODAL_DATA, PopoutData } from '../service/popout.tokens';
 
 @Component({
   selector: 'app-show-timer',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowTimerComponent implements OnInit {
 
-  constructor() { }
+  name:string = "";
+  parlamentar: Parlamentar = new Parlamentar();
+  timer: number = 0;
+
+  public timerControlDTO : TimerControlDTO = new TimerControlDTO();
+  constructor(@Inject(POPOUT_MODAL_DATA) public data: PopoutData) {
+    this.parlamentar = data.parlamentar
+  }
 
   ngOnInit(): void {
+
   }
 
 }

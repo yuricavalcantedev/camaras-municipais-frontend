@@ -1,1 +1,14 @@
-<p>show-timer works!</p>
+
+<div class="container">
+    <p-card header="Controle Parlamentar" [style]="{height: '1080px'}" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+            <div >
+                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 300px; height: 300px;">
+            </div>
+        </ng-template>
+        <div style="margin-top: 20px;">
+            <p>{{parlamentar.name}}</p>
+        </div>
+    </p-card>
+    
+</div>

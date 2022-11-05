@@ -6,4 +6,5 @@ export class Parlamentar{
     main: boolean = false;
     active: boolean = false;
     politicalParty: string = "";
+
 }

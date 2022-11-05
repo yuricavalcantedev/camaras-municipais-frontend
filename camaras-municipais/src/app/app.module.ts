@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ShowTimerComponent } from './show-timer/show-timer.component';
+import { PopoutService } from './service/popout.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ShowTimerComponent } from './show-timer/show-timer.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ParlamentarService, TownHallService],
+  providers: [ParlamentarService, TownHallService, PopoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
