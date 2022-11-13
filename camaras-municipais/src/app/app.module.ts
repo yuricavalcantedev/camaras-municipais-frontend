@@ -6,6 +6,10 @@ import { FormsModule } from '@angular/forms';
 import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
+import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputTextModule} from 'primeng/inputtext';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -19,6 +23,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ShowTimerComponent } from './show-timer/show-timer.component';
 import { PopoutService } from './service/popout.service';
+import { SoundService } from './service/sound.service';
+import { UtilService } from './service/util.service';
 
 @NgModule({
   declarations: [
@@ -34,13 +40,17 @@ import { PopoutService } from './service/popout.service';
     BrowserAnimationsModule,
     DropdownModule,
     CardModule,
+    InputTextModule,
     FormsModule,
+    TableModule,
     RippleModule,
     ButtonModule,
+    CheckboxModule,
+    RadioButtonModule,
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ParlamentarService, TownHallService, PopoutService],
+  providers: [ParlamentarService, TownHallService, PopoutService, SoundService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

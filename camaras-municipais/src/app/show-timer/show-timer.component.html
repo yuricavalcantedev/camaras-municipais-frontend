@@ -1,6 +1,17 @@
 
-<div class="container">
-    <p-card header="Controle Parlamentar" [style]="{height: '1080px'}" styleClass="p-card-shadow">
+<div class="container-top">
+<div class="box-header">
+    <div class="box-header-legislature-photo">
+        <img src="https://sapl.beberibe.ce.leg.br/media/sapl/public/casa/logotipo/logo_casa.png">
+    </div>
+    <div class="box-header-info">
+        <div class="box-header-info-title" style="font-weight: bold;">Câmara Municipal de Beberibe</div>
+        <div class="box-header-info-subtitle" style="font-weight: bold;">19ª Legislatura (2021 - 2024)</div>
+    </div>
+</div>
+</div>
+<div class="container-modal-left">
+    <p-card header="{{parlamentar.name}}" styleClass="p-card-shadow">
         <ng-template pTemplate="header">
             <div >
                 <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 300px; height: 300px;">
@@ -10,5 +21,16 @@
             <p>{{parlamentar.name}}</p>
         </div>
     </p-card>
-    
+</div>
+
+<div class="container-modal-right">
+    <p-card header="" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+            <div style="text-align: center;">
+                <span class="time-modal">{{textMinutes}}</span>
+                <span class="time-modal">:</span>
+                <span class="time-modal">{{textSeconds}}</span>
+            </div>
+        </ng-template>
+    </p-card>
 </div>

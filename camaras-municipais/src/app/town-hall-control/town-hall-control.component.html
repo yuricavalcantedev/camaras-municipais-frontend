@@ -1,16 +1,39 @@
 
 <div class="container">
-    <p-card header="Controle Parlamentar" [style]="{height: '1080px'}" styleClass="p-card-shadow">
+    <p-card header="Câmaras" [style]="{height: '1080px'}" styleClass="p-card-shadow">
         <ng-template pTemplate="header">
             <div *ngIf="showParlamentarImage">
                 <img alt="Card" src="{{selectedParlamentar.urlImage}}" style="width: 300px; height: 300px;">
             </div>
         </ng-template>
-        <div style="margin-top: 20px;">
-            <p-dropdown [options]="townhalls" [(ngModel)]="selectedTownhall" optionLabel="name" (onChange)="onTownHallChange()" filterBy="name" placeholder="Selecione uma câmara"></p-dropdown>
+        <div style="margin-left: -100px;">
+            <h3 style="display: inline; margin-right:20px;">Escolha uma câmara: </h3>
+            <p-dropdown [options]="townhalls" [(ngModel)]="selectedTownhall" optionLabel="city" (onChange)="onTownHallChange()" filterBy="city" placeholder="Selecione uma câmara"></p-dropdown>
         </div>
         <div style="margin-top: 20px;">
-            <p-dropdown [options]="parlamentarList" [(ngModel)]="selectedParlamentar" optionLabel="name" (onChange)="onParlamentarChange()" [disabled]="disableParlamentarDropdown" placeholder="Selecione um parlamentar"></p-dropdown>
+            <p-table [value]="parlamentarList" [(selection)]="selectedParlamentarList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 1rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>Nome</th>
+                        <th>Ativo</th>
+                        <th>Partido Politico</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-parlamentar>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox (click)="selectRow()" [value]="parlamentar"></p-tableCheckbox>
+                        </td>
+                        <td>{{parlamentar.name}}</td>
+                        <td><p-checkbox [(ngModel)]="parlamentar.active" [binary]="true" [disabled]="true"></p-checkbox></td>
+                        <td>{{parlamentar.politicalParty}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </p-card>
     

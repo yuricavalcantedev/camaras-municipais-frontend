@@ -2,15 +2,27 @@
     width: 50%;
     height: 75%;
     margin-top: 20px;
+    float: right;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container-modal{
+    width: 50%;
+    height: 75%;
+    margin-top: 20px;
+    margin-left: 20px;
     float: left;
     overflow: hidden;
     text-align: center;
 }
 
-:host ::ng-deep .p-card-body{
-    height: 75%;
-}
 
 .btn-timer-func > button{
     margin-left: 10px;
 }
+.time{
+    font-size: 120px !important;
+    font-weight: bold !important;
+}
+ 

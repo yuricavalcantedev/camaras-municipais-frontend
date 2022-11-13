@@ -1,28 +1,14 @@
 
 <div class="container">
-    <p-card header="Controle de Tempo"[style]="{height: '1080px'}" styleClass="p-card-shadow">
+    <p-card header="Tempo"[style]="{height: '1080px'}" styleClass="p-card-shadow">
         <ng-template pTemplate="header">
-            
         </ng-template>
-        <div class="btn-timer-func" style="margin-top: 20px">
-            <button pButton pRipple type="button" label="Grande Expediente" class="p-button-raised p-button-text" (click)="onButtonClick(10)"></button>
-            <button pButton pRipple type="button" label="Pequeno Expediente" class="p-button-raised p-button-secondary p-button-text" (click)="onButtonClick(5)"></button>
-            <button pButton pRipple style="margin-top: 10px;" type="button" label="Expediente - Explicações Pessoais" class="p-button-raised p-button-text" (click)="onButtonClick(3)"></button>
-        </div>
-        <div class="btn-timer-func" style="margin-top: 20px">
-            <button pButton pRipple type="button" label="Homenagem Póstuma" class="p-button-rounded" (click)="onButtonClick(30)"></button>
-            <button pButton pRipple type="button" label="Tribuna Livre" class="p-button-rounded p-button-secondary" (click)="onButtonClick(20)"></button>
-            <button pButton pRipple type="button" label="A parte" class="p-button-rounded p-button-success" (click)="onButtonClick(10)"></button>
-        </div>
-
-        <div class="btn-timer-func" style="margin-top: 20px">
-            <button pButton pRipple type="button" label="+ 30sec" icon="pi pi-clock" class="p-button-rounded" ></button>
-            <button pButton pRipple type="button" label="+ 1min" icon="pi pi-clock" class="p-button-rounded p-button-secondary"></button>
-            <button pButton pRipple type="button" label="+ 2min" icon="pi pi-clock" class="p-button-rounded p-button-success"></button>
-            <button pButton pRipple type="button" label="+ 5min" icon="pi pi-clock" class="p-button-rounded p-button-info"></button>
+        <div style="text-align: center;">
+            <span class="time">{{timeLabel}}</span>
         </div>
         <ng-template pTemplate="footer">
-            <p-button label="Transmitir" (click)="onTransmitir()"></p-button>
+            <p-button class="mr-4" label="Transmitir" [disabled]="flagTransmitir" (click)="onTransmitir()"></p-button>
+            <p-button label="Finalizar tempo" [disabled]="flagTransmitir" (click)="onFinalizarTempo()"></p-button>
         </ng-template>
     </p-card>
     

@@ -17,7 +17,9 @@ export class PopoutService implements OnDestroy {
 
   ngOnDestroy() {}
 
-  openPopoutModal(data: { name: string; parlamentar: Parlamentar, timer: number}) {
+  openPopoutModal() {
+
+    let data: { name: ''}
     const windowInstance = this.openOnce(
       'assets/modal/popout.html',
       'MODAL_POPOUT'
@@ -63,10 +65,9 @@ export class PopoutService implements OnDestroy {
 
         // Attach the portal
         let componentInstance;
-        if (data.modalName === PopoutModalName.customerDetail) {
-          windowInstance.document.title = 'Customer Modal';
-          componentInstance = this.attachCustomerContainer(outlet, injector);
-        }
+        windowInstance.document.title = 'Tempo de Fala';
+        componentInstance = this.attachCustomerContainer(outlet, injector);
+        
 
         POPOUT_MODALS['windowInstance'] = windowInstance;
         POPOUT_MODALS['outlet'] = outlet;
@@ -97,7 +98,7 @@ export class PopoutService implements OnDestroy {
     return containerRef.instance;
   }
 
-  createInjector(data: {name: string; parlamentar: Parlamentar, timer: number}): PortalInjector {
+  createInjector(data: {name: string}): PortalInjector {
     const injectionTokens = new WeakMap();
     injectionTokens.set(POPOUT_MODAL_DATA, data);
     return new PortalInjector(this.injector, injectionTokens);
@@ -112,7 +113,6 @@ export class PopoutService implements OnDestroy {
         styleSheetElement.href = absoluteUrl;
       }
     });
-    console.log(styleSheetElement.sheet);
     return styleSheetElement;
   }
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Timer } from '../interfaces/timers';
 
 @Component({
   selector: 'app-timer-control',
@@ -7,19 +8,42 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class TimerControlComponent implements OnInit {
 
-  timer: number = 0;
-  @Output() updateTimer = new EventEmitter<number>();
-  constructor(){}
+  timeLabel: string = '00:00';
+  @Input() flagTransmitir: boolean;
+  @Input() timer: Timer;
+  @Output() openModalWithTime = new EventEmitter<number>();
+  
+  constructor(){
+  }
 
   ngOnInit(): void {
-
+    this.flagTransmitir = true;
   }
 
-  onButtonClick(timer: number){
-    this.timer = timer;
+  ngOnChanges(changes: SimpleChanges) {
+
+    console.log(changes);
+    
+    let timer = changes['timer'];
+    let flagTransmitirChanges = changes['flagTransmitir'];
+    
+    if(timer != undefined && timer.currentValue != undefined){
+      this.timeLabel = timer.currentValue.label;
+    }
+
+    if(flagTransmitirChanges != undefined && flagTransmitirChanges.currentValue != undefined){
+      this.flagTransmitir = flagTransmitirChanges.currentValue;
+    }
+    
   }
+
 
   onTransmitir(){
-    this.updateTimer.emit(this.timer);
+    
+    this.openModalWithTime.emit(0);
+  }
+
+  onFinalizarTempo(){
+    this.openModalWithTime.emit(-1);
   }
 }
