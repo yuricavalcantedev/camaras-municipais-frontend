@@ -1,36 +1,61 @@
-
-<div class="container-top">
-<div class="box-header">
-    <div class="box-header-legislature-photo">
-        <img src="https://sapl.beberibe.ce.leg.br/media/sapl/public/casa/logotipo/logo_casa.png">
-    </div>
-    <div class="box-header-info">
-        <div class="box-header-info-title" style="font-weight: bold;">Câmara Municipal de Beberibe</div>
-        <div class="box-header-info-subtitle" style="font-weight: bold;">19ª Legislatura (2021 - 2024)</div>
-    </div>
-</div>
-</div>
-<div class="container-modal-left">
-    <p-card header="{{parlamentar.name}}" styleClass="p-card-shadow">
-        <ng-template pTemplate="header">
-            <div >
-                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 300px; height: 300px;">
-            </div>
-        </ng-template>
-        <div style="margin-top: 20px;">
-            <p>{{parlamentar.name}}</p>
+<div class="grid row">    
+    <div class="col-1">
+        <div class="box-header-legislature-photo">
+            <img src="{{townHall.urlImage}}" style="width: 150px; height: 75px;">
         </div>
-    </p-card>
-</div>
-
-<div class="container-modal-right">
-    <p-card header="" styleClass="p-card-shadow">
-        <ng-template pTemplate="header">
-            <div style="text-align: center;">
-                <span class="time-modal">{{textMinutes}}</span>
-                <span class="time-modal">:</span>
-                <span class="time-modal">{{textSeconds}}</span>
+    </div>
+    <div class="col-7">
+        <div class="grid">
+            <div class="col-6">
+                <div class="box-header-info-title" style="font-weight: bold; margin-top: 20px; font-size: 1.5rem;">{{townHall.name}}</div>
             </div>
-        </ng-template>
-    </p-card>
+            <div class="col-6">
+                
+            </div>
+            <div class="col-12">
+                <div class="col-8">
+                    <div class="box-header-info-subtitle" style="font-weight: bold;">{{townHall.legislature}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid" style="margin-top: 20px;">
+    <div class="col">
+        <p-card header="{{parlamentar.name}} - {{parlamentar.politicalParty}}" styleClass="p-card-shadow bg-blue-100">
+            <ng-template pTemplate="header">
+            </ng-template>
+            <div *ngIf="parlamentar?.urlImage != null;" style="justify-content: center; display: flex;">
+                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 500px; height: 429px;">
+            </div>
+            <div style="text-align: center;" *ngIf="showAParteTime | async">
+                <p style="margin-top: 245px;"></p>
+            </div>
+            
+        </p-card>
+    </div>
+    <div class="col">
+        <p-card header="{{timeDescription}}" styleClass="p-card-shadow bg-yellow-100">
+            <ng-template pTemplate="header">
+                
+            </ng-template>
+            <div style="text-align: center;">
+                <span class="time-modal">{{mainTextMinutes}}</span>
+                <span class="time-modal">:</span>
+                <span class="time-modal">{{mainTextSeconds}}</span>
+            </div>
+            <p style="margin-top: 110px;"></p>
+            <div style="text-align: center;" *ngIf="showAParteTime | async">
+                <hr>
+                <p style="font-weight: bold; font-size: 1.5rem;">{{parlamentarAParte.name}} - {{parlamentarAParte.politicalParty}}</p>
+                <span class="mini-time-modal">{{subTextMinutes}}</span>
+                <span class="mini-time-modal">:</span>
+                <span class="mini-time-modal">{{subTextSeconds}}</span>
+            </div>
+            <ng-template pTemplate="footer" >
+                
+            </ng-template>
+            <p style="margin-top: 25px;"></p>
+        </p-card>
+    </div>
 </div>

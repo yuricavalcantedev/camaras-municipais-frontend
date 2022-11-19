@@ -35,13 +35,22 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
     this.expediente = "Grande Expediente";
+    this.utilService.getUtilShowTimer().setTimeDescription(this.expediente);
   }
 
   openModalWithTime(timer: number){
     
     this.timer = (timer == 1) ? this.CONST_MIN_TIMER: (this.selectedTimer.minutes * 60 + this.selectedTimer.seconds);
-    this.utilService.setTimeToSpeak(this.timer);
+    this.utilService.getUtilShowTimer().setTime(this.timer);
+    this.utilService.changeTransmitirData(true);
+    this.openCustomerPopout('');
+  }
+
+  openModalAParte(){
+    
+    //this.utilService.setTimeToSpeak(this.timer);
     this.openCustomerPopout('');
   }
 
@@ -50,8 +59,9 @@ export class HomeComponent implements OnInit {
   }
 
   chooseExpediente(flag: boolean){
+    
     this.disableInput = flag;
-    console.log(this.disableInput);
+    this.utilService.getUtilShowTimer().setTimeDescription(this.expediente);
   }
 
   @HostListener('window:beforeunload', ['$event'])

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Parlamentar } from '../domain/parlamentar.model';
-import { TimerFunction } from '../domain/timerFunction.model';
 import { TownHall } from '../domain/townhall.model';
 import { ParlamentarService } from '../service/parlamentar.service';
 import { TownHallService } from '../service/townhall.service';
@@ -19,7 +18,6 @@ export class TownHallControlComponent implements OnInit {
 
   selectedTownhall: TownHall = new TownHall();
   selectedParlamentar: Parlamentar = new Parlamentar();
-  selectedTimerFunction: TimerFunction;
 
   selectedParlamentarList: Parlamentar[];
 
@@ -30,7 +28,7 @@ export class TownHallControlComponent implements OnInit {
   @Output() updateParlamentar = new EventEmitter<Parlamentar>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
-  constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private utilSerivce: UtilService) {
+  constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private utilService: UtilService) {
   
   }
 
@@ -41,6 +39,7 @@ export class TownHallControlComponent implements OnInit {
     this.townHallService.getTownHallList().subscribe((res) => {
       this.townhalls = res;
       this.loading = true;
+      console.log(this.townhalls);
     });
     
   }
@@ -50,7 +49,7 @@ export class TownHallControlComponent implements OnInit {
     if(this.selectedParlamentarList.length == 1){
 
       this.selectedParlamentar = this.selectedParlamentarList[0];
-      this.utilSerivce.setParlamentarToTalk(this.selectedParlamentar);
+      this.utilService.getUtilShowTimer().setParlamentar(this.selectedParlamentar);
       this.updateFlagTransmitir.emit(false);
 
     }else{
@@ -66,8 +65,16 @@ export class TownHallControlComponent implements OnInit {
     this.parlamentarService.getParlamentarList(this.selectedTownhall.id).subscribe((res) => {
       this.disableParlamentarDropdown = false;
       this.parlamentarList = res;
-      console.log(this.parlamentarList);
     });
+
+    this.utilService.getUtilShowTimer().setTownHall(this.selectedTownhall);
+  }
+
+  callAParte(parlamentar: Parlamentar){
+
+    this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
+    this.utilService.changeTransmitirData(true);
+    
   }
 
 }

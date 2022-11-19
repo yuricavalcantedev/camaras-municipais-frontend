@@ -11,6 +11,10 @@
     width: 10rem;
 }
 
+:host ::ng-deep .p-card-body{  
+  background-color: bisque;
+}
+
 /* Elevation boxes */
 .box {
     min-height: 100px;

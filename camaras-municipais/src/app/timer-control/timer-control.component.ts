@@ -22,7 +22,6 @@ export class TimerControlComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    console.log(changes);
     
     let timer = changes['timer'];
     let flagTransmitirChanges = changes['flagTransmitir'];

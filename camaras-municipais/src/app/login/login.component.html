@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="card">
+    <div class="flex card-container indigo-container">
+        <div class="flex-1 h-4rem text-white font-bold text-center p-4 border-round"></div>
+        <div class="flex-1 mx-4">
+            <p-card header="Login" styleClass="center" [style]="{'margin-top': '5em', 'margin-bottom': '2em'}">
+                <ng-template pTemplate="header">
+                </ng-template>
+                <hr>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit('asd')" style="margin-top: 50px;">
+                    <div>
+                        <span class="p-float-label">
+                            <input id="float-input-login" type="text" class="form-control" pInputText > 
+                            <label for="float-input-login">Login</label>
+                            <p-message severity="error" text="O campo login é obrigatório" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty"></p-message>
+                        </span>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <span class="p-float-label">
+                            <input id="float-input-password" type="password" pInputText > 
+                            <label for="float-input-password">Senha</label>
+                        </span>
+                    </div>
+
+                    <button pRipple style="margin-top: 20px;" type="submit" pButton label="Login" ></button>
+                </form>
+            </p-card>
+        </div>
+        <div class="flex-1 h-4rem btext-white font-bold text-center p-4 border-round"></div>
+    </div>
+</div>

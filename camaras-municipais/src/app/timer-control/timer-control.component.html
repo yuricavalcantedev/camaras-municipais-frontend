@@ -1,11 +1,12 @@
 
-<div class="container">
-    <p-card header="Tempo"[style]="{height: '1080px'}" styleClass="p-card-shadow">
+<div class="container" >
+    <p-card header="Tempo" styleClass="p-card-shadow" style="background-color: dark-grey">
         <ng-template pTemplate="header">
         </ng-template>
         <div style="text-align: center;">
             <span class="time">{{timeLabel}}</span>
         </div>
+        <p style="margin-top: 20px;"></p>
         <ng-template pTemplate="footer">
             <p-button class="mr-4" label="Transmitir" [disabled]="flagTransmitir" (click)="onTransmitir()"></p-button>
             <p-button label="Finalizar tempo" [disabled]="flagTransmitir" (click)="onFinalizarTempo()"></p-button>

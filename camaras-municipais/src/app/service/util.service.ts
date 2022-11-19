@@ -1,36 +1,32 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Parlamentar } from '../domain/parlamentar.model';
+import { UtilShowTimer } from '../domain/utilsShowTimer.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
 
-  private parlamentarToTalk: Parlamentar;
-  private timeToSpeak: number;
+  private utilShowTimer: UtilShowTimer;
+  updateTransmitir = new BehaviorSubject<boolean>(false);
+  updateParte = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
+  constructor() { 
+    this.utilShowTimer = new UtilShowTimer();
+  }
 
-  setParlamentarToTalk(parlamentar: Parlamentar){
+  setUtilShowTimer(utilShowTimer: UtilShowTimer){
 
-    if(parlamentar != null && parlamentar != undefined){
-      this.parlamentarToTalk = parlamentar;
+    if(utilShowTimer != null && utilShowTimer != undefined){
+      this.utilShowTimer = utilShowTimer;
     }
   }
 
-  getParlamentarToTalk(){
-    return this.parlamentarToTalk;
-  }
+  getUtilShowTimer(){ return this.utilShowTimer; }
 
-  setTimeToSpeak(time: number){
-    
-    if(time != 0 && time != null && time != undefined){
-      this.timeToSpeak = time;
-    }
-  }
+  changeTransmitirData(flag:boolean){ this.updateTransmitir.next(flag); }
 
-  getTimeToSpeak(){
-    return this.timeToSpeak;
-  }
-  
+  changeParteData(flag:boolean){ this.updateParte.next(flag); }
+
 }
