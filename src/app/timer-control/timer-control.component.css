@@ -1,0 +1,25 @@
+.container{
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+}
+
+:host ::ng-deep .p-card-body{
+    height: 75%;
+    background-color: darkgray;
+}
+
+.btn-timer-func > button{
+    margin-left: 10px;
+}
+
+button{
+    margin-left: 15px;
+}
+
+.time{
+    font-size: 50px !important;
+    font-weight: bold !important;
+}

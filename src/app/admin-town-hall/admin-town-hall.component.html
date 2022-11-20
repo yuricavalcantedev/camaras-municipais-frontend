@@ -1,0 +1,99 @@
+
+<div class="container">
+    <p-card header="Câmaras" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+        </ng-template>
+        
+        <h3 style="display: inline; text-align: center;">Escolha uma câmara: </h3>
+        <div style="margin-top: 20px; ">
+            <p-table [value]="townHallList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 5%;">Id</th>
+                        <th style="width: 30%;">Nome</th>
+                        <th style="width: 10%;">Cidade</th>
+                        <th style="width: 25%;">Legislatura</th>
+                        <th >Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-townHall>
+                    <tr>
+                        <td>{{townHall.id}}</td>
+                        <td>{{townHall.name}}</td>
+                        <td>{{townHall.city}}</td>
+                        <td>{{townHall.legislature}}</td>
+                        <td style="display: flex; justify-content: center;">
+                            <button pButton pRipple type="button" icon="pi pi-eye" (click)="openModal(townHall, false)" class="p-button-rounded p-button-secondary"></button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(townHall, true)" class="p-button-rounded"></button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>
+
+<!-- Dialog -->
+<p-dialog header="Title" [(visible)]="showDialog"  [style]="{width: '50vw'}">
+    <form [formGroup]="formTownHall" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-2 closer">
+                        <label >Nome *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="name" class="form-control" required [ngClass]="submitted && form['name'].errors ? 'is-invalid ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
+                        <small id="name-help" class="p-error block">Nome é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Cidade *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="city" class="form-control" required [ngClass]="submitted && form['city'].errors ? 'ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['city'].errors" class="invalid-feedback">
+                        <small id="city-help" class="p-error block">Cidade é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Url da API *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text"formControlName="apiURL" class="form-control" required [ngClass]="submitted && form['apiURL'].errors ? 'ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['apiURL'].errors" class="invalid-feedback">
+                        <small id="apiURL-help" class="p-error block">Url da API é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Url da Imagem</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="urlImage" class="form-control" pInputText>
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Legislatura</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="legislature" class="form-control" pInputText>    
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-rounded p-button-secondary"></button>
+                <button pButton pRipple type="submit" label="Adicionar" icon="pi pi-save" class="p-button-rounded p-button-primary"></button>
+              </div>
+        </div>
+      </form>
+</p-dialog>
