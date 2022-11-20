@@ -8,7 +8,7 @@ import { Parlamentar } from '../domain/parlamentar.model';
 })
 export class ParlamentarService {
 
-  baseUrl = 'http://localhost:8080/parlamentares';
+  baseUrl = 'http://192.168.1.20:8080/parlamentares';
   constructor(private http: HttpClient) {}
   
   // Http Headers

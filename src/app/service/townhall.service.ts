@@ -9,7 +9,7 @@ import { TownHall } from '../domain/townhall.model';
 })
 export class TownHallService {
 
-  baseUrl = 'http://localhost:8080/townhalls';
+  baseUrl = 'http://192.168.1.20:8080/townhalls';
   constructor(private http: HttpClient) {}
   
   // Http Headers
