@@ -28,7 +28,7 @@ export class PopoutService implements OnDestroy {
     // Wait for window instance to be created
     setTimeout(() => {
       this.createCDKPortal(data, windowInstance);
-    }, 1000);
+    }, 600);
   }
 
   openOnce(url: any, target: any) {
