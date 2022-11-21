@@ -36,11 +36,8 @@ export class TownHallControlComponent implements OnInit {
 
     //the buttons will start disabled
     this.updateFlagTransmitir.emit(true);
-    this.townHallService.getTownHallList().subscribe((res) => {
-      this.townhalls = res;
-      this.loading = true;
-      console.log(this.townhalls);
-    });
+    this.townhalls = this.townHallService.getTownHallList();
+    this.loading = true;
     
   }
 
@@ -62,11 +59,8 @@ export class TownHallControlComponent implements OnInit {
     this.showParlamentarImage = false;
     this.parlamentarList = [];
     this.selectedParlamentar = new Parlamentar();
-    this.parlamentarService.getParlamentarList(this.selectedTownhall.id).subscribe((res) => {
-      this.disableParlamentarDropdown = false;
-      this.parlamentarList = res;
-    });
-
+    this.disableParlamentarDropdown = false;
+    this.parlamentarList = this.parlamentarService.getParlamentarList(this.selectedTownhall.id);
     this.utilService.getUtilShowTimer().setTownHall(this.selectedTownhall);
   }
 
