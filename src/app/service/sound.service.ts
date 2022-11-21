@@ -11,6 +11,7 @@ export class SoundService {
 
   playSound(){
 
+    console.log('playing sound');
     this.audio = new Audio();
     this.audio.src = "assets/sounds/notification_sound.mp3";
     this.audio.load();
