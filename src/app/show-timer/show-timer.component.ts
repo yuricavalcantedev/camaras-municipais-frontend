@@ -88,8 +88,7 @@ export class ShowTimerComponent implements OnInit {
 
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
-
-      console.log("Main timer");
+      
       if (minutes == -1 && seconds == 0) {
         
         this.isMainTimerRunning = false;
