@@ -38,10 +38,6 @@ export class AdminTownHallComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.townHallService.getTownHallList().subscribe((res) => {
-      this.townHallList = res;
-    });
-
     this.formTownHall = new FormGroup({
       name: new FormControl(this.townHallModel.name, [Validators.required]),
       urlImage: new FormControl(this.townHallModel.urlImage),
