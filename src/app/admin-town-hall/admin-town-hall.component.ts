@@ -1,15 +1,9 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TownHall } from '../domain/townhall.model';
+import { TownHallFormAdapter } from '../domain/townHallAdapter.model';
 import { TownHallService } from '../service/townhall.service';
-
-interface IUser {
-  name: string;
-  nickname: string;
-  email: string;
-  password: string;
-  showPassword: boolean;
-}
 
 @Component({
   selector: 'app-admin-town-hall',
@@ -20,32 +14,31 @@ export class AdminTownHallComponent implements OnInit {
 
 
   townHallList: TownHall[];
-  townHallModel: TownHall = new TownHall();
-  showDialog: boolean = false;
-  formTownHall: FormGroup;
+  formTownHall: FormGroup;  
+  titleModal: string = 'Adicionar Câmara';
+  labelBtConfirmModal: string = '';
+  
+  showTable:boolean = false;
   submitted: boolean = false;
+  isEditting: boolean = false;
+  showDialog: boolean = false;
 
-  constructor(public townHallService: TownHallService, private formBuilder: FormBuilder) { 
-    
-    this.formTownHall = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      urlImage: new FormControl(''),
-      city: new FormControl(''),
-      legislature: new FormControl(''),
-      apiURL: new FormControl('')
-    });
+  constructor(public townHallService: TownHallService) { 
   }
 
   ngOnInit(): void {
 
     this.formTownHall = new FormGroup({
-      name: new FormControl(this.townHallModel.name, [Validators.required]),
-      urlImage: new FormControl(this.townHallModel.urlImage),
-      city: new FormControl(this.townHallModel.city),
-      legislature: new FormControl(this.townHallModel.legislature),
-      apiURL: new FormControl(this.townHallModel.apiUrl, [Validators.required]),
+
+      id:new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      urlImage: new FormControl(''),
+      city: new FormControl(''),
+      legislature: new FormControl(''),
+      apiURL: new FormControl('', [Validators.required]),
     });
 
+    this.getTownHallList();
   }
 
   get form(): { [key: string]: AbstractControl } {
@@ -53,7 +46,16 @@ export class AdminTownHallComponent implements OnInit {
   }
 
   openModal(townHall: TownHall, isEditing: boolean){
+    
     this.showDialog = true;
+    this.isEditting = isEditing;
+    this.labelBtConfirmModal = isEditing ? 'Atualizar' : 'Adicionar';
+
+    if(townHall != null){
+      let townHallAdapter = new TownHallFormAdapter(townHall);
+      this.formTownHall.setValue(townHallAdapter);
+    }
+
   }
 
   onSubmit(){
@@ -64,7 +66,44 @@ export class AdminTownHallComponent implements OnInit {
       return;
     }
 
-    console.log("OK");
+    try {
+      
+      let townHall = this.formTownHall.value;
+      this.isEditting ? this.townHallService.updateTownHall(townHall) : this.townHallService.createTownHall(townHall);
+      this.showDialog = false;
+      this.clearInputs();
+      this.getTownHallList();
+
+    } catch (error) {
+
+    }
   }
+
+  onDelete(id: number){
+    this.townHallService.delete(id);
+    this.getTownHallList();
+  }
+
+  onCancelar(){
+
+    this.showDialog = false;
+    this.clearInputs();
+  }
+
+  getTownHallList(){
+
+    this.showTable = false;
+    this.townHallService.getTownHallList().subscribe(res => {
+      this.townHallList = res;
+      this.showTable = true;
+    });
+  }
+
+  clearInputs(){
+    this.formTownHall.reset();
+    this.submitted = false;
+  }
+
+  
 
 }

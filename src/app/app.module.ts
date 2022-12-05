@@ -12,13 +12,17 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {MessageModule} from 'primeng/message';
-import {TabMenuModule} from 'primeng/tabmenu';
+import {TabViewModule} from 'primeng/tabview';
+import {ToastModule} from 'primeng/toast';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {BadgeModule} from 'primeng/badge';
 
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ParlamentarService } from './service/parlamentar.service';
 import { TownHallService } from './service/townhall.service';
+import { RoleService } from './service/role.service';
 import { TimerControlComponent } from './timer-control/timer-control.component';
 import { TownHallControlComponent } from './town-hall-control/town-hall-control.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +37,9 @@ import { AdminTownHallComponent } from './admin-town-hall/admin-town-hall.compon
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminParlamentaresComponent } from './admin-parlamentares/admin-parlamentares.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { MessageService } from 'primeng/api';
+import { FormResetPasswordComponent } from './form-reset-password/form-reset-password.component';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     AdminTownHallComponent,
     AdminUsersComponent,
     AdminParlamentaresComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    FormResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -54,20 +62,23 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     DropdownModule,
     CardModule,
     MessageModule,
+    BadgeModule,
+    DynamicDialogModule,
     InputTextModule,
     PasswordModule,
+    ToastModule,
     FormsModule,
     TableModule,
     RippleModule,
     ButtonModule,
     CheckboxModule,
     DialogModule,
-    TabMenuModule,
+    TabViewModule,
     RadioButtonModule,
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ParlamentarService, TownHallService, PopoutService, SoundService, UtilService],
+  providers: [ParlamentarService, TownHallService, PopoutService, RoleService, SoundService, UtilService, MessageService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

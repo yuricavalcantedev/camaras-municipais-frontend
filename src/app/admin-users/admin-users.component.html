@@ -1,1 +1,125 @@
-<p>admin-users works!</p>
+<p-toast></p-toast>
+<div class="container">
+    <p-card header="" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+        </ng-template>
+        
+        <div class="grid" style="margin-bottom: -15px;">
+            <div class="col">
+                <h2 style="display: inline; text-align: center;">Utilizadores</h2>                
+            </div>
+            <div class="col">
+                <button style="margin-left:10px; float: right;" pButton pRipple type="submit" label="Adicionar" (click)="openModal(null, false)" icon="pi pi-save" class="p-button-success"></button>
+            </div>
+        </div>
+        <div style="margin-top: 20px; ">
+            <p-table [value]="userList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true" *ngIf="showTable">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 5%;">Id</th>
+                        <th style="width: 20%;">Nome</th>
+                        <th style="width: 10%;">Login</th>
+                        <th style="width: 20%;">Câmara</th>
+                        <th>Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.townHall.name}}</td>
+                        <td style="display: flex; justify-content: center;">
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-history" (click)="openModalUpdatePassword(user.id, user.username)" label="Atual. Senha"class="p-button-outlined p-button-rounded p-button-secondary">
+                                <label *ngIf="user.isRecoveringPassword" class="pi pi-bell" style="margin-right: 10px;"></label>
+                            </button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(user, true)" label="Editar"class="p-button-outlined p-button-rounded"></button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" (click)="onDelete(user.id)" label="Remover" class="p-button-outlined p-button-rounded p-button-danger"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>
+
+<!-- Dialog -->
+<p-dialog header="{{titleModal}}" [(visible)]="showDialog" (onHide)="clearInputs()"  [style]="{width: '40vw'}">
+    <form #myForm [formGroup]="formUser" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-2 closer">
+                        <label >Nome *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="name" class="form-control" required [ngClass]="submitted && form['name'].errors ? 'is-invalid ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
+                        <small id="name-help" class="p-error block">Nome é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Login *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="text" formControlName="username" class="form-control" required [ngClass]="submitted && form['username'].errors ? 'ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['username'].errors" class="invalid-feedback">
+                        <small id="username-help" class="p-error block">Login é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Senha*</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="password" formControlName="password" class="form-control" required [ngClass]="submitted && form['password'].errors ? 'ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+                        <small id="password-help" class="p-error block">Senha é um campo obrigatório</small>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Repetir Senha*</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <input type="password" formControlName="repPassword" class="form-control" required [ngClass]="submitted && form['repPassword'].errors ? 'ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && form['repPassword'].errors" class="invalid-feedback">
+                            <small id="repPassword-help" class="p-error block">Senha é um campo obrigatório</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Câmara *</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <p-dropdown [options]="townhalls" optionValue="id" formControlName="townHallId" optionLabel="city" filterBy="city" placeholder="Selecione uma câmara"
+                        class="form-control" [ngClass]="submitted && form['townHallId'].errors ? 'ng-invalid ng-dirty': ''"></p-dropdown>
+                        <div *ngIf="submitted && selectedTownhall == null" class="invalid-feedback">
+                            <small id="townhall-help" class="p-error block">Precisa selecionar qual câmara o utilizador trabalha</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 closer">
+                        <label>Tornar este utilizador no PRESIDENTE DA CÂMARA?</label>
+                    </div>
+                    <div class="col-10 modal-div">
+                        <div class="field-checkbox">
+                            <p-checkbox [(ngModel)]="isTownHallMayor" [binary]="true" inputId="binary"></p-checkbox>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <button style="margin-left:10px;" pButton pRipple type="submit" label="{{labelBtConfirmModal}}" icon="pi pi-save" class="p-button-rounded p-button-success"></button>
+                <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onCancelar()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+              </div>
+        </div>
+      </form>
+</p-dialog>

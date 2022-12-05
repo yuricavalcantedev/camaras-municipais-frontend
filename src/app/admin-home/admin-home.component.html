@@ -1,4 +1,11 @@
-<p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-<div class="card" style="background-color: burlywood;">
-    <router-outlet></router-outlet>
-</div>
+<p-tabView>
+    <p-tabPanel header="Câmaras">
+       <app-admin-town-hall></app-admin-town-hall>
+    </p-tabPanel>
+    <p-tabPanel header="Utilizadores">
+        <app-admin-users></app-admin-users>
+    </p-tabPanel>
+    <p-tabPanel header="Parlamentares">
+        <app-admin-parlamentares></app-admin-parlamentares>
+    </p-tabPanel>
+</p-tabView>

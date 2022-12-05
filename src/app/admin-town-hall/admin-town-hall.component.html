@@ -1,13 +1,20 @@
-
+<p-toast></p-toast>
 <div class="container">
-    <p-card header="Câmaras" styleClass="p-card-shadow">
+    <p-card header="" styleClass="p-card-shadow">
         <ng-template pTemplate="header">
         </ng-template>
         
-        <h3 style="display: inline; text-align: center;">Escolha uma câmara: </h3>
+        <div class="grid" style="margin-bottom: -15px;">
+            <div class="col">
+                <h2 style="display: inline; text-align: center;">Câmaras Municipais</h2>
+            </div>
+            <div class="col">
+                <button style="margin-left:10px; float: right;" pButton pRipple type="submit" label="Adicionar" (click)="openModal(null, false)" icon="pi pi-save" class="p-button-success"></button>
+            </div>
+        </div>
         <div style="margin-top: 20px; ">
             <p-table [value]="townHallList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
-            [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true" *ngIf="showTable">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 5%;">Id</th>
@@ -24,9 +31,9 @@
                         <td>{{townHall.city}}</td>
                         <td>{{townHall.legislature}}</td>
                         <td style="display: flex; justify-content: center;">
-                            <button pButton pRipple type="button" icon="pi pi-eye" (click)="openModal(townHall, false)" class="p-button-rounded p-button-secondary"></button>
-                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(townHall, true)" class="p-button-rounded"></button>
-                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                            
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(townHall, true)" label="Editar"class="p-button-outlined p-button-rounded"></button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" (click)="onDelete(townHall.id)" label="Remover" class="p-button-outlined p-button-rounded p-button-danger"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -36,8 +43,8 @@
 </div>
 
 <!-- Dialog -->
-<p-dialog header="Title" [(visible)]="showDialog"  [style]="{width: '50vw'}">
-    <form [formGroup]="formTownHall" (ngSubmit)="onSubmit()">
+<p-dialog header="{{titleModal}}" [(visible)]="showDialog" (onHide)="clearInputs()"  [style]="{width: '40vw'}">
+    <form #myForm [formGroup]="formTownHall" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="form-group">
                 <div class="row">
@@ -90,9 +97,9 @@
                     </div>
                 </div>
               </div>
-              <div class="row">
-                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-rounded p-button-secondary"></button>
-                <button pButton pRipple type="submit" label="Adicionar" icon="pi pi-save" class="p-button-rounded p-button-primary"></button>
+              <div class="row" style="margin-top: 10px;">
+                <button style="margin-left:10px;" pButton pRipple type="submit" label="{{labelBtConfirmModal}}" icon="pi pi-save" class="p-button-rounded p-button-success"></button>
+                <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onCancelar()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
               </div>
         </div>
       </form>

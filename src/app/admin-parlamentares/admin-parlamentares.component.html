@@ -1,1 +1,44 @@
-<p>admin-parlamentares works!</p>
+<p-toast></p-toast>
+<div class="container">
+    <p-card header="" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+        </ng-template>
+        
+        <div class="grid" style="margin-bottom: -15px;">
+            <div class="col">
+                <h2 style="display: inline; text-align: center;">Vereadores</h2>                
+            </div>
+            <div class="col">
+                <h3 style="display: inline; text-align: center;">Escolha uma câmara: </h3>
+        <p-dropdown [options]="townhalls" [(ngModel)]="selectedTownhall" optionLabel="city" (onChange)="onTownHallChange()" filterBy="city" placeholder="Selecione uma câmara"></p-dropdown>
+            </div>
+        </div>
+        <div style="margin-top: 20px; ">
+            <p-table [value]="parlamentarList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+            [paginator]="true" [rows]="10" [showCurrentPageReport]="true" *ngIf="showTable">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 5%;">Id</th>
+                        <th style="width: 20%;">Nome</th>
+                        <th style="width: 10%;">Login</th>
+                        <th style="width: 20%;">Câmara</th>
+                        <th>Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.townHall.name}}</td>
+                        <td style="display: flex; justify-content: center;">
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-history" (click)="openModalUpdatePassword(user.id, user.username)" label="Atual. Senha"class="p-button-outlined p-button-rounded p-button-secondary">
+                                <label *ngIf="user.isRecoveringPassword" class="pi pi-bell" style="margin-right: 10px;"></label>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>

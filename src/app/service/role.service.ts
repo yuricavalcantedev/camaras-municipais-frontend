@@ -1,29 +1,31 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry, catchError, throwError } from 'rxjs';
-import { Parlamentar } from '../domain/parlamentar.model';
-import { DumbService } from './dumb.service';
+import { MessageService } from 'primeng/api';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { Role } from '../domain/role.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParlamentarService {
+export class RoleService {
 
-  baseUrl = 'http://localhost:8080/parlamentares';
-  constructor(private http: HttpClient) {}
-  
+baseUrl: string = "http://localhost:8080/roles";
+
+  constructor(private http: HttpClient, private messageService: MessageService) {}
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'http://localhost:4200'
     }),
   };
 
+  getAll(): Observable<Role[]>{
 
-  getParlamentarList(townHallId: number): Observable<Parlamentar[]> {
-    return this.http.get<Parlamentar[]>(this.baseUrl+"/townhalls/" + townHallId)
-    .pipe(retry(), catchError(this.errorHandl));
-
+    return this.http
+      .get<Role[]>(this.baseUrl)
+      .pipe(retry(), catchError(this.errorHandl));
   }
 
   errorHandl(error: any) {
