@@ -1,13 +1,15 @@
 <div class="grid row">    
-    <div class="col-1">
-        <div class="box-header-legislature-photo">
-            <img src="{{townHall.urlImage}}" style="width: 150px; height: 75px;">
-        </div>
-    </div>
-    <div class="col-7">
+    <!--<div class="col-1">
+        
+            <div class="box-header-legislature-photo">
+                <img src="{{townHall.urlImage}}" style="width: 150px; height: 75px;">
+            </div>
+        
+    </div>-->
+    <div class="col-12">
         <div class="grid">
             <div class="col-6">
-                <div class="box-header-info-title" style="font-weight: bold; margin-top: 20px; font-size: 1.5rem;">{{townHall.name}}</div>
+                <div class="box-header-info-title text-6xl" style="margin-left: 10px;">{{townHall.name}}</div>
             </div>
             <div class="col-6">
                 
@@ -22,20 +24,20 @@
 </div>
 <div class="grid" style="margin-top: 20px;">
     <div class="col">
-        <p-card header="{{parlamentar.name}} - {{parlamentar.politicalParty}}" styleClass="p-card-shadow bg-blue-100">
-            <ng-template pTemplate="header">
-            </ng-template>
+        <div class="p-card-shadow bg-blue-100">            
             <div *ngIf="parlamentar?.urlImage != null;" style="justify-content: center; display: flex;">
-                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 500px; height: 429px;">
+                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 100%; height: 475px;">
             </div>
             <div style="text-align: center;" *ngIf="showAParteTime | async">
                 <p style="margin-top: 245px;"></p>
             </div>
-            
-        </p-card>
+            <div style="display: flex; justify-content: flex-end;">
+                <h3 style="margin-right: 10px; font-size: 1.5rem;">{{parlamentar.name}} - {{parlamentar.politicalParty}}</h3>
+            </div>
+        </div>
     </div>
     <div class="col">
-        <p-card header="{{timeDescription}}" styleClass="p-card-shadow bg-yellow-100">
+        <p-card header="{{timeDescription}}" styleClass="p-card-shadow bg-blue-100">
             <ng-template pTemplate="header">
                 
             </ng-template>

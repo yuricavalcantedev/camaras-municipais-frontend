@@ -50,11 +50,8 @@ export class ShowTimerComponent implements OnInit {
       this.townHall = this.utilTimer.getTownHall();
       
       this.parlamentar = this.utilTimer.getParlamentar();
-      if(!this.isMainTimerRunning){
-
-        this.isMainTimerRunning = true;
-        this.mainTimer(this.utilTimer.getTime());
-      }
+      if(!this.isMainTimerRunning){                
+      }      
 
       if(this.utilTimer.getParlamentarAParte() != null){
 
@@ -62,6 +59,9 @@ export class ShowTimerComponent implements OnInit {
         this.showAParteTime = of (true);
         this.subTimer(120);
       }else{
+        this.clearMainTimer();
+        this.isMainTimerRunning = true;
+        this.mainTimer(this.utilTimer.getTime());
         this.showAParteTime = of (false);
       }
       
@@ -90,13 +90,17 @@ export class ShowTimerComponent implements OnInit {
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
       
       if (minutes == -1 && seconds == 0) {
-        
-        this.isMainTimerRunning = false;
-        this.mainTextMinutes = '00';
-        clearInterval(this.mainTimerInterval);
+        this.clearMainTimer();
         this.soundService.playSound();
       }
     }, 750);
+  }
+
+  clearMainTimer(){
+    
+    this.isMainTimerRunning = false;
+    this.mainTextMinutes = '00';
+    clearInterval(this.mainTimerInterval);
   }
 
   subTimer(timeInSeconds: number){

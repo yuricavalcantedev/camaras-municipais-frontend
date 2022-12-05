@@ -9,3 +9,10 @@
     font-size: 120px !important;
     font-weight: bold !important;
 }
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: chocolate;
+}

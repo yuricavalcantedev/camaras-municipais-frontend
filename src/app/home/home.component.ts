@@ -30,7 +30,10 @@ export class HomeComponent implements OnInit {
       {label: "03:00", minutes: 3, seconds:0},
       {label: "05:00", minutes: 5, seconds:0},
       {label: "10:00", minutes: 10, seconds:0},
-      {label: "15:00", minutes: 15, seconds:0}
+      {label: "15:00", minutes: 15, seconds:0},
+      {label: "30:00", minutes: 30, seconds:0},
+      {label: "45:00", minutes: 45, seconds:0},
+      {label: "60:00", minutes: 60, seconds:0}
     ];
    }
 
