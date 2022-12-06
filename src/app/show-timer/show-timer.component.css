@@ -1,5 +1,5 @@
 .row {
-    display: flex; /* equal height of the children */
+    display: flex; 
   }
 
 .btn-timer-func > button{

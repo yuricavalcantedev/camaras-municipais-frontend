@@ -1,4 +1,4 @@
-<div class="grid row">    
+<div class="grid row" style="background-color: cornsilk;">    
     <!--<div class="col-1">
         
             <div class="box-header-legislature-photo">
@@ -22,33 +22,39 @@
         </div>
     </div>
 </div>
-<div class="grid" style="margin-top: 20px;">
-    <div class="col">
-        <div class="p-card-shadow bg-blue-100">            
-            <div *ngIf="parlamentar?.urlImage != null;" style="justify-content: center; display: flex;">
-                <img alt="Card" src="{{parlamentar.urlImage}}" style="width: 100%; height: 475px;">
-            </div>
-            <div style="text-align: center;" *ngIf="showAParteTime | async">
-                <p style="margin-top: 245px;"></p>
-            </div>
-            <div style="display: flex; justify-content: flex-end;">
-                <h3 style="margin-right: 10px; font-size: 1.5rem;">{{parlamentar.name}} - {{parlamentar.politicalParty}}</h3>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <p-card header="{{timeDescription}}" styleClass="p-card-shadow bg-blue-100">
+<div class="grid container">
+    <div class="col" style="margin-top: 20px; margin-left: 15px;">
+        <p-card>
             <ng-template pTemplate="header">
                 
             </ng-template>
-            <div style="text-align: center;">
+                <div class="p-card-shadow bg-blue-100">   
+                    <div class="row">
+                        <div *ngIf="parlamentar?.urlImage != null;" style="justify-content: center; display: flex;">
+                            <img alt="Card" class="img-fluid" src="{{parlamentar.urlImage}}" style="width: 100%; height: 475px;">
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; background-color: bisque;">
+                        <h3 style="margin-right: 10px; font-size: 1.5rem;">{{parlamentar.name}} - {{parlamentar.politicalParty}}</h3>
+                    </div>
+                    
+                    
+                </div>
+        </p-card>
+    </div>
+    <div class="col" style="margin-top: 20px; margin-right: 15px;">
+        <p-card styleClass="p-card-shadow bg-blue-100">
+            <div style="display: flex; justify-content: flex-start; background-color: bisque;">
+                <h3 style="margin-left: 10px; font-size: 1.5rem;">{{timeDescription}}</h3>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
                 <span class="time-modal">{{mainTextMinutes}}</span>
                 <span class="time-modal">:</span>
                 <span class="time-modal">{{mainTextSeconds}}</span>
             </div>
-            <p style="margin-top: 110px;"></p>
+            <p style="margin-top: 60px;"></p>
             <div style="text-align: center;" *ngIf="showAParteTime | async">
-                <hr>
+                <hr style="margin-top:80px;">
                 <p style="font-weight: bold; font-size: 1.5rem;">{{parlamentarAParte.name}} - {{parlamentarAParte.politicalParty}}</p>
                 <span class="mini-time-modal">{{subTextMinutes}}</span>
                 <span class="mini-time-modal">:</span>
