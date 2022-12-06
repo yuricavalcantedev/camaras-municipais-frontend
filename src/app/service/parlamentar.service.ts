@@ -10,7 +10,8 @@ import { DumbService } from './dumb.service';
 export class ParlamentarService {
 
   baseUrl = 'http://localhost:8080/parlamentares';
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private dumbService : DumbService) {}
   
   // Http Headers
   httpOptions = {
@@ -26,6 +27,21 @@ export class ParlamentarService {
 
   }
 
+  getParlamentarListDumb(townHallId: number): Parlamentar[] {
+    switch(townHallId){
+      case 1: return this.dumbService.getParlamentaresMaracanau();
+      case 2: return this.dumbService.getParlamentaresBeberibe();
+      case 3: return this.dumbService.getParlamentaresEusebio();
+      case 4: return this.dumbService.getParlamentarAquiraz();
+      case 5: return this.dumbService.getParlamentaresHorizonte();
+      case 6: return this.dumbService.getParlamentarCaninde();
+      case 7: return this.dumbService.getParlamentaresIraucuba();
+      case 8: return this.dumbService.getParlamentaresSaoGoncalo();
+      default: return [];
+
+    }
+  }
+  
   errorHandl(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

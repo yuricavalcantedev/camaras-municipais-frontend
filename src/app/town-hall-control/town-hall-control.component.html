@@ -16,7 +16,6 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th>Nome</th>
-                        <th>Ativo</th>
                         <th>Partido Politico</th>
                         <th>Ações</th>
                     </tr>
@@ -27,7 +26,6 @@
                             <p-tableCheckbox (click)="selectRow()" [value]="parlamentar"></p-tableCheckbox>
                         </td>
                         <td>{{parlamentar.name}}</td>
-                        <td><p-checkbox [(ngModel)]="parlamentar.active" [binary]="true" [disabled]="true"></p-checkbox></td>
                         <td>{{parlamentar.politicalParty}}</td>
                         <td><button pButton type="button" label="À Parte" (click)="callAParte(parlamentar)" class="p-button-raised p-button-rounded"></button></td>
                     </tr>
