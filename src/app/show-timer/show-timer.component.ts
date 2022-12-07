@@ -28,7 +28,7 @@ export class ShowTimerComponent implements OnInit {
 
   subTextMinutes: any;
   subTextSeconds: any;
-  showAParteTime: Observable<boolean>;
+  showAParteTime: boolean;
 
 
   private mainTimerInterval: any;
@@ -56,13 +56,13 @@ export class ShowTimerComponent implements OnInit {
       if(this.utilTimer.getParlamentarAParte() != null){
 
         this.parlamentarAParte = this.utilTimer.getParlamentarAParte();
-        this.showAParteTime = of (true);
+        this.showAParteTime = true;
         this.subTimer(120);
       }else{
         this.clearMainTimer();
         this.isMainTimerRunning = true;
         this.mainTimer(this.utilTimer.getTime());
-        this.showAParteTime = of (false);
+        this.showAParteTime = false;
       }
       
     });
@@ -127,7 +127,7 @@ export class ShowTimerComponent implements OnInit {
       if (minutes == -1 && seconds == 0) {
         this.subTextMinutes = '00';
         clearInterval(this.subTimerInterval);
-        this.showAParteTime = of (false);
+        this.showAParteTime = false;
       }
     }, 750);
   }
