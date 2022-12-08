@@ -15,7 +15,7 @@ import { UtilService } from '../service/util.service';
 })
 export class ShowTimerComponent implements OnInit {
 
-  name:string = "";
+  parlamentarNameSubTimer:string = "";
   parlamentar: Parlamentar = new Parlamentar();
   townHall: TownHall = new TownHall();
   parlamentarAParte: Parlamentar = new Parlamentar();
@@ -49,13 +49,12 @@ export class ShowTimerComponent implements OnInit {
       this.timeDescription = this.utilTimer.getTimeDescription();
       this.townHall = this.utilTimer.getTownHall();
       
-      this.parlamentar = this.utilTimer.getParlamentar();
-      if(!this.isMainTimerRunning){                
-      }      
+      this.clearSubTimer();
+      this.parlamentar = this.utilTimer.getParlamentar();      
 
       if(this.utilTimer.getParlamentarAParte() != null){
-
         this.parlamentarAParte = this.utilTimer.getParlamentarAParte();
+        this.parlamentarNameSubTimer = this.parlamentarAParte.name.split(" ")[0];
         this.showAParteTime = true;
         this.subTimer(120);
       }else{
@@ -103,6 +102,12 @@ export class ShowTimerComponent implements OnInit {
     clearInterval(this.mainTimerInterval);
   }
 
+  clearSubTimer(){
+      this.subTextMinutes = '00';
+      clearInterval(this.subTimerInterval);
+      this.showAParteTime = false;
+  }
+
   subTimer(timeInSeconds: number){
 
     let minutes: number = 0;
@@ -125,9 +130,7 @@ export class ShowTimerComponent implements OnInit {
       this.subTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
       if (minutes == -1 && seconds == 0) {
-        this.subTextMinutes = '00';
-        clearInterval(this.subTimerInterval);
-        this.showAParteTime = false;
+        this.clearSubTimer();
       }
     }, 750);
   }

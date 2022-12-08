@@ -47,14 +47,13 @@
 
             <p style="margin-top: 30px;"></p>
             <div style="text-align: center;" *ngIf="showAParteTime; else fillerTemplate">
-                <div class="circle" style="text-align: center; margin-top: 20px;">
+                <div class="circle" style="text-align: center; margin-top: 20px; margin-bottom: 45px;">
                     <div style="margin-top: 30px;">
                         <span class="mini-time-modal">{{subTextMinutes}}</span>
                         <span class="mini-time-modal">:</span>
                         <span class="mini-time-modal">{{subTextSeconds}}</span>
                     </div>
-                    <p style="font-weight: bold; font-size: 1.5rem;">{{parlamentarAParte.name}} - {{parlamentarAParte.politicalParty}}</p>
-                    <p style="margin-top: 20px; margin-bottom: 45px;"></p>
+                    <p style="font-weight: bold; font-size: 1.5rem;">{{parlamentarNameSubTimer}} - {{parlamentarAParte.politicalParty}}</p>
                 </div>
             </div>
             <ng-template #fillerTemplate>
