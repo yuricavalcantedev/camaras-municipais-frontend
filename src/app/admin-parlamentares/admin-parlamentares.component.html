@@ -30,7 +30,7 @@
                         <td>{{user.id}}</td>
                         <td>{{user.name}}</td>
                         <td>{{user.username}}</td>
-                        <td>{{user.townHall.name}}</td>
+                        <td>{{selectedTownhall.name}}</td>
                         <td style="display: flex; justify-content: center;">
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-history" (click)="openModalUpdatePassword(user.id, user.username)" label="Atual. Senha"class="p-button-outlined p-button-rounded p-button-secondary">
                                 <label *ngIf="user.isRecoveringPassword" class="pi pi-bell" style="margin-right: 10px;"></label>

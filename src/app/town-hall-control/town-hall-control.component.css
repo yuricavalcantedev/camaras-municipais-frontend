@@ -6,6 +6,40 @@
     overflow: hidden;
 }
 
+.p-session{
+    font-size: 20px;
+    display: inline;
+    font-weight: bold;
+}
+
+.p-session-role-info{
+    display: inline;
+}
+
+.p-bolder{
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.p-info{
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+.open-session-button{
+    margin-left: 20px;
+}
+
+#open-voting-button{
+    float: right;
+    margin-top: -10px;
+    margin-right: 0px !important;
+}
+
+.subject-disable{
+    background-color: #e2dcdc;
+}
+
 :host ::ng-deep .p-dropdown {
     width: 20rem;
 }

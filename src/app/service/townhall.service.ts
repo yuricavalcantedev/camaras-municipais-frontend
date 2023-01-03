@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Observable, retry, catchError, throwError } from 'rxjs';
+import { Observable, retry, catchError, throwError, Observer } from 'rxjs';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { TownHall } from '../domain/townhall.model';
 
@@ -103,20 +103,12 @@ export class TownHallService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
-  getById(id: number): TownHall{
+  getById(id: number): Observable<TownHall>{
     
     let townHall = null;
 
-    this.http.get(this.baseUrl+"/"+id).subscribe({
-      next: data => {
-        townHall = data;
-      },
-      error: error => {
-        this.messageService.add({severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
-      }
-    });
+    return this.http.get<TownHall>(this.baseUrl+"/"+id);
 
-    return townHall;
   }
 
   createTownHall(townHall : TownHall) : TownHall{

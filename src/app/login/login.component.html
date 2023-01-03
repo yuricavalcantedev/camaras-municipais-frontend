@@ -6,10 +6,10 @@
                 <ng-template pTemplate="header">
                 </ng-template>
                 <hr>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit('asd')" style="margin-top: 50px;">
+                <form #myForm [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="margin-top: 50px;">
                     <div>
                         <span class="p-float-label">
-                            <input id="float-input-login" type="text" class="form-control" pInputText > 
+                            <input id="float-input-login" formControlName="username" type="text" class="form-control" pInputText > 
                             <label for="float-input-login">Login</label>
                             <p-message severity="error" text="O campo login é obrigatório" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty"></p-message>
                         </span>
@@ -17,7 +17,7 @@
 
                     <div style="margin-top: 40px;">
                         <span class="p-float-label">
-                            <input id="float-input-password" type="password" pInputText > 
+                            <input id="float-input-password" type="password" formControlName="password" pInputText > 
                             <label for="float-input-password">Senha</label>
                         </span>
                     </div>

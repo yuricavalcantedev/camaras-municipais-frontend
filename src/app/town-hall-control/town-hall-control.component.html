@@ -1,37 +1,217 @@
-
-<div class="container">
-    <p-card header="Câmaras" styleClass="p-card-shadow">
+<div class="">
+    <p-card styleClass="p-card-shadow" *ngIf="!existsSession">
         <ng-template pTemplate="header">
         </ng-template>
-        
-        <h3 style="display: inline; text-align: center;">Escolha uma câmara: </h3>
-        <p-dropdown [options]="townhalls" [(ngModel)]="selectedTownhall" optionLabel="city" (onChange)="onTownHallChange()" filterBy="city" placeholder="Selecione uma câmara"></p-dropdown>
-
-        <div style="margin-top: 20px; ">
-            <p-table [value]="parlamentarList" [(selection)]="selectedParlamentarList" styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
-            [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 1rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th>Nome</th>
-                        <th>Partido Politico</th>
-                        <th>Ações</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-parlamentar>
-                    <tr>
-                        <td>
-                            <p-tableCheckbox (click)="selectRow()" [value]="parlamentar"></p-tableCheckbox>
-                        </td>
-                        <td>{{parlamentar.name}}</td>
-                        <td>{{parlamentar.politicalParty}}</td>
-                        <td><button pButton type="button" label="À Parte" (click)="callAParte(parlamentar)" class="p-button-raised p-button-rounded"></button></td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p class="p-session">Ainda nao existe uma sessao aberta</p>
+        <p-button class="mr-4 open-session-button" label="Abrir sessao" (click)="openDialog()"></p-button>
     </p-card>
-    
 </div>
+
+<p-tabView>
+    <p-tabPanel header="Vereadores">
+        <div class="container">
+            <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                </ng-template>
+                
+                <h3 style="display: inline; text-align: center;">Vereadores</h3>
+        
+                <div *ngIf="existsSession" style="margin-top: 20px;">
+                    <p-table [value]="parlamentarList" [(selection)]="selectedParlamentarList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 1rem">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th>Nome</th>
+                                <th>Partido Politico</th>
+                                <th>Ações</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-parlamentar>
+                            <tr disabled>
+                                <td >
+                                    <p-tableCheckbox (click)="selectRow()" [value]="parlamentar"></p-tableCheckbox>
+                                </td>
+                                <td>{{parlamentar.name}}</td>
+                                <td>{{parlamentar.politicalParty}}</td>
+                                <td><button pButton type="button" label="À Parte" (click)="callAParte(parlamentar)" class="p-button-raised p-button-rounded"></button></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-card>
+        </div>
+    </p-tabPanel>   
+    <p-tabPanel header="Sessao" *ngIf="existsSession">
+        <div class="container">
+
+            <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                </ng-template>
+
+                <p-panel header="Informacoes">
+
+                    <h3 style="display: inline; text-align: center;">{{session.name}}</h3>
+                    <div class="grid" style="margin-top: 15px;">
+                        <div class="col">
+                            <p class="p-session-role-info p-bolder">Data de Inicio:</p>
+                            <p class="p-session-role-info p-info">{{session.startDate}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="p-session-role-info p-bolder">Hora de Inicio:</p>
+                            <p class="p-session-role-info p-info">{{session.startTime}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="p-session-role-info p-bolder">Data de Termino:</p>
+                            <p class="p-session-role-info p-info">{{session.endDate}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="p-session-role-info p-bolder">Horario de Termino:</p>
+                            <p class="p-session-role-info p-info">{{session.endTime}}</p>
+                        </div>
+                    </div>
+                    <div class="grid" *ngIf="roleInSessionListPart1.length != 0">
+                        <div class="col" *ngFor="let item of roleInSessionListPart1">
+                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid" *ngIf="roleInSessionListPart2.length != 0">
+                        <div class="col" *ngFor="let item of roleInSessionListPart2">
+                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="grid" *ngIf="roleInSessionListPart3.length != 0">
+                        <div class="col" *ngFor="let item of roleInSessionListPart3">
+                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                        </div>
+                    </div>
+                </p-panel>
+                
+                <div style="margin-top: 20px;">
+                    <div class="grid">
+                        <div class="col">
+                            <p-button id="open-voting-button" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
+                        </div>
+                    </div>
+                    <p-table [value]="session.subjectList" [(selection)]="selectedSubjectList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 1rem">
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
+                                <th>Ordem</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-subject>
+                            <tr >
+                                <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">
+                                    <p-tableCheckbox [disabled]="subject.status == 'VOTED' || subject.status == 'VOTING'" [value]="subject"></p-tableCheckbox>
+                                </td>
+                                <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">{{subject.description}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-card>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Lista de Oradores" *ngIf="existsSession">
+        <div class="container">
+            <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                </ng-template>
+                
+                <h3 style="display: inline; text-align: center;">Lista de Oradores</h3>
+        
+                <div *ngIf="session.speakerList.length > 0" style="margin-top: 20px;">
+                    <p-table [value]="session.speakerList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Ordem</th>
+                                <th>Nome</th>
+                                <th>Partido Politico</th>
+                                
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-speaker>
+                            <tr>
+                                <td>{{speaker.speakerOrder}}</td>
+                                <td>{{speaker.parlamentarName}}</td>
+                                <td>{{speaker.parlamentarPoliticalParty}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div *ngIf="session.speakerList.length == 0"style="margin-top: 20px;">
+                        <p>Nao existem vereadores inscritos na lista de oradores por enqaunto.</p>
+                </div>
+            </p-card>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Votacao Aberta" *ngIf="existsSession && existsOpenVoting">
+        <div class="container">
+            <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                </ng-template>
+
+                <h3 style="display: inline; text-align: center;">Votacao Aberta</h3>
+                <div style="margin-top: 20px;">
+                    
+                </div>
+            </p-card>
+        </div>
+    </p-tabPanel>
+</p-tabView>
+
+
+
+<p-dialog header="Abrir sessão" [(visible)]="showDialog" (onHide)="onHideVotingDialog()"  [style]="{width: '30vw'}" [modal]="true">
+    <form #myForm [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col closer">
+                        <label >SAPL Id*</label>
+                    </div>
+                    <div class="col modal-div">
+                        <input type="text" formControlName="id" class="form-control" style="width: 100%;" required [ngClass]="submitted && formRef['id'].errors ? 'is-invalid ng-invalid ng-dirty': ''" pInputText>
+                        <div *ngIf="submitted && formRef['id'].errors" class="invalid-feedback">
+                            <small id="name-help" class="p-error block">Informe o SAPL id da sessão</small>
+                        </div>
+                        <div *ngIf="loading">
+                            <p>Criando sessao...</p>
+                            <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+                        </div>
+                    </div>
+                </div>       
+              <div class="row" style="margin-top: 10px;">
+                <div class="align-items-center">
+                    <button style="margin-left:10px;" [disabled]="loading" pButton pRipple type="submit" label="Abrir " icon="pi pi-play" class="p-button-rounded p-button-success"></button>
+                    <button style="margin-left:10px;" [disabled]="loading" pButton pRipple label="Cancelar" (click)="onCancelar()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </form>
+</p-dialog>
+
+
+<p-dialog header="Abrir votacao" [(visible)]="showVotingDialog" (onHide)="clearInputs()"  [style]="{width: '30vw'}" [modal]="true">    
+        <div class="row">
+            <p>Voce quer comecar uma votacao com {{selectedSubjectList.length}} ordem(s) do dia?</p>
+            <p *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>
+              <div class="row" style="margin-top: 10px;">
+                <div class="align-items-center">
+                    <button style="margin-left:10px;" pButton pRipple type="submit" label="Abrir "(click)="onOpeningVoting()" icon="pi pi-play" class="p-button-rounded p-button-success"></button>
+                    <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onCancelar()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                </div>
+              </div>
+        </div>
+</p-dialog>

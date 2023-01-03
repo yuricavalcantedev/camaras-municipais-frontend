@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -19,6 +20,8 @@ import { UserService } from '../service/user.service';
 })
 export class AdminUsersComponent implements OnInit {
 
+  checked: boolean = false;
+
   userList: User[];
 
   showTable: boolean = false;
@@ -26,6 +29,7 @@ export class AdminUsersComponent implements OnInit {
   showDialog: boolean = false;
   submitted: boolean = false;
   isTownHallMayor: boolean = false;
+  moderatorTypeFlag: boolean = true;
 
   showDialogUpdatePassword: boolean = false;
   
@@ -36,7 +40,8 @@ export class AdminUsersComponent implements OnInit {
   townhalls: TownHall[];
   selectedTownhall: TownHall = null;
   roles: Role[];
-
+  selectedRole: string = "ROLE_MODERATOR";
+  
   formUpdatePassword: FormGroup;
 
   constructor(private userService: UserService, private townHallService: TownHallService,
@@ -52,7 +57,7 @@ export class AdminUsersComponent implements OnInit {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       repPassword: new FormControl('', [Validators.required]),
-      townHallId: new FormControl('', [Validators.required])
+      townHallId: new FormControl('')
     });
 
     this.townHallService.getTownHallList().subscribe(res => {
@@ -71,6 +76,10 @@ export class AdminUsersComponent implements OnInit {
     return this.formUser.controls;
   }
 
+  onClickUserType(value: string){
+    this.moderatorTypeFlag = value == "MODERATOR";
+  }
+
   openModal(user: User, isEditing: boolean){
     
     this.showDialog = true;
@@ -80,7 +89,6 @@ export class AdminUsersComponent implements OnInit {
 
     if(user != null){
       let userAdapter = user;
-      console.log("User adapter -> ", userAdapter);
       this.formUser.setValue(userAdapter);
     }
 
@@ -111,6 +119,7 @@ export class AdminUsersComponent implements OnInit {
 
     this.showTable = false;
     this.userService.findAll().subscribe(res => {
+      console.log(res);
       this.userList = res;
       this.showTable = true;
     });
@@ -119,9 +128,16 @@ export class AdminUsersComponent implements OnInit {
 
   clearInputs(){
     
-    this.formUser.reset();
     this.submitted = false;
+    this.formUser.reset();
     this.selectedTownhall = null;
+    this.moderatorTypeFlag = true;
+    this.selectedRole = "ROLE_MODERATOR";
+  }
+
+  selectRole(){
+
+    return this.roles.find(role => role.name == this.selectedRole);
   }
 
   onSubmit(){
@@ -135,8 +151,10 @@ export class AdminUsersComponent implements OnInit {
     try {
       
       let formValue = this.formUser.value;
+      let role = this.selectRole();
+      console.log(role, this.roles);
       this.selectedTownhall = this.townhalls.find(t => t.id == formValue.townHallId);
-      let userDTO = new UserDTO(formValue.name, formValue.username, formValue.password, this.selectedTownhall);
+      let userDTO = new UserDTO(formValue.name, formValue.username, formValue.password, this.selectedTownhall, role);
       
       if(this.isEditting){
 
@@ -160,7 +178,7 @@ export class AdminUsersComponent implements OnInit {
       
 
     } catch (error) {
-
+      console.log(error);
     }
   }
 
@@ -177,3 +195,4 @@ export class AdminUsersComponent implements OnInit {
   }
 
 }
+

@@ -38,6 +38,7 @@ export class AdminParlamentaresComponent implements OnInit {
     this.parlamentarList = [];
     this.parlamentarService.getParlamentarList(this.selectedTownhall.id).subscribe(data => {
       this.parlamentarList = data;
+      console.log(this.parlamentarList);
       this.showTable = true;
     });
   }

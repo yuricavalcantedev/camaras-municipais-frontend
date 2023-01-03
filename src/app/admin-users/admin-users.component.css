@@ -13,3 +13,7 @@ input{
 :host ::ng-deep .p-badge {
     margin-left: 0px;
 }
+
+.custom-rb{
+    float: left;
+}
