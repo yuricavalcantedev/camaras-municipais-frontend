@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { RoleInSession } from '../domain/role-session.model';
 import { Session } from '../domain/session.model';
@@ -27,8 +28,8 @@ export class TownHallControlComponent implements OnInit {
   townhall: TownHall = new TownHall();
   townhallId: number;
   parlamentarList: Parlamentar[];
-  selectedParlamentar: Parlamentar = new Parlamentar();
-  selectedParlamentarList: Parlamentar[];
+  selectedParlamentarPresence: ParlamentarPresence = new ParlamentarPresence();
+  selectedParlamentarPresenceList: ParlamentarPresence[] = new Array();
   selectedSubjectList: Subject[] = new Array();  
 
   showDialog: boolean = false;
@@ -80,12 +81,6 @@ export class TownHallControlComponent implements OnInit {
       id:new FormControl('', [Validators.required]),
     });
 
-
-    this.parlamentarService.getParlamentarList(this.townhallId).subscribe(data => {
-      this.parlamentarList = data;
-      console.log(this.parlamentarList);
-    });
-
     //the buttons will start disabled
     this.updateFlagTransmitir.emit(true);
     //this.loading = true;
@@ -112,6 +107,10 @@ export class TownHallControlComponent implements OnInit {
 
   get formRef(): { [key: string]: AbstractControl } {
     return this.form.controls;
+  }
+
+  openEletronicPanel(){
+    window.open('http://localhost:4200/painel-votacao', "_blank");
   }
 
   onSubmit(){
@@ -141,7 +140,7 @@ export class TownHallControlComponent implements OnInit {
         
         setInterval(() => {
           this.findSessionByUUID(this.session.uuid);
-        }, 1000);
+        }, 3000);
         
       });
 
@@ -162,6 +161,8 @@ export class TownHallControlComponent implements OnInit {
     this.sessionService.createVoting(this.session.uuid, subjectDTOList).subscribe((newVoting)=>{
       
       this.session.votingList.push(newVoting);
+      console.log(newVoting);
+      //dividir a lista da sessao em duas e fazer um for em cada lado dessa lista
       this.onHideVotingDialog();
       this.existsOpenVoting = true;
     });
@@ -178,10 +179,10 @@ export class TownHallControlComponent implements OnInit {
 
   selectRow(){
     
-    if(this.selectedParlamentarList.length == 1){
+    if(this.selectedParlamentarPresenceList.length == 1){
 
-      this.selectedParlamentar = this.selectedParlamentarList[0];
-      this.utilService.getUtilShowTimer().setParlamentar(this.selectedParlamentar);
+      this.selectedParlamentarPresence = this.selectedParlamentarPresenceList[0];
+      this.utilService.getUtilShowTimer().setParlamentar(this.selectedParlamentarPresence.parlamentar);
       this.updateFlagTransmitir.emit(false);
 
     }else{
@@ -193,16 +194,14 @@ export class TownHallControlComponent implements OnInit {
     
     this.showParlamentarImage = false;
     this.parlamentarList = [];
-    this.selectedParlamentar = new Parlamentar();
+    this.selectedParlamentarPresence = new ParlamentarPresence();
     this.disableParlamentarDropdown = false;
     
   }
 
   callAParte(parlamentar: Parlamentar){
-
     this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
     this.utilService.changeTransmitirData(true);
-    
   }
 
   fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{

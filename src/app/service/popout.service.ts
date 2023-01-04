@@ -1,18 +1,15 @@
 import { ComponentPortal, DomPortalOutlet, PortalInjector } from '@angular/cdk/portal';
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injectable, Injector, OnDestroy } from '@angular/core';
-import { Parlamentar } from '../domain/parlamentar.model';
 import { ShowTimerComponent } from '../show-timer/show-timer.component';
-import {POPOUT_MODAL_DATA, POPOUT_MODALS, PopoutData, PopoutModalName} from './popout.tokens';
+import { VotingPanelComponent } from '../voting-panel/voting-panel.component';
+import {POPOUT_MODAL_DATA, POPOUT_MODALS} from './popout.tokens';
 
 @Injectable()
 export class PopoutService implements OnDestroy {
   styleSheetElement: HTMLLinkElement;
 
-  constructor(
-    private injector: Injector,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private applicationRef: ApplicationRef
-  ) {
+  constructor(private injector: Injector,  private componentFactoryResolver: ComponentFactoryResolver, private applicationRef: ApplicationRef) {
+
   }
 
   ngOnDestroy() {}
@@ -27,7 +24,21 @@ export class PopoutService implements OnDestroy {
 
     // Wait for window instance to be created
     setTimeout(() => {
-      this.createCDKPortal(data, windowInstance);
+      this.createCDKPortal(data, windowInstance, 'Tempo de Fala');
+    }, 600);
+  }
+
+  openPainelEletronicoModal(){
+
+    let data: { name: ''}
+    const windowInstance = this.openOnce(
+      'assets/modal/painel_eletronico.html',
+      'MODAL_PAINEL_ELETRONICO'
+    );
+
+    // Wait for window instance to be created
+    setTimeout(() => {
+      this.createCDKPortal(data, windowInstance, 'Painel Eletronico');
     }, 600);
   }
 
@@ -44,7 +55,7 @@ export class PopoutService implements OnDestroy {
     return winRef;
   }
 
-  createCDKPortal(data: any, windowInstance: any) {
+  createCDKPortal(data: any, windowInstance: any, windownName: string) {
     if (windowInstance) {
       // Create a PortalOutlet with the body of the new window document
       const outlet = new DomPortalOutlet(windowInstance.document.body, this.componentFactoryResolver, this.applicationRef, this.injector);
@@ -66,7 +77,7 @@ export class PopoutService implements OnDestroy {
         // Attach the portal
         let componentInstance;
         windowInstance.document.title = 'Tempo de Fala';
-        componentInstance = this.attachCustomerContainer(outlet, injector);
+        componentInstance = windownName == 'Painel Eletronico' ? this.attachVotingPanelContainer(outlet, injector) : this.attachCustomerContainer(outlet, injector);
         
 
         POPOUT_MODALS['windowInstance'] = windowInstance;
@@ -95,6 +106,12 @@ export class PopoutService implements OnDestroy {
   attachCustomerContainer(outlet: DomPortalOutlet, injector: Injector | PortalInjector | null | undefined) {
     const containerPortal = new ComponentPortal(ShowTimerComponent, null, injector);
     const containerRef: ComponentRef<ShowTimerComponent> = outlet.attach(containerPortal);
+    return containerRef.instance;
+  }
+
+  attachVotingPanelContainer(outlet: DomPortalOutlet, injector: Injector | PortalInjector | null | undefined) {
+    const containerPortal = new ComponentPortal(VotingPanelComponent, null, injector);
+    const containerRef: ComponentRef<VotingPanelComponent> = outlet.attach(containerPortal);
     return containerRef.instance;
   }
 

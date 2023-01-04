@@ -23,6 +23,7 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {BlockUIModule} from 'primeng/blockui';
 import { DialogModule } from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
+import {TooltipModule} from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
 
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { SoundService } from './service/sound.service';
 import { UtilService } from './service/util.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { VotingPanelComponent } from './voting-panel/voting-panel.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { AppRoutingModule } from './app-routing.module';
     AdminParlamentaresComponent,
     AdminHomeComponent,
     FormResetPasswordComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    VotingPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { AppRoutingModule } from './app-routing.module';
     CheckboxModule,
     DialogModule,
     TabViewModule,
+    TooltipModule,
     BlockUIModule,
     ProgressBarModule,
     RadioButtonModule,

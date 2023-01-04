@@ -6,10 +6,12 @@ import { LoginComponent } from './login/login.component';
 import { ShowTimerComponent } from './show-timer/show-timer.component';
 import { TimerControlComponent } from './timer-control/timer-control.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { VotingPanelComponent } from './voting-panel/voting-panel.component';
 
 const routes : Routes = [
   {path: '', component: LoginComponent},
   {path: 'gestao', component: HomeComponent},
+  {path: 'painel-votacao', component: VotingPanelComponent},
   {path: 'home', component: UserHomeComponent},
   {path: 'admin', component: AdminHomeComponent},
   {path: 'login', component: LoginComponent},

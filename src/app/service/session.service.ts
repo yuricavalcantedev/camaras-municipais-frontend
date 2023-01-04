@@ -8,6 +8,7 @@ import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SessionDTOCreate } from '../dto/session-dto-create.model';
 import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
 import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
+import { VoteDTO } from '../dto/vote-dto.model';
 import { DumbService } from './dumb.service';
 
 @Injectable({
@@ -19,6 +20,7 @@ export class SessionService {
   private checkOpenSessionURL = '/check/townhall/{id}';
   private findSessionTodayByTownhallURL = '/find/townhall/{id}';
   private createVotingUrl = '/{uuid}/voting';
+  private computeVoteUrl = '/{uuid}/voting';
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
 
@@ -58,6 +60,10 @@ export class SessionService {
 
   updateParlamentarPresence(sessionUUDI : string, parlamentarPresenceDTO : ParlamentarPresenceDTO){
     return this.http.put(this.baseUrl + this.updateParlamentarPresenceURL.replace('{uuid}', sessionUUDI), parlamentarPresenceDTO);
+  }
+
+  computeVote(sessionUUID: string, vote : VoteDTO){
+    return this.http.put(this.baseUrl + this.computeVoteUrl.replace('{uuid}', sessionUUID), vote);
   }
 
 }

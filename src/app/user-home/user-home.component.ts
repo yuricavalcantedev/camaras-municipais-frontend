@@ -9,6 +9,7 @@ import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
 import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
 import { Console } from 'console';
+import { VoteDTO } from '../dto/vote-dto.model';
 
 @Component({
   selector: 'app-user-home',
@@ -25,11 +26,16 @@ export class UserHomeComponent implements OnInit {
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
   townHallId : number = 0;
+  votingOptions: string[] = [];
 
   constructor(@Inject(DOCUMENT) private document: any,private userService: UserService, private sessionService: SessionService, private cookieService: CookieService) { }
 
 
   ngOnInit(): void {
+
+    this.votingOptions.push('YES');
+    this.votingOptions.push('NO');
+    this.votingOptions.push('ABSTENTION');
 
     this.linkSessao = "https://sapl.caninde.ce.leg.br/sessao/pauta-sessao/83/";
     this.elem = document.documentElement;
@@ -73,8 +79,33 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
+  sendVote(vote: string){
+    
+    if(this.votingOptions.find(option => option == vote) == undefined){
+      //colocar mensagem de erro
+      console.error('error!');
+    }else{
+      
+      let parlamentarVotingId = this.findParlamentarVotingId(this.parlamentar.id);
+      if(parlamentarVotingId != null){
+        let voteDTO = new VoteDTO(parlamentarVotingId, this.parlamentar.id, vote);
+        this.sessionService.computeVote(this.session.uuid, voteDTO).subscribe(res => {
+          console.log('sounds good!');
+        });
+      }
+    }
+
+  }
+
   goToSaplSession(){
     window.open(this.linkSessao, "_blank");
+  }
+
+  findParlamentarVotingId(parlamentarId: number): number{
+
+    let voting = this.session.votingList.find(voting => voting.status == 'VOTING');
+    let parlamentarVoting = voting.parlamentarVotingList.find(p => p.parlamentarId == parlamentarId);
+    return parlamentarVoting != null ? parlamentarVoting.id : null;
   }
 
   openFullscreen() {

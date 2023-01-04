@@ -1,0 +1,23 @@
+.height-15{
+    height: 15vh;
+}
+
+.height-50{
+    height: 50vh;
+}
+
+.height-20{
+    height: 20vh;
+}
+
+:host {
+    ::ng-deep #left-side .p-card .p-card-body {
+      background-color: antiquewhite;
+    }
+  }
+
+  :host {
+    ::ng-deep #right-side .p-card .p-card-body {
+      background-color: antiquewhite;
+    }
+  }
