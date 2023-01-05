@@ -1,64 +1,28 @@
-<div class="grid row" style="background-color: #49a161;">    
-    <div class="col-1">
-            <div class="box-header-legislature-photo">
-                <img src="{{townHall.urlImage}}" style="width: 75px; height: 75px; margin-left: 20px;">
-            </div>
-    </div>
-    <div class="col-10">
-        <div class="grid">
-            <div class="col">
-                <div class="box-header-info-title" style="margin-left: 10px; font-family: 'Open Sans'; font-size: 37px !important; font-weight: bolder;">Painel Eletrônico</div>
-                <div class="box-header-info-title" style="margin-left: 10px; font-family: 'Open Sans'; font-size: 21px !important; font-weight: bolder;">{{townHall.name}}</div>
-            </div>
-            <div class="col-12">
-                <div class="col-8">
-                    <div class="box-header-info-subtitle" style="font-family: 'Open Sans'; font-size: 15px !important; font-weight: bolder; margin-top: -15px;">19ª Legislatura (2021-2024)</div>
-                </div>
-            </div>
+<div class="box-main">
+  <app-header class="app-header"></app-header>
+  <div class='page-stopwatch'>
+    <div class='box-left'>
+      <div class='parliamentarian'
+        style="background-image: url(https://sapl.beberibe.ce.leg.br/media/sapl/public/parlamentar/56/amarildo.jpg);">
+        <div class='footer'>
+          <div class='footer-name'>
+            Alex da Vanúzia
+          </div>
+          <div class='footer-electoral-party'>
+            PMDB
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<div class="grid container">
-    <div class="col" style="margin-top: 20px; margin-left: 5%; margin-right: 5%;">
-        <p-card styleClass="p-card-shadow">
-                    <div style="display: flex; justify-content: flex-start; background-color: #49a161;">
-                        <h1 style="margin-left: 10px;">Vereador</h1>
-                    </div>
-                    <div *ngIf="parlamentar?.urlImage != null;" style="justify-content: center; display: flex;">
-                        <img alt="Card" class="img-fluid" src="{{parlamentar.urlImage}}" style="width: 475px; height: 475px;">
-                    </div>
-                    <div style="display: flex; justify-content: flex-end; background-color: #49a161;">
-                        <h3 style="margin-right: 10px; font-size: 1.5rem;">{{parlamentar.name}}</h3>
-                        <h3 style="margin-right: 10px; font-size: 1.5rem;">{{parlamentar.politicalParty}}</h3>
-                    </div>
-        </p-card>
+    <div class='box-right'>
+      <div class='header'>
+        PSDB
+      </div>
+      <div class='stopwatch'>
+        <div class='stopeatch-in'>
+          03:55
+        </div>
+      </div>
     </div>
-    <div class="col" style="margin-top: 20px; margin-right: 5%;">
-        <p-card styleClass="p-card-shadow">
-
-            <div style="display: flex; justify-content: flex-start; background-color: #49a161;">
-                <h1 style="margin-left: 10px;">Discurso    -    {{timeDescription}}</h1>
-            </div>
-            <div style="text-align: center; margin-top: 60px;">
-                <span class="time-modal">{{mainTextMinutes}}</span>
-                <span class="time-modal">:</span>
-                <span class="time-modal">{{mainTextSeconds}}</span>
-            </div>
-
-            <p style="margin-top: 30px;"></p>
-            <div style="text-align: center;" *ngIf="showAParteTime; else fillerTemplate">
-                <div class="circle" style="text-align: center; margin-top: 20px; margin-bottom: 45px;">
-                    <div style="margin-top: 30px;">
-                        <span class="mini-time-modal">{{subTextMinutes}}</span>
-                        <span class="mini-time-modal">:</span>
-                        <span class="mini-time-modal">{{subTextSeconds}}</span>
-                    </div>
-                    <p style="font-weight: bold; font-size: 1.5rem;">{{parlamentarNameSubTimer}} - {{parlamentarAParte.politicalParty}}</p>
-                </div>
-            </div>
-            <ng-template #fillerTemplate>
-                <p style="margin-top: 275px; color: #bbad9f;">...</p>
-            </ng-template>
-        </p-card>
-    </div>
+  </div>
 </div>

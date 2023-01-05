@@ -49,6 +49,7 @@ import { UtilService } from './service/util.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { VotingPanelComponent } from './voting-panel/voting-panel.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { VotingPanelComponent } from './voting-panel/voting-panel.component';
     AdminHomeComponent,
     FormResetPasswordComponent,
     UserHomeComponent,
-    VotingPanelComponent
+    VotingPanelComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
