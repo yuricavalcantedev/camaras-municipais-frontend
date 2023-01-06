@@ -5,14 +5,15 @@ import { Session } from '../domain/session.model';
 import { SessionService } from '../service/session.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-card-parlamentar',
+  templateUrl: './card-parlamentar.component.html',
+  styleUrls: ['./card-parlamentar.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class CardParlamentar implements OnInit {
 
-  @Input() townHallName: string;
-
+  @Input() politicalParty: string;
+  @Input() name: string;
+  @Input() photo: string;
   constructor() { }
   ngOnInit(): void {}
 

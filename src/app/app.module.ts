@@ -50,6 +50,7 @@ import { UtilService } from './service/util.service';
 import { AppRoutingModule } from './app-routing.module';
 import { VotingPanelComponent } from './voting-panel/voting-panel.component';
 import { HeaderComponent } from './header/header.component';
+import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { HeaderComponent } from './header/header.component';
     FormResetPasswordComponent,
     UserHomeComponent,
     VotingPanelComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardParlamentar
   ],
   imports: [
     BrowserModule,

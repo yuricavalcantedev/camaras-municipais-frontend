@@ -1,26 +1,20 @@
 <div class="box-main">
-  <app-header class="app-header"></app-header>
+  <app-header class="app-header" townHallName="{{townHall.name}}"></app-header>
   <div class='page-stopwatch'>
-    <div class='box-left'>
-      <div class='parliamentarian'
-        style="background-image: url(https://sapl.beberibe.ce.leg.br/media/sapl/public/parlamentar/56/amarildo.jpg);">
-        <div class='footer'>
-          <div class='footer-name'>
-            Alex da Vanúzia
-          </div>
-          <div class='footer-electoral-party'>
-            PMDB
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-card-parlamentar class="box-left" photo="{{parlamentar.urlImage}}" name="{{parlamentar.name}}"
+      politicalParty="{{parlamentar.politicalParty}}"></app-card-parlamentar>
     <div class='box-right'>
       <div class='header'>
-        PSDB
+        <div class="title">
+          Discurso
+        </div>
+        <div class="subtitle">
+          {{timeDescription}}
+        </div>
       </div>
       <div class='stopwatch'>
         <div class='stopeatch-in'>
-          03:55
+          {{subTextMinutes}}:{{subTextSeconds}}
         </div>
       </div>
     </div>
