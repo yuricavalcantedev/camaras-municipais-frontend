@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { TimerControlDTO } from '../domain/timer-control-dto.model';
 import { TownHall } from '../domain/townhall.model';
@@ -44,26 +43,43 @@ export class ShowTimerComponent implements OnInit {
   ngOnInit(): void {
 
     this.utilService.updateTransmitir.subscribe(value => {
-
+      
       this.utilTimer = this.utilService.getUtilShowTimer();
       this.timeDescription = this.utilTimer.getTimeDescription();
-      this.townHall = this.utilTimer.getTownHall();
 
+      this.townHall = this.utilTimer.getTownHall();      
+      
+      console.log(value);
       this.clearSubTimer();
       this.parlamentar = this.utilTimer.getParlamentar();
-
-      if(this.utilTimer.getParlamentarAParte() != null){
+      
+      if(this.utilTimer.getFinishMainTimer()){
+        console.log(1);
+        this.clearMainTimer();
+      }else if(this.utilTimer.getFinishAParteTimer()){
+        console.log(2);
+        this.clearSubTimer();
+      }else if(!this.utilTimer.getFinishAParteTimer() && this.utilTimer.getParlamentarAParte() != null){
+        console.log(3);
         this.parlamentarAParte = this.utilTimer.getParlamentarAParte();
         this.parlamentarNameSubTimer = this.parlamentarAParte.name.split(" ")[0];
         this.showAParteTime = true;
         this.subTimer(120);
       }else{
+        console.log(4);
         this.clearMainTimer();
         this.isMainTimerRunning = true;
         this.mainTimer(this.utilTimer.getTime());
         this.showAParteTime = false;
       }
 
+      if(this.utilTimer.getFinishMainTimer()){
+        this.utilService.getUtilShowTimer().setFinishMainTimer(false)
+      };
+
+      if(this.utilTimer.getFinishAParteTimer()){
+        this.utilService.getUtilShowTimer().setFinishAParteTimer(false);
+      }
     });
   }
 
@@ -104,13 +120,17 @@ export class ShowTimerComponent implements OnInit {
 
     this.isMainTimerRunning = false;
     this.mainTextMinutes = '00';
+    this.mainTextSeconds = '00';
     clearInterval(this.mainTimerInterval);
   }
 
   clearSubTimer(){
-      this.subTextMinutes = '00';
-      clearInterval(this.subTimerInterval);
+
       this.showAParteTime = false;
+      this.subTextMinutes = '00';
+      this.subTextSeconds = '00';
+      clearInterval(this.subTimerInterval);
+      
   }
 
   subTimer(timeInSeconds: number){

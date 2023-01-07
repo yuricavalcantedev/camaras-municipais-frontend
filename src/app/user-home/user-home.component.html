@@ -99,13 +99,13 @@
                 <p-panel header="Painel de Votacao">
                     <div class="voting-container">
                         <div class="voting-item">
-                          <button pButton pRipple type="button" label="SIM" (click)="sendVote('YES')" class="p-button-raised p-button-success button-action"></button>
+                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="SIM" (click)="sendVote('YES')" class="p-button-raised p-button-success button-action"></button>
                         </div>
                         <div class="voting-item">
-                          <button pButton pRipple type="button" label="NAO" (click)="sendVote('NO')"class="p-button-raised p-button-danger button-action"></button>
+                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="NAO" (click)="sendVote('NO')"class="p-button-raised p-button-danger button-action"></button>
                         </div>
                         <div class="voting-item">
-                          <button pButton pRipple type="button" label="ABSTER" (click)="sendVote('ABSTENTION')" class="p-button-raised p-button-warning button-action"></button>
+                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="ABSTER" (click)="sendVote('ABSTENTION')" class="p-button-raised p-button-warning button-action"></button>
                         </div>
                       </div>
                 </p-panel>

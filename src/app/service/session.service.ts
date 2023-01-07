@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Session } from '../domain/session.model';
 import { SpeakerSession } from '../domain/speaker-session.model';
 import { Voting } from '../domain/voting.model';
@@ -9,22 +10,22 @@ import { SessionDTOCreate } from '../dto/session-dto-create.model';
 import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
 import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
 import { VoteDTO } from '../dto/vote-dto.model';
-import { DumbService } from './dumb.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  private baseUrl = 'http://localhost:8080/sessions';
+  private baseUrl = environment.apiUrl + '/sessions';
   private checkOpenSessionURL = '/check/townhall/{id}';
   private findSessionTodayByTownhallURL = '/find/townhall/{id}';
   private createVotingUrl = '/{uuid}/voting';
   private computeVoteUrl = '/{uuid}/voting';
+  private closeVotingUrl = '/{uuid}/voting/close';
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
 
-  constructor(private http: HttpClient, private dumbService : DumbService) {}
+  constructor(private http: HttpClient) {}
   
   // Http Headers
   httpOptions = {
@@ -62,8 +63,12 @@ export class SessionService {
     return this.http.put(this.baseUrl + this.updateParlamentarPresenceURL.replace('{uuid}', sessionUUDI), parlamentarPresenceDTO);
   }
 
-  computeVote(sessionUUID: string, vote : VoteDTO){
-    return this.http.put(this.baseUrl + this.computeVoteUrl.replace('{uuid}', sessionUUID), vote);
+  computeVote(sessionUUID: string, vote : VoteDTO): Observable<void>{
+    return this.http.put<void>(this.baseUrl + this.computeVoteUrl.replace('{uuid}', sessionUUID), vote);
+  }
+
+  closeVoting(sessionUUID: string): Observable<any>{
+    return this.http.put<any>(this.baseUrl + this.closeVotingUrl.replace('{uuid}', sessionUUID), null);
   }
 
 }

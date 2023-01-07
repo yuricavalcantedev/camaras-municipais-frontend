@@ -1,17 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry, catchError, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Parlamentar } from '../domain/parlamentar.model';
-import { DumbService } from './dumb.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParlamentarService {
 
-  baseUrl = 'http://localhost:8080/parlamentares';
+  baseUrl = environment.apiUrl + '/parlamentares';
 
-  constructor(private http: HttpClient, private dumbService : DumbService) {}
+  constructor(private http: HttpClient) {}
   
   // Http Headers
   httpOptions = {
@@ -25,21 +25,6 @@ export class ParlamentarService {
     return this.http.get<Parlamentar[]>(this.baseUrl+"/townhalls/" + townHallId)
     .pipe(retry(), catchError(this.errorHandl));
 
-  }
-
-  getParlamentarListDumb(townHallId: number): Parlamentar[] {
-    switch(townHallId){
-      case 1: return this.dumbService.getParlamentaresMaracanau();
-      case 2: return this.dumbService.getParlamentaresBeberibe();
-      case 3: return this.dumbService.getParlamentaresEusebio();
-      case 4: return this.dumbService.getParlamentarAquiraz();
-      case 5: return this.dumbService.getParlamentaresHorizonte();
-      case 6: return this.dumbService.getParlamentarCaninde();
-      case 7: return this.dumbService.getParlamentaresIraucuba();
-      case 8: return this.dumbService.getParlamentaresSaoGoncalo();
-      default: return [];
-
-    }
   }
   
   errorHandl(error: any) {

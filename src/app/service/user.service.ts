@@ -2,18 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Observable, retry, catchError, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { User } from '../domain/user.model';
 import { UserDTOUpdatePassword } from '../dto/user-dto-update-password.model';
 import { UserDTO } from '../dto/user-dto.model';
-import { UserLoggedDTO } from '../dto/user-logged-dto.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8080/users';
+  private baseUrl = environment.apiUrl + '/users';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 

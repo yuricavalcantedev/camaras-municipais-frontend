@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { RoleInSession } from '../domain/role-session.model';
@@ -41,6 +42,7 @@ export class TownHallControlComponent implements OnInit {
   disableParlamentarDropdown = true;
   
 
+  sessionUUID: string = '';
   session: Session;
   form: FormGroup;
   roleInSessionListPart1: RoleInSession[] = new Array();
@@ -48,7 +50,7 @@ export class TownHallControlComponent implements OnInit {
   roleInSessionListPart3: RoleInSession[] = new Array();
   
 
-  @Output() updateParlamentar = new EventEmitter<Parlamentar>();
+  @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
   constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private cookieService: CookieService, 
@@ -59,11 +61,14 @@ export class TownHallControlComponent implements OnInit {
   ngOnInit(): void {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
-
-    this.sessionService.checkIfExistsOpenSessionToday(this.townhallId).subscribe(res =>{
-      if(res){ }
-        this.existsSession = false;
-    });
+    this.sessionUUID = this.cookieService.get('session-uuid');
+    if(this.sessionUUID != null && this.sessionUUID != undefined && this.sessionUUID != ''){
+      
+      this.existsSession = true;
+      setInterval(() =>{
+        this.findSessionByUUID(this.sessionUUID);
+      }, 2000);
+    }
 
     this.townHallService.getById(this.townhallId).subscribe({      
         
@@ -82,8 +87,7 @@ export class TownHallControlComponent implements OnInit {
     });
 
     //the buttons will start disabled
-    this.updateFlagTransmitir.emit(true);
-    //this.loading = true;
+    this.updateFlagTransmitir.emit(true);    
     
   }
 
@@ -173,21 +177,40 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
-      console.log(this.session);
     });
   }
 
-  selectRow(){
+  selectRow(item: ParlamentarPresence){
+
+    this.selectedParlamentarPresenceList = [];
+    this.selectedParlamentarPresenceList.push(item);
+    this.utilService.getUtilShowTimer().setParlamentar(item.parlamentar);
+    this.updateFlagTransmitir.emit(false);
+
+  }
+
+  onTransmitir(parlamentar: Parlamentar){
     
-    if(this.selectedParlamentarPresenceList.length == 1){
+    this.utilService.getUtilShowTimer().setParlamentar(parlamentar);
+    this.updateParlamentar.emit(true);
+  }
 
-      this.selectedParlamentarPresence = this.selectedParlamentarPresenceList[0];
-      this.utilService.getUtilShowTimer().setParlamentar(this.selectedParlamentarPresence.parlamentar);
-      this.updateFlagTransmitir.emit(false);
+  openModalWithTime(){
 
-    }else{
-      this.updateFlagTransmitir.emit(true);
-    }
+  }
+
+  onFinalizarTempo(){
+    
+    this.utilService.getUtilShowTimer().setFinishMainTimer(true);
+    this.updateParlamentar.emit(true);
+
+  }
+
+  onFinalizarAParte(){
+
+      this.utilService.getUtilShowTimer().setFinishAParteTimer(true);
+      this.updateParlamentar.emit(true);
+
   }
   
   onTownHallChange(){
@@ -199,7 +222,7 @@ export class TownHallControlComponent implements OnInit {
     
   }
 
-  callAParte(parlamentar: Parlamentar){
+  onAParte(parlamentar: Parlamentar){
     this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
     this.utilService.changeTransmitirData(true);
   }
@@ -216,6 +239,19 @@ export class TownHallControlComponent implements OnInit {
         this.roleInSessionListPart3.push(roleInSessionList[i]);
       }
     }
+  }
+
+  closeVoting(){
+
+    this.sessionService.closeVoting(this.session.uuid).subscribe({
+      next: res => {
+        console.log(res);
+        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votacao encerrada!'});
+      },
+      error: err => {
+        this.messageService.add({severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, fale com o administrador'});
+      }
+    });
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
+import { RoleInSession } from '../domain/role-session.model';
 import { Session } from '../domain/session.model';
 import { SessionService } from '../service/session.service';
 
@@ -14,6 +15,9 @@ export class VotingPanelComponent implements OnInit {
   session: Session = null;
   firstHalfParlamentarList: ParlamentarPresence[] = new Array();
   secondHalfParlamentarList: ParlamentarPresence[] = new Array();
+  roleInSessionListPart1: RoleInSession[] = new Array();
+  roleInSessionListPart2: RoleInSession[] = new Array();
+  roleInSessionListPart3: RoleInSession[] = new Array();
 
   constructor(private cookieService: CookieService, private sessionService: SessionService) { }
 
@@ -32,8 +36,8 @@ export class VotingPanelComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
-      console.log(this.session);
       this.splitParlamentarList();
+      this.fillRoleInSessionLists(this.session.roleInSessionList);
     });
   }
 
@@ -51,6 +55,25 @@ export class VotingPanelComponent implements OnInit {
       }
     }
     
+  }
+
+  fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
+
+    for(let i = 0; i < roleInSessionList.length; i++){
+      
+      if(i < 4){
+        this.roleInSessionListPart1.push(roleInSessionList[i]);
+      }else if( i < 8){
+        this.roleInSessionListPart2.push(roleInSessionList[i]);
+      }else if( i < 12){
+        this.roleInSessionListPart3.push(roleInSessionList[i]);
+      }
+    }
+
+    console.log(this.roleInSessionListPart1);
+    console.log(this.roleInSessionListPart2);
+    console.log(this.roleInSessionListPart3);
+
   }
 
 }

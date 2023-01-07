@@ -14,18 +14,14 @@
                     <p-radioButton name="expediente" value="Outro" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente3"></p-radioButton>
                     <label for="expediente3">Outro</label>
                     <input class="ml-3" type="text" [disabled]="disableInput" pInputText />
-                    <p-dropdown class="ml-3" [options]="timers" [(ngModel)]="selectedTimer" placeholder="Tempo"></p-dropdown>
+                    <p-dropdown class="ml-3" [options]="timers" [(ngModel)]="selectedTimer" (onChange)="onUpdateTime()" placeholder="Tempo"></p-dropdown>
                 </div>
         </div>
         </p-card>
     </div>
-    
-    <div class="col">
-        <app-timer-control (openModalWithTime)="openModalWithTime($event)"  [timer]="selectedTimer" [flagTransmitir]="flagTransmitir"></app-timer-control>
-    </div>
 </div>
 <div class="grid">
     <div class="col">
-        <app-town-hall-control (openModalAParte)="openModalAParte()" (updateFlagTransmitir)="updateFlagTransmitir($event)"></app-town-hall-control>
+        <app-town-hall-control (updateParlamentar)="onTransmitir($event)" (updateFlagTransmitir)="updateFlagTransmitir($event)"></app-town-hall-control>
     </div>
 </div>
