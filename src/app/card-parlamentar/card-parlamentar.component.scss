@@ -11,9 +11,9 @@
   background-color: white;
   height: auto;
 
-  -webkit-border-radius: 0.63rem;
-  -moz-border-radius: 0.63rem;
-  border-radius: 0.63rem;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  border-radius: 2rem;
 
 }
 
@@ -26,12 +26,12 @@
   background-color: var(--app-primary-color);
   color: var(--app-footer-text-color);
 
-  -webkit-border-bottom-right-radius: 0.63rem;
-  -webkit-border-bottom-left-radius: 0.63rem;
-  -moz-border-radius-bottomright: 0.63rem;
-  -moz-border-radius-bottomleft: 0.63rem;
-  border-bottom-right-radius: 0.63rem;
-  border-bottom-left-radius: 0.63rem;
+  -webkit-border-bottom-right-radius: 2rem;
+  -webkit-border-bottom-left-radius: 2rem;
+  -moz-border-radius-bottomright: 2rem;
+  -moz-border-radius-bottomleft: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
 }
 
 .parliamentarian .footer .footer-electoral-party {
