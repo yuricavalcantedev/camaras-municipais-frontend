@@ -28,7 +28,13 @@ html {
   --app-primary-color: #171430;
   --app-background-color: #EEEEEE;
   --app-header-text-color: #FFF;
-  --app-footer-text-color: #FFF
+  --app-footer-text-color: #FFF;
+  --app-box-voting-background-color: #d9d9d9;
+  --app-vote-yes: #7ED283;
+  --app-vote-no: #EB606B;
+  --app-vote-abs: #FBCB60;
+  --app-vote-label-background-color: #171430;
+  --app-vote-label-color: #FFF;
 }
 
 

@@ -127,11 +127,11 @@
   border-bottom-left-radius: 10px;
 }
 
-.box-main .page-stopwatch .box-right .stopwatch .stopeatch-in {
+.box-main .page-stopwatch .box-right .stopwatch .stopwatch-in {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: bolder;
-  font-size: 2rem;
+  font-size: 17rem;
   display: flex;
   align-items: center;
   color: #171430;

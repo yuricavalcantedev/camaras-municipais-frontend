@@ -1,24 +1,198 @@
-.voting-container {
-    position: relative;
-    height: 60vh;
-    display: flex;
-    flex-flow: column wrap;
-  }
-  .voting-item {
-    
-    flex: 1 0 auto;
-    align-items: center;
-    display: inline-flex;
-  }
+.box-main .page-voting {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100% - 150px);
+  background-color: var(--app-background-color);
+}
 
-  .no-padding-bot{
-    padding-bottom: 0;
-  }
+.app-header {
+  display: flex;
+  width: 100vw;
+}
 
-  .custom-padding-all-sides{
-    padding: 0 0.1rem;
-  }
+.box-main {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
 
-  .button-action{
-    width: 100%;
-  }
+:host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
+  width: 7rem;
+  height: 7rem;
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+  background-color: #171430;
+  cursor: pointer;
+}
+
+:host ::ng-deep span.p-button-icon.pi.pi-arrows-alt {
+  font-size: 3.2rem !important;
+}
+
+/* BOX LEFT */
+.box-left {
+  width: 40%;
+  height: 90%;
+
+  display: flex;
+  justify-content: flex-start;
+  background-color: #d9d9d9;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* BOX LEFT */
+/* BOX RIGHT */
+
+.box-main .page-voting .box-right {
+  width: 40%;
+  height: 90%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  background-color: var(--app-box-voting-background-color);
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.box-main .page-voting .box-right .header {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  color: var(--app-header-text-color);
+  font-size: 32px;
+  display: flex;
+  justify-content: flex-end;
+  letter-spacing: 0.03em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--app-primary-color);
+
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.box-main .page-voting .box-right .voting-options {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  height: 100%;
+}
+
+.box-main .page-voting .box-right .voting-options div.label {
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  color: var(--app-header-text-color);
+  font-size: 32px;
+
+  background-color: var(--app-vote-label-background-color);
+  color: var(--app-vote-label-color);
+
+  -webkit-border-radius: 0.63rem;
+  -moz-border-radius: 0.63rem;
+  border-radius: 0.63rem;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  margin-top:  2rem;
+
+}
+
+.box-main .page-voting .box-right .custom-icon-rounded {
+  width: 15rem;
+  height: 15rem;
+  padding: 36px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
+}
+
+.box-main .page-voting .box-right .vote-yes {
+  background-color: var(--app-vote-yes);
+}
+
+.box-main .page-voting .box-right .vote-no {
+  background-color: var(--app-vote-no);
+}
+
+.box-main .page-voting .box-right .vote-abs {
+  background-color: var(--app-vote-abs);
+}
+
+.box-main .page-voting .box-right .footer {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding: 3.2rem;
+
+  gap: 20px;
+
+  color: var(--app-footer-text-color);
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.box-main .page-voting .box-right .footer button {
+  width: 100%;
+  height: 100px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2.63rem;
+  background-color: var(--app-primary-color);
+  text-transform: uppercase;
+}
+
+.box-main .page-voting .box-right .footer .custom-icon svg {
+  width: 3.2rem;
+  margin-left: 1.6rem;
+}
+
+
+
+/* BOX RIGHT */

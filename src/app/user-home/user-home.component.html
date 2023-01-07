@@ -1,4 +1,92 @@
-<div class="grid">
+<div class="box-main">
+  <app-header class="app-header" townHallName="{{townHallName}}"></app-header>
+  <div class='page-voting'>
+    <app-card-parlamentar class="box-left" photo="{{parlamentar.urlImage}}" name="{{parlamentar.name}}"
+      politicalParty="{{parlamentar.politicalParty}}"></app-card-parlamentar>
+    <div class='box-right'>
+      <div class='header'>
+        <div class="title">
+          Painel de Votação
+        </div>
+      </div>
+      <div class='voting-options'>
+        <div>
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-yes">
+            <svg width="80" height="90" viewBox="0 0 142 123" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M76.76 2.81047L41.6733 37.8971C39.33 40.2405 38 43.4705 38 46.8271V110.097C38 117.064 43.7 122.764 50.6667 122.764H107.667C112.733 122.764 117.293 119.724 119.32 115.1L139.967 66.9038C145.287 54.3638 136.103 40.4305 122.487 40.4305H86.7033L92.72 11.4238C93.3533 8.25714 92.4033 5.02713 90.1233 2.74713C86.3867 -0.926199 80.4333 -0.926199 76.76 2.81047ZM12.6667 122.764C19.6333 122.764 25.3333 117.064 25.3333 110.097V59.4305C25.3333 52.4638 19.6333 46.7638 12.6667 46.7638C5.7 46.7638 0 52.4638 0 59.4305L0 110.097C0 117.064 5.7 122.764 12.6667 122.764Z"
+                fill="white" />
+            </svg>
+          </button>
+          <div class="label">
+            Sim
+          </div>
+        </div>
+        <div>
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-no">
+            <svg width="80" height="90" viewBox="0 0 142 123" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M64.7065 119.953L99.7298 84.8667C102.073 82.5233 103.403 79.2933 103.403 75.9367V12.6667C103.403 5.7 97.7031 0 90.7365 0L33.7998 0C28.7332 0 24.1732 3.04 22.2098 7.66333L1.56315 55.86C-3.82018 68.4 5.36315 82.3333 18.9798 82.3333H54.7632L48.7465 111.34C48.1131 114.507 49.0632 117.737 51.3432 120.017C55.0798 123.69 61.0332 123.69 64.7065 119.953ZM128.8 0C121.833 0 116.133 5.7 116.133 12.6667V63.3333C116.133 70.3 121.833 76 128.8 76C135.766 76 141.466 70.3 141.466 63.3333V12.6667C141.466 5.7 135.766 0 128.8 0Z"
+                fill="white" />
+            </svg>
+          </button>
+          <div class="label">
+            Não
+          </div>
+        </div>
+        <div>
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-abs">
+            <svg width="157" height="27" viewBox="0 0 157 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_1428_40)">
+                <path
+                  d="M4 9.3125C4 6.84267 4.98114 4.474 6.72757 2.72757C8.474 0.981137 10.8427 0 13.3125 0L143.688 0C146.157 0 148.526 0.981137 150.272 2.72757C152.019 4.474 153 6.84267 153 9.3125C153 11.7823 152.019 14.151 150.272 15.8974C148.526 17.6439 146.157 18.625 143.688 18.625L13.3125 18.625C10.8427 18.625 8.474 17.6439 6.72757 15.8974C4.98114 14.151 4 11.7823 4 9.3125Z"
+                  fill="white" />
+              </g>
+              <defs>
+                <filter id="filter0_d_1428_40" x="0" y="0" width="157" height="26.625" filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1428_40" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1428_40" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+          </button>
+          <div class="label">
+            Abster
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <button label="Oradores" pButton class="p-button-raised p-button-rounded custom-icon">
+          <svg width="107" height="93" viewBox="0 0 107 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M38.898 14.6842C44.0562 14.6842 49.0032 16.747 52.6506 20.4187C56.298 24.0905 58.347 29.0705 58.347 34.2632C58.347 39.4558 56.298 44.4358 52.6506 48.1076C49.0032 51.7793 44.0562 53.8421 38.898 53.8421C33.7398 53.8421 28.7929 51.7793 25.1455 48.1076C21.4981 44.4358 19.449 39.4558 19.449 34.2632C19.449 29.0705 21.4981 24.0905 25.1455 20.4187C28.7929 16.747 33.7398 14.6842 38.898 14.6842ZM38.898 63.6316C51.8802 63.6316 77.796 70.1905 77.796 83.2105V93H0L0 83.2105C0 70.1905 25.9158 63.6316 38.898 63.6316ZM76.6291 16.4463C86.4509 27.2147 86.4509 42.1437 76.6291 52.031L68.4605 43.7589C72.5448 37.9832 72.5448 30.4942 68.4605 24.7184L76.6291 16.4463ZM92.7232 0C111.832 19.8237 111.686 49.4858 92.7232 68.5263L84.7977 60.5479C98.2661 44.9826 98.2661 22.7605 84.7977 7.97842L92.7232 0Z"
+              fill="white" />
+            <rect x="74.2908" y="72.6548" width="4.59951" height="19.9312" rx="2.29976" fill="white" />
+            <rect x="66.2417" y="84.8432" width="4.59951" height="20.9278" rx="2.29976"
+              transform="rotate(-90 66.2417 84.8432)" fill="white" />
+          </svg>
+        </button>
+        <button label="Sair" pButton class="p-button-raised p-button-rounded custom-icon">
+          <svg width="94" height="74" viewBox="0 0 94 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M63.5312 61.8594V40.125H33.2285C32.3417 40.125 31.4912 39.7727 30.8641 39.1456C30.2371 38.5186 29.8848 37.6681 29.8848 36.7812C29.8848 35.8944 30.2371 35.0439 30.8641 34.4169C31.4912 33.7898 32.3417 33.4375 33.2285 33.4375H63.5312V11.7031C63.5279 8.60028 62.2939 5.62547 60.0998 3.43143C57.9058 1.23739 54.931 0.00331914 51.8281 0L11.7031 0C8.60028 0.00331914 5.62547 1.23739 3.43143 3.43143C1.23739 5.62547 0.00331914 8.60028 0 11.7031L0 61.8594C0.00331914 64.9622 1.23739 67.937 3.43143 70.1311C5.62547 72.3251 8.60028 73.5592 11.7031 73.5625H51.8281C54.931 73.5592 57.9058 72.3251 60.0998 70.1311C62.2939 67.937 63.5279 64.9622 63.5312 61.8594ZM82.2082 40.125L71.1989 51.1364C70.5983 51.7686 70.2684 52.6104 70.2796 53.4823C70.2907 54.3542 70.6421 55.1873 71.2586 55.8039C71.8752 56.4204 72.7083 56.7718 73.5802 56.7829C74.4521 56.7941 75.2939 56.4642 75.9261 55.8636L92.6449 39.1449C93.2715 38.5179 93.6235 37.6677 93.6235 36.7812C93.6235 35.8948 93.2715 35.0446 92.6449 34.4176L75.9261 17.6989C75.2939 17.0983 74.4521 16.7684 73.5802 16.7796C72.7083 16.7907 71.8752 17.1421 71.2586 17.7586C70.6421 18.3752 70.2907 19.2083 70.2796 20.0802C70.2684 20.9521 70.5983 21.7939 71.1989 22.4261L82.2082 33.4375H63.5312V40.125H82.2082Z"
+              fill="white" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <button pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+</div>
+<!-- <div class="grid">
     <div class="col-12" style="text-align: center; margin: 10px;">
         {{townHallName}}
     </div>
@@ -21,7 +109,7 @@
                         </div>
                       </div>
                 </p-panel>
-                
+
             </div>
         </div>
     </div>
@@ -35,4 +123,4 @@
         <button pButton pRipple type="button" label="Sair" class="p-button-outlined p-button-danger button-action"></button>
     </div>
 </div>
-
+ -->
