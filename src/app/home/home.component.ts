@@ -43,17 +43,21 @@ export class HomeComponent implements OnInit {
     this.utilService.getUtilShowTimer().setTimeDescription(this.expediente);
   }
 
+  onUpdateTime(){
+    this.utilService.getUtilShowTimer().setTime(this.selectedTimer.minutes * 60 + this.selectedTimer.seconds);
+  }
+
+  onTransmitir(flag: boolean){
+        
+    this.openCustomerPopout('');
+
+  }
+
   openModalWithTime(timer: number){
     
     this.timer = (timer == 1) ? this.CONST_MIN_TIMER: (this.selectedTimer.minutes * 60 + this.selectedTimer.seconds);
     this.utilService.getUtilShowTimer().setTime(this.timer);
     this.utilService.changeTransmitirData(true);
-    this.openCustomerPopout('');
-  }
-
-  openModalAParte(){
-    
-    //this.utilService.setTimeToSpeak(this.timer);
     this.openCustomerPopout('');
   }
 

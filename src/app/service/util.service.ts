@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Parlamentar } from '../domain/parlamentar.model';
 import { UtilShowTimer } from '../domain/utilsShowTimer.model';
 
 @Injectable({

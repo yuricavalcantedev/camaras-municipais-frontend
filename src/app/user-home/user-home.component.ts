@@ -10,6 +10,7 @@ import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
 import { Console } from 'console';
 import { VoteDTO } from '../dto/vote-dto.model';
+import { Voting } from '../domain/voting.model';
 
 @Component({
   selector: 'app-user-home',
@@ -25,6 +26,7 @@ export class UserHomeComponent implements OnInit {
   linkSessao: string = "";
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
+  existsOpenVoting: boolean = false;
   townHallId : number = 0;
   votingOptions: string[] = [];
 
@@ -38,7 +40,6 @@ export class UserHomeComponent implements OnInit {
     this.votingOptions.push('ABSTENTION');
 
     this.linkSessao = "https://sapl.caninde.ce.leg.br/sessao/pauta-sessao/83/";
-    this.elem = document.documentElement;
     this.townHallId = Number.parseInt( this.cookieService.get('user-townhall-id'));
 
     this.username = this.cookieService.get('user-username');
@@ -47,8 +48,12 @@ export class UserHomeComponent implements OnInit {
     });
 
 
-    this.findSessionTodayByTownhall(this.townHallId);    
-    
+    setInterval(() => {
+
+      this.findSessionTodayByTownhall(this.townHallId);
+
+    }, 3000);
+
   }
 
   findSessionTodayByTownhall(townHallId: number){
@@ -56,18 +61,23 @@ export class UserHomeComponent implements OnInit {
     this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {      
       if(res != null){
         this.session = res;
+        this.checkIfExistsOpenVoting();
         this.updatePresence();
-        console.log(this.parlamentar);
         console.log(this.session);
       }
     });
+  }
+
+  checkIfExistsOpenVoting(){
+    this.existsOpenVoting = this.session.voting != null && this.session.voting.status == 'VOTING';
+    console.log(this.existsOpenVoting);
   }
 
   updatePresence(){
 
     let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, 'PRESENCE');
     this.sessionService.updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO).subscribe(() =>{
-      console.log('Tudo OK')      ;
+      // mostrar alguma mensagem dizendo quer o vereador foi logado com sucesso? console.log('Tudo OK');
     });
   }
 
@@ -103,8 +113,7 @@ export class UserHomeComponent implements OnInit {
 
   findParlamentarVotingId(parlamentarId: number): number{
 
-    let voting = this.session.votingList.find(voting => voting.status == 'VOTING');
-    let parlamentarVoting = voting.parlamentarVotingList.find(p => p.parlamentarId == parlamentarId);
+    let parlamentarVoting = this.session.voting.parlamentarVotingList.find(p => p.parlamentarId == parlamentarId);
     return parlamentarVoting != null ? parlamentarVoting.id : null;
   }
 

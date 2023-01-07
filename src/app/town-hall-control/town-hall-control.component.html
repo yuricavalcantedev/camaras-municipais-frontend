@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="">
     <p-card styleClass="p-card-shadow" *ngIf="!existsSession">
         <ng-template pTemplate="header">
@@ -8,21 +9,29 @@
 </div>
 
 <p-tabView>
-    <p-tabPanel header="Vereadores">
+    <p-tabPanel header="Vereadores" *ngIf="existsSession">
         <div class="container">
             <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
                 <ng-template pTemplate="header">
                 </ng-template>
                 
-                <h3 style="display: inline; text-align: center;">Vereadores</h3>
+                <div class="grid">
+                    <div class="col">
+                        <h3 style="display: inline; text-align: center;">Vereadores</h3>        
+                    </div>
+                    <div class="col">
+                        <button pButton pRipple id="open-voting-button" label="Abrir Painel de Votacao" (click)="openEletronicPanel()"></button>
+                    </div>
+                </div>
+                
         
-                <div *ngIf="existsSession" style="margin-top: 20px;">
+                <div style="margin-top: 20px;">
                     <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
                     [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 1rem">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    <p-tableHeaderCheckbox [disabled]="true"></p-tableHeaderCheckbox>
                                 </th>
                                 <th>Nome</th>
                                 <th>Partido Politico</th>
@@ -32,11 +41,16 @@
                         <ng-template pTemplate="body" let-item>
                             <tr >
                                 <td>
-                                    <p-tableCheckbox (click)="selectRow()" [value]="item" [disabled]="item.status != 'PRESENCE'"></p-tableCheckbox>
+                                    <p-tableCheckbox (click)="selectRow(item)" [disabled]="item.status != 'PRESENCE'" [value]="item"></p-tableCheckbox>
                                 </td>
                                 <td>{{item.parlamentar.name}}</td>
                                 <td>{{item.parlamentar.politicalParty}}</td>
-                                <td><button pButton type="button" label="À Parte" [disabled]="item.status != 'PRESENCE'" (click)="callAParte(item.parlamentar)" class="p-button-raised p-button-rounded"></button></td>
+                                <td>
+                                    <button pButton pRipple type="button" label="Transmitir" class="p-button-raised"  [disabled]="item.status != 'PRESENCE'" (click)="onTransmitir(item.parlamentar)" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="Fin. Tempo" class="p-button-raised p-button-danger" [disabled]="item.status != 'PRESENCE'" (click)="onFinalizarTempo()" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="A Parte" class="p-button-raised p-button-text" [disabled]="item.status != 'PRESENCE'" (click)="onAParte(item.parlamentar)" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="Fin. A Parte" class="p-button-raised p-button-text p-button-danger" [disabled]="item.status != 'PRESENCE'"  (click)="onFinalizarAParte()" style="margin-right: 15px;"></button>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -161,14 +175,21 @@
                 <ng-template pTemplate="header">
                 </ng-template>
 
-                <h3 style="display: inline; text-align: center;">Votacao Aberta</h3>
+                <h3 style="display: inline; text-align: center;">Informacoes parciais da votacao</h3>
                 <div style="margin-top: 20px;">
-                    
+                    <div class="grid">
+                        <div class="col">
+                            <button *ngIf="existsOpenVoting" pButton pRipple type="button" id="open-voting-button" class="p-button-danger mr-4" label="Encerrar Votacao" (click)="closeVoting()"></button>
+                        </div>
+                    </div>
                 </div>
             </p-card>
         </div>
     </p-tabPanel>
 </p-tabView>
+
+
+<!-- Dialogs --->
 
 <p-dialog header="Abrir sessão" [(visible)]="showDialog" (onHide)="onHideVotingDialog()"  [style]="{width: '30vw'}" [modal]="true">
     <form #myForm [formGroup]="form" (ngSubmit)="onSubmit()">

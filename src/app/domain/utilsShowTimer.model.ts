@@ -8,6 +8,8 @@ export class UtilShowTimer{
     private townHall: TownHall;
     private time: number;
     private timeDescription: string;
+    private finishMainTimer: boolean = false;
+    private finishAParteTimer: boolean = false;
 
     constructor(){
         this.parlamentarAParte = null;
@@ -50,4 +52,17 @@ export class UtilShowTimer{
     }
 
     getTownHall(){return this.townHall; }
+
+    setFinishMainTimer(flag: boolean){
+        this.finishMainTimer = flag;
+    }
+
+    getFinishMainTimer(){ return this.finishMainTimer ; }
+
+    setFinishAParteTimer(flag: boolean){
+        this.finishAParteTimer = flag;
+    }
+
+    getFinishAParteTimer(){ return this.finishAParteTimer; }
+
 }

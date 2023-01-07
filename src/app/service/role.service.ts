@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { catchError, Observable, retry, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Role } from '../domain/role.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Role } from '../domain/role.model';
 })
 export class RoleService {
 
-baseUrl: string = "http://localhost:8080/roles";
+baseUrl: string = environment.apiUrl + '/roles';
 
   constructor(private http: HttpClient, private messageService: MessageService) {}
 
@@ -17,7 +18,7 @@ baseUrl: string = "http://localhost:8080/roles";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin':'http://localhost:4200'
+      'Access-Control-Allow-Origin': environment.apiUrl
     }),
   };
 
