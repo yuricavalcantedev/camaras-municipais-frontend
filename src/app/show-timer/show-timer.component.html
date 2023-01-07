@@ -17,6 +17,20 @@
           {{subTextMinutes}}:{{subTextSeconds}}
         </div>
       </div>
+      <div class="footer" *ngIf="showAParteTime">
+        <div class="footer-info">
+          <div class="footer-sub-name">
+            {{parlamentarNameSubTimer}}
+          </div>
+          <div class='footer-electoral-party'>
+            {{parlamentarAParte.politicalParty}}
+          </div>
+        </div>
+        <div class="footer-time">
+          {{subTextMinutes}} : {{subTextSeconds}}
+        </div>
+      </div>
     </div>
   </div>
+  <button pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>

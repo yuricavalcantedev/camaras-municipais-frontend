@@ -11,9 +11,9 @@
   background-color: white;
   height: auto;
 
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 0.63rem;
+  -moz-border-radius: 0.63rem;
+  border-radius: 0.63rem;
 
 }
 
@@ -26,19 +26,19 @@
   background-color: var(--app-primary-color);
   color: var(--app-footer-text-color);
 
-  -webkit-border-bottom-right-radius: 10px;
-  -webkit-border-bottom-left-radius: 10px;
-  -moz-border-radius-bottomright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 0.63rem;
+  -webkit-border-bottom-left-radius: 0.63rem;
+  -moz-border-radius-bottomright: 0.63rem;
+  -moz-border-radius-bottomleft: 0.63rem;
+  border-bottom-right-radius: 0.63rem;
+  border-bottom-left-radius: 0.63rem;
 }
 
 .parliamentarian .footer .footer-electoral-party {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 2rem;
   color: var(--app-footer-text-color);
   display: flex;
   justify-content: flex-end;
@@ -51,7 +51,7 @@
   font-style: normal;
   font-weight: bold;
   color: var(--app-footer-text-color);
-  font-size: 42px;
+  font-size: 2.6rem;
   display: flex;
   justify-content: flex-start;
   letter-spacing: 0.03em;
@@ -62,7 +62,7 @@
   font-style: normal;
   font-weight: bold;
   color: var(--app-footer-text-color);
-  font-size: 42px;
+  font-size: 2.6rem;
   display: flex;
   justify-content: flex-start;
   letter-spacing: 0.03em;
