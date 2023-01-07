@@ -11,7 +11,105 @@ import { SessionService } from '../service/session.service';
   styleUrls: ['./voting-panel.component.scss']
 })
 export class VotingPanelComponent implements OnInit {
-  
+
+  subHeaderItens =  [
+    {
+      status: "NO",
+      title: "Pres.",
+      type: "Vereador",
+      lastName: "João da Silva",
+      politicalParty: "PMDB"
+    },
+    {
+      status: "YES",
+      title: "Vice.",
+      type: "Vereador",
+      lastName: "Marina Candido",
+      politicalParty: "PSDB"
+    },
+    {
+      status: "NO",
+      title: "1ºSec",
+      type: "Vereador",
+      lastName: "Pedro da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      title: "2ºSec",
+      type: "Vereador",
+      lastName: "Pedro da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      title: "3ºSec",
+      type: "Vereador",
+      lastName: "Amanda da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "ABSTENTION",
+      title: "4ºSec",
+      type: "Vereador",
+      lastName: "Carlos da Silva",
+      politicalParty: "PT"
+    }
+  ]
+
+  bodyItens =  [
+    {
+      status: "NO",
+      lastName: "João da Silva",
+      politicalParty: "PMDB"
+    },
+    {
+      status: "YES",
+      lastName: "Marina Candido",
+      politicalParty: "PSDB"
+    },
+    {
+      status: "NO",
+      lastName: "Pedro da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      lastName: "Pedro da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      lastName: "Amanda da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "ABSTENTION",
+      lastName: "Carlos da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      lastName: "Reginaldo",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      lastName: "Maria Pedroso",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      lastName: "Jorge da Mata",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      lastName: "Antonio da Mata",
+      politicalParty: "PT"
+    }
+  ]
+
   session: Session = null;
   firstHalfParlamentarList: ParlamentarPresence[] = new Array();
   secondHalfParlamentarList: ParlamentarPresence[] = new Array();
@@ -22,7 +120,7 @@ export class VotingPanelComponent implements OnInit {
   constructor(private cookieService: CookieService, private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    
+
     let sessionUUID = this.cookieService.get('session-uuid');
     if(sessionUUID != undefined && sessionUUID != null){
 
@@ -42,7 +140,7 @@ export class VotingPanelComponent implements OnInit {
   }
 
   splitParlamentarList(){
-    
+
     this.firstHalfParlamentarList = [];
     this.secondHalfParlamentarList = [];
 
@@ -54,13 +152,13 @@ export class VotingPanelComponent implements OnInit {
         this.secondHalfParlamentarList.push(list[i]);
       }
     }
-    
+
   }
 
   fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
 
     for(let i = 0; i < roleInSessionList.length; i++){
-      
+
       if(i < 4){
         this.roleInSessionListPart1.push(roleInSessionList[i]);
       }else if( i < 8){
