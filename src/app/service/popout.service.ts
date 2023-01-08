@@ -25,21 +25,7 @@ export class PopoutService implements OnDestroy {
     // Wait for window instance to be created
     setTimeout(() => {
       this.createCDKPortal(data, windowInstance, 'Tempo de Fala');
-    }, 600);
-  }
-
-  openPainelEletronicoModal(){
-
-    let data: { name: ''}
-    const windowInstance = this.openOnce(
-      'assets/modal/painel_eletronico.html',
-      'MODAL_PAINEL_ELETRONICO'
-    );
-
-    // Wait for window instance to be created
-    setTimeout(() => {
-      this.createCDKPortal(data, windowInstance, 'Painel Eletronico');
-    }, 600);
+    }, 1000);
   }
 
   openOnce(url: any, target: any) {
