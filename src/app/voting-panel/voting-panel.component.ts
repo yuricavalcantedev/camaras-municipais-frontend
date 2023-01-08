@@ -12,6 +12,9 @@ import { SessionService } from '../service/session.service';
 })
 export class VotingPanelComponent implements OnInit {
 
+
+  status = "NO"
+
   subHeaderItens =  [
     {
       status: "NO",

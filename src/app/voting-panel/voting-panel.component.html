@@ -26,37 +26,43 @@
         </div>
       </div>
       <div class='box-right'>
-        Box Right
+        <div class="title">
+          Projeto de Lei Ordinário nº 82de 2022
+        </div>
+        <div class="subtitle">
+          Dispõe sobre a estimativa da receita e fixação da despesa do Município de Aquiráz para o exercício financeiro de 2023
+        </div>
       </div>
     </div>
     <div class="footer">
       <div class="box-votes">
         <div class="box-yes">
-          <span class="quantity status-yes">
+          <div class="quantity status-yes">
             02
-          </span>
+          </div>
           <span class="description">
             Sim
           </span>
         </div>
         <div class="box-no">
-          <span class="quantity status-no">
+          <div class="quantity status-no">
             02
-          </span>
+          </div>
           <span class="description">
             Não
           </span>
         </div>
         <div class="box-abs">
-          <span class="quantity status-abs">
+          <div class="quantity status-abs">
             02
-          </span>
+          </div>
           <span class="description">
             Abst
           </span>
         </div>
       </div>
-      <div class="box-result">
+      <div class="box-result" [ngClass]="{'status-yes':status=='YES', 'status-no':status=='NO'}"
+      >
         Rejeitado
       </div>
     </div>
