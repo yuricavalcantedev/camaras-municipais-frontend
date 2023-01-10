@@ -11,6 +11,7 @@ import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
 import { Console } from 'console';
 import { VoteDTO } from '../dto/vote-dto.model';
 import { Voting } from '../domain/voting.model';
+import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-user-home',
@@ -21,7 +22,7 @@ export class UserHomeComponent implements OnInit {
 
   username: string = '';
   parlamentar: Parlamentar = new Parlamentar();
-  townHallName: string = "Camara municipal de Caninde";  
+  townHallName: string = "Camara municipal de Caninde";
   elem: any;
   linkSessao: string = "";
   session: SessionParlamentarDTO;
@@ -30,7 +31,7 @@ export class UserHomeComponent implements OnInit {
   townHallId : number = 0;
   votingOptions: string[] = [];
 
-  constructor(@Inject(DOCUMENT) private document: any,private userService: UserService, private sessionService: SessionService, private cookieService: CookieService) { }
+  constructor(@Inject(DOCUMENT) private document: any,private userService: UserService, private sessionService: SessionService, private cookieService: CookieService, private utilService: UtilService) { }
 
 
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class UserHomeComponent implements OnInit {
 
   findSessionTodayByTownhall(townHallId: number){
 
-    this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {      
+    this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {
       if(res != null){
         this.session = res;
         this.checkIfExistsOpenVoting();
@@ -82,7 +83,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   subscriptionInSpeakerList(){
-    
+
     let speakerDTO = new SpeakerSubscriptionDTO(this.townHallId, this.parlamentar.id);
     this.sessionService.subscriptionInSpeakerList(this.session.uuid, speakerDTO).subscribe(res =>{
       console.log(res);
@@ -90,12 +91,12 @@ export class UserHomeComponent implements OnInit {
   }
 
   sendVote(vote: string){
-    
+
     if(this.votingOptions.find(option => option == vote) == undefined){
       //colocar mensagem de erro
       console.error('error!');
     }else{
-      
+
       let parlamentarVotingId = this.findParlamentarVotingId(this.parlamentar.id);
       if(parlamentarVotingId != null){
         let voteDTO = new VoteDTO(parlamentarVotingId, this.parlamentar.id, vote);
@@ -117,19 +118,8 @@ export class UserHomeComponent implements OnInit {
     return parlamentarVoting != null ? parlamentarVoting.id : null;
   }
 
-  openFullscreen() {
-    if (this.elem.requestFullscreen) {
-      this.elem.requestFullscreen();
-    } else if (this.elem.mozRequestFullScreen) {
-      /* Firefox */
-      this.elem.mozRequestFullScreen();
-    } else if (this.elem.webkitRequestFullscreen) {
-      /* Chrome, Safari and Opera */
-      this.elem.webkitRequestFullscreen();
-    } else if (this.elem.msRequestFullscreen) {
-      /* IE/Edge */
-      this.elem.msRequestFullscreen();
-    }
+  fullScreen() {
+    this.utilService.fullScreen();
   }
 
 }

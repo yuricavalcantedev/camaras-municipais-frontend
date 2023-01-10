@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { RoleInSession } from '../domain/role-session.model';
 import { Session } from '../domain/session.model';
 import { SessionService } from '../service/session.service';
+import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-voting-panel',
@@ -13,9 +15,11 @@ import { SessionService } from '../service/session.service';
 export class VotingPanelComponent implements OnInit {
 
 
+  inFullScren = false
+
   status = "NO"
 
-  subHeaderItens =  [
+  subHeaderItens = [
     {
       status: "NO",
       title: "Pres.",
@@ -60,7 +64,7 @@ export class VotingPanelComponent implements OnInit {
     }
   ]
 
-  bodyItens =  [
+  bodyItens = [
     {
       status: "NO",
       lastName: "João da Silva",
@@ -111,31 +115,6 @@ export class VotingPanelComponent implements OnInit {
       lastName: "Antonio da Mata",
       politicalParty: "PT"
     },
-    {
-      status: "ABSTENTION",
-      lastName: "Carlos da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      lastName: "Reginaldo",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      lastName: "Maria Pedroso",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      lastName: "Jorge da Mata",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      lastName: "Antonio da Mata",
-      politicalParty: "PT"
-    }
   ]
 
   session: Session = null;
@@ -145,12 +124,11 @@ export class VotingPanelComponent implements OnInit {
   roleInSessionListPart2: RoleInSession[] = new Array();
   roleInSessionListPart3: RoleInSession[] = new Array();
 
-  constructor(private cookieService: CookieService, private sessionService: SessionService) { }
+  constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
 
   ngOnInit(): void {
-
     let sessionUUID = this.cookieService.get('session-uuid');
-    if(sessionUUID != undefined && sessionUUID != null){
+    if (sessionUUID != undefined && sessionUUID != null) {
 
       setInterval(() => {
         this.findSessionByUUID(sessionUUID);
@@ -158,7 +136,11 @@ export class VotingPanelComponent implements OnInit {
     }
   }
 
-  findSessionByUUID(sessionUUID: string){
+  fullScreen() {
+    this.utilService.fullScreen();
+  }
+
+  findSessionByUUID(sessionUUID: string) {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
@@ -167,31 +149,31 @@ export class VotingPanelComponent implements OnInit {
     });
   }
 
-  splitParlamentarList(){
+  splitParlamentarList() {
 
     this.firstHalfParlamentarList = [];
     this.secondHalfParlamentarList = [];
 
     let list = this.session.parlamentarPresenceList;
     for (let i = 0; i < list.length; i++) {
-      if(i % 2 != 0){
+      if (i % 2 != 0) {
         this.firstHalfParlamentarList.push(list[i]);
-      }else{
+      } else {
         this.secondHalfParlamentarList.push(list[i]);
       }
     }
 
   }
 
-  fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
+  fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void {
 
-    for(let i = 0; i < roleInSessionList.length; i++){
+    for (let i = 0; i < roleInSessionList.length; i++) {
 
-      if(i < 4){
+      if (i < 4) {
         this.roleInSessionListPart1.push(roleInSessionList[i]);
-      }else if( i < 8){
+      } else if (i < 8) {
         this.roleInSessionListPart2.push(roleInSessionList[i]);
-      }else if( i < 12){
+      } else if (i < 12) {
         this.roleInSessionListPart3.push(roleInSessionList[i]);
       }
     }
