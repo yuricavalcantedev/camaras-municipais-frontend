@@ -1,16 +1,23 @@
 <div class="box-main">
-  <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header>
+  <!-- <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header> -->
   <div class='page-panel-voting'>
     <div class="sub-header">
-      <div class="sub-header-item" *ngFor="let item of subHeaderItens">
-        <div class="status-info">
-          <div
-            [ngClass]="{'status-yes':item.status=='YES', 'status-no':item.status=='NO', 'status-abs':item.status=='ABSTENTION'}"
-            class="status"></div>
-        </div>
-        <div class="identification">
-          <span class="type">{{item.title}}</span>
-          <span class="last-name-political-party">{{item.lastName}}/{{item.politicalParty}}</span>
+      <div class='sub-header-legislature-photo'>
+        <img
+          src="https://uploaddeimagens.com.br/images/004/285/223/full/municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview.png?1672893176"
+          alt="municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview">
+      </div>
+      <div class="sub-header-itens">
+        <div class="sub-header-item" *ngFor="let item of subHeaderItens">
+          <div class="status-info">
+            <div
+              [ngClass]="{'status-yes':item.status=='YES', 'status-no':item.status=='NO', 'status-abs':item.status=='ABSTENTION'}"
+              class="status"></div>
+          </div>
+          <div class="identification">
+            <span class="type">{{item.title}}</span>
+            <span class="last-name-political-party">{{item.lastName}}/{{item.politicalParty}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -58,6 +65,14 @@
           </div>
           <span class="description">
             Abst
+          </span>
+        </div>
+        <div class="box-total">
+          <div class="quantity status-total">
+            14
+          </div>
+          <span class="description">
+            Total
           </span>
         </div>
       </div>
