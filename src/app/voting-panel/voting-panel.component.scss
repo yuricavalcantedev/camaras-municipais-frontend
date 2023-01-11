@@ -77,6 +77,10 @@
   background-color: var(--app-vote-abs);
 }
 
+.status-neutral {
+  background-color: var(--app-vote-label-color);
+}
+
 .box-main .page-panel-voting .sub-header .sub-header-item .identification {
   display: flex;
   justify-content: space-evenly;

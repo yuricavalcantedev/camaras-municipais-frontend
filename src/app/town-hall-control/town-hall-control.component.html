@@ -111,7 +111,7 @@
                 <div style="margin-top: 20px;">
                     <div class="grid">
                         <div class="col">
-                            <p-button id="open-voting-button" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
+                            <p-button id="open-voting-button" [disabled]="existsOpenVoting" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
                         </div>
                     </div>
                     <p-table [value]="session.subjectList" [(selection)]="selectedSubjectList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">

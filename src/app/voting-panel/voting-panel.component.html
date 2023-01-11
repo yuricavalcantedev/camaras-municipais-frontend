@@ -2,26 +2,26 @@
   <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header>
   <div class='page-panel-voting'>
     <div class="sub-header">
-      <div class="sub-header-item" *ngFor="let item of subHeaderItens">
+      <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
         <div class="status-info">
           <div
-            [ngClass]="{'status-yes':item.status=='YES', 'status-no':item.status=='NO', 'status-abs':item.status=='ABSTENTION'}"
+            [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
             class="status"></div>
         </div>
         <div class="identification">
-          <span class="type">{{item.title}}</span>
-          <span class="last-name-political-party">{{item.lastName}}/{{item.politicalParty}}</span>
+          <span class="type">{{item.role}}</span>
+          <span class="last-name-political-party">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
         </div>
       </div>
     </div>
     <div class="box-body">
       <div class="box-left">
-        <div class="item" *ngFor="let item of bodyItens">
+        <div class="item" *ngFor="let item of parlamentaresTownhall">
           <div class="status-info">
             <div
-              [ngClass]="{'status-yes':item.status=='YES', 'status-no':item.status=='NO', 'status-abs':item.status=='ABSTENTION'}"
+              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
-            <span class="title">{{item.lastName}}/{{item.politicalParty}}</span>
+            <span class="title">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
       <div class="box-votes">
         <div class="box-yes">
           <div class="quantity status-yes">
-            02
+            {{yesCounter}}
           </div>
           <span class="description">
             Sim
@@ -46,7 +46,7 @@
         </div>
         <div class="box-no">
           <div class="quantity status-no">
-            02
+            {{noCounter}}
           </div>
           <span class="description">
             Não
@@ -54,16 +54,15 @@
         </div>
         <div class="box-abs">
           <div class="quantity status-abs">
-            02
+            {{absCounter}}
           </div>
           <span class="description">
             Abst
           </span>
         </div>
       </div>
-      <div class="box-result" [ngClass]="{'status-yes':status=='YES', 'status-no':status=='NO'}"
-      >
-        Rejeitado
+      <div class="box-result" [ngClass]="{'status-yes':status=='YES', 'status-no':status=='NO'}">
+        {{finalResult}}
       </div>
     </div>
   </div>

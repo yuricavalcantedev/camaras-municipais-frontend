@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
-import { RoleInSession } from '../domain/role-session.model';
 import { Session } from '../domain/session.model';
+import { Voting } from '../domain/voting.model';
+import { ParlamentarInfoStatusDTO } from '../dto/parlamentar-info-status-dto.model';
 import { SessionService } from '../service/session.service';
 
 @Component({
@@ -14,111 +14,16 @@ export class VotingPanelComponent implements OnInit {
 
 
   status = "NO"
+  parlamentaresTable: ParlamentarInfoStatusDTO[] = [];
+  parlamentaresTownhall: ParlamentarInfoStatusDTO[] = [];
+  voting: Voting;
 
-  subHeaderItens =  [
-    {
-      status: "NO",
-      title: "Pres.",
-      type: "Vereador",
-      lastName: "João da Silva",
-      politicalParty: "PMDB"
-    },
-    {
-      status: "YES",
-      title: "Vice.",
-      type: "Vereador",
-      lastName: "Marina Candido",
-      politicalParty: "PSDB"
-    },
-    {
-      status: "NO",
-      title: "1ºSec",
-      type: "Vereador",
-      lastName: "Pedro da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      title: "2ºSec",
-      type: "Vereador",
-      lastName: "Pedro da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      title: "3ºSec",
-      type: "Vereador",
-      lastName: "Amanda da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "ABSTENTION",
-      title: "4ºSec",
-      type: "Vereador",
-      lastName: "Carlos da Silva",
-      politicalParty: "PT"
-    }
-  ]
-
-  bodyItens =  [
-    {
-      status: "NO",
-      lastName: "João da Silva",
-      politicalParty: "PMDB"
-    },
-    {
-      status: "YES",
-      lastName: "Marina Candido",
-      politicalParty: "PSDB"
-    },
-    {
-      status: "NO",
-      lastName: "Pedro da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      lastName: "Pedro da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      lastName: "Amanda da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "ABSTENTION",
-      lastName: "Carlos da Silva",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      lastName: "Reginaldo",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      lastName: "Maria Pedroso",
-      politicalParty: "PT"
-    },
-    {
-      status: "NO",
-      lastName: "Jorge da Mata",
-      politicalParty: "PT"
-    },
-    {
-      status: "YES",
-      lastName: "Antonio da Mata",
-      politicalParty: "PT"
-    }
-  ]
+  yesCounter: number = 0;
+  noCounter: number = 0;
+  absCounter: number = 0;
+  finalResult: string = '';
 
   session: Session = null;
-  firstHalfParlamentarList: ParlamentarPresence[] = new Array();
-  secondHalfParlamentarList: ParlamentarPresence[] = new Array();
-  roleInSessionListPart1: RoleInSession[] = new Array();
-  roleInSessionListPart2: RoleInSession[] = new Array();
-  roleInSessionListPart3: RoleInSession[] = new Array();
 
   constructor(private cookieService: CookieService, private sessionService: SessionService) { }
 
@@ -128,7 +33,7 @@ export class VotingPanelComponent implements OnInit {
     if(sessionUUID != undefined && sessionUUID != null){
 
       setInterval(() => {
-        this.findSessionByUUID(sessionUUID);
+        this.findSessionVotingInfoByUUID(sessionUUID);
       }, 3000);
     }
   }
@@ -137,43 +42,46 @@ export class VotingPanelComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
-      this.splitParlamentarList();
-      this.fillRoleInSessionLists(this.session.roleInSessionList);
     });
   }
 
-  splitParlamentarList(){
-
-    this.firstHalfParlamentarList = [];
-    this.secondHalfParlamentarList = [];
-
-    let list = this.session.parlamentarPresenceList;
-    for (let i = 0; i < list.length; i++) {
-      if(i % 2 != 0){
-        this.firstHalfParlamentarList.push(list[i]);
-      }else{
-        this.secondHalfParlamentarList.push(list[i]);
-      }
-    }
-
+  findSessionVotingInfoByUUID(sessionUUID: string){
+    this.sessionService.findSessionVotingInfoByUUID(sessionUUID).subscribe(res => {
+      console.log(res);
+      this.parlamentaresTable = res.parlamentarTableList;
+      this.parlamentaresTownhall = res.parlamentarList;
+      this.voting = res.voting;
+      this.computePartialVotes();
+    });
   }
 
-  fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
+  computePartialVotes(){
+    
+    this.yesCounter = 0;
+    this.noCounter = 0;
+    this.absCounter = 0;
 
-    for(let i = 0; i < roleInSessionList.length; i++){
-
-      if(i < 4){
-        this.roleInSessionListPart1.push(roleInSessionList[i]);
-      }else if( i < 8){
-        this.roleInSessionListPart2.push(roleInSessionList[i]);
-      }else if( i < 12){
-        this.roleInSessionListPart3.push(roleInSessionList[i]);
+    this.parlamentaresTable.forEach(parlamentar => {
+      switch(parlamentar.result){
+        case 'YES': this.yesCounter++;
+        break;
+        case 'NO': this.noCounter++;
+        break;
+        case 'ABSTENTION': this.absCounter++;
+        break;
       }
-    }
+    });
 
-    console.log(this.roleInSessionListPart1);
-    console.log(this.roleInSessionListPart2);
-    console.log(this.roleInSessionListPart3);
+    this.parlamentaresTownhall.forEach(parlamentar => {
+      switch(parlamentar.result){
+        case 'YES': this.yesCounter++;
+        break;
+        case 'NO': this.noCounter++;
+        break;
+        case 'ABSTENTION': this.absCounter++;
+        break;
+      }
+    });
 
   }
 

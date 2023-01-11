@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { environment } from 'src/environments/environment';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { RoleInSession } from '../domain/role-session.model';
@@ -166,7 +165,6 @@ export class TownHallControlComponent implements OnInit {
       
       this.session.votingList.push(newVoting);
       console.log(newVoting);
-      //dividir a lista da sessao em duas e fazer um for em cada lado dessa lista
       this.onHideVotingDialog();
       this.existsOpenVoting = true;
     });
@@ -177,6 +175,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
+      this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
     });
   }
 
@@ -246,7 +245,7 @@ export class TownHallControlComponent implements OnInit {
     this.sessionService.closeVoting(this.session.uuid).subscribe({
       next: res => {
         console.log(res);
-        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votacao encerrada!'});
+        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação encerrada!'});
       },
       error: err => {
         this.messageService.add({severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, fale com o administrador'});

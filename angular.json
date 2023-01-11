@@ -72,7 +72,7 @@
               ]
             }
           },
-          "defaultConfiguration": "local"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -84,7 +84,7 @@
               "browserTarget": "camaras-municipais:build:local"
             }
           },
-          "defaultConfiguration": "local"
+          "defaultConfiguration": "production"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

@@ -10,5 +10,8 @@ export class Voting{
     subjectList: Subject[];
     parlamentarVotingList: ParlamentarVoting[];
     status: string;
-
+    yesCount: number = 0;
+    noCount: number = 0;
+    abstentionCount: number = 0;
+    result : string;
 }

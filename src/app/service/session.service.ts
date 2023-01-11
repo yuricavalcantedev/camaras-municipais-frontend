@@ -8,6 +8,7 @@ import { Voting } from '../domain/voting.model';
 import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SessionDTOCreate } from '../dto/session-dto-create.model';
 import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
+import { SessionVotingInfoDTO } from '../dto/session-voting-info-dto.model';
 import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
 import { VoteDTO } from '../dto/vote-dto.model';
 
@@ -24,6 +25,7 @@ export class SessionService {
   private closeVotingUrl = '/{uuid}/voting/close';
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
+  private findSessionVotingInfoByUUIDURL = '/{uuid}/voting-info';
 
   constructor(private http: HttpClient) {}
   
@@ -69,6 +71,10 @@ export class SessionService {
 
   closeVoting(sessionUUID: string): Observable<any>{
     return this.http.put<any>(this.baseUrl + this.closeVotingUrl.replace('{uuid}', sessionUUID), null);
+  }
+
+  findSessionVotingInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
+    return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionVotingInfoByUUIDURL.replace('{uuid}', sessionUUID));
   }
 
 }
