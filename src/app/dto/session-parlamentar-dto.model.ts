@@ -7,6 +7,7 @@ export class SessionParlamentarDTO{
     saplId: number;
     name: string;
     speakerSessionList: SpeakerSession[];
+    sessionSubjectURL: string;
     voting: Voting;
 
 }
