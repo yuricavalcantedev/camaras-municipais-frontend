@@ -115,6 +115,31 @@ export class VotingPanelComponent implements OnInit {
       lastName: "Antonio da Mata",
       politicalParty: "PT"
     },
+    {
+      status: "ABSTENTION",
+      lastName: "Carlos da Silva",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      lastName: "Reginaldo",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      lastName: "Maria Pedroso",
+      politicalParty: "PT"
+    },
+    {
+      status: "NO",
+      lastName: "Jorge da Mata",
+      politicalParty: "PT"
+    },
+    {
+      status: "YES",
+      lastName: "Antonio da Mata",
+      politicalParty: "PT"
+    },
   ]
 
   session: Session = null;

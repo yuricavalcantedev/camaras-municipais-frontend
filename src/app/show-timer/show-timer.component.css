@@ -35,10 +35,6 @@
   cursor: pointer;
 }
 
-:host ::ng-deep span.p-button-icon.pi.pi-arrows-alt {
-  font-size: 3.2rem !important;
-}
-
 /* BOX LEFT */
 .box-left {
   width: 40%;

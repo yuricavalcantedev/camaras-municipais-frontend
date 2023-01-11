@@ -13,6 +13,14 @@
           class="p-button-outlined"></button>
         </div>
       </div>
+      <div class="ementa">
+        <div class="title">
+          Projeto de Lei Ordinário nº 82de 2022
+        </div>
+        <div class="subtitle">
+          Dispõe sobre a estimativa da receita e fixação da despesa do Município de Aquiráz para o exercício financeiro de 2023
+        </div>
+      </div>
       <div class='voting-options'>
         <div>
           <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-yes" (click)="sendVote('YES')" >
@@ -88,43 +96,5 @@
       </div>
     </div>
   </div>
-  <button pButton  (click)="fullScreen()"  icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+  <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>
-<!-- <div class="grid">
-    <div class="col-12" style="text-align: center; margin: 10px;">
-        {{townHallName}}
-    </div>
-    <div class="col-4" style="background-color: bisque; ">
-            Parlamentar Picture
-    </div>
-    <div class="col-6 no-padding-bot">
-        <div class="grid">
-            <div class="col custom-padding-all-sides">
-                <p-panel header="Painel de Votacao">
-                    <div class="voting-container">
-                        <div class="voting-item">
-                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="SIM" (click)="sendVote('YES')" class="p-button-raised p-button-success button-action"></button>
-                        </div>
-                        <div class="voting-item">
-                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="NAO" (click)="sendVote('NO')"class="p-button-raised p-button-danger button-action"></button>
-                        </div>
-                        <div class="voting-item">
-                          <button pButton pRipple [disabled]="!existsOpenVoting" type="button" label="ABSTER" (click)="sendVote('ABSTENTION')" class="p-button-raised p-button-warning button-action"></button>
-                        </div>
-                      </div>
-                </p-panel>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-2" style="padding: 0;">
-        <div class="col" style="padding: 0 0.5rem">
-            <button pButton pRipple type="button" label="Visualizar - Pauta da Sessao" class="p-button-raised p-button-secondary button-action" (click)="goToSaplSession()"></button>
-            <button pButton pRipple type="button" label="Inscrever-se na lista de oradores" class="p-button-raised p-button-primary button-action" style="margin-top: 20px;" (click)="subscriptionInSpeakerList()"></button>
-        </div>
-    </div>
-    <div class="col-4">
-        <button pButton pRipple type="button" label="Sair" class="p-button-outlined p-button-danger button-action"></button>
-    </div>
-</div>
- -->
