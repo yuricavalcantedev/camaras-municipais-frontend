@@ -9,6 +9,7 @@ import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
 import { VoteDTO } from '../dto/vote-dto.model';
 import { MessageService } from 'primeng/api';
+import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-user-home',
@@ -19,8 +20,7 @@ export class UserHomeComponent implements OnInit {
 
   username: string = '';
   parlamentar: Parlamentar = new Parlamentar();
-  townHallName: string = "Camara municipal de Caninde";  
-  elem: any;
+  townHallName: string = "Camara municipal de Caninde";
   linkSessao: string = "";
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
@@ -28,14 +28,12 @@ export class UserHomeComponent implements OnInit {
   townHallId : number = 0;
   votingOptions: string[] = [];
 
-  constructor(@Inject(DOCUMENT) private document: any,private userService: UserService, private messageService: MessageService,
-  private sessionService: SessionService, private cookieService: CookieService) { }
+  constructor(private userService: UserService, private messageService: MessageService,
+  private sessionService: SessionService, private cookieService: CookieService, private utilService: UtilService) { }
 
 
   ngOnInit(): void {
 
-
-    this.elem = document.documentElement;
     this.votingOptions.push('YES');
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
@@ -82,7 +80,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   subscriptionInSpeakerList(){
-    
+
     let speakerDTO = new SpeakerSubscriptionDTO(this.townHallId, this.parlamentar.id);
     this.sessionService.subscriptionInSpeakerList(this.session.uuid, speakerDTO).subscribe({
       next: data => {
@@ -94,12 +92,12 @@ export class UserHomeComponent implements OnInit {
   }
 
   sendVote(vote: string){
-    
+
     if(this.votingOptions.find(option => option == vote) == undefined){
       
       this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Opcao de voto invalida!'});
     }else{
-      
+
       let parlamentarVotingId = this.findParlamentarVotingId(this.parlamentar.id);
       if(parlamentarVotingId != null){
         let voteDTO = new VoteDTO(parlamentarVotingId, this.parlamentar.id, vote);
@@ -125,19 +123,8 @@ export class UserHomeComponent implements OnInit {
     return parlamentarVoting != null ? parlamentarVoting.id : null;
   }
 
-  openFullscreen() {
-    if (this.elem.requestFullscreen) {
-      this.elem.requestFullscreen();
-    } else if (this.elem.mozRequestFullScreen) {
-      /* Firefox */
-      this.elem.mozRequestFullScreen();
-    } else if (this.elem.webkitRequestFullscreen) {
-      /* Chrome, Safari and Opera */
-      this.elem.webkitRequestFullscreen();
-    } else if (this.elem.msRequestFullscreen) {
-      /* IE/Edge */
-      this.elem.msRequestFullscreen();
-    }
+  fullScreen() {
+    this.utilService.fullScreen();
   }
 
 }

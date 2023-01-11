@@ -1,16 +1,23 @@
 <div class="box-main">
-  <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header>
+  <!-- <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header> -->
   <div class='page-panel-voting'>
     <div class="sub-header">
-      <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
-        <div class="status-info">
-          <div
-            [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
+      <div class='sub-header-legislature-photo'>
+        <img
+          src="https://uploaddeimagens.com.br/images/004/285/223/full/municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview.png?1672893176"
+          alt="municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview">
+      </div>
+      <div class="sub-header-itens">
+        <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
+          <div class="status-info">
+            <div
+            ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
             class="status"></div>
-        </div>
-        <div class="identification">
-          <span class="type">{{item.role}}</span>
-          <span class="last-name-political-party">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+          </div>
+          <div class="identification">
+            <span class="type">{{item.role}}</span>
+            <span class="last-name-political-party">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -60,11 +67,19 @@
             Abst
           </span>
         </div>
+        <div class="box-total">
+          <div class="quantity status-total">
+            14
+          </div>
+          <span class="description">
+            Total
+          </span>
+        </div>
       </div>
       <div class="box-result" [ngClass]="{'status-yes':status=='YES', 'status-no':status=='NO'}">
         {{finalResult}}
       </div>
     </div>
   </div>
-  <button pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+  <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>

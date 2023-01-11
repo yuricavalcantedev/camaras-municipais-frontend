@@ -23,8 +23,8 @@
 }
 
 :host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
-  width: 7rem;
-  height: 7rem;
+  width: 4rem;
+  height: 4rem;
   margin: 0px;
   top: auto;
   right: 20px;
@@ -35,13 +35,9 @@
   cursor: pointer;
 }
 
-:host ::ng-deep span.p-button-icon.pi.pi-arrows-alt {
-  font-size: 3.2rem !important;
-}
-
 /* BOX LEFT */
 .box-left {
-  width: 40%;
+  width: 50%;
   height: 90%;
 
   display: flex;
@@ -55,18 +51,21 @@
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 25px;
 }
 
 /* BOX LEFT */
 /* BOX RIGHT */
 
 .box-main .page-voting .box-right {
-  width: 40%;
+  width: 50%;
   height: 90%;
 
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
+  margin: 25px;
 
   background-color: var(--app-box-voting-background-color);
 
@@ -85,13 +84,11 @@
   font-weight: bold;
   color: var(--app-header-text-color);
   font-size: 32px;
-  display: flex;
-  justify-content: flex-end;
   letter-spacing: 0.03em;
 
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   padding: 20px;
   background-color: var(--app-primary-color);
@@ -103,6 +100,45 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
+.box-main .page-voting .box-right .header .pauta-sessao button {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  color: var(--app-header-text-color);
+  font-size: 80%;
+  letter-spacing: 0.03em;
+}
+
+.box-main .page-voting .box-right .ementa {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  background-color: var(--app-primary-color);
+}
+
+.box-main .page-voting .box-right .ementa .title {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: var(--app-box-right-title-color);
+
+  margin: 1.5rem;
+}
+
+.box-main .page-voting .box-right .ementa .subtitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-size: 2.5rem;
+  color: var(--app-box-right-subtitle-color);
+
+  margin: 1.5rem;
+}
+
 
 .box-main .page-voting .box-right .voting-options {
   display: flex;
@@ -132,7 +168,7 @@
   text-align: center;
   text-transform: uppercase;
 
-  margin-top:  2rem;
+  margin-top: 2rem;
 
 }
 

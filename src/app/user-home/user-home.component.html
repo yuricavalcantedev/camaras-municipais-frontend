@@ -10,6 +10,18 @@
         <div class="title">
           Painel de Votação
         </div>
+        <div class="pauta-sessao">
+          <button pButton type="button" label="Pauta da Sessão"
+          class="p-button-outlined"></button>
+        </div>
+      </div>
+      <div class="ementa">
+        <div class="title">
+          Projeto de Lei Ordinário nº 82de 2022
+        </div>
+        <div class="subtitle">
+          Dispõe sobre a estimativa da receita e fixação da despesa do Município de Aquiráz para o exercício financeiro de 2023
+        </div>
       </div>
       <div class='voting-options'>
         <div>
@@ -66,7 +78,7 @@
         </div>
       </div>
       <div class="footer">
-        <button label="Oradores" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded custom-icon">
+        <button label="Inscrição" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded custom-icon">
           <svg width="107" height="93" viewBox="0 0 107 93" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M38.898 14.6842C44.0562 14.6842 49.0032 16.747 52.6506 20.4187C56.298 24.0905 58.347 29.0705 58.347 34.2632C58.347 39.4558 56.298 44.4358 52.6506 48.1076C49.0032 51.7793 44.0562 53.8421 38.898 53.8421C33.7398 53.8421 28.7929 51.7793 25.1455 48.1076C21.4981 44.4358 19.449 39.4558 19.449 34.2632C19.449 29.0705 21.4981 24.0905 25.1455 20.4187C28.7929 16.747 33.7398 14.6842 38.898 14.6842ZM38.898 63.6316C51.8802 63.6316 77.796 70.1905 77.796 83.2105V93H0L0 83.2105C0 70.1905 25.9158 63.6316 38.898 63.6316ZM76.6291 16.4463C86.4509 27.2147 86.4509 42.1437 76.6291 52.031L68.4605 43.7589C72.5448 37.9832 72.5448 30.4942 68.4605 24.7184L76.6291 16.4463ZM92.7232 0C111.832 19.8237 111.686 49.4858 92.7232 68.5263L84.7977 60.5479C98.2661 44.9826 98.2661 22.7605 84.7977 7.97842L92.7232 0Z"
@@ -86,5 +98,5 @@
       </div>
     </div>
   </div>
-  <button pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded" (click)="openFullscreen()"></button>
+  <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>

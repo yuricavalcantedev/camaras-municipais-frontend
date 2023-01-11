@@ -4,6 +4,7 @@ import { Session } from '../domain/session.model';
 import { Voting } from '../domain/voting.model';
 import { ParlamentarInfoStatusDTO } from '../dto/parlamentar-info-status-dto.model';
 import { SessionService } from '../service/session.service';
+import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-voting-panel',
@@ -12,6 +13,8 @@ import { SessionService } from '../service/session.service';
 })
 export class VotingPanelComponent implements OnInit {
 
+
+  inFullScren = false
 
   status = "NO"
   parlamentaresTable: ParlamentarInfoStatusDTO[] = [];
@@ -25,12 +28,11 @@ export class VotingPanelComponent implements OnInit {
 
   session: Session = null;
 
-  constructor(private cookieService: CookieService, private sessionService: SessionService) { }
+  constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
 
   ngOnInit(): void {
-
     let sessionUUID = this.cookieService.get('session-uuid');
-    if(sessionUUID != undefined && sessionUUID != null){
+    if (sessionUUID != undefined && sessionUUID != null) {
 
       setInterval(() => {
         this.findSessionVotingInfoByUUID(sessionUUID);
@@ -38,7 +40,11 @@ export class VotingPanelComponent implements OnInit {
     }
   }
 
-  findSessionByUUID(sessionUUID: string){
+  fullScreen() {
+    this.utilService.fullScreen();
+  }
+
+  findSessionByUUID(sessionUUID: string) {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;

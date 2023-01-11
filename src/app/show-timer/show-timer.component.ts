@@ -20,9 +20,9 @@ export class ShowTimerComponent implements OnInit {
   townHall: TownHall = new TownHall();
   parlamentarAParte: Parlamentar = new Parlamentar();
   timeDescription: string = "";
-  
+
   isMainTimerRunning: boolean = false;
-  
+
   mainTextMinutes: any;
   mainTextSeconds: any;
 
@@ -42,17 +42,17 @@ export class ShowTimerComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
     this.utilService.updateTransmitir.subscribe(value => {
-      
+
       this.utilTimer = this.utilService.getUtilShowTimer();
       this.timeDescription = this.utilTimer.getTimeDescription();
-      this.townHall = this.utilTimer.getTownHall();      
-      
+      this.townHall = this.utilTimer.getTownHall();
+
       console.log(this.utilTimer);
       this.clearSubTimer();
       this.parlamentar = this.utilTimer.getParlamentar();
-      
+
       if(this.utilTimer.getFinishMainTimer()){
         console.log(1);
         this.clearMainTimer();
@@ -84,7 +84,7 @@ export class ShowTimerComponent implements OnInit {
   }
 
   mainTimer(timeInSeconds: number) {
-    
+
     let minutes: number = 0;
     let seconds: number = timeInSeconds;
 
@@ -95,17 +95,17 @@ export class ShowTimerComponent implements OnInit {
     }else{
       seconds = timeInSeconds;
     }
-    
+
     console.log('main timer', minutes, timeInSeconds);
 
     this.mainTimerInterval = setInterval(() => {
-      
+
       seconds = (seconds == 0) ? 59 : --seconds;
       minutes = seconds == 0 ? --minutes : minutes;
 
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
-      
+
       if (minutes == -1 && seconds == 0) {
         this.clearMainTimer();
         this.soundService.playSound();
@@ -113,14 +113,8 @@ export class ShowTimerComponent implements OnInit {
     }, 750);
   }
 
-  toggleFullScreen() {
-    console.log("FullScreen Called")
-    this.utilService.toggleFullScreen(document.body)
-  }
-
-
   clearMainTimer(){
-    
+
     this.isMainTimerRunning = false;
     this.mainTextMinutes = '00';
     this.mainTextSeconds = '00';
@@ -133,7 +127,7 @@ export class ShowTimerComponent implements OnInit {
       this.subTextMinutes = '00';
       this.subTextSeconds = '00';
       clearInterval(this.subTimerInterval);
-      
+
   }
 
   subTimer(timeInSeconds: number){
@@ -150,7 +144,7 @@ export class ShowTimerComponent implements OnInit {
     }
 
     this.subTimerInterval = setInterval(() => {
-      
+
       seconds = (seconds == 0) ? 59 : --seconds;
       minutes = seconds == 0 ? --minutes : minutes;
 
@@ -162,5 +156,10 @@ export class ShowTimerComponent implements OnInit {
       }
     }, 750);
   }
+
+  fullScreen() {
+    this.utilService.fullScreen();
+  }
+
 
 }
