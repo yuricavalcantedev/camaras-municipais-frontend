@@ -10,6 +10,7 @@ import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
 import { VoteDTO } from '../dto/vote-dto.model';
 import { MessageService } from 'primeng/api';
 import { UtilService } from '../service/util.service';
+import { Voting } from '../domain/voting.model';
 
 @Component({
   selector: 'app-user-home',
@@ -27,6 +28,10 @@ export class UserHomeComponent implements OnInit {
   existsOpenVoting: boolean = false;
   townHallId : number = 0;
   votingOptions: string[] = [];
+  voting: Voting;
+
+  votingTitle:string = '';
+  votingSubTitle: string = '';
 
   constructor(private userService: UserService, private messageService: MessageService,
   private sessionService: SessionService, private cookieService: CookieService, private utilService: UtilService) { }
@@ -38,7 +43,6 @@ export class UserHomeComponent implements OnInit {
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
 
-    this.linkSessao = "https://sapl.caninde.ce.leg.br/sessao/pauta-sessao/83/";
     this.townHallId = Number.parseInt( this.cookieService.get('user-townhall-id'));
 
     this.username = this.cookieService.get('user-username');
@@ -58,9 +62,11 @@ export class UserHomeComponent implements OnInit {
     this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {
       if(res != null){
         this.session = res;
+        this.voting = this.session.voting;
+        this.linkSessao = this.session.sessionSubjectURL;
         this.checkIfExistsOpenVoting();
         this.updatePresence();
-        console.log(this.session);
+        this.setTitleAndSubTitle();
       }
     }, error => {
       console.log(error);
@@ -75,7 +81,7 @@ export class UserHomeComponent implements OnInit {
 
     let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, 'PRESENCE');
     this.sessionService.updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO).subscribe(() =>{
-      // mostrar alguma mensagem dizendo quer o vereador foi logado com sucesso?
+      
     });
   }
 
@@ -125,6 +131,17 @@ export class UserHomeComponent implements OnInit {
 
   fullScreen() {
     this.utilService.fullScreen();
+  }
+
+  setTitleAndSubTitle(){
+    if(this.voting.subjectList.length == 1){
+      this.votingTitle = this.voting.subjectList[0].description;
+      this.votingSubTitle = '';
+    }else{
+      this.votingTitle = 'Votação em bloco';
+      let subTitleSplitAux = this.voting.subjectList[0].description.split('-')[1];
+      this.votingSubTitle = subTitleSplitAux.split('nº')[0];
+    }
   }
 
 }

@@ -25,6 +25,8 @@ export class VotingPanelComponent implements OnInit {
   noCounter: number = 0;
   absCounter: number = 0;
   finalResult: string = '';
+  votingTitle:string = '';
+  votingSubTitle: string = '';
 
   session: Session = null;
 
@@ -53,7 +55,6 @@ export class VotingPanelComponent implements OnInit {
 
   findSessionVotingInfoByUUID(sessionUUID: string){
     this.sessionService.findSessionVotingInfoByUUID(sessionUUID).subscribe(res => {
-      console.log(res);
       this.parlamentaresTable = res.parlamentarTableList;
       this.parlamentaresTownhall = res.parlamentarList;
       this.voting = res.voting;
