@@ -170,6 +170,8 @@
 
   overflow-y: scroll;
   margin-right: 12.5px;
+  padding-top:25px;
+  padding-bottom:25px;
 
   -webkit-border-radius: 2rem;
   -moz-border-radius: 2rem;
@@ -214,7 +216,7 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   color: var(--app-vote-panel-label-color);
   margin-left: 2rem;
 }
@@ -233,6 +235,8 @@
   flex-direction: column;
 
   margin-left: 12.5px;
+  padding-top:25px;
+  padding-bottom:25px;
 
   background-color: var(--app-primary-color);
 
