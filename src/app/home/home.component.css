@@ -10,7 +10,7 @@
     width: 10rem;
 }
 
-:host ::ng-deep .p-card-body{  
+:host ::ng-deep .p-card-body{
   background-color: bisque;
 }
 
@@ -25,7 +25,7 @@
     margin: 2rem;
     border-radius: 4px;
   }
-  
+
   /* Grid boxes */
   .grid-box {
     background-color: #eee;
@@ -35,7 +35,7 @@
     border-radius: 4px;
     margin-bottom: 2rem;
   }
-  
+
   .grid-box:nth-child(odd) {
     background-color: #ddd;
   }

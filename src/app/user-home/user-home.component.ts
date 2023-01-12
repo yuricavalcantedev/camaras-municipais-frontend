@@ -32,6 +32,7 @@ export class UserHomeComponent implements OnInit {
 
   votingTitle:string = '';
   votingSubTitle: string = '';
+  parlamentarUserType = 'P'
 
   constructor(private userService: UserService, private messageService: MessageService,
   private sessionService: SessionService, private cookieService: CookieService, private utilService: UtilService) { }
@@ -55,6 +56,10 @@ export class UserHomeComponent implements OnInit {
       this.findSessionTodayByTownhall(this.townHallId);
     }, 3000);
 
+  }
+
+  getLabelButtonBasedUser() {
+    return this.parlamentarUserType == 'U' ? 'Lista de Inscritos' :'Inscrição';
   }
 
   findSessionTodayByTownhall(townHallId: number){
@@ -81,7 +86,7 @@ export class UserHomeComponent implements OnInit {
 
     let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, 'PRESENCE');
     this.sessionService.updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO).subscribe(() =>{
-      
+
     });
   }
 
@@ -100,14 +105,14 @@ export class UserHomeComponent implements OnInit {
   sendVote(vote: string){
 
     if(this.votingOptions.find(option => option == vote) == undefined){
-      
+
       this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Opcao de voto invalida!'});
     }else{
 
       let parlamentarVotingId = this.findParlamentarVotingId(this.parlamentar.id);
       if(parlamentarVotingId != null){
         let voteDTO = new VoteDTO(parlamentarVotingId, this.parlamentar.id, vote);
-        
+
         this.sessionService.computeVote(this.session.uuid, voteDTO).subscribe({
           next: data => {
             this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Seu voto foi contabilizado com exito!'});

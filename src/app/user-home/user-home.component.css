@@ -214,6 +214,10 @@
 }
 
 .box-main .page-voting .box-right .footer button {
+  padding-left: 25px;
+ }
+
+.box-main .page-voting .box-right .footer button {
   width: 100%;
   height: 100px;
   font-family: "Montserrat";
