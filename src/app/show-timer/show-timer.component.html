@@ -12,25 +12,25 @@
           {{timeDescription}}
         </div>
       </div>
-      <div class='stopwatch'>
-        <div class='stopwatch-in'>
+      <div class="stopwatch" [ngClass]="{'stopwatch-a-parte':showAParteTime==true}">
+        <div>
+          <div class='hide' [ngClass]="{'stopwatch-in-part-time':showAParteTime==true}">
+            {{subTextMinutes}}:{{subTextSeconds}}
+          </div>
+          <div [ngClass]="{'hide':showAParteTime==false, 'a-parte-info':showAParteTime==true}">
+            {{parlamentarNameSubTimer}}/{{parlamentarAParte.politicalParty}}
+          </div>
+        </div>
+        <div [ngClass]="{'hide':showAParteTime==true, 'stopwatch-in':showAParteTime==false}">
           {{mainTextMinutes}}:{{mainTextSeconds}}
         </div>
       </div>
       <div class="footer" *ngIf="showAParteTime">
-        <div class="footer-info">
-          <div class="footer-sub-name">
-            {{parlamentarNameSubTimer}}
-          </div>
-          <div class='footer-electoral-party'>
-            {{parlamentarAParte.politicalParty}}
-          </div>
-        </div>
         <div class="footer-time">
-          {{subTextMinutes}} : {{subTextSeconds}}
+          {{mainTextMinutes}}:{{mainTextSeconds}}
         </div>
       </div>
     </div>
   </div>
-  <button pButton  (click)="fullScreen()"  icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+  <button pButton (click)="fullScreen()" icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>
