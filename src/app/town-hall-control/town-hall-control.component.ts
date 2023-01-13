@@ -117,7 +117,8 @@ export class TownHallControlComponent implements OnInit {
 
   openEletronicPanel(){
     if(environment.production){
-      window.open('https://camaras-municipais-frontend-dj1zbf7ou-yuricavalcantedev.vercel.app/painel-votacao', "_blank");
+      console.log('.');
+      window.open('https://camaras-municipais-frontend.vercel.app/painel-votacao', "_blank");
     }else{
       window.open('http://localhost:4200/painel-votacao', "_blank");
     }
