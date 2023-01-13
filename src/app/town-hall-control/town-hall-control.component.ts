@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Console } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { env } from 'process';
+import { environment } from 'src/environments/environment';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { RoleInSession } from '../domain/role-session.model';
@@ -113,7 +116,13 @@ export class TownHallControlComponent implements OnInit {
   }
 
   openEletronicPanel(){
-    window.open('http://localhost:4200/painel-votacao', "_blank");
+    if(environment.production){
+      window.open('https://camaras-municipais-frontend-dj1zbf7ou-yuricavalcantedev.vercel.app/painel-votacao', "_blank");
+    }else{
+      window.open('http://localhost:4200/painel-votacao', "_blank");
+    }
+
+    
   }
 
   onSubmit(){
@@ -189,13 +198,13 @@ export class TownHallControlComponent implements OnInit {
   }
 
   onTransmitir(parlamentar: Parlamentar){
-    
     this.utilService.getUtilShowTimer().setParlamentar(parlamentar);
     this.updateParlamentar.emit(true);
   }
 
-  openModalWithTime(){
-
+  onAParte(parlamentar: Parlamentar){
+    this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
+    this.updateFlagTransmitir.emit(true);
   }
 
   onFinalizarTempo(){
@@ -221,10 +230,6 @@ export class TownHallControlComponent implements OnInit {
     
   }
 
-  onAParte(parlamentar: Parlamentar){
-    this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
-    this.utilService.changeTransmitirData(true);
-  }
 
   fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
 
