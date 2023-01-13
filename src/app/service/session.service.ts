@@ -74,6 +74,8 @@ export class SessionService {
   }
 
   findSessionVotingInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
+    console.log(sessionUUID);
+    console.log(this.findSessionVotingInfoByUUIDURL.replace('{uuid}', sessionUUID));
     return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionVotingInfoByUUIDURL.replace('{uuid}', sessionUUID));
   }
 
