@@ -48,3 +48,8 @@
     height: 75%;
     background-color: whitesmoke;
 }
+
+
+:host ::ng-deep .aux .p-card-body{
+    background-color: bisque;
+}

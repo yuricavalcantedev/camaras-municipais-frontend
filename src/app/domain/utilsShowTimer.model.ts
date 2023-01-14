@@ -11,9 +11,7 @@ export class UtilShowTimer{
     private finishMainTimer: boolean = false;
     private finishAParteTimer: boolean = false;
 
-    constructor(){
-        this.parlamentarAParte = null;
-    }
+    constructor(){ }
 
     setParlamentar(parlamentar: Parlamentar){
         if(parlamentar != null && parlamentar != undefined){
@@ -40,7 +38,9 @@ export class UtilShowTimer{
     getTimeDescription(){ return this.timeDescription; }
 
     setParlamentarAParte(parlamentar: Parlamentar){
-        this.parlamentarAParte = parlamentar;
+        if(parlamentar != null && parlamentar != undefined){
+            this.parlamentarAParte = parlamentar;
+        }
     }
 
     getParlamentarAParte(){ return this.parlamentarAParte; }

@@ -24,7 +24,7 @@
       </div>
       <div class='voting-options'>
         <div>
-          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-yes" (click)="sendVote('YES')" >
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-yes"  [ngStyle]="{backgroundColor: getDisableColor()}" [disabled]="!existsOpenVoting" (click)="sendVote('YES')" >
             <svg width="80" height="90" viewBox="0 0 142 123" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M76.76 2.81047L41.6733 37.8971C39.33 40.2405 38 43.4705 38 46.8271V110.097C38 117.064 43.7 122.764 50.6667 122.764H107.667C112.733 122.764 117.293 119.724 119.32 115.1L139.967 66.9038C145.287 54.3638 136.103 40.4305 122.487 40.4305H86.7033L92.72 11.4238C93.3533 8.25714 92.4033 5.02713 90.1233 2.74713C86.3867 -0.926199 80.4333 -0.926199 76.76 2.81047ZM12.6667 122.764C19.6333 122.764 25.3333 117.064 25.3333 110.097V59.4305C25.3333 52.4638 19.6333 46.7638 12.6667 46.7638C5.7 46.7638 0 52.4638 0 59.4305L0 110.097C0 117.064 5.7 122.764 12.6667 122.764Z"
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div>
-          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-no" (click)="sendVote('NO')" >
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-no" [ngStyle]="{backgroundColor: getDisableColor()}" [disabled]="!existsOpenVoting" (click)="sendVote('NO')" >
             <svg width="80" height="90" viewBox="0 0 142 123" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M64.7065 119.953L99.7298 84.8667C102.073 82.5233 103.403 79.2933 103.403 75.9367V12.6667C103.403 5.7 97.7031 0 90.7365 0L33.7998 0C28.7332 0 24.1732 3.04 22.2098 7.66333L1.56315 55.86C-3.82018 68.4 5.36315 82.3333 18.9798 82.3333H54.7632L48.7465 111.34C48.1131 114.507 49.0632 117.737 51.3432 120.017C55.0798 123.69 61.0332 123.69 64.7065 119.953ZM128.8 0C121.833 0 116.133 5.7 116.133 12.6667V63.3333C116.133 70.3 121.833 76 128.8 76C135.766 76 141.466 70.3 141.466 63.3333V12.6667C141.466 5.7 135.766 0 128.8 0Z"
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div>
-          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-abs" (click)="sendVote('ABSTENTION')" >
+          <button pButton class="p-button-raised p-button-rounded custom-icon-rounded vote-abs" [ngStyle]="{backgroundColor: getDisableColor()}" [disabled]="!existsOpenVoting" (click)="sendVote('ABSTENTION')" >
             <svg width="157" height="27" viewBox="0 0 157 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_1428_40)">
                 <path
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="footer">
-        <button *ngIf="parlamentarUserType!='U'" label="{{getLabelButtonBasedUser()}}" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded custom-icon">
+        <button *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'" label="{{getLabelButtonBasedUser()}}" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded custom-icon">
           <svg width="107" height="93" viewBox="0 0 107 93" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M38.898 14.6842C44.0562 14.6842 49.0032 16.747 52.6506 20.4187C56.298 24.0905 58.347 29.0705 58.347 34.2632C58.347 39.4558 56.298 44.4358 52.6506 48.1076C49.0032 51.7793 44.0562 53.8421 38.898 53.8421C33.7398 53.8421 28.7929 51.7793 25.1455 48.1076C21.4981 44.4358 19.449 39.4558 19.449 34.2632C19.449 29.0705 21.4981 24.0905 25.1455 20.4187C28.7929 16.747 33.7398 14.6842 38.898 14.6842ZM38.898 63.6316C51.8802 63.6316 77.796 70.1905 77.796 83.2105V93H0L0 83.2105C0 70.1905 25.9158 63.6316 38.898 63.6316ZM76.6291 16.4463C86.4509 27.2147 86.4509 42.1437 76.6291 52.031L68.4605 43.7589C72.5448 37.9832 72.5448 30.4942 68.4605 24.7184L76.6291 16.4463ZM92.7232 0C111.832 19.8237 111.686 49.4858 92.7232 68.5263L84.7977 60.5479C98.2661 44.9826 98.2661 22.7605 84.7977 7.97842L92.7232 0Z"
@@ -87,7 +87,7 @@
               transform="rotate(-90 66.2417 84.8432)" fill="white" />
           </svg>
         </button>
-        <button *ngIf="parlamentarUserType=='U'" label="{{getLabelButtonBasedUser()}}" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded">
+        <button *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'" label="{{getLabelButtonBasedUser()}}" pButton (click)="subscriptionInSpeakerList()" class="p-button-raised p-button-rounded">
           <svg width="32" height="25" viewBox="0 0 32 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="6.69768" width="32" height="4.09302" rx="2.04651" fill="white"/>
             <rect y="6.69768" width="32" height="4.09302" rx="2.04651" fill="white"/>

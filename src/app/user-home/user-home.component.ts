@@ -11,6 +11,8 @@ import { VoteDTO } from '../dto/vote-dto.model';
 import { MessageService } from 'primeng/api';
 import { UtilService } from '../service/util.service';
 import { Voting } from '../domain/voting.model';
+import { Router } from '@angular/router';
+import { ParlamentarShortDTO } from '../dto/parlamentar-short-dto.model';
 
 @Component({
   selector: 'app-user-home',
@@ -20,7 +22,7 @@ import { Voting } from '../domain/voting.model';
 export class UserHomeComponent implements OnInit {
 
   username: string = '';
-  parlamentar: Parlamentar = new Parlamentar();
+  parlamentar: ParlamentarShortDTO = new ParlamentarShortDTO();
   townHallName: string = "Camara municipal de Caninde";
   linkSessao: string = "";
   session: SessionParlamentarDTO;
@@ -35,7 +37,7 @@ export class UserHomeComponent implements OnInit {
   parlamentarUserType = 'P'
 
   constructor(private userService: UserService, private messageService: MessageService,
-  private sessionService: SessionService, private cookieService: CookieService, private utilService: UtilService) { }
+  private sessionService: SessionService, private cookieService: CookieService, private router: Router, private utilService: UtilService) { }
 
 
   ngOnInit(): void {
@@ -44,11 +46,12 @@ export class UserHomeComponent implements OnInit {
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
 
-    this.townHallId = Number.parseInt( this.cookieService.get('user-townhall-id'));
+    this.townHallId = Number.parseInt(this.cookieService.get('user-townhall-id'));
 
     this.username = this.cookieService.get('user-username');
     this.userService.findByUsername(this.username).subscribe(res => {
       this.parlamentar = res;
+      console.log(this.parlamentar);
     });
 
 
@@ -59,7 +62,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   getLabelButtonBasedUser() {
-    return this.parlamentarUserType == 'U' ? 'Lista de Inscritos' :'Inscrição';
+    return this.parlamentar.role.name == 'ROLE_MODERATOR_VIEW' ? 'Lista de Inscritos' :'Inscrição';
   }
 
   findSessionTodayByTownhall(townHallId: number){
@@ -69,17 +72,17 @@ export class UserHomeComponent implements OnInit {
         this.session = res;
         this.voting = this.session.voting;
         this.linkSessao = this.session.sessionSubjectURL;
-        this.checkIfExistsOpenVoting();
+        this.existsOpenVoting = this.session.voting != null && this.session.voting.status == 'VOTING';
         this.updatePresence();
-        this.setTitleAndSubTitle();
+
+        if(this.existsOpenVoting){
+          this.setTitleAndSubTitle();
+        }
+
       }
     }, error => {
       console.log(error);
     });
-  }
-
-  checkIfExistsOpenVoting(){
-    this.existsOpenVoting = this.session.voting != null && this.session.voting.status == 'VOTING';
   }
 
   updatePresence(){
@@ -124,6 +127,11 @@ export class UserHomeComponent implements OnInit {
     }
   }
 
+  signOut(){
+    this.cookieService.deleteAll();
+    this.router.navigate(['home']);
+  }
+
   goToSaplSession(){
     window.open(this.linkSessao, "_blank");
   }
@@ -147,6 +155,10 @@ export class UserHomeComponent implements OnInit {
       let subTitleSplitAux = this.voting.subjectList[0].description.split('-')[1];
       this.votingSubTitle = subTitleSplitAux.split('nº')[0];
     }
+  }
+
+  getDisableColor(){
+    return this.existsOpenVoting ? '' : 'gray';
   }
 
 }

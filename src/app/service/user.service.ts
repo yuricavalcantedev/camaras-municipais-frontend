@@ -5,6 +5,7 @@ import { Observable, retry, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { User } from '../domain/user.model';
+import { ParlamentarShortDTO } from '../dto/parlamentar-short-dto.model';
 import { UserDTOUpdatePassword } from '../dto/user-dto-update-password.model';
 import { UserDTO } from '../dto/user-dto.model';
 
@@ -34,8 +35,8 @@ export class UserService {
       .pipe(retry(1), catchError(this.errorHandl));
   }
 
-  findByUsername(username: string): Observable<Parlamentar>{
-    return this.http.get<Parlamentar>(this.baseUrl + '/' + username);
+  findByUsername(username: string): Observable<ParlamentarShortDTO>{
+    return this.http.get<ParlamentarShortDTO>(this.baseUrl + '/' + username);
   }
 
   delete(id: number) : Observable<any> {
@@ -44,6 +45,8 @@ export class UserService {
       .delete<User>(this.baseUrl + "/" + id)
       .pipe(retry(1), catchError(this.errorHandl));
   }
+
+  
 
   errorHandl(error: any) {
     let errorMessage = '';

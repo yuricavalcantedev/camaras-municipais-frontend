@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
           break;
           case 'ROLE_USER': this.router.navigate(['home']);
           break;
+          case 'ROLE_MODERATOR_VIEW': this.router.navigate(['home']);
+          break;
         }
       },
   

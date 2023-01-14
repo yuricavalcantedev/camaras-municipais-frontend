@@ -6,6 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Role } from '../domain/role.model';
 import { TownHall } from '../domain/townhall.model';
 import { User } from '../domain/user.model';
+import { UpdateUserRoleDTO } from '../dto/update-user-role-dto.model';
 import { UserDTO } from '../dto/user-dto.model';
 import { FormResetPasswordComponent } from '../form-reset-password/form-reset-password.component';
 import { RoleService } from '../service/role.service';
@@ -195,4 +196,3 @@ export class AdminUsersComponent implements OnInit {
   }
 
 }
-

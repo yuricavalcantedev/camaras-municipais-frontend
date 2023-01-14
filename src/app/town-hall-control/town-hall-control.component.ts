@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Console } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { env } from 'process';
 import { environment } from 'src/environments/environment';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
@@ -11,12 +9,13 @@ import { RoleInSession } from '../domain/role-session.model';
 import { Session } from '../domain/session.model';
 import { Subject } from '../domain/subject.model';
 import { TownHall } from '../domain/townhall.model';
+import { ParlamentarTimer } from '../dto/parlamentar-timer.model';
 import { SessionDTOCreate } from '../dto/session-dto-create.model';
 import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
+import { Timer } from '../interfaces/timers';
 import { ParlamentarService } from '../service/parlamentar.service';
 import { SessionService } from '../service/session.service';
 import { TownHallService } from '../service/townhall.service';
-import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-town-hall-control',
@@ -42,6 +41,12 @@ export class TownHallControlComponent implements OnInit {
   existsOpenVoting: boolean = false;
   loading: boolean = false;
   disableParlamentarDropdown = true;
+  isShowTimerTabOpen: boolean = false;
+
+  timers: Timer [];
+  selectedTimer: Timer;
+  expediente:string;
+  disableInput: boolean = true;
   
 
   sessionUUID: string = '';
@@ -55,8 +60,25 @@ export class TownHallControlComponent implements OnInit {
   @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
-  constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private cookieService: CookieService, 
-    private utilService: UtilService, private messageService: MessageService, private sessionService: SessionService) {
+  constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private cookieService: CookieService,
+    private messageService: MessageService, private sessionService: SessionService) {
+
+      this.selectedTimer = null;
+      this.timers = [
+        {label: "00:30", minutes: 0, seconds:30},
+        {label: "01:00", minutes: 1, seconds:0},
+        {label: "02:00", minutes: 2, seconds:0},
+        {label: "03:00", minutes: 3, seconds:0},
+        {label: "05:00", minutes: 5, seconds:0},
+        {label: "10:00", minutes: 10, seconds:0},
+        {label: "15:00", minutes: 15, seconds:0},
+        {label: "30:00", minutes: 30, seconds:0},
+        {label: "45:00", minutes: 45, seconds:0},
+        {label: "60:00", minutes: 60, seconds:0}
+      ];
+
+      this.expediente = "Grande Expediente";
+      this.clearParlamentarTimerInfoFromCookies();
 
   }
 
@@ -77,7 +99,7 @@ export class TownHallControlComponent implements OnInit {
       next: data => {
           this.townhall = data;
           this.townHallCityName = this.townhall.city;
-          this.utilService.getUtilShowTimer().setTownHall(this.townhall);
+          this.cookieService.set('townHallCityName', this.townHallCityName);
         },
         error: error => {
           this.messageService.add({severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
@@ -87,9 +109,6 @@ export class TownHallControlComponent implements OnInit {
     this.form = new FormGroup({
       id:new FormControl('', [Validators.required]),
     });
-
-    //the buttons will start disabled
-    this.updateFlagTransmitir.emit(true);    
     
   }
 
@@ -117,13 +136,10 @@ export class TownHallControlComponent implements OnInit {
 
   openEletronicPanel(){
     if(environment.production){
-      console.log('.');
       window.open('https://camaras-municipais-frontend.vercel.app/painel-votacao', "_blank");
     }else{
       window.open('http://localhost:4200/painel-votacao', "_blank");
     }
-
-    
   }
 
   onSubmit(){
@@ -171,21 +187,33 @@ export class TownHallControlComponent implements OnInit {
   onOpeningVoting(){
 
     let subjectDTOList = this.selectedSubjectList.map((subject) => new SubjectVotingDTO(subject));
-    this.sessionService.createVoting(this.session.uuid, subjectDTOList).subscribe((newVoting)=>{
+    this.sessionService.createVoting(this.session.uuid, subjectDTOList).subscribe({
+      next: data => {
+        this.session.votingList.push(data);
+        this.onHideVotingDialog();
+        this.existsOpenVoting = true;
+      }, error: error => {
+        //do nothing
+      }
       
-      this.session.votingList.push(newVoting);
-      console.log(newVoting);
-      this.onHideVotingDialog();
-      this.existsOpenVoting = true;
     });
     
   }
 
   findSessionByUUID(sessionUUID: string){
 
-    this.sessionService.findByUUID(sessionUUID).subscribe(res => {
-      this.session = res;
-      this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+    this.sessionService.findByUUID(sessionUUID).subscribe({
+      next: data => {
+        this.session = data;
+        if(this.session.votingList.length == 0){
+          this.existsOpenVoting = false;
+        }else{
+          this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+        }
+      },
+      error: error => {
+        //do nothing
+      }
     });
   }
 
@@ -193,33 +221,57 @@ export class TownHallControlComponent implements OnInit {
 
     this.selectedParlamentarPresenceList = [];
     this.selectedParlamentarPresenceList.push(item);
-    this.utilService.getUtilShowTimer().setParlamentar(item.parlamentar);
-    this.updateFlagTransmitir.emit(false);
 
   }
 
   onTransmitir(parlamentar: Parlamentar){
-    this.utilService.getUtilShowTimer().setParlamentar(parlamentar);
-    this.updateParlamentar.emit(true);
+
+    let parlamentarTimer = new ParlamentarTimer();
+    parlamentarTimer.buildFromParlamentar(parlamentar);
+    parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
+
+    console.log(JSON.stringify(parlamentarTimer));
+    this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
+
+    if(!this.isShowTimerTabOpen){
+      this.isShowTimerTabOpen = true;
+
+      if(environment.production){
+        window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
+      }else{
+        window.open('http://localhost:4200/mostrarTempo', "_blank");
+      }
+    }
+
   }
 
   onAParte(parlamentar: Parlamentar){
-    this.utilService.getUtilShowTimer().setParlamentarAParte(parlamentar);
-    this.updateFlagTransmitir.emit(true);
+    
+    let parlamentarTimer = new ParlamentarTimer();
+    parlamentarTimer.buildFromParlamentar(parlamentar);
+    parlamentarTimer.timeToSpeak = 120;
+
+    this.cookieService.set('parlamentarAParteObject', JSON.stringify(parlamentarTimer));
   }
 
   onFinalizarTempo(){
-    
-    this.utilService.getUtilShowTimer().setFinishMainTimer(true);
-    this.updateParlamentar.emit(true);
-
+    this.cookieService.set('endMainTimer', 'true');
   }
 
   onFinalizarAParte(){
+    this.cookieService.set('endSubTimer', 'true');
+  }
 
-      this.utilService.getUtilShowTimer().setFinishAParteTimer(true);
-      this.updateParlamentar.emit(true);
+  clearParlamentarTimerInfoFromCookies(){
 
+    this.cookieService.set('parlamentarObject', '');
+    this.cookieService.set('parlamentarAParteObject', '');
+    this.cookieService.set('endMainTimer', 'false');
+    this.cookieService.set('endSubTimer', 'false');
+  }
+
+  chooseExpediente(flag: boolean){
+    this.disableInput = flag;
   }
   
   onTownHallChange(){
@@ -228,7 +280,6 @@ export class TownHallControlComponent implements OnInit {
     this.parlamentarList = [];
     this.selectedParlamentarPresence = new ParlamentarPresence();
     this.disableParlamentarDropdown = false;
-    
   }
 
 

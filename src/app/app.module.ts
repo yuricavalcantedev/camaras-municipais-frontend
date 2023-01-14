@@ -25,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
 import {TooltipModule} from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
+import { ChipModule } from 'primeng/chip';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -43,7 +44,6 @@ import { ParlamentarService } from './service/parlamentar.service';
 import { TownHallService } from './service/townhall.service';
 import { RoleService } from './service/role.service';
 import { LoginService } from './service/login.service';
-import { PopoutService } from './service/popout.service';
 import { SoundService } from './service/sound.service';
 import { UtilService } from './service/util.service';
 
@@ -83,6 +83,7 @@ import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
     PasswordModule,
     ToastModule,
     FormsModule,
+    ChipModule,
     TableModule,
     RippleModule,
     ButtonModule,
@@ -97,7 +98,7 @@ import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ParlamentarService, TownHallService, PopoutService, RoleService, SoundService, UtilService, MessageService, LoginService, CookieService],
+  providers: [ParlamentarService, TownHallService, RoleService, SoundService, UtilService, MessageService, LoginService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

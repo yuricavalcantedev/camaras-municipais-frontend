@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable, retry, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Parlamentar } from '../domain/parlamentar.model';
+import { UpdateUserRoleDTO } from '../dto/update-user-role-dto.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParlamentarService {
 
-  baseUrl = environment.apiUrl + '/parlamentares';
+  private baseUrl = environment.apiUrl + '/parlamentares';
+  private updateRoleURL = '/update-role'
 
   constructor(private http: HttpClient) {}
   
@@ -25,6 +27,10 @@ export class ParlamentarService {
     return this.http.get<Parlamentar[]>(this.baseUrl+"/townhalls/" + townHallId)
     .pipe(retry(), catchError(this.errorHandl));
 
+  }
+
+  updateRole(updateUserRoleDTO: UpdateUserRoleDTO) : Observable<Parlamentar>{
+    return this.http.put<Parlamentar>(this.baseUrl + this.updateRoleURL, updateUserRoleDTO);
   }
   
   errorHandl(error: any) {

@@ -1,86 +1,123 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Parlamentar } from '../domain/parlamentar.model';
+import { CookieService } from 'ngx-cookie-service';
 import { TimerControlDTO } from '../domain/timer-control-dto.model';
-import { TownHall } from '../domain/townhall.model';
 import { UtilShowTimer } from '../domain/utilsShowTimer.model';
+import { ParlamentarTimer } from '../dto/parlamentar-timer.model';
 import { SoundService } from '../service/sound.service';
 import { UtilService } from '../service/util.service';
-
 
 @Component({
   selector: 'app-show-timer',
   templateUrl: './show-timer.component.html',
   styleUrls: ['./show-timer.component.css']
 })
+
 export class ShowTimerComponent implements OnInit {
 
   parlamentarNameSubTimer:string = "";
-  parlamentar: Parlamentar = new Parlamentar();
-  townHall: TownHall = new TownHall();
-  parlamentarAParte: Parlamentar = new Parlamentar();
+  parlamentar: ParlamentarTimer = new ParlamentarTimer();
+  parlamentarAParte: ParlamentarTimer = new ParlamentarTimer();
   timeDescription: string = "";
+  townHallName: string = '';
 
   isMainTimerRunning: boolean = false;
+  isSubTimerRunning: boolean = false;
 
-  mainTextMinutes: any;
-  mainTextSeconds: any;
+  mainTextMinutes: any = '00';
+  mainTextSeconds: any = '00';
 
   subTextMinutes: any;
   subTextSeconds: any;
   showAParteTime: boolean;
 
+  triggeredSound: boolean = false;
 
-  private mainTimerInterval: any;
-  private subTimerInterval: any;
+  mainTimerInterval: any;
+  subTimerInterval: any;
   public utilTimer: UtilShowTimer;
   public timerControlDTO : TimerControlDTO = new TimerControlDTO();
 
+  endMainTimer: boolean = false;
+  endSubTimer: boolean = false;
 
-  constructor(private soundService: SoundService, private utilService: UtilService) {
+  ONE_SECOND: number = 1000;
+
+
+  constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService) {
   }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
 
-    this.utilService.updateTransmitir.subscribe(value => {
+    setInterval(() => {      
+      
+      if(this.cookieService.get('parlamentarObject').length > 0){
+        this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
+      }
 
-      this.utilTimer = this.utilService.getUtilShowTimer();
-      this.timeDescription = this.utilTimer.getTimeDescription();
-      this.townHall = this.utilTimer.getTownHall();
+      if(this.cookieService.get('parlamentarAParteObject')){
+        this.parlamentarAParte = JSON.parse(this.cookieService.get('parlamentarAParteObject'));
+      }
 
-      console.log(this.utilTimer);
-      this.clearSubTimer();
-      this.parlamentar = this.utilTimer.getParlamentar();
+      if(this.cookieService.get('townHallCityName').length > 0){
+        this.townHallName = this.cookieService.get('townHallCityName');
+      }
+      
+      this.endMainTimer = this.cookieService.get('endMainTimer') == 'true';
+      this.endSubTimer = this.cookieService.get('endSubTimer') == 'true';
 
-      if(this.utilTimer.getFinishMainTimer()){
-        console.log(1);
+      if(this.endMainTimer){
+
         this.clearMainTimer();
-      }else if(this.utilTimer.getFinishAParteTimer()){
-        console.log(2);
+        this.endMainTimer= false;
+        this.cookieService.set('endMainTimer', 'false');
+
+      }else if(this.endSubTimer){
+
         this.clearSubTimer();
-      }else if(!this.utilTimer.getFinishAParteTimer() && this.utilTimer.getParlamentarAParte() != null){
-        console.log(3);
-        this.parlamentarAParte = this.utilTimer.getParlamentarAParte();
+        this.endSubTimer = false;
+        this.cookieService.set('endSubTimer', 'false');
+
+      }else if(this.parlamentar.id != null && !this.isMainTimerRunning){
+
+        this.isMainTimerRunning = true;
+        this.mainTimer(this.parlamentar.timeToSpeak);
+        this.showAParteTime = false;
+
+      }else if(this.parlamentarAParte.id != null && !this.isSubTimerRunning){
+
+        this.isSubTimerRunning = true;
         this.parlamentarNameSubTimer = this.parlamentarAParte.name.split(" ")[0];
         this.showAParteTime = true;
         this.subTimer(120);
-      }else{
-        console.log(4);
-        this.clearMainTimer();
-        this.isMainTimerRunning = true;
-        this.mainTimer(this.utilTimer.getTime());
-        this.showAParteTime = false;
       }
 
-      if(this.utilTimer.getFinishMainTimer()){
-        this.utilService.getUtilShowTimer().setFinishMainTimer(false)
-      };
+    }, this.ONE_SECOND);
 
-      if(this.utilTimer.getFinishAParteTimer()){
-        this.utilService.getUtilShowTimer().setFinishAParteTimer(false);
-      }
-    });
+  }
+
+  clearMainTimer(){
+
+    this.cookieService.set('parlamentarObject', '');
+    this.parlamentar = new ParlamentarTimer();
+    this.isMainTimerRunning = false;
+    this.mainTextMinutes = '00';
+    this.mainTextSeconds = '00';
+    
+    clearInterval(this.mainTimerInterval);
+  }
+
+  clearSubTimer(){
+
+    this.cookieService.set('parlamentarAParteObject', '');
+    this.parlamentarAParte = new ParlamentarTimer();
+    this.isSubTimerRunning = false;
+
+    this.showAParteTime = false;
+    this.subTextMinutes = '00';
+    this.subTextSeconds = '00';
+    clearInterval(this.subTimerInterval);
+
   }
 
   mainTimer(timeInSeconds: number) {
@@ -96,8 +133,7 @@ export class ShowTimerComponent implements OnInit {
       seconds = timeInSeconds;
     }
 
-    console.log('main timer', minutes, timeInSeconds);
-
+    this.triggeredSound = false;
     this.mainTimerInterval = setInterval(() => {
 
       seconds = (seconds == 0) ? 59 : --seconds;
@@ -108,27 +144,15 @@ export class ShowTimerComponent implements OnInit {
 
       if (minutes == -1 && seconds == 0) {
         this.clearMainTimer();
-        this.soundService.playSound();
+
+        if(!this.triggeredSound){
+          this.soundService.playSound();
+          this.triggeredSound = true;
+        }
       }
-    }, 750);
+    }, this.ONE_SECOND);
   }
-
-  clearMainTimer(){
-
-    this.isMainTimerRunning = false;
-    this.mainTextMinutes = '00';
-    this.mainTextSeconds = '00';
-    clearInterval(this.mainTimerInterval);
-  }
-
-  clearSubTimer(){
-
-      this.showAParteTime = false;
-      this.subTextMinutes = '00';
-      this.subTextSeconds = '00';
-      clearInterval(this.subTimerInterval);
-
-  }
+  
 
   subTimer(timeInSeconds: number){
 
@@ -154,7 +178,7 @@ export class ShowTimerComponent implements OnInit {
       if (minutes == -1 && seconds == 0) {
         this.clearSubTimer();
       }
-    }, 750);
+    }, this.ONE_SECOND);
   }
 
   fullScreen() {

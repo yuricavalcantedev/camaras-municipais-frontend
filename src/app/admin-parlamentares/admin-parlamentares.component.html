@@ -32,9 +32,13 @@
                         <td>{{user.username}}</td>
                         <td>{{selectedTownhall.name}}</td>
                         <td style="display: flex; justify-content: center;">
+                            
+                            <p-chip styleClass="custom-chip" *ngIf="user.roles[0].name == 'ROLE_MODERATOR_VIEW'" label="Presidente da Câmara"></p-chip>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-history" (click)="openModalUpdatePassword(user.id, user.username)" label="Atual. Senha"class="p-button-outlined p-button-rounded p-button-secondary">
                                 <label *ngIf="user.isRecoveringPassword" class="pi pi-bell" style="margin-right: 10px;"></label>
                             </button>
+                            
+                            <button pButton *ngIf="user.roles[0].name != 'ROLE_MODERATOR_VIEW'" style="margin-left: 10px;" pRipple type="button" icon="pi pi-user-plus" (click)="updateUserRole(user.id)" label="Fazer presidente" class="p-button-outlined p-button-rounded"></button>
                         </td>
                     </tr>
                 </ng-template>
