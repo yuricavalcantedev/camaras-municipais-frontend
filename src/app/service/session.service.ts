@@ -26,6 +26,7 @@ export class SessionService {
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
   private findSessionVotingInfoByUUIDURL = '/{uuid}/voting-info';
+  private findSessionStandardInfoByUUIDURL = '/{uuid}/voting-info/standard';
 
   constructor(private http: HttpClient) {}
   
@@ -74,9 +75,11 @@ export class SessionService {
   }
 
   findSessionVotingInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
-    console.log(sessionUUID);
-    console.log(this.findSessionVotingInfoByUUIDURL.replace('{uuid}', sessionUUID));
     return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionVotingInfoByUUIDURL.replace('{uuid}', sessionUUID));
+  }
+
+  findSessionStandardInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
+    return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionStandardInfoByUUIDURL.replace('{uuid}', sessionUUID));
   }
 
 }

@@ -21,6 +21,11 @@
         </p-card>
     </div>
 </div>
+<div class="grid">
+    <div class="col">
+        <button pButton pRipple label="Limpar Cookies" style="float: right; margin-right: 10px;" class="p-button-warning" (click)="cleanCookies()"></button>
+    </div>
+</div>
 <div class="">
     <p-card styleClass="p-card-shadow" *ngIf="!existsSession">
         <ng-template pTemplate="header">
@@ -245,7 +250,7 @@
 
 <p-dialog header="Abrir votacao" [(visible)]="showVotingDialog" (onHide)="clearInputs()"  [style]="{width: '30vw'}" [modal]="true">    
         <div class="row">
-            <p>Voce quer comecar uma votacao com {{selectedSubjectList.length}} ordem(s) do dia?</p>
+            <p>Voce quer começar uma votação com {{selectedSubjectList.length}} ordem(s) do dia?</p>
             <p *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>
               <div class="row" style="margin-top: 10px;">
                 <div class="align-items-center">

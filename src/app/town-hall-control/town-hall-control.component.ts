@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
@@ -61,7 +62,7 @@ export class TownHallControlComponent implements OnInit {
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
   constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private cookieService: CookieService,
-    private messageService: MessageService, private sessionService: SessionService) {
+    private messageService: MessageService, private sessionService: SessionService, private router: Router) {
 
       this.selectedTimer = null;
       this.timers = [
@@ -308,6 +309,11 @@ export class TownHallControlComponent implements OnInit {
         this.messageService.add({severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, fale com o administrador'});
       }
     });
+  }
+
+  cleanCookies(){
+    this.cookieService.deleteAll();
+    this.router.navigate(['login']);
   }
 
 }

@@ -1,9 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Parlamentar } from '../domain/parlamentar.model';
 import { SessionService } from '../service/session.service';
 import { UserService } from '../service/user.service';
-import { DOCUMENT } from '@angular/common';
 import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
 import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
 import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
@@ -32,6 +30,8 @@ export class UserHomeComponent implements OnInit {
   votingOptions: string[] = [];
   voting: Voting;
 
+  showInscriptionListDialog : boolean = false;
+
   votingTitle:string = '';
   votingSubTitle: string = '';
   parlamentarUserType = 'P'
@@ -51,7 +51,6 @@ export class UserHomeComponent implements OnInit {
     this.username = this.cookieService.get('user-username');
     this.userService.findByUsername(this.username).subscribe(res => {
       this.parlamentar = res;
-      console.log(this.parlamentar);
     });
 
 
@@ -61,14 +60,15 @@ export class UserHomeComponent implements OnInit {
 
   }
 
-  getLabelButtonBasedUser() {
-    return this.parlamentar.role.name == 'ROLE_MODERATOR_VIEW' ? 'Lista de Inscritos' :'Inscrição';
+  showDialog(){
+    this.showInscriptionListDialog = true;
   }
 
   findSessionTodayByTownhall(townHallId: number){
 
     this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {
       if(res != null){
+
         this.session = res;
         this.voting = this.session.voting;
         this.linkSessao = this.session.sessionSubjectURL;
@@ -78,7 +78,6 @@ export class UserHomeComponent implements OnInit {
         if(this.existsOpenVoting){
           this.setTitleAndSubTitle();
         }
-
       }
     }, error => {
       console.log(error);
@@ -159,6 +158,10 @@ export class UserHomeComponent implements OnInit {
 
   getDisableColor(){
     return this.existsOpenVoting ? '' : 'gray';
+  }
+
+  clear(){
+    this.showInscriptionListDialog = false;
   }
 
 }
