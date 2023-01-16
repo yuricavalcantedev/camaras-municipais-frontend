@@ -251,6 +251,17 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.box-main .page-panel-voting .box-body .box-right .expedient {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 6rem;
+  color: var(--app-box-right-title-color);
+  display: flex;
+  align-self: center;
+  margin: auto;
+}
+
 .box-main .page-panel-voting .box-body .box-right .title {
   font-family: "Montserrat";
   font-style: normal;
@@ -372,6 +383,10 @@
   border-bottom-right-radius: 2rem;
 }
 
+.box-result-no-result {
+  display: none;
+}
+
 :host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
   width: 4rem;
   height: 4rem;
@@ -383,4 +398,17 @@
   position: fixed;
   background-color: #171430;
   cursor: pointer;
+}
+
+.hr-rule {
+  /* Caminho 935 */
+
+position: absolute;
+left: 54.93%;
+right: 6.23%;
+top: 74.71%;
+bottom: 25.29%;
+
+border: 1px solid #E8E9F2;
+
 }

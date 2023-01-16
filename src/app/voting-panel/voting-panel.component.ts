@@ -17,7 +17,6 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
 
   inFullScren = false
 
-  status = "NO"
   parlamentaresTable: ParlamentarInfoStatusDTO[] = [];
   parlamentaresTownhall: ParlamentarInfoStatusDTO[] = [];
   voting: Voting;
@@ -40,9 +39,9 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   getSessionInterval: any;
 
   constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
-  
+
   ngOnDestroy(): void {
-    
+
     //preciso validar isso de alguma forma
     clearInterval(this.sessionInfoInterval);
   }
@@ -95,10 +94,10 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   }
 
   findSessionVotingInfoByUUID(sessionUUID: string){
-    
+
     this.sessionService.findSessionVotingInfoByUUID(sessionUUID).subscribe({
       next: data => {
-        
+
         this.parlamentaresTable = data.parlamentarTableList;
         this.parlamentaresTownhall = data.parlamentarList;
         this.voting = data.voting;
@@ -112,15 +111,15 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   }
 
   findSessionStandardInfoByUUID(sessionUUID:string){
-    
+
     this.sessionService.findSessionStandardInfoByUUID(sessionUUID).subscribe({
-      
+
       next: data => {
         console.log(data);
         this.parlamentaresTable = data.parlamentarTableList;
         this.parlamentaresTownhall = data.parlamentarList;
         this.voting = data.voting;
-        this.speakerList = data.speakerList;        
+        this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
         this.isListFilled = true;
@@ -131,7 +130,7 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   }
 
   computePartialVotes(){
-    
+
     this.yesCounter = 0;
     this.noCounter = 0;
     this.absCounter = 0;

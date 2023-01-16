@@ -33,11 +33,16 @@
         </div>
       </div>
       <div class='box-right'>
-        <div class="title">
-          {{votingTitle}}
+        <div class="expedient" *ngIf="!existsOpenVoting">
+          Pequeno Expediente
         </div>
-        <div class="subtitle">
-          {{votingSubTitle}}
+        <div class="title" *ngIf="existsOpenVoting">
+          <!-- {{votingTitle}} -->
+          Lei 1
+        </div>
+        <div class="subtitle" *ngIf="existsOpenVoting">
+          <!-- {{votingSubTitle}} -->
+          sadojksodkosd
         </div>
       </div>
     </div>
@@ -76,7 +81,7 @@
           </span>
         </div>
       </div>
-      <div class="box-result" [ngClass]="{'status-yes':status=='YES', 'status-no':status=='NO'}">
+      <div class="box-result" [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='YES', 'status-no':finalResult=='NO'}">
         {{finalResult}}
       </div>
     </div>

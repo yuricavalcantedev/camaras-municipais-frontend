@@ -28,8 +28,10 @@ export class SessionService {
   private findSessionVotingInfoByUUIDURL = '/{uuid}/voting-info';
   private findSessionStandardInfoByUUIDURL = '/{uuid}/voting-info/standard';
 
-  constructor(private http: HttpClient) {}
-  
+  constructor(private http: HttpClient) {
+    console.log({baseUrl: this.baseUrl})
+  }
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
