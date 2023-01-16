@@ -1,4 +1,10 @@
 <p-toast></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+<div class="grid">
+    <div class="col">
+        <button pButton pRipple label="Limpar Cookies" style="float: right; margin-right: 10px;" class="p-button-warning" (click)="cleanCookies()"></button>
+    </div>
+</div>
 <div class="grid">
     <div class="col aux">
         <p-card header="Controle de Expediente" styleClass="p-card-shadow abc">
@@ -11,6 +17,14 @@
                     <p-radioButton name="expediente" value="Pequeno Expediente" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente2"></p-radioButton>
                     <label for="expediente2">Pequeno Expediente</label>
                 </div>
+                <div class="field-radiobutton flex align-items-center ">
+                    <p-radioButton name="expediente" value="Ordem do dia" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente3"></p-radioButton>
+                    <label for="expediente2">Ordem do dia</label>
+                </div>
+                <div class="field-radiobutton flex align-items-center ">
+                    <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente4"></p-radioButton>
+                    <label for="expediente2">Expedientes diversos</label>
+                </div>
                 <div class="field-radiobutton flex align-items-center">
                     <p-radioButton name="expediente" value="Outro" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente3"></p-radioButton>
                     <label for="expediente3">Outro</label>
@@ -19,11 +33,6 @@
                 </div>
         </div>
         </p-card>
-    </div>
-</div>
-<div class="grid">
-    <div class="col">
-        <button pButton pRipple label="Limpar Cookies" style="float: right; margin-right: 10px;" class="p-button-warning" (click)="cleanCookies()"></button>
     </div>
 </div>
 <div class="">
@@ -47,18 +56,20 @@
                         <h3 style="display: inline; text-align: center;">Vereadores</h3>        
                     </div>
                     <div class="col">
+                        <button pButton pRipple id="update-presence-list" label="Atualizar Presença" [disabled]="selectedParlamentarPresenceIdList.length == 0" (click)="updatePresenceParlamentarList()" class="p-button-secondary"></button>
                         <button pButton pRipple id="open-voting-button" label="Abrir Painel de Votacao" (click)="openEletronicPanel()"></button>
+                        
                     </div>
                 </div>
                 
         
                 <div style="margin-top: 20px;">
-                    <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
+                    <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceIdList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
                     [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 1rem">
-                                    <p-tableHeaderCheckbox [disabled]="true"></p-tableHeaderCheckbox>
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
                                 <th>Nome</th>
                                 <th>Partido Politico</th>
@@ -68,15 +79,15 @@
                         <ng-template pTemplate="body" let-item>
                             <tr >
                                 <td>
-                                    <p-tableCheckbox (click)="selectRow(item)" [disabled]="item.status != 'PRESENCE' && selectedTimer == null" [value]="item"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
                                 </td>
                                 <td>{{item.parlamentar.name}}</td>
                                 <td>{{item.parlamentar.politicalParty}}</td>
                                 <td>
-                                    <button pButton pRipple type="button" label="Transmitir" class="p-button-raised"  [disabled]="item.status != 'PRESENCE' || selectedTimer == null" (click)="onTransmitir(item.parlamentar)" style="margin-right: 15px;"></button>
-                                    <button pButton pRipple type="button" label="Fin. Tempo" class="p-button-raised p-button-danger" [disabled]="item.status != 'PRESENCE' || selectedTimer == null" (click)="onFinalizarTempo()" style="margin-right: 15px;"></button>
-                                    <button pButton pRipple type="button" label="A Parte" class="p-button-raised p-button-text" [disabled]="item.status != 'PRESENCE' || selectedTimer == null" (click)="onAParte(item.parlamentar)" style="margin-right: 15px;"></button>
-                                    <button pButton pRipple type="button" label="Fin. A Parte" class="p-button-raised p-button-text p-button-danger" [disabled]="item.status != 'PRESENCE' || selectedTimer == null"  (click)="onFinalizarAParte()" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="Transmitir" class="p-button-raised"  [disabled]="item.status != 'PRESENCE'" (click)="onTransmitir(item.parlamentar)" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="Fin. Tempo" class="p-button-raised p-button-danger" [disabled]="item.status != 'PRESENCE'" (click)="onFinalizarTempo()" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="A Parte" class="p-button-raised p-button-text" [disabled]="item.status != 'PRESENCE'" (click)="onAParte(item.parlamentar)" style="margin-right: 15px;"></button>
+                                    <button pButton pRipple type="button" label="Fin. A Parte" class="p-button-raised p-button-text p-button-danger" [disabled]="item.status != 'PRESENCE'"  (click)="onFinalizarAParte()" style="margin-right: 15px;"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -138,7 +149,9 @@
                 <div style="margin-top: 20px;">
                     <div class="grid">
                         <div class="col">
+                            <button pButton *ngIf="existsOpenVoting" pRipple type="button" id="open-voting-button" class="p-button-danger mr-4" label="Encerrar Votacao" (click)="closeVoting()"></button>
                             <p-button id="open-voting-button" [disabled]="existsOpenVoting" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
+                            
                         </div>
                     </div>
                     <p-table [value]="session.subjectList" [(selection)]="selectedSubjectList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
@@ -196,25 +209,7 @@
             </p-card>
         </div>
     </p-tabPanel>
-    <p-tabPanel header="Votacao Aberta" *ngIf="existsSession && existsOpenVoting">
-        <div class="container">
-            <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
-                <ng-template pTemplate="header">
-                </ng-template>
-
-                <h3 style="display: inline; text-align: center;">Informacoes parciais da votacao</h3>
-                <div style="margin-top: 20px;">
-                    <div class="grid">
-                        <div class="col">
-                            <button *ngIf="existsOpenVoting" pButton pRipple type="button" id="open-voting-button" class="p-button-danger mr-4" label="Encerrar Votacao" (click)="closeVoting()"></button>
-                        </div>
-                    </div>
-                </div>
-            </p-card>
-        </div>
-    </p-tabPanel>
 </p-tabView>
-
 
 <!-- Dialogs --->
 

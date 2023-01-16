@@ -26,6 +26,9 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   absCounter: number = 0;
   totalCounter: number = 0;
 
+  townHallName: string = '';
+  townHallUrlImage: string = '';
+
   finalResult: string = '';
   votingTitle:string = '';
   votingSubTitle: string = '';
@@ -47,6 +50,14 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    if(this.cookieService.get('townHallCityName').length > 0){
+      this.townHallName = this.cookieService.get('townHallCityName');
+    }
+
+    if(this.cookieService.get('townHallUrlImage').length > 0){
+      this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
+    }
 
     let sessionUUID = this.cookieService.get('session-uuid');
 

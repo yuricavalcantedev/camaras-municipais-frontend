@@ -25,11 +25,11 @@ export class SessionService {
   private closeVotingUrl = '/{uuid}/voting/close';
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
+  private updateParlamentarPresenceListURL = '/{uuid}/presence-list/manually';
   private findSessionVotingInfoByUUIDURL = '/{uuid}/voting-info';
   private findSessionStandardInfoByUUIDURL = '/{uuid}/voting-info/standard';
 
   constructor(private http: HttpClient) {
-    console.log({baseUrl: this.baseUrl})
   }
 
   // Http Headers
@@ -47,7 +47,7 @@ export class SessionService {
     return this.http.get<boolean>(this.baseUrl + this.checkOpenSessionURL.replace('{id}', townHallId + ''));
   }
 
-  findSessionTodayByTownhall (townHallId : number){
+  findSessionTodayByTownhall (townHallId : number): Observable<SessionParlamentarDTO>{
     return this.http.get<SessionParlamentarDTO>(this.baseUrl + this.findSessionTodayByTownhallURL.replace('{id}', townHallId + ''));
   }
 
@@ -60,12 +60,16 @@ export class SessionService {
     return this.http.get<Session>(this.baseUrl + '/' + sessionUUID);
   }
 
-  subscriptionInSpeakerList(sessionUUDI : string, speakerDTO : any): Observable<SpeakerSession>{
-    return this.http.post<SpeakerSession>(this.baseUrl + this.subscriptionSpeakerListURL.replace('{uuid}', sessionUUDI), speakerDTO);
+  subscriptionInSpeakerList(sessionUUID : string, speakerDTO : any): Observable<SpeakerSession>{
+    return this.http.post<SpeakerSession>(this.baseUrl + this.subscriptionSpeakerListURL.replace('{uuid}', sessionUUID), speakerDTO);
   }
 
-  updateParlamentarPresence(sessionUUDI : string, parlamentarPresenceDTO : ParlamentarPresenceDTO){
-    return this.http.put(this.baseUrl + this.updateParlamentarPresenceURL.replace('{uuid}', sessionUUDI), parlamentarPresenceDTO);
+  updateParlamentarPresence(sessionUUID : string, parlamentarPresenceDTO : ParlamentarPresenceDTO){
+    return this.http.put(this.baseUrl + this.updateParlamentarPresenceURL.replace('{uuid}', sessionUUID), parlamentarPresenceDTO);
+  }
+
+  updateParlamentarPresenceList(sessionUUID: string, parlamentarIdList: number[]){
+    return this.http.put(this.baseUrl + this.updateParlamentarPresenceListURL.replace('{uuid}', sessionUUID), parlamentarIdList); 
   }
 
   computeVote(sessionUUID: string, vote : VoteDTO): Observable<void>{

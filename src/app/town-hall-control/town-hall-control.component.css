@@ -33,6 +33,12 @@
 #open-voting-button{
     float: right;
     margin-top: -10px;
+    margin-right: 10px !important;
+}
+
+#update-presence-list{
+    float: right;
+    margin-top: -10px;
     margin-right: 0px !important;
 }
 

@@ -11,6 +11,7 @@ import { UtilService } from '../service/util.service';
 import { Voting } from '../domain/voting.model';
 import { Router } from '@angular/router';
 import { ParlamentarShortDTO } from '../dto/parlamentar-short-dto.model';
+import { TownHallService } from '../service/townhall.service';
 
 @Component({
   selector: 'app-user-home',
@@ -21,7 +22,8 @@ export class UserHomeComponent implements OnInit {
 
   username: string = '';
   parlamentar: ParlamentarShortDTO = new ParlamentarShortDTO();
-  townHallName: string = "Camara municipal de Caninde";
+  townHallCityName: string = "";
+  townHallUrlImage: string = '';
   linkSessao: string = "";
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
@@ -37,7 +39,7 @@ export class UserHomeComponent implements OnInit {
   parlamentarUserType = 'P'
 
   constructor(private userService: UserService, private messageService: MessageService,
-  private sessionService: SessionService, private cookieService: CookieService, private router: Router, private utilService: UtilService) { }
+  private sessionService: SessionService, private cookieService: CookieService, public townHallService: TownHallService, private router: Router, private utilService: UtilService) { }
 
 
   ngOnInit(): void {
@@ -47,6 +49,19 @@ export class UserHomeComponent implements OnInit {
     this.votingOptions.push('ABSTENTION');
 
     this.townHallId = Number.parseInt(this.cookieService.get('user-townhall-id'));
+    this.townHallService.getById(this.townHallId).subscribe({      
+        
+      next: townHall => {
+
+          this.townHallCityName = townHall.name;
+          this.townHallUrlImage = townHall.urlImage;
+          this.cookieService.set('townHallCityName', this.townHallCityName);
+          this.cookieService.set('townHallUrlImage', this.townHallUrlImage);
+        },
+        error: error => {
+          this.messageService.add({severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
+        }
+    });
 
     this.username = this.cookieService.get('user-username');
     this.userService.findByUsername(this.username).subscribe(res => {
@@ -58,6 +73,11 @@ export class UserHomeComponent implements OnInit {
       this.findSessionTodayByTownhall(this.townHallId);
     }, 3000);
 
+  }
+
+  logOut(){
+    this.cookieService.deleteAll();
+    this.router.navigate(['login']);
   }
 
   showDialog(){

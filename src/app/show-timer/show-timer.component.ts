@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { TimerControlDTO } from '../domain/timer-control-dto.model';
 import { UtilShowTimer } from '../domain/utilsShowTimer.model';
@@ -19,6 +19,7 @@ export class ShowTimerComponent implements OnInit {
   parlamentarAParte: ParlamentarTimer = new ParlamentarTimer();
   timeDescription: string = "";
   townHallName: string = '';
+  townHallUrlImage: string = '';
 
   isMainTimerRunning: boolean = false;
   isSubTimerRunning: boolean = false;
@@ -46,7 +47,6 @@ export class ShowTimerComponent implements OnInit {
   constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService) {
   }
 
-
   ngOnInit(): void {    
 
     setInterval(() => {      
@@ -61,6 +61,10 @@ export class ShowTimerComponent implements OnInit {
 
       if(this.cookieService.get('townHallCityName').length > 0){
         this.townHallName = this.cookieService.get('townHallCityName');
+      }
+
+      if(this.cookieService.get('townHallUrlImage').length > 0){
+        this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
       }
       
       this.endMainTimer = this.cookieService.get('endMainTimer') == 'true';

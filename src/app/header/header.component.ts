@@ -1,8 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
-import { Session } from '../domain/session.model';
-import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +8,7 @@ import { SessionService } from '../service/session.service';
 export class HeaderComponent implements OnInit {
 
   @Input() townHallName: string;
+  @Input() townHallUrlImage: string;
 
   constructor() { }
   ngOnInit(): void {}

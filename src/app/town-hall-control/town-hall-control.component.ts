@@ -32,7 +32,7 @@ export class TownHallControlComponent implements OnInit {
   townhallId: number;
   parlamentarList: Parlamentar[];
   selectedParlamentarPresence: ParlamentarPresence = new ParlamentarPresence();
-  selectedParlamentarPresenceList: ParlamentarPresence[] = new Array();
+  selectedParlamentarPresenceIdList: ParlamentarPresence[] = new Array();
   selectedSubjectList: Subject[] = new Array();  
 
   showDialog: boolean = false;
@@ -79,6 +79,7 @@ export class TownHallControlComponent implements OnInit {
       ];
 
       this.expediente = "Grande Expediente";
+      this.cookieService.set('expedientType', this.expediente);
       this.clearParlamentarTimerInfoFromCookies();
 
   }
@@ -87,25 +88,32 @@ export class TownHallControlComponent implements OnInit {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     this.sessionUUID = this.cookieService.get('session-uuid');
-    if(this.sessionUUID != null && this.sessionUUID != undefined && this.sessionUUID != ''){
-      
-      this.existsSession = true;
-      setInterval(() =>{
-        this.findSessionByUUID(this.sessionUUID);
-      }, 2000);
-    }
+    
+    this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
+      next: data => {
+        this.sessionUUID = data.uuid;
+        this.existsSession = true;
+        setInterval(() =>{
+          this.findSessionByUUID(this.sessionUUID);
+        }, 2000);
+      },
+      error: err => {
+
+      }
+    })
 
     this.townHallService.getById(this.townhallId).subscribe({      
         
       next: data => {
           this.townhall = data;
-          this.townHallCityName = this.townhall.city;
+          this.townHallCityName = this.townhall.name;
           this.cookieService.set('townHallCityName', this.townHallCityName);
+          this.cookieService.set('townHallUrlImage', this.townhall.urlImage);
         },
         error: error => {
           this.messageService.add({severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
-        }      
-    });    
+        }
+    });
 
     this.form = new FormGroup({
       id:new FormControl('', [Validators.required]),
@@ -154,29 +162,30 @@ export class TownHallControlComponent implements OnInit {
 
     this.form.get('id').disable();
 
-    try {
-      
       let formValue = this.form.value;
       let sessionDTOCreate = new SessionDTOCreate(formValue.id, this.townhallId);
-      this.sessionService.create(sessionDTOCreate).subscribe(res =>{
+      this.sessionService.create(sessionDTOCreate).subscribe({
         
-        this.session = res;
-        this.cookieService.set('session-uuid', this.session.uuid);
-        this.existsSession = true;
-        this.fillRoleInSessionLists(this.session.roleInSessionList);
-        this.onCancelar();
-        this.loading = false;
-        this.form.get('id').enable();
-        
-        setInterval(() => {
-          this.findSessionByUUID(this.session.uuid);
-        }, 3000);
-        
+        next: res => {
+          this.session = res;
+          this.cookieService.set('session-uuid', this.session.uuid);
+          this.existsSession = true;
+          this.fillRoleInSessionLists(this.session.roleInSessionList);
+          this.onCancelar();
+          this.loading = false;
+          this.form.get('id').enable();
+          
+          setInterval(() => {
+            this.findSessionByUUID(this.session.uuid);
+          }, 3000);
+        },
+        error: err => {
+          console.log(err);
+          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:err.error.message});
+          this.onCancelar();
+          this.loading = false;
+        }
       });
-
-    }catch(error){
-
-    }
   }
 
   onCancelar(){
@@ -213,37 +222,46 @@ export class TownHallControlComponent implements OnInit {
         }
       },
       error: error => {
+        
         //do nothing
       }
     });
   }
 
-  selectRow(item: ParlamentarPresence){
+  updatePresenceParlamentarList(){
 
-    this.selectedParlamentarPresenceList = [];
-    this.selectedParlamentarPresenceList.push(item);
+    if(this.selectedParlamentarPresenceIdList != null && this.selectedParlamentarPresenceIdList.length > 0){
 
+      let parlamentarIdList = this.selectedParlamentarPresenceIdList.map(parlamentar => parlamentar.id);
+      this.sessionService.updateParlamentarPresenceList(this.sessionUUID, parlamentarIdList).subscribe({
+        next: data => {
+          this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Os vereadores selecionados tiveram suas presenças confirmadas.'});
+        },
+        error: error => {
+          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Ocorreu algum erro, espere alguns segundos e tente novamente'});
+        }
+      })
+    }
   }
 
   onTransmitir(parlamentar: Parlamentar){
 
-    let parlamentarTimer = new ParlamentarTimer();
-    parlamentarTimer.buildFromParlamentar(parlamentar);
-    parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
-
-    console.log(JSON.stringify(parlamentarTimer));
-    this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
-
-    if(!this.isShowTimerTabOpen){
-      this.isShowTimerTabOpen = true;
-
+    if(this.selectedTimer == null){
+      this.messageService.add({key: 'bc', severity:'warn', summary:'Inválido!', detail:'Você precisa selecionar uma das opções de tempo antes de transmitir'});
+    }else{
+      
+      let parlamentarTimer = new ParlamentarTimer();
+      parlamentarTimer.buildFromParlamentar(parlamentar);
+      parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
+      this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
+    
       if(environment.production){
         window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
       }else{
         window.open('http://localhost:4200/mostrarTempo', "_blank");
       }
-    }
 
+    }
   }
 
   onAParte(parlamentar: Parlamentar){
