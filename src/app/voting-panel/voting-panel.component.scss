@@ -170,8 +170,8 @@
 
   overflow-y: scroll;
   margin-right: 12.5px;
-  padding-top:25px;
-  padding-bottom:25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 
   -webkit-border-radius: 2rem;
   -moz-border-radius: 2rem;
@@ -235,8 +235,8 @@
   flex-direction: column;
 
   margin-left: 12.5px;
-  padding-top:25px;
-  padding-bottom:25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 
   background-color: var(--app-primary-color);
 
@@ -262,7 +262,14 @@
   margin: auto;
 }
 
-.box-main .page-panel-voting .box-body .box-right .title {
+.box-main .page-panel-voting .box-body .box-right .info {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.box-main .page-panel-voting .box-body .box-right .info .title {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
@@ -273,14 +280,18 @@
   margin-bottom: 3rem;
 }
 
-.box-main .page-panel-voting .box-body .box-right .subtitle {
+.box-main .page-panel-voting .box-body .box-right .info .subtitle {
   font-family: "Montserrat";
   font-style: normal;
   font-size: 2.5rem;
   color: var(--app-box-right-subtitle-color);
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   margin: 1.5rem;
   margin-bottom: 3rem;
+  max-height: 60%;
 }
 
 /* BOX RIGHT */
@@ -401,14 +412,10 @@
 }
 
 .hr-rule {
-  /* Caminho 935 */
-
-position: absolute;
-left: 54.93%;
-right: 6.23%;
-top: 74.71%;
-bottom: 25.29%;
-
-border: 1px solid #E8E9F2;
-
+  width: 90%;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  margin-bottom: 25px;
+  align-self: center;
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DropdownModule} from 'primeng/dropdown';
@@ -51,6 +51,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { VotingPanelComponent } from './voting-panel/voting-panel.component';
 import { HeaderComponent } from './header/header.component';
 import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
+import { DatePipe } from '@angular/common';
+import { ClockComponent } from "./clock/clock.component";
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
     UserHomeComponent,
     VotingPanelComponent,
     HeaderComponent,
-    CardParlamentar
+    CardParlamentar,
+    ClockComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,7 @@ import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ParlamentarService, TownHallService, RoleService, SoundService, UtilService, MessageService, LoginService, CookieService],
+  providers: [ParlamentarService, TownHallService, RoleService, SoundService, UtilService, MessageService, LoginService, CookieService, DatePipe, { provide: LOCALE_ID, useValue: "pt-BR" },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

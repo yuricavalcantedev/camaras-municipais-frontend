@@ -3,16 +3,15 @@
   <div class='page-panel-voting'>
     <div class="sub-header">
       <div class='sub-header-legislature-photo'>
-        <img
-          src="https://sapl.iraucuba.ce.leg.br/media/sapl/public/casa/logotipo/logo.png"
+        <img src="https://sapl.iraucuba.ce.leg.br/media/sapl/public/casa/logotipo/logo.png"
           alt="municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview">
       </div>
       <div class="sub-header-itens">
         <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
           <div class="status-info">
             <div
-            [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
-            class="status"></div>
+              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
+              class="status"></div>
           </div>
           <div class="identification">
             <span class="type">{{item.role}}</span>
@@ -36,13 +35,17 @@
         <div class="expedient" *ngIf="!existsOpenVoting">
           Pequeno Expediente
         </div>
-        <div class="title" *ngIf="existsOpenVoting">
-          <!-- {{votingTitle}} -->
-          Lei 1
+        <div class="info"  *ngIf="existsOpenVoting">
+          <div class="title">
+            {{votingTitle}}
+          </div>
+          <div class="subtitle">
+            {{votingSubTitle.slice(0, 350)}}
+          </div>
         </div>
-        <div class="subtitle" *ngIf="existsOpenVoting">
-          <!-- {{votingSubTitle}} -->
-          sadojksodkosd
+        <div class="hr-rule"></div>
+        <div class="clock">
+          <app-clock></app-clock>
         </div>
       </div>
     </div>
@@ -81,7 +84,8 @@
           </span>
         </div>
       </div>
-      <div class="box-result" [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='YES', 'status-no':finalResult=='NO'}">
+      <div class="box-result"
+        [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='YES', 'status-no':finalResult=='NO'}">
         {{finalResult}}
       </div>
     </div>

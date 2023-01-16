@@ -1,0 +1,16 @@
+.clock {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clock .txt-time {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 3rem;
+  color: var(--app-clock-color);
+
+  margin: 0 auto;
+
+}
