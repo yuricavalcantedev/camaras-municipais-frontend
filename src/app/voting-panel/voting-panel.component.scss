@@ -421,7 +421,8 @@
   align-self: center;
 }
 
-@media only screen and (min-width : 768px) {
+@media screen and (max-width: 1024px){
+
 
   .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item .status-info {
     margin-right: 0.5rem;
