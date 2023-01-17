@@ -14,3 +14,9 @@
   margin: 0 auto;
 
 }
+
+@media only screen and (min-width : 768px) {
+  .clock .txt-time {
+    font-size: 2rem;
+  }
+}
