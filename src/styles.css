@@ -36,6 +36,11 @@ html {
   --app-status-total: #E9E5D8;
   --app-vote-label-background-color: #171430;
   --app-vote-label-color: #FFF;
+  
+  --app-voting-not-present: #171430;
+  --app-voting-present: #FFF;
+
+
   --app-vote-panel-label-color: #FFF;
 
   --app-box-right-title-color: #FFF;

@@ -1,10 +1,9 @@
 <div class="box-main">
-  <!-- <app-header class="app-header" townHallName="Câmara Municipal de Canindé"></app-header> -->
   <div class='page-panel-voting'>
     <div class="sub-header">
       <div class='sub-header-legislature-photo'>
         <img src="{{townHallUrlImage}}"
-          alt="municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview">
+          alt="brasao-municipio">
       </div>
       <div class="sub-header-itens">
         <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
@@ -14,8 +13,8 @@
               class="status"></div>
           </div>
           <div class="identification">
-            <span class="type">{{item.role}}</span>
-            <span class="last-name-political-party">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+            <span class="type" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+            <span class="last-name-political-party" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}">{{item.role}}</span>
           </div>
         </div>
       </div>
@@ -27,13 +26,13 @@
             <div
               [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
-            <span class="title">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+            <span class="title" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}" >{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
           </div>
         </div>
       </div>
       <div class='box-right'>
         <div class="expedient" *ngIf="!existsOpenVoting">
-          Pequeno Expediente
+          {{expedientType}}
         </div>
         <div class="info"  *ngIf="existsOpenVoting">
           <div class="title">

@@ -32,14 +32,17 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   finalResult: string = '';
   votingTitle:string = '';
   votingSubTitle: string = '';
+  expedientType: string = '';
 
   existsOpenVoting: boolean = false;
-  isListFilled: boolean = false;
-
   session: Session = null;
   speakerList: SpeakerSession[] = [];
   sessionInfoInterval: any;
   getSessionInterval: any;
+
+  TIME_TO_GET_DATA: number = 1500;
+
+
 
   constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
 
@@ -59,6 +62,10 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
       this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
     }
 
+    if(this.cookieService.get('expedientType').length > 0){
+      this.expedientType = this.cookieService.get('expedientType');
+    }
+
     let sessionUUID = this.cookieService.get('session-uuid');
 
     setInterval(() =>{
@@ -73,11 +80,11 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
         this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
         if(this.existsOpenVoting){
           this.findSessionVotingInfoByUUID(sessionUUID);
-        }else if (!this.existsOpenVoting && !this.isListFilled){
+        }else if (!this.existsOpenVoting){
           this.findSessionStandardInfoByUUID(sessionUUID);
         }
       });
-    }, 1500);
+    }, this.TIME_TO_GET_DATA);
 
   }
   fullScreen() {
@@ -88,7 +95,6 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
 
     this.sessionService.findByUUID(sessionUUID).subscribe(res => {
       this.session = res;
-      console.log(this.session);
     });
   }
 
@@ -115,6 +121,8 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
         this.speakerList = data.speakerList;
         this.computePartialVotes();
         this.extractTitleAndSubTitle();
+        console.log(this.parlamentaresTable);
+        console.log(this.parlamentaresTownhall);
       }, error: error => {
         console.log(error);
       }
@@ -126,14 +134,14 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
     this.sessionService.findSessionStandardInfoByUUID(sessionUUID).subscribe({
 
       next: data => {
-        console.log(data);
         this.parlamentaresTable = data.parlamentarTableList;
         this.parlamentaresTownhall = data.parlamentarList;
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
-        this.isListFilled = true;
+        console.log(this.parlamentaresTable);
+        console.log(this.parlamentaresTownhall);
       }, error: error => {
         console.log(error);
       }
