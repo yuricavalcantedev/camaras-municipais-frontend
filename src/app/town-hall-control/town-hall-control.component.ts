@@ -174,6 +174,7 @@ export class TownHallControlComponent implements OnInit {
           this.onCancelar();
           this.loading = false;
           this.form.get('id').enable();
+          this.sessionUUID = this.session.uuid;
           
           setInterval(() => {
             this.findSessionByUUID(this.session.uuid);
