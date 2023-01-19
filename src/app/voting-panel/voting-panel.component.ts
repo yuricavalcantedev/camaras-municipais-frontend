@@ -93,8 +93,12 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
 
   findSessionByUUID(sessionUUID: string) {
 
-    this.sessionService.findByUUID(sessionUUID).subscribe(res => {
-      this.session = res;
+    this.sessionService.findByUUID(sessionUUID).subscribe({
+      next: data => {
+          this.session = data;
+      }, error: err => {
+        console.log(err);
+      }
     });
   }
 
