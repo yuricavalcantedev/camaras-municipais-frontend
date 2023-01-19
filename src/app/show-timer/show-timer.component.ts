@@ -146,13 +146,13 @@ export class ShowTimerComponent implements OnInit {
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
+      if(minutes == 0 && seconds == 59){
+        this.soundService.playWarningSound();
+      }
+
       if (minutes == -1 && seconds == 0) {
         this.clearMainTimer();
-
-        if(!this.triggeredSound){
-          this.soundService.playSound();
-          this.triggeredSound = true;
-        }
+        this.soundService.playSound();
       }
     }, this.ONE_SECOND);
   }

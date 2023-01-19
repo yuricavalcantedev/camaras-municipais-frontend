@@ -42,7 +42,6 @@ export class TownHallControlComponent implements OnInit {
   existsOpenVoting: boolean = false;
   loading: boolean = false;
   disableParlamentarDropdown = true;
-  isShowTimerTabOpen: boolean = false;
 
   timers: Timer [];
   selectedTimer: Timer;
@@ -57,6 +56,7 @@ export class TownHallControlComponent implements OnInit {
   roleInSessionListPart2: RoleInSession[] = new Array();
   roleInSessionListPart3: RoleInSession[] = new Array();
   
+  isShowTimerTabOpened: boolean = false;
 
   @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
@@ -256,11 +256,16 @@ export class TownHallControlComponent implements OnInit {
       parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
       this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
     
-      if(environment.production){
-        window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
-      }else{
-        window.open('http://localhost:4200/mostrarTempo', "_blank");
+      if(!this.isShowTimerTabOpened){
+        if(environment.production){
+          window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
+        }else{
+          window.open('http://localhost:4200/mostrarTempo', "_blank");
+        }
+
+        this.isShowTimerTabOpened = true;
       }
+      
 
     }
   }
