@@ -20,6 +20,8 @@ export class ShowTimerComponent implements OnInit {
   timeDescription: string = "";
   townHallName: string = '';
   townHallUrlImage: string = '';
+  expedientType: string = '';
+  otherExpedient: string = '';
 
   isMainTimerRunning: boolean = false;
   isSubTimerRunning: boolean = false;
@@ -47,10 +49,10 @@ export class ShowTimerComponent implements OnInit {
   constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService) {
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
 
-    setInterval(() => {      
-      
+    setInterval(() => {
+
       if(this.cookieService.get('parlamentarObject').length > 0){
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
       }
@@ -66,7 +68,15 @@ export class ShowTimerComponent implements OnInit {
       if(this.cookieService.get('townHallUrlImage').length > 0){
         this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
       }
-      
+
+      if(this.cookieService.get('expedientType').length > 0){
+        this.expedientType = this.cookieService.get('expedientType');
+      }
+
+      if(this.cookieService.get('otherExpedient').length > 0){
+        this.otherExpedient = this.cookieService.get('otherExpedient');
+      }
+
       this.endMainTimer = this.cookieService.get('endMainTimer') == 'true';
       this.endSubTimer = this.cookieService.get('endSubTimer') == 'true';
 
@@ -107,7 +117,7 @@ export class ShowTimerComponent implements OnInit {
     this.isMainTimerRunning = false;
     this.mainTextMinutes = '00';
     this.mainTextSeconds = '00';
-    
+
     clearInterval(this.mainTimerInterval);
   }
 
@@ -156,7 +166,7 @@ export class ShowTimerComponent implements OnInit {
       }
     }, this.ONE_SECOND);
   }
-  
+
 
   subTimer(timeInSeconds: number){
 

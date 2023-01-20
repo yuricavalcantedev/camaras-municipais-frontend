@@ -21,14 +21,10 @@
                     <p-radioButton name="expediente" value="Ordem do dia" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente3"></p-radioButton>
                     <label for="expediente2">Ordem do dia</label>
                 </div>
-                <div class="field-radiobutton flex align-items-center ">
-                    <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente4"></p-radioButton>
-                    <label for="expediente2">Expedientes diversos</label>
-                </div>
                 <div class="field-radiobutton flex align-items-center">
-                    <p-radioButton name="expediente" value="Outro" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente3"></p-radioButton>
-                    <label for="expediente3">Outro</label>
-                    <input class="ml-3" type="text" [disabled]="disableInput" pInputText />
+                    <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente3"></p-radioButton>
+                    <label for="expediente3">Expedientes diversos</label>
+                    <input class="ml-3" type="text" [disabled]="disableInput" [(ngModel)]="outroExpediente" pInputText />
                     <p-dropdown class="ml-3" [options]="timers" [(ngModel)]="selectedTimer" placeholder="Tempo"></p-dropdown>
                 </div>
         </div>
@@ -50,19 +46,19 @@
             <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
                 <ng-template pTemplate="header">
                 </ng-template>
-                
+
                 <div class="grid">
                     <div class="col">
-                        <h3 style="display: inline; text-align: center;">Vereadores</h3>        
+                        <h3 style="display: inline; text-align: center;">Vereadores</h3>
                     </div>
                     <div class="col">
                         <button pButton pRipple id="update-presence-list" label="Atualizar Presença" [disabled]="selectedParlamentarPresenceIdList.length == 0" (click)="updatePresenceParlamentarList()" class="p-button-secondary"></button>
                         <button pButton pRipple id="open-voting-button" label="Abrir Painel de Votacao" (click)="openEletronicPanel()"></button>
-                        
+
                     </div>
                 </div>
-                
-        
+
+
                 <div style="margin-top: 20px;">
                     <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceIdList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
                     [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
@@ -95,7 +91,7 @@
                 </div>
             </p-card>
         </div>
-    </p-tabPanel>   
+    </p-tabPanel>
     <p-tabPanel header="Sessao" *ngIf="existsSession">
         <div class="container">
 
@@ -130,14 +126,14 @@
                             <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
                         </div>
                     </div>
-                    
+
                     <div class="grid" *ngIf="roleInSessionListPart2.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart2">
                             <p class="p-session-role-info p-bolder">{{item.role}}</p>
                             <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
                         </div>
                     </div>
-    
+
                     <div class="grid" *ngIf="roleInSessionListPart3.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart3">
                             <p class="p-session-role-info p-bolder">{{item.role}}</p>
@@ -145,13 +141,13 @@
                         </div>
                     </div>
                 </p-panel>
-                
+
                 <div style="margin-top: 20px;">
                     <div class="grid">
                         <div class="col">
                             <button pButton *ngIf="existsOpenVoting" pRipple type="button" id="open-voting-button" class="p-button-danger mr-4" label="Encerrar Votacao" (click)="closeVoting()"></button>
                             <p-button id="open-voting-button" [disabled]="existsOpenVoting" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
-                            
+
                         </div>
                     </div>
                     <p-table [value]="session.subjectList" [(selection)]="selectedSubjectList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
@@ -181,9 +177,9 @@
             <p-card header="Câmara Municipal de {{townHallCityName}}" styleClass="p-card-shadow">
                 <ng-template pTemplate="header">
                 </ng-template>
-                
+
                 <h3 style="display: inline; text-align: center;">Lista de Oradores</h3>
-        
+
                 <div *ngIf="session.speakerList.length > 0" style="margin-top: 20px;">
                     <p-table [value]="session.speakerList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
                         <ng-template pTemplate="header">
@@ -191,7 +187,7 @@
                                 <th>Ordem</th>
                                 <th>Nome</th>
                                 <th>Partido Politico</th>
-                                
+
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-speaker>
@@ -231,10 +227,10 @@
                             <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
                         </div>
                     </div>
-                </div>       
+                </div>
               <div class="row" style="margin-top: 10px;">
                 <div class="align-items-center">
-                    <button style="margin-left:10px;" [disabled]="loading" pButton pRipple type="submit" label="Abrir " icon="pi" class="p-button-rounded p-button-success"></button>                    
+                    <button style="margin-left:10px;" [disabled]="loading" pButton pRipple type="submit" label="Abrir " icon="pi" class="p-button-rounded p-button-success"></button>
                 </div>
               </div>
             </div>
@@ -243,7 +239,7 @@
 </p-dialog>
 
 
-<p-dialog header="Abrir votacao" [(visible)]="showVotingDialog" (onHide)="clearInputs()"  [style]="{width: '30vw'}" [modal]="true">    
+<p-dialog header="Abrir votacao" [(visible)]="showVotingDialog" (onHide)="clearInputs()"  [style]="{width: '30vw'}" [modal]="true">
         <div class="row">
             <p>Voce quer começar uma votação com {{selectedSubjectList.length}} ordem(s) do dia?</p>
             <p *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>

@@ -33,7 +33,7 @@ export class TownHallControlComponent implements OnInit {
   parlamentarList: Parlamentar[];
   selectedParlamentarPresence: ParlamentarPresence = new ParlamentarPresence();
   selectedParlamentarPresenceIdList: ParlamentarPresence[] = new Array();
-  selectedSubjectList: Subject[] = new Array();  
+  selectedSubjectList: Subject[] = new Array();
 
   showDialog: boolean = false;
   showVotingDialog: boolean = false;
@@ -46,8 +46,9 @@ export class TownHallControlComponent implements OnInit {
   timers: Timer [];
   selectedTimer: Timer;
   expediente:string;
+  outroExpediente: string;
   disableInput: boolean = true;
-  
+
 
   sessionUUID: string = '';
   session: Session;
@@ -55,7 +56,7 @@ export class TownHallControlComponent implements OnInit {
   roleInSessionListPart1: RoleInSession[] = new Array();
   roleInSessionListPart2: RoleInSession[] = new Array();
   roleInSessionListPart3: RoleInSession[] = new Array();
-  
+
   isShowTimerTabOpened: boolean = false;
 
   @Output() updateParlamentar = new EventEmitter<boolean>();
@@ -79,7 +80,9 @@ export class TownHallControlComponent implements OnInit {
       ];
 
       this.expediente = "Grande Expediente";
+      this.outroExpediente = ""
       this.cookieService.set('expedientType', this.expediente);
+      this.cookieService.set('otherExpedient', this.outroExpediente);
       this.clearParlamentarTimerInfoFromCookies();
 
   }
@@ -88,7 +91,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     this.sessionUUID = this.cookieService.get('session-uuid');
-    
+
     this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
       next: data => {
         this.sessionUUID = data.uuid;
@@ -102,8 +105,8 @@ export class TownHallControlComponent implements OnInit {
       }
     })
 
-    this.townHallService.getById(this.townhallId).subscribe({      
-        
+    this.townHallService.getById(this.townhallId).subscribe({
+
       next: data => {
           this.townhall = data;
           this.townHallCityName = this.townhall.name;
@@ -118,7 +121,7 @@ export class TownHallControlComponent implements OnInit {
     this.form = new FormGroup({
       id:new FormControl('', [Validators.required]),
     });
-    
+
   }
 
   openDialog(){
@@ -134,7 +137,7 @@ export class TownHallControlComponent implements OnInit {
   }
 
   clearInputs(){
-    
+
     this.submitted = false;
     this.form.reset();
   }
@@ -165,7 +168,7 @@ export class TownHallControlComponent implements OnInit {
       let formValue = this.form.value;
       let sessionDTOCreate = new SessionDTOCreate(formValue.id, this.townhallId);
       this.sessionService.create(sessionDTOCreate).subscribe({
-        
+
         next: res => {
           this.session = res;
           this.cookieService.set('session-uuid', this.session.uuid);
@@ -175,7 +178,7 @@ export class TownHallControlComponent implements OnInit {
           this.loading = false;
           this.form.get('id').enable();
           this.sessionUUID = this.session.uuid;
-          
+
           setInterval(() => {
             this.findSessionByUUID(this.session.uuid);
           }, 3000);
@@ -206,9 +209,9 @@ export class TownHallControlComponent implements OnInit {
       }, error: error => {
         //do nothing
       }
-      
+
     });
-    
+
   }
 
   findSessionByUUID(sessionUUID: string){
@@ -223,7 +226,7 @@ export class TownHallControlComponent implements OnInit {
         }
       },
       error: error => {
-        
+
         //do nothing
       }
     });
@@ -250,12 +253,14 @@ export class TownHallControlComponent implements OnInit {
     if(this.selectedTimer == null){
       this.messageService.add({key: 'bc', severity:'warn', summary:'Inválido!', detail:'Você precisa selecionar uma das opções de tempo antes de transmitir'});
     }else{
-      
+
       let parlamentarTimer = new ParlamentarTimer();
       parlamentarTimer.buildFromParlamentar(parlamentar);
       parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
       this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
-    
+      this.cookieService.set('otherExpedient', this.outroExpediente);
+      this.cookieService.set('expedientType', this.expediente);
+
       if(!this.isShowTimerTabOpened){
         if(environment.production){
           window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
@@ -265,13 +270,13 @@ export class TownHallControlComponent implements OnInit {
 
         this.isShowTimerTabOpened = true;
       }
-      
+
 
     }
   }
 
   onAParte(parlamentar: Parlamentar){
-    
+
     let parlamentarTimer = new ParlamentarTimer();
     parlamentarTimer.buildFromParlamentar(parlamentar);
     parlamentarTimer.timeToSpeak = 120;
@@ -298,9 +303,9 @@ export class TownHallControlComponent implements OnInit {
   chooseExpediente(flag: boolean){
     this.disableInput = flag;
   }
-  
+
   onTownHallChange(){
-    
+
     this.showParlamentarImage = false;
     this.parlamentarList = [];
     this.selectedParlamentarPresence = new ParlamentarPresence();
@@ -311,7 +316,7 @@ export class TownHallControlComponent implements OnInit {
   fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
 
     for(let i = 0; i < roleInSessionList.length; i++){
-      
+
       if(i < 4){
         this.roleInSessionListPart1.push(roleInSessionList[i]);
       }else if( i < 8){

@@ -3,11 +3,11 @@
   <app-header class="app-header" townHallName="{{townHallName}}" townHallUrlImage="{{townHallUrlImage}}"></app-header>
   <div class='page-stopwatch'>
     <app-card-parlamentar class="box-left" photo="{{parlamentar.urlImage}}" name="{{parlamentar.name}}"
-      politicalParty="{{parlamentar.politicalParty}}"></app-card-parlamentar>
+      politicalParty="{{parlamentar.politicalParty}}" *ngIf="expedientType!='Expedientes diversos'" ></app-card-parlamentar>
     <div class='box-right'>
       <div class='header'>
         <div class="title">
-          Discurso
+          {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
         </div>
         <div class="subtitle">
           {{timeDescription}}
