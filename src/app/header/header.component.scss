@@ -48,7 +48,8 @@
   align-self: flex-start;
   vertical-align: middle;
   height: 100%;
-  margin-left: 8rem;
+  margin-left: 3rem;
+  align-self: center;
 }
 
 .box-header .box-header-info .box-header-info-title {
@@ -71,13 +72,12 @@
   letter-spacing: 0.03em;
 }
 
-// Quando tiver no maximo
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1024px) {
   .box-header-info {
     flex-direction: row;
   }
   .box-header .box-header-info {
-    flex-direction: column;
+    flex-direction: row;
   }
   .box-header .box-header-info .box-header-info-sub {
     text-align: end;
@@ -86,9 +86,7 @@
     display: flex;
     justify-content: flex-end;
   }
-
   .box-header .box-header-info .box-panel-title {
-    text-align: end;
-    align-self: center;
+    text-align: start;
   }
 }
