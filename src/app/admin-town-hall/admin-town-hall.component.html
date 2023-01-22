@@ -32,6 +32,7 @@
                         <td>{{townHall.legislature}}</td>
                         <td style="display: flex; justify-content: center;">
                             
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-sign-in" (click)="acessTownHall(townHall.id)" label="Acessar câmara"class="p-button-outlined p-button-rounded p-button-success"></button>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(townHall, true)" label="Editar"class="p-button-outlined p-button-rounded"></button>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" (click)="onDelete(townHall.id)" label="Remover" class="p-button-outlined p-button-rounded p-button-danger"></button>
                         </td>

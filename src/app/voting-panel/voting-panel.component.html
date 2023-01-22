@@ -8,9 +8,11 @@
       <div class="sub-header-itens">
         <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
           <div class="status-info">
-            <div
+            <div *ngIf="item.status == 'PRESENCE'"
               [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
+              <div *ngIf="item.status != 'PRESENCE'" class="status" style="background-color: gray;">
+              </div>
           </div>
           <div class="identification">
             <span class="type" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>

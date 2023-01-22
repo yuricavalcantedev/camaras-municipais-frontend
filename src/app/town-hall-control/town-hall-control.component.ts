@@ -42,6 +42,7 @@ export class TownHallControlComponent implements OnInit {
   existsOpenVoting: boolean = false;
   loading: boolean = false;
   disableParlamentarDropdown = true;
+  disableExpedientDiversos: boolean = true;
 
   timers: Timer [];
   selectedTimer: Timer;
@@ -58,6 +59,7 @@ export class TownHallControlComponent implements OnInit {
   roleInSessionListPart3: RoleInSession[] = new Array();
 
   isShowTimerTabOpened: boolean = false;
+  isVotingPanelTabOpened: boolean = false;
 
   @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
@@ -91,14 +93,17 @@ export class TownHallControlComponent implements OnInit {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     this.sessionUUID = this.cookieService.get('session-uuid');
-
+    
     this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
       next: data => {
-        this.sessionUUID = data.uuid;
-        this.existsSession = true;
-        setInterval(() =>{
-          this.findSessionByUUID(this.sessionUUID);
-        }, 2000);
+
+        if(data != null){
+          this.sessionUUID = data.uuid;
+          this.existsSession = true;
+          setInterval(() =>{
+            this.findSessionByUUID(this.sessionUUID);
+          }, 2000);
+        }
       },
       error: err => {
 
@@ -147,11 +152,14 @@ export class TownHallControlComponent implements OnInit {
   }
 
   openEletronicPanel(){
-    if(environment.production){
-      window.open('https://camaras-municipais-frontend.vercel.app/painel-votacao', "_blank");
-    }else{
-      window.open('http://localhost:4200/painel-votacao', "_blank");
+
+    this.isVotingPanelTabOpened = this.cookieService.get('isVotingPanelTabOpened') == 'true';
+    if(!this.isVotingPanelTabOpened){
+        
+      this.cookieService.set('isVotingPanelTabOpened', 'true');
+      window.open('/painel-votacao', "_blank");
     }
+    
   }
 
   onSubmit(){
@@ -240,16 +248,35 @@ export class TownHallControlComponent implements OnInit {
       this.sessionService.updateParlamentarPresenceList(this.sessionUUID, parlamentarIdList).subscribe({
         next: data => {
           this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Os vereadores selecionados tiveram suas presenças confirmadas.'});
+          this.selectedParlamentarPresenceIdList = [];
         },
         error: error => {
-          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Ocorreu algum erro, espere alguns segundos e tente novamente'});
+          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail: error.error.message});
+          this.selectedParlamentarPresenceIdList = [];
         }
       })
     }
   }
 
-  onTransmitir(parlamentar: Parlamentar){
+  onTransmitirOther(){
+    
+    let parlamentarTimer = new ParlamentarTimer();
+    parlamentarTimer.id = 999;
+    parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
+    this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
+    this.cookieService.set('otherExpedient', this.outroExpediente);
+    this.cookieService.set('expedientType', this.expediente);
+    this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
+    
+    if(!this.isShowTimerTabOpened){
+        
+      this.cookieService.set('isShowTimerTabOpened', 'true');
+      window.open('/mostrarTempo', "_blank");
+    }
+  }
 
+  onTransmitir(parlamentar: Parlamentar){
+    
     if(this.selectedTimer == null){
       this.messageService.add({key: 'bc', severity:'warn', summary:'Inválido!', detail:'Você precisa selecionar uma das opções de tempo antes de transmitir'});
     }else{
@@ -260,18 +287,12 @@ export class TownHallControlComponent implements OnInit {
       this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
       this.cookieService.set('otherExpedient', this.outroExpediente);
       this.cookieService.set('expedientType', this.expediente);
+      this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
 
       if(!this.isShowTimerTabOpened){
-        if(environment.production){
-          window.open('https://camaras-municipais-frontend.vercel.app/mostrarTempo', "_blank");
-        }else{
-          window.open('http://localhost:4200/mostrarTempo', "_blank");
-        }
-
-        this.isShowTimerTabOpened = true;
+        this.cookieService.set('isShowTimerTabOpened', 'true');
+        window.open('/mostrarTempo', "_blank");
       }
-
-
     }
   }
 
@@ -302,6 +323,7 @@ export class TownHallControlComponent implements OnInit {
 
   chooseExpediente(flag: boolean){
     this.disableInput = flag;
+    this.disableExpedientDiversos = flag;
   }
 
   onTownHallChange(){

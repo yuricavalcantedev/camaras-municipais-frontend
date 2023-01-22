@@ -1,6 +1,8 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { TownHall } from '../domain/townhall.model';
 import { TownHallFormAdapter } from '../domain/townHallAdapter.model';
 import { TownHallService } from '../service/townhall.service';
@@ -23,10 +25,12 @@ export class AdminTownHallComponent implements OnInit {
   isEditting: boolean = false;
   showDialog: boolean = false;
 
-  constructor(public townHallService: TownHallService) { 
+  constructor(public townHallService: TownHallService, private cookieService: CookieService, private router: Router) { 
   }
 
   ngOnInit(): void {
+
+
 
     this.formTownHall = new FormGroup({
 
@@ -37,6 +41,16 @@ export class AdminTownHallComponent implements OnInit {
       legislature: new FormControl(''),
       apiURL: new FormControl('', [Validators.required]),
     });
+
+    if(this.cookieService.get('user-role') != 'ROLE_ADMIN'){
+      this.cookieService.deleteAll();
+      this.router.navigate(['']);
+    }
+
+    if(this.cookieService.get('user-username') == ''){
+      this.cookieService.deleteAll();
+      this.router.navigate(['']);
+    }
 
     this.getTownHallList();
   }
@@ -56,6 +70,11 @@ export class AdminTownHallComponent implements OnInit {
       this.formTownHall.setValue(townHallAdapter);
     }
 
+  }
+
+  acessTownHall(townHallId: number){
+    this.cookieService.set('user-townhall-id', townHallId + '');
+    this.router.navigate(['gestao']);
   }
 
   onSubmit(){
@@ -103,7 +122,5 @@ export class AdminTownHallComponent implements OnInit {
     this.formTownHall.reset();
     this.submitted = false;
   }
-
-  
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Session } from '../domain/session.model';
 import { SpeakerSession } from '../domain/speaker-session.model';
@@ -12,7 +12,7 @@ import { UtilService } from '../service/util.service';
   templateUrl: './voting-panel.component.html',
   styleUrls: ['./voting-panel.component.scss']
 })
-export class VotingPanelComponent implements OnInit, OnDestroy {
+export class VotingPanelComponent implements OnInit {
 
 
   inFullScren = false
@@ -39,6 +39,7 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
   speakerList: SpeakerSession[] = [];
   sessionInfoInterval: any;
   getSessionInterval: any;
+  townhallId: number;
 
   TIME_TO_GET_DATA: number = 1500;
 
@@ -46,9 +47,9 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
 
   constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
 
-  ngOnDestroy(): void {
-
-    //preciso validar isso de alguma forma
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event: any) {
+    this.cookieService.set('isVotingPanelTabOpened', 'false');
     clearInterval(this.sessionInfoInterval);
   }
 
@@ -66,7 +67,9 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
       this.expedientType = this.cookieService.get('expedientType');
     }
 
+    this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
+    
 
     setInterval(() =>{
 
@@ -77,7 +80,10 @@ export class VotingPanelComponent implements OnInit, OnDestroy {
 
       syncCalling.then(() => {
 
-        this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+        if(this.session != null){
+          this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+        }
+
         if(this.existsOpenVoting){
           this.findSessionVotingInfoByUUID(sessionUUID);
         }else if (!this.existsOpenVoting){

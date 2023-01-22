@@ -19,13 +19,14 @@
                 </div>
                 <div class="field-radiobutton flex align-items-center ">
                     <p-radioButton name="expediente" value="Ordem do dia" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente3"></p-radioButton>
-                    <label for="expediente2">Ordem do dia</label>
+                    <label for="expediente3">Ordem do dia</label>
                 </div>
                 <div class="field-radiobutton flex align-items-center">
-                    <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente3"></p-radioButton>
-                    <label for="expediente3">Expedientes diversos</label>
+                    <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente4"></p-radioButton>
+                    <label for="expediente4">Expedientes diversos</label>
                     <input class="ml-3" type="text" [disabled]="disableInput" [(ngModel)]="outroExpediente" pInputText />
                     <p-dropdown class="ml-3" [options]="timers" [(ngModel)]="selectedTimer" placeholder="Tempo"></p-dropdown>
+                    <button pButton pRipple type="button" label="Transmitir" class="p-button-raised"  [disabled]="disableExpedientDiversos" (click)="onTransmitirOther()" style="margin-left: 15px;"></button>
                 </div>
         </div>
         </p-card>

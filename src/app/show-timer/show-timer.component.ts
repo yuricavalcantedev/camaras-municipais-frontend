@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { TimerControlDTO } from '../domain/timer-control-dto.model';
 import { UtilShowTimer } from '../domain/utilsShowTimer.model';
@@ -44,9 +44,15 @@ export class ShowTimerComponent implements OnInit {
   endSubTimer: boolean = false;
 
   ONE_SECOND: number = 1000;
+  keepTimerRunning: boolean = false;
 
 
   constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService) {
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event: any) {
+    this.cookieService.set('isShowTimerTabOpened', 'false');
   }
 
   ngOnInit(): void {
@@ -54,6 +60,9 @@ export class ShowTimerComponent implements OnInit {
     setInterval(() => {
 
       if(this.cookieService.get('parlamentarObject').length > 0){
+        
+        //check if user is sending a new user than the one is already speaking
+        this.keepTimerRunning = this.parlamentar.name != JSON.parse(this.cookieService.get('parlamentarObject')).name;
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
       }
 
@@ -77,12 +86,16 @@ export class ShowTimerComponent implements OnInit {
         this.otherExpedient = this.cookieService.get('otherExpedient');
       }
 
+      if(this.otherExpedient == 'Expediente diversos'){
+        this.timeDescription = this.otherExpedient;
+      }
+
       this.endMainTimer = this.cookieService.get('endMainTimer') == 'true';
       this.endSubTimer = this.cookieService.get('endSubTimer') == 'true';
 
       if(this.endMainTimer){
 
-        this.clearMainTimer();
+        this.clearMainTimer(true);
         this.endMainTimer= false;
         this.cookieService.set('endMainTimer', 'false');
 
@@ -98,6 +111,11 @@ export class ShowTimerComponent implements OnInit {
         this.mainTimer(this.parlamentar.timeToSpeak);
         this.showAParteTime = false;
 
+      }else if(this.parlamentar.id != null && this.keepTimerRunning){
+        this.clearMainTimer(false);
+        this.isMainTimerRunning = true;
+        this.mainTimer(this.parlamentar.timeToSpeak);
+        this.showAParteTime = false;
       }else if(this.parlamentarAParte.id != null && !this.isSubTimerRunning){
 
         this.isSubTimerRunning = true;
@@ -110,10 +128,15 @@ export class ShowTimerComponent implements OnInit {
 
   }
 
-  clearMainTimer(){
+  clearMainTimer(clearAll: boolean){
+    
+    if(clearAll){
+      let urlImage = this.parlamentar.urlImage;
+      this.parlamentar = new ParlamentarTimer();
+      this.parlamentar.urlImage = urlImage;
+      this.cookieService.set('parlamentarObject', '');
+    }
 
-    this.cookieService.set('parlamentarObject', '');
-    this.parlamentar = new ParlamentarTimer();
     this.isMainTimerRunning = false;
     this.mainTextMinutes = '00';
     this.mainTextSeconds = '00';
@@ -161,7 +184,7 @@ export class ShowTimerComponent implements OnInit {
       }
 
       if (minutes == -1 && seconds == 0) {
-        this.clearMainTimer();
+        this.clearMainTimer(true);
         this.soundService.playSound();
       }
     }, this.ONE_SECOND);

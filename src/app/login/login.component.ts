@@ -40,8 +40,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.signIn(loginDTO).subscribe({      
       next: (user : UserLoggedDTO) => {
-        
-        console.log(user);
+
         this.cookieService.set('user-role', user.roles[0].name);
         this.cookieService.set('user-name', user.name);
         this.cookieService.set('user-username', loginDTO.username);

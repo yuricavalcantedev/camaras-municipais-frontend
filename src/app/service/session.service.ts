@@ -25,7 +25,7 @@ export class SessionService {
   private closeVotingUrl = '/{uuid}/voting/close';
   private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
-  private updateParlamentarPresenceListURL = '/{uuid}/presence-list/manually';
+  private updateParlamentarPresenceListURL = '/{uuid}/presence-list/manually/';
   private findSessionVotingInfoByUUIDURL = '/{uuid}/voting-info';
   private findSessionStandardInfoByUUIDURL = '/{uuid}/voting-info/standard';
 
