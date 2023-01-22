@@ -64,6 +64,7 @@ export class ShowTimerComponent implements OnInit {
         //check if user is sending a new user than the one is already speaking
         this.keepTimerRunning = this.parlamentar.name != JSON.parse(this.cookieService.get('parlamentarObject')).name;
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
+        console.log(this.parlamentar);
       }
 
       if(this.cookieService.get('parlamentarAParteObject')){

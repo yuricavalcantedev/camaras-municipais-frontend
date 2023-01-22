@@ -99,6 +99,7 @@ export class TownHallControlComponent implements OnInit {
 
         if(data != null){
           this.sessionUUID = data.uuid;
+          this.cookieService.set('session-uuid', data.uuid);
           this.existsSession = true;
           setInterval(() =>{
             this.findSessionByUUID(this.sessionUUID);
