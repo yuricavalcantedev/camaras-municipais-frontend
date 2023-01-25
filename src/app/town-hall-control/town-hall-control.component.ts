@@ -146,6 +146,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.submitted = false;
     this.form.reset();
+    this.form.get('id').enable();
   }
 
   get formRef(): { [key: string]: AbstractControl } {

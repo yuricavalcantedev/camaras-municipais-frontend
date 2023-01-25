@@ -6,6 +6,7 @@ export class TownHall{
     city: string = "";
     legislature: string = "";
     apiURL: string = "";
+    updateLegislature: number = 0;
     
     constructor(){}
 
