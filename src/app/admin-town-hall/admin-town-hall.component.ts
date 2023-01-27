@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 import { TownHall } from '../domain/townhall.model';
 import { TownHallFormAdapter } from '../domain/townHallAdapter.model';
 import { TownHallService } from '../service/townhall.service';
@@ -24,13 +25,16 @@ export class AdminTownHallComponent implements OnInit {
   submitted: boolean = false;
   isEditting: boolean = false;
   showDialog: boolean = false;
+  showLegislatureDialog: boolean = false;
+  eVotingTypeResultList = ['MAIORIA_SIMPLES', 'MAIORIA_QUALIFICADA', 'MAIORIA_ABSOLUTA'];
+  
 
-  constructor(public townHallService: TownHallService, private cookieService: CookieService, private router: Router) { 
+  townHallSelectedLegislatureUpdate: TownHall = new TownHall();
+
+  constructor(public townHallService: TownHallService, private cookieService: CookieService, private messageService: MessageService, private router: Router) { 
   }
 
   ngOnInit(): void {
-
-
 
     this.formTownHall = new FormGroup({
 
@@ -57,6 +61,13 @@ export class AdminTownHallComponent implements OnInit {
 
   get form(): { [key: string]: AbstractControl } {
     return this.formTownHall.controls;
+  }
+
+  onUpdateLegislatureModal(townhall: any){
+    this.townHallSelectedLegislatureUpdate = townhall;
+    this.showLegislatureDialog = true;
+    console.log(this.townHallSelectedLegislatureUpdate);
+
   }
 
   openModal(townHall: TownHall, isEditing: boolean){
@@ -113,6 +124,7 @@ export class AdminTownHallComponent implements OnInit {
 
     this.showTable = false;
     this.townHallService.getTownHallList().subscribe(res => {
+      console.log(res);
       this.townHallList = res;
       this.showTable = true;
     });
@@ -121,6 +133,28 @@ export class AdminTownHallComponent implements OnInit {
   clearInputs(){
     this.formTownHall.reset();
     this.submitted = false;
+  }
+
+  updateTownHall(townHall: TownHall){
+
+    console.log(townHall);
+    this.townHallService.updateTownHall(townHall).subscribe({
+        next: data => {          
+          this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara atualizada com sucesso!'});
+          this.showLegislatureDialog = false;
+          this.showDialog = false;
+          this.clearInputs();
+        },
+  
+        error: error => {
+          console.log(error);
+          this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail: error.error.message});
+          this.showLegislatureDialog = false;
+          this.showDialog = false;
+          this.clearInputs();
+          
+        }
+      });
   }
 
 }

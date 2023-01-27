@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { environment } from 'src/environments/environment';
 import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
 import { Parlamentar } from '../domain/parlamentar.model';
 import { RoleInSession } from '../domain/role-session.model';
@@ -49,6 +48,7 @@ export class TownHallControlComponent implements OnInit {
   expediente:string;
   outroExpediente: string;
   disableInput: boolean = true;
+  INTERVAL_TIME: 2000;
 
 
   sessionUUID: string = '';
@@ -76,6 +76,7 @@ export class TownHallControlComponent implements OnInit {
         {label: "05:00", minutes: 5, seconds:0},
         {label: "10:00", minutes: 10, seconds:0},
         {label: "15:00", minutes: 15, seconds:0},
+        {label: "20:00", minutes: 20, seconds:0},
         {label: "30:00", minutes: 30, seconds:0},
         {label: "45:00", minutes: 45, seconds:0},
         {label: "60:00", minutes: 60, seconds:0}
@@ -103,7 +104,7 @@ export class TownHallControlComponent implements OnInit {
           this.existsSession = true;
           setInterval(() =>{
             this.findSessionByUUID(this.sessionUUID);
-          }, 2000);
+          }, this.INTERVAL_TIME);
         }
       },
       error: err => {
@@ -191,7 +192,7 @@ export class TownHallControlComponent implements OnInit {
 
           setInterval(() => {
             this.findSessionByUUID(this.session.uuid);
-          }, 3000);
+          }, this.INTERVAL_TIME);
         },
         error: err => {
           console.log(err);

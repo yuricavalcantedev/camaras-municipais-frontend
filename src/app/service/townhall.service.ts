@@ -61,26 +61,9 @@ export class TownHallService {
     return result;
   }
 
-  updateTownHall(townHall : TownHall) : TownHall{
+  updateTownHall(townHall : TownHall) : Observable<TownHall>{
     
-    let result : TownHall;
-
-    this.http.post<TownHall>(this.baseUrl, townHall).subscribe({
-      
-      next: data => {
-        result = data;
-        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara atualizada com sucesso!'});
-      },
-
-      error: error => {
-        console.log(error);
-        this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail:'Sistema'});
-        return;
-      }
-
-    });
-
-    return result;
+    return this.http.put<TownHall>(this.baseUrl, townHall);
   }
 
   delete(id: number){
@@ -93,7 +76,8 @@ export class TownHallService {
       }
     });
 
-  }
+  }  
+
   errorHandl(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

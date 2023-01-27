@@ -1,3 +1,5 @@
+import { LegislativeSubjectType } from "./legislative-subject.model";
+
 export class TownHall{
     
     id : number = 0;
@@ -7,6 +9,7 @@ export class TownHall{
     legislature: string = "";
     apiURL: string = "";
     updateLegislature: number = 0;
+    legislativeSubjectTypeList: LegislativeSubjectType[];
     
     constructor(){}
 

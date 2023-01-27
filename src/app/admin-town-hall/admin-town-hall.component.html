@@ -18,21 +18,21 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 5%;">Id</th>
-                        <th style="width: 30%;">Nome</th>
+                        <th style="width: 20%;">Nome</th>
                         <th style="width: 10%;">Cidade</th>
-                        <th style="width: 25%;">Legislatura</th>
+                        <th style="width: 20%;">Legislatura</th>
                         <th >Ações</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-townHall>
-                    <tr>
+                    <tr *ngIf="townHall.name != 'Admin'">
                         <td>{{townHall.id}}</td>
                         <td>{{townHall.name}}</td>
                         <td>{{townHall.city}}</td>
                         <td>{{townHall.legislature}}</td>
                         <td style="display: flex; justify-content: center;">
-                            
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-sign-in" (click)="acessTownHall(townHall.id)" label="Acessar câmara"class="p-button-outlined p-button-rounded p-button-success"></button>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-save" (click)="onUpdateLegislatureModal(townHall)" label="Atualizar tipo de matéria" class="p-button-outlined p-button-rounded p-button-primary"></button>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModal(townHall, true)" label="Editar"class="p-button-outlined p-button-rounded"></button>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-times" (click)="onDelete(townHall.id)" label="Remover" class="p-button-outlined p-button-rounded p-button-danger"></button>
                         </td>
@@ -44,7 +44,7 @@
 </div>
 
 <!-- Dialog -->
-<p-dialog header="{{titleModal}}" [(visible)]="showDialog" (onHide)="clearInputs()"  [style]="{width: '40vw'}">
+<p-dialog header="{{titleModal}}" [(visible)]="showDialog" (onHide)="clearInputs()"  [style]="{width: '40vw'}" [modal]="true">
     <form #myForm [formGroup]="formTownHall" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="form-group">
@@ -104,4 +104,29 @@
               </div>
         </div>
       </form>
+</p-dialog>
+
+<p-dialog header="Atualizar tipo de matéria" [(visible)]="showLegislatureDialog" (onHide)="showLegislatureDialog = false"  [style]="{width: '40vw'}" [modal]="true">
+    <p-table [value]="townHallSelectedLegislatureUpdate.legislativeSubjectTypeList" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Cód. SAPL</th>
+                <th>Nome</th>
+                <th>Tipo de Votação</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-legislature>
+            <tr>
+
+                <td>{{legislature.sequenceSAPL}}</td>
+                <td>{{legislature.title}}</td>
+                <td>
+                    <p-dropdown [options]="eVotingTypeResultList" [(ngModel)]="legislature.resultType"  class="form-control"></p-dropdown>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="row" style="margin-top: 10px; text-align: center;">
+        <button style="margin-bottom:10px;" pButton pRipple type="submit" (click)="updateTownHall(townHallSelectedLegislatureUpdate)" label="Atualizar" icon="pi pi-save" class=" p-button-success"></button>
+      </div>
 </p-dialog>
