@@ -163,7 +163,7 @@
                         <ng-template pTemplate="body" let-subject>
                             <tr >
                                 <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">
-                                    <p-tableCheckbox [disabled]="subject.status == 'VOTED' || subject.status == 'VOTING'" [value]="subject"></p-tableCheckbox>
+                                    <p-tableCheckbox  [disabled]="subject.status == 'VOTED' || subject.status == 'VOTING'" [value]="subject"></p-tableCheckbox>
                                 </td>
                                 <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">{{subject.description}}</td>
                             </tr>

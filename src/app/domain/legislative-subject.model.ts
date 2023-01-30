@@ -4,5 +4,6 @@ export class LegislativeSubjectType{
     title: string;
     sequenceSAPL: number;
     resultType: string;
+    visibilityType: string;
     
 }

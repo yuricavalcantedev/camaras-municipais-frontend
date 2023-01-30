@@ -83,13 +83,13 @@
                 </div>
                 <div class="row">
                     <div class="col-10 closer">
-                        <label>Url da Imagem</label>
+                        <label>Url da Imagem - TESTE 2</label>
                     </div>
                     <div class="col-10 modal-div">
                         <input type="text" formControlName="urlImage" class="form-control" pInputText>
                     </div>
                 </div>                
-                <div class="row">
+                <div class="row" *ngIf="isEditting">
                     <div class="col-10 closer">
                         <label>Legislatura</label>
                     </div>
@@ -113,6 +113,7 @@
                 <th>Cód. SAPL</th>
                 <th>Nome</th>
                 <th>Tipo de Votação</th>
+                <th>Tipo de Visibilidade</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-legislature>
@@ -123,10 +124,13 @@
                 <td>
                     <p-dropdown [options]="eVotingTypeResultList" [(ngModel)]="legislature.resultType"  class="form-control"></p-dropdown>
                 </td>
+                <td>
+                    <p-dropdown [options]="eVotingVisibilityTypeList" [(ngModel)]="legislature.visibilityType"  class="form-control"></p-dropdown>
+                </td>
             </tr>
         </ng-template>
     </p-table>
     <div class="row" style="margin-top: 10px; text-align: center;">
-        <button style="margin-bottom:10px;" pButton pRipple type="submit" (click)="updateTownHall(townHallSelectedLegislatureUpdate)" label="Atualizar" icon="pi pi-save" class=" p-button-success"></button>
+        <button style="margin-bottom:10px; width: 100%;" pButton pRipple type="submit" (click)="updateTownHall(townHallSelectedLegislatureUpdate)" label="Atualizar" icon="pi pi-save" class=" p-button-success"></button>
       </div>
 </p-dialog>

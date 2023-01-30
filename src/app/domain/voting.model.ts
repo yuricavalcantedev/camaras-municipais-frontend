@@ -14,4 +14,5 @@ export class Voting{
     noCount: number = 0;
     abstentionCount: number = 0;
     result : string;
+    description: string;
 }

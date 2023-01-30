@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -48,7 +48,6 @@ export class TownHallControlComponent implements OnInit {
   expediente:string;
   outroExpediente: string;
   disableInput: boolean = true;
-  INTERVAL_TIME: 2000;
 
 
   sessionUUID: string = '';
@@ -61,6 +60,9 @@ export class TownHallControlComponent implements OnInit {
   isShowTimerTabOpened: boolean = false;
   isVotingPanelTabOpened: boolean = false;
 
+  firstInterval: any;
+  secondInterval: any;
+  
   @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
@@ -90,6 +92,12 @@ export class TownHallControlComponent implements OnInit {
 
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event: any) {
+    clearInterval(this.firstInterval);
+    clearInterval(this.secondInterval);
+  }
+
   ngOnInit(): void {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
@@ -102,9 +110,9 @@ export class TownHallControlComponent implements OnInit {
           this.sessionUUID = data.uuid;
           this.cookieService.set('session-uuid', data.uuid);
           this.existsSession = true;
-          setInterval(() =>{
+          this.firstInterval = setInterval(() =>{
             this.findSessionByUUID(this.sessionUUID);
-          }, this.INTERVAL_TIME);
+          }, 5000);
         }
       },
       error: err => {
@@ -190,9 +198,10 @@ export class TownHallControlComponent implements OnInit {
           this.form.get('id').enable();
           this.sessionUUID = this.session.uuid;
 
-          setInterval(() => {
+          this.secondInterval = setInterval(() => {
+            console.log('Aqui one==two');
             this.findSessionByUUID(this.session.uuid);
-          }, this.INTERVAL_TIME);
+          }, 5000);
         },
         error: err => {
           console.log(err);
@@ -229,6 +238,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe({
       next: data => {
+
         this.session = data;
         if(this.session.votingList.length == 0){
           this.existsOpenVoting = false;

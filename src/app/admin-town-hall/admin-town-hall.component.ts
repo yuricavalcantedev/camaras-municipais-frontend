@@ -25,8 +25,11 @@ export class AdminTownHallComponent implements OnInit {
   submitted: boolean = false;
   isEditting: boolean = false;
   showDialog: boolean = false;
+  disableLegislatureField: boolean = true;
+
   showLegislatureDialog: boolean = false;
   eVotingTypeResultList = ['MAIORIA_SIMPLES', 'MAIORIA_QUALIFICADA', 'MAIORIA_ABSOLUTA'];
+  eVotingVisibilityTypeList = ['SIMBOLICA', 'NOMINAL', 'SECRETA'];
   
 
   townHallSelectedLegislatureUpdate: TownHall = new TownHall();
@@ -43,9 +46,11 @@ export class AdminTownHallComponent implements OnInit {
       urlImage: new FormControl(''),
       city: new FormControl(''),
       legislature: new FormControl(''),
-      apiURL: new FormControl('', [Validators.required]),
+      apiURL: new FormControl('', [Validators.required],),
     });
-
+    
+    this.formTownHall.controls['legislature'].disable();
+    
     if(this.cookieService.get('user-role') != 'ROLE_ADMIN'){
       this.cookieService.deleteAll();
       this.router.navigate(['']);

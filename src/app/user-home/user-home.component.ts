@@ -35,7 +35,6 @@ export class UserHomeComponent implements OnInit {
   showInscriptionListDialog : boolean = false;
 
   votingTitle:string = '';
-  votingSubTitle: string = '';
   parlamentarUserType = 'P'
 
   constructor(private userService: UserService, private messageService: MessageService,
@@ -94,9 +93,10 @@ export class UserHomeComponent implements OnInit {
         this.linkSessao = this.session.sessionSubjectURL;
         this.existsOpenVoting = this.session.voting != null && this.session.voting.status == 'VOTING';
         this.updatePresence();
-
         if(this.existsOpenVoting){
-          this.setTitleAndSubTitle();
+          this.votingTitle = this.session.voting.description;
+        }else{
+          this.votingTitle = "";
         }
       }
     }, error => {
@@ -163,17 +163,6 @@ export class UserHomeComponent implements OnInit {
 
   fullScreen() {
     this.utilService.fullScreen();
-  }
-
-  setTitleAndSubTitle(){
-    if(this.voting.subjectList.length == 1){
-      this.votingTitle = this.voting.subjectList[0].description;
-      this.votingSubTitle = '';
-    }else{
-      this.votingTitle = 'Votação em bloco';
-      let subTitleSplitAux = this.voting.subjectList[0].description.split('-')[1];
-      this.votingSubTitle = subTitleSplitAux.split('nº')[0];
-    }
   }
 
   getDisableColor(){

@@ -8,4 +8,5 @@ export class Subject{
     voting: Voting;
     description: string;
     status: string;
+    saplMateriaId: number;
 }
