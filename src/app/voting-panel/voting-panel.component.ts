@@ -14,7 +14,6 @@ import { UtilService } from '../service/util.service';
 })
 export class VotingPanelComponent implements OnInit {
 
-
   inFullScren = false
 
   parlamentaresTable: ParlamentarInfoStatusDTO[] = [];
@@ -69,7 +68,7 @@ export class VotingPanelComponent implements OnInit {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
-    
+
 
     setInterval(() =>{
 

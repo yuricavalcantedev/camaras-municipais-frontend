@@ -11,12 +11,12 @@
             <div *ngIf="item.status == 'PRESENCE'"
               [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
-              <div *ngIf="item.status != 'PRESENCE'" class="status" style="background-color: gray;">
+              <div *ngIf="item.status != 'PRESENCE'" class="status" [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
               </div>
           </div>
           <div class="identification">
-            <span class="type" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
-            <span class="last-name-political-party" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}">{{item.role}}</span>
+            <span class="type" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}" >{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+            <span class="last-name-political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.role}}</span>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
             <div
               [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
-            <span class="title" [ngStyle]="{'color': item.status == 'PRESENCE' ? 'white' : 'gray'}" >{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
+            <span class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}" >{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
           </div>
         </div>
       </div>

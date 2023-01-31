@@ -35,20 +35,32 @@ html {
   --app-vote-abs: #FBCB60;
   --app-status-total: #E9E5D8;
   --app-vote-label-background-color: #171430;
+  --app-vote-label-background-color-yellow: #FFBD41;
+
   --app-vote-label-color: #FFF;
-  
+  --app-vote-label-color-yellow: #FFBD41;
+
   --app-voting-not-present: #171430;
   --app-voting-present: #FFF;
 
 
   --app-vote-panel-label-color: #FFF;
+  --app-vote-panel-label-color-yellow: #FFBD41;
+
+  --app-vote-panel-label-color-presence: #FFBD41;
+  --app-vote-panel-label-color-no-presence: #ffffff1f;
 
   --app-box-right-title-color: #FFF;
+  --app-box-right-title-color-yellow: #FFBD41;
+
   --app-box-right-subtitle-color: #FFF;
+  --app-box-right-subtitle-color-yellow:  #FFBD41;
   --app-result-color: #FFF;
+  --app-result-color-yellow: #FFBD41;
   --app-a-parte-info-color: #FFBD41;
 
   --app-clock-color: #FFF;
+  --app-clock-color-yellow: #FFBD41;
 }
 
 
