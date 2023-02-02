@@ -14,12 +14,10 @@
               [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
             </div>
           </div>
-          <div class="identification">
-            <span class="type"
-              [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}/{{item.parlamentar.politicalParty}}</span>
-            <span class="last-name-political-party"
-              [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.role}}</span>
-          </div>
+          <div class="type" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+            {{item.role}} : {{item.parlamentar.name}}</div>
+          <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+            {{item.parlamentar.politicalParty}}</div>
         </div>
       </div>
     </div>

@@ -7,3 +7,18 @@
 input{
     width: 100%;
 }
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  width: 50%;
+}
+
+.card {
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: var(--app-background-color);
+}
