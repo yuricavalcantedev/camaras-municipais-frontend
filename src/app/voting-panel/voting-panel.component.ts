@@ -125,7 +125,7 @@ export class VotingPanelComponent implements OnInit {
       next: data => {
 
         this.parlamentaresTable = data.parlamentarTableList;
-        this.parlamentaresTownhall = data.parlamentarList.sort().splice(2,10);
+        this.parlamentaresTownhall = data.parlamentarList;
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.computePartialVotes();
