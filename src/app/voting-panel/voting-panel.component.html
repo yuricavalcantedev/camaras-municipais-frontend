@@ -14,7 +14,7 @@
               [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
             </div>
           </div>
-          <div class="type" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+          <div class="type" [ngClass]="{'label-no-presence':item.status != 'OTHER'}">
             {{item.role}} : {{item.parlamentar.name}}</div>
           <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
             {{item.parlamentar.politicalParty}}</div>
@@ -29,7 +29,7 @@
               [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
               class="status"></div>
             <div class="parlamentarian-info">
-              <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
+              <div class="title" [ngClass]="{'label-no-presence':item.status == 'OTHER'}">{{item.parlamentar.name}}
               </div>
               <div class="political-party">{{item.parlamentar.politicalParty}}</div>
             </div>
