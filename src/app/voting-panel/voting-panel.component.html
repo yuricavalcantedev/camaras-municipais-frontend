@@ -39,7 +39,7 @@
       <div class='box-right'>
         <div class="box-right-in">
           <div class="expedient" *ngIf="!existsOpenVoting">
-            {{expedientType}}
+            {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
           </div>
           <div class="info" *ngIf="existsOpenVoting">
             <div class="title">
@@ -88,7 +88,7 @@
             </span>
           </div>
           <div class="box-result"
-            [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='YES', 'status-no':finalResult=='NO'}">
+            [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
             {{finalResult}}
           </div>
         </div>

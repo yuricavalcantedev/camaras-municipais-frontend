@@ -316,14 +316,14 @@
 /* BOX RIGHT */
 
 .box-main .page-panel-voting .box-body .box-right .footer {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   justify-content: space-between;
   width: 100%;
   height: auto;
   margin-top: 20px;
   padding: 2rem;
-  flex-wrap: wrap;
   background-color: var(--app-primary-color);
   border-radius: 2rem;
 }
@@ -375,32 +375,24 @@
 .box-abs,
 .box-total {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 2rem;
 }
 
 .box-main .page-panel-voting .footer .box-result {
-  display: flex;
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: 4;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  width: 50%;
-  margin-right: -2rem;
-
-  font-family: "Montserrat";
+  width: 80%;
+  height: 80%;
+  margin-left: 20%;
+  font-family: Montserrat;
   font-style: normal;
-  font-weight: bold;
-  font-size: 6rem;
+  font-weight: 700;
+  font-size: 4rem;
   color: var(--app-result-color);
   text-transform: uppercase;
-
-  -webkit-border-top-left-radius: 2rem;
-  -webkit-border-bottom-left-radius: 2rem;
-  -moz-border-radius-topleft: 2rem;
-  -moz-border-radius-bottomleft: 2rem;
-  border-top-left-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  border-radius: 2rem;
 }
 
 .box-result-no-result {
