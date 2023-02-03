@@ -32,6 +32,7 @@ export class VotingPanelComponent implements OnInit {
   votingTitle:string = '';
   votingSubTitle: string = '';
   expedientType: string = '';
+  otherExpedient: string = '';
 
   existsOpenVoting: boolean = false;
   session: Session = null;
@@ -62,10 +63,7 @@ export class VotingPanelComponent implements OnInit {
       this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
     }
 
-    if(this.cookieService.get('expedientType').length > 0){
-      this.expedientType = this.cookieService.get('expedientType');
-    }
-
+    this.setExpiendType();
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
@@ -86,12 +84,22 @@ export class VotingPanelComponent implements OnInit {
         if(this.existsOpenVoting){
           this.findSessionVotingInfoByUUID(sessionUUID);
         }else if (!this.existsOpenVoting){
+          this.setExpiendType();
           this.findSessionStandardInfoByUUID(sessionUUID);
         }
       });
     }, this.TIME_TO_GET_DATA);
 
   }
+  private setExpiendType() {
+    if (this.cookieService.get('expedientType').length > 0) {
+      this.expedientType = this.cookieService.get('expedientType');
+    }
+    if (this.cookieService.get('otherExpedient').length > 0) {
+      this.otherExpedient = this.cookieService.get('otherExpedient');
+    }
+  }
+
   fullScreen() {
     this.utilService.fullScreen();
   }
