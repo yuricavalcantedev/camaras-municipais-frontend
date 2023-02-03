@@ -1,11 +1,6 @@
 <p-toast></p-toast>
 <p-toast position="bottom-center" key="bc"></p-toast>
 <div class="grid">
-    <div class="col">
-        <button pButton pRipple label="Limpar Cookies" style="float: right; margin-right: 10px;" class="p-button-warning" (click)="cleanCookies()"></button>
-    </div>
-</div>
-<div class="grid">
     <div class="col aux">
         <p-card header="Controle de Expediente" styleClass="p-card-shadow abc">
             <div class="col-6 ml-6" style="margin-left: 1rem !important">
@@ -36,8 +31,16 @@
     <p-card styleClass="p-card-shadow" *ngIf="!existsSession">
         <ng-template pTemplate="header">
         </ng-template>
-        <p class="p-session">Ainda nao existe uma sessao aberta</p>
-        <p-button class="mr-4 open-session-button" label="Abrir sessao" (click)="openDialog()"></p-button>
+        <p class="p-session">Ainda não existe uma sessão aberta</p>
+        <p-button class="mr-4 open-session-button" label="Abrir sessão" (click)="openDialog()"></p-button>
+    </p-card>
+</div>
+<div class="">
+    <p-card styleClass="p-card-shadow" *ngIf="existsSession">
+        <ng-template pTemplate="header">
+        </ng-template>
+        <p class="p-session">Algum problema na sessão? Delete e inicie novamente</p>
+        <button pButton pRipple class="mr-4 open-session-button p-button-danger" label="Deletar sessão" (click)="openDeleteSessionDialog()"></button>
     </p-card>
 </div>
 
@@ -237,6 +240,23 @@
             </div>
         </div>
       </form>
+</p-dialog>
+
+<p-dialog header="Deletar sessão" [(visible)]="showDeleteSessionDialog" (onHide)="onHideDeleteSessionDialog()"  [style]="{width: '30vw'}" [modal]="true">
+    <div class="row">
+        <div class="form-group">
+            <div class="row">
+                <div class="col closer">
+                    <p style="font-size: 20px;">Tem certeza que quer deletar a sessão atual, todos os dados referentes a ela serão excluídos?</p>
+                </div>
+            </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="align-items-center">
+                <button style="margin-left:10px; float: right;" pButton pRipple type="submit" label="Deletar" (click)="deleteSession()" icon="pi" class="p-button-rounded p-button-danger"></button>
+            </div>
+          </div>
+        </div>
+    </div>
 </p-dialog>
 
 

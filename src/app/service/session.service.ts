@@ -43,6 +43,10 @@ export class SessionService {
     return this.http.post<Session>(this.baseUrl, sessionDTOCreate);
   }
 
+  delete(sessionUUID: string){
+    return this.http.delete(this.baseUrl + '/' + sessionUUID, this.httpOptions);
+  }
+
   checkIfExistsOpenSessionToday (townHallId : number){
     return this.http.get<boolean>(this.baseUrl + this.checkOpenSessionURL.replace('{id}', townHallId + ''));
   }

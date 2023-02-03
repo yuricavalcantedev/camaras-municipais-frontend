@@ -36,6 +36,7 @@ export class TownHallControlComponent implements OnInit {
 
   showDialog: boolean = false;
   showVotingDialog: boolean = false;
+  showDeleteSessionDialog: boolean = false;
   submitted: boolean = false;
   existsSession: boolean = false;
   existsOpenVoting: boolean = false;
@@ -147,6 +148,14 @@ export class TownHallControlComponent implements OnInit {
     this.showVotingDialog = true;
   }
 
+  openDeleteSessionDialog(){
+    this.showDeleteSessionDialog = true;
+  }
+
+  onHideDeleteSessionDialog(){
+    this.showDeleteSessionDialog = false;
+  }
+
   onHideVotingDialog(){
     this.showVotingDialog = false;
   }
@@ -199,17 +208,30 @@ export class TownHallControlComponent implements OnInit {
           this.sessionUUID = this.session.uuid;
 
           this.secondInterval = setInterval(() => {
-            console.log('Aqui one==two');
             this.findSessionByUUID(this.session.uuid);
           }, 5000);
         },
         error: err => {
-          console.log(err);
           this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:err.error.message});
           this.onCancelar();
           this.loading = false;
         }
       });
+  }
+
+  deleteSession(){
+      
+    this.showDeleteSessionDialog = false;
+    this.sessionService.delete(this.session.uuid).subscribe({
+      next: data => {
+        clearInterval(this.firstInterval);
+        clearInterval(this.secondInterval);
+        this.cookieService.deleteAll();
+        this.router.navigate(['login']);
+      }, error: error => {
+        this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:error.error.description});
+      }
+    });
   }
 
   onCancelar(){
@@ -366,18 +388,12 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.closeVoting(this.session.uuid).subscribe({
       next: res => {
-        console.log(res);
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação encerrada!'});
       },
       error: err => {
         this.messageService.add({severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, fale com o administrador'});
       }
     });
-  }
-
-  cleanCookies(){
-    this.cookieService.deleteAll();
-    this.router.navigate(['login']);
   }
 
 }
