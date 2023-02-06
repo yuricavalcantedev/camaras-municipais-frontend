@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Observable, retry, catchError, throwError, Observer } from 'rxjs';
+import { Observable, retry, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Parlamentar } from '../domain/parlamentar.model';
 import { TownHall } from '../domain/townhall.model';
 
 @Injectable({
@@ -39,26 +38,8 @@ export class TownHallService {
 
   }
 
-  createTownHall(townHall : TownHall) : TownHall{
-    
-    let result : TownHall;
-
-    this.http.post<TownHall>(this.baseUrl, townHall).subscribe({
-      
-      next: data => {
-        result = data;
-        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara criada com sucesso!'});
-      },
-
-      error: error => {
-        console.log(error);
-        this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail:'Sistema'});
-        return;
-      }
-
-    });
-
-    return result;
+  createTownHall(townHall : TownHall) : Observable<TownHall>{
+    return this.http.post<TownHall>(this.baseUrl, townHall);
   }
 
   updateTownHall(townHall : TownHall) : Observable<TownHall>{
@@ -66,16 +47,8 @@ export class TownHallService {
     return this.http.put<TownHall>(this.baseUrl, townHall);
   }
 
-  delete(id: number){
-    this.http.delete(this.baseUrl + "/" + id, this.httpOptions).subscribe({
-      next: () => {
-        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara deletada com sucesso!'});
-      },
-      error: error => {
-        this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail:'Sistema'});
-      }
-    });
-
+  delete(id: number): Observable<number>{
+    return this.http.delete<number>(this.baseUrl + "/" + id, this.httpOptions);
   }  
 
   errorHandl(error: any) {

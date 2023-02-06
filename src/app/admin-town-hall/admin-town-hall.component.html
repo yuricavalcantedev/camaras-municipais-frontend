@@ -83,7 +83,7 @@
                 </div>
                 <div class="row">
                     <div class="col-10 closer">
-                        <label>Url da Imagem - TESTE 2</label>
+                        <label>Url da Imagem</label>
                     </div>
                     <div class="col-10 modal-div">
                         <input type="text" formControlName="urlImage" class="form-control" pInputText>
@@ -96,6 +96,10 @@
                     <div class="col-10 modal-div">
                         <input type="text" formControlName="legislature" class="form-control" pInputText>    
                     </div>
+                </div>
+                <div *ngIf="loading" style="margin-top: 10px; margin-left: 7px;">
+                    <p>Aguarde um momento...</p>
+                    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
                 </div>
               </div>
               <div class="row" style="margin-top: 10px;">

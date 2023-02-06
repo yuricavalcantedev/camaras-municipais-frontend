@@ -138,8 +138,6 @@ export class VotingPanelComponent implements OnInit {
         this.speakerList = data.speakerList;
         this.computePartialVotes();
         this.extractTitleAndSubTitle();
-        console.log(this.parlamentaresTable);
-        console.log(this.parlamentaresTownhall);
       }, error: error => {
         console.log(error);
       }
@@ -157,8 +155,6 @@ export class VotingPanelComponent implements OnInit {
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
-        console.log(this.parlamentaresTable);
-        console.log(this.parlamentaresTownhall);
       }, error: error => {
         console.log(error);
       }
