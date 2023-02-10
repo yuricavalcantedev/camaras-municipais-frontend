@@ -35,6 +35,8 @@ export class VotingPanelComponent implements OnInit {
   otherExpedient: string = '';
 
   existsOpenVoting: boolean = false;
+  existsClosedVoting: boolean = false;
+
   session: Session = null;
   speakerList: SpeakerSession[] = [];
   sessionInfoInterval: any;
@@ -63,27 +65,29 @@ export class VotingPanelComponent implements OnInit {
       this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
     }
 
-    this.setExpiendType();
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
 
     setInterval(() =>{
 
+      this.setExpiendType();
       const syncCalling = new Promise<boolean>((resolve, reject) => {
         this.findSessionByUUID(sessionUUID);
         resolve(true);
       });
 
       syncCalling.then(() => {
-
         if(this.session != null){
+
           this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+          this.existsClosedVoting = this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
+
         }
 
         if(this.existsOpenVoting){
           this.findSessionVotingInfoByUUID(sessionUUID);
-        }else if (!this.existsOpenVoting){
+        }else{
           this.setExpiendType();
           this.findSessionStandardInfoByUUID(sessionUUID);
         }
@@ -110,26 +114,22 @@ export class VotingPanelComponent implements OnInit {
       next: data => {
           this.session = data;
       }, error: err => {
-        console.log(err);
+        console.log(err.error.description);
       }
     });
   }
 
-  extractTitleAndSubTitle(){
+  extractTitleAndSubTitle(voting: Voting){
 
-    let titleSplittedFirstHalf = this.session.votingList[0].subjectList[0].description.split('nº');
-    this.votingTitle = titleSplittedFirstHalf[0].split('-')[1];
-    if(this.session.subjectList.length > 1){
-      this.votingSubTitle = 'Mocao em bloco';
-    }else{
-      this.votingSubTitle = this.session.subjectList[0].description;
+    if(voting != undefined){
+      this.votingTitle = voting.description;
     }
-
   }
 
   findSessionVotingInfoByUUID(sessionUUID: string){
 
-    this.sessionService.findSessionVotingInfoByUUID(sessionUUID).subscribe({
+    let condition = this.existsClosedVoting ? 'VOTED' : 'VOTING';
+    this.sessionService.findSessionVotingInfoByUUID(sessionUUID, condition).subscribe({
       next: data => {
 
         this.parlamentaresTable = data.parlamentarTableList;
@@ -137,7 +137,7 @@ export class VotingPanelComponent implements OnInit {
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.computePartialVotes();
-        this.extractTitleAndSubTitle();
+        this.extractTitleAndSubTitle(data.voting);
       }, error: error => {
         console.log(error);
       }

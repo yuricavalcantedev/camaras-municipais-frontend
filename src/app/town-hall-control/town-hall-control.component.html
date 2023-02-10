@@ -262,12 +262,12 @@
 
 <p-dialog header="Abrir votacao" [(visible)]="showVotingDialog" (onHide)="clearInputs()"  [style]="{width: '30vw'}" [modal]="true">
         <div class="row">
-            <p>Voce quer começar uma votação com {{selectedSubjectList.length}} ordem(s) do dia?</p>
-            <p *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>
+            <p>Você quer começar uma votação com {{selectedSubjectList.length}} ordem(s) do dia?</p>
+            <p style="margin-top: 10px;" *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>
               <div class="row" style="margin-top: 10px;">
                 <div class="align-items-center">
                     <button style="margin-left:10px;" pButton pRipple type="submit" label="Abrir "(click)="onOpeningVoting()" icon="pi pi-play" class="p-button-rounded p-button-success"></button>
-                    <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onCancelar()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                    <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onHideVotingDialog()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
                 </div>
               </div>
         </div>

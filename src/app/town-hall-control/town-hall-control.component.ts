@@ -173,11 +173,9 @@ export class TownHallControlComponent implements OnInit {
 
     this.isVotingPanelTabOpened = this.cookieService.get('isVotingPanelTabOpened') == 'true';
     if(!this.isVotingPanelTabOpened){
-
       this.cookieService.set('isVotingPanelTabOpened', 'true');
       window.open('/painel-votacao', "_blank");
     }
-
   }
 
   onSubmit(){
@@ -210,7 +208,7 @@ export class TownHallControlComponent implements OnInit {
           }, 5000);
         },
         error: err => {
-          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:err.error.message});
+          this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:err.error.description});
           this.onCancelar();
           this.loading = false;
         }
@@ -246,8 +244,12 @@ export class TownHallControlComponent implements OnInit {
         this.session.votingList.push(data);
         this.onHideVotingDialog();
         this.existsOpenVoting = true;
+        this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação aberta!'});
       }, error: error => {
-        //do nothing
+        console.log(error);
+        this.selectedSubjectList = [];
+        this.onHideVotingDialog();
+        this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:error.error.description});
       }
 
     });
@@ -299,12 +301,14 @@ export class TownHallControlComponent implements OnInit {
     this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
     this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
 
+    this.setExpedient();
     if(!this.isShowTimerTabOpened){
 
       this.cookieService.set('isShowTimerTabOpened', 'true');
       window.open('/mostrarTempo', "_blank");
     }
   }
+  
   setExpedient() {
     this.cookieService.set('otherExpedient', this.outroExpediente);
     this.cookieService.set('expedientType', this.expediente);
@@ -357,8 +361,6 @@ export class TownHallControlComponent implements OnInit {
   chooseExpediente(flag: boolean){
     this.disableInput = flag;
     this.disableExpedientDiversos = flag;
-    this.setExpedient();
-    console.log({actualExpedient: this.cookieService.get("expedientType")})
   }
 
   onTownHallChange(){
@@ -388,10 +390,11 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.closeVoting(this.session.uuid).subscribe({
       next: res => {
+        this.selectedSubjectList = [];
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação encerrada!'});
       },
       error: err => {
-        this.messageService.add({severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, fale com o administrador'});
+        this.messageService.add({severity:'error', summary:'Erro!', detail: err.error.description});
       }
     });
   }
