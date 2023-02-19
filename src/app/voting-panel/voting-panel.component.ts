@@ -133,7 +133,7 @@ export class VotingPanelComponent implements OnInit {
       next: data => {
 
         this.parlamentaresTable = data.parlamentarTableList;
-        this.parlamentaresTownhall = data.parlamentarList;
+        this.parlamentaresTownhall = this.parlamentaresTable.concat(data.parlamentarList)
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.computePartialVotes();

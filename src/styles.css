@@ -1,23 +1,91 @@
 /* RESET */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
 html {
@@ -26,87 +94,80 @@ html {
 
 :root {
   --app-primary-color: #171430;
-  --app-background-color: #EEEEEE;
-  --app-header-text-color: #FFF;
-  --app-footer-text-color: #FFF;
+  --app-background-color: #eeeeee;
+  --app-header-text-color: #fff;
+  --app-footer-text-color: #fff;
   --app-box-voting-background-color: #d9d9d9;
   --app-vote-yes: #7ED283;
-  --app-vote-no: #EB606B;
-  --app-vote-abs: #FBCB60;
-  --app-status-total: #E9E5D8;
+  --app-vote-no: #eb606b;
+  --app-vote-abs: #fbcb60;
+  --app-status-total: #e9e5d8;
   --app-vote-label-background-color: #171430;
-  --app-vote-label-background-color-yellow: #FFBD41;
-
-  --app-vote-label-color: #FFF;
-  --app-vote-label-color-yellow: #FFBD41;
-
+  --app-vote-label-color: #fff;
   --app-voting-not-present: #171430;
-  --app-voting-present: #FFF;
+  --app-voting-present: #fff;
+  --app-vote-panel-label-color: #fff;
+  --app-vote-panel-label-color-presence: #ffbd41;
+  --app-vote-panel-label-color-no-presence: #4c4a4a;
+  --app-box-right-title-color: #fff;
+  --app-box-right-subtitle-color: #fff;
+  --app-result-color: #fff;
+  --app-clock-color: #fff;
 
-
-  --app-vote-panel-label-color: #FFF;
-  --app-vote-panel-label-color-yellow: #FFBD41;
-
-  --app-vote-panel-label-color-presence: #FFBD41;
-  --app-vote-panel-label-color-no-presence: #ffffff1f;
-
-  --app-box-right-title-color: #FFF;
-  --app-box-right-title-color-yellow: #FFBD41;
-
-  --app-box-right-subtitle-color: #FFF;
-  --app-box-right-subtitle-color-yellow:  #FFBD41;
-  --app-result-color: #FFF;
-  --app-result-color-yellow: #FFBD41;
-  --app-a-parte-info-color: #FFBD41;
-
-  --app-clock-color: #FFF;
-  --app-clock-color-yellow: #FFBD41;
+  --voting-panel-bg-color: #3f8967;
+  --voting-panel-text-color: #3a3b38;
+  --voting-panel-header-background-color: #fffffd;
 }
-
 
 /* You can add global styles to this file, and also import other style files */
-.container-modal-left{
-    width: 45%;
-    height: 60%;
-    margin-top: 20px;
-    margin-left: 20px;
-    background-color: lightsteelblue;
-    float: left;
-    overflow: hidden;
-    text-align: center;
+.container-modal-left {
+  width: 45%;
+  height: 60%;
+  margin-top: 20px;
+  margin-left: 20px;
+  background-color: lightsteelblue;
+  float: left;
+  overflow: hidden;
+  text-align: center;
 }
 
-.container-modal-right{
-    width: 45%;
-    height: 60%;
-    margin-top: 20px;
-    margin-left: 20px;
-    background-color: lightsteelblue;
-    float: right;
-    overflow: hidden;
-    text-align: center;
+.container-modal-right {
+  width: 45%;
+  height: 60%;
+  margin-top: 20px;
+  margin-left: 20px;
+  background-color: lightsteelblue;
+  float: right;
+  overflow: hidden;
+  text-align: center;
 }
 
-.container-top{
-    width: 100%;
-    height: 150px;
-    background-color: khaki;
-    float: left;
-    overflow: hidden;
-    text-align: center;
+.container-top {
+  width: 100%;
+  height: 150px;
+  background-color: khaki;
+  float: left;
+  overflow: hidden;
+  text-align: center;
 }
 
-.btn-timer-func > button{
-    margin-left: 10px;
+.btn-timer-func > button {
+  margin-left: 10px;
 }
 
-.time-modal{
-    font-size: 150px !important;
-    font-weight: bold !important;
+.time-modal {
+  font-size: 150px !important;
+  font-weight: bold !important;
 }
 
-.mini-time-modal{
-    font-size: 40px !important;
-    font-weight: bold !important;
+.mini-time-modal {
+  font-size: 40px !important;
+  font-weight: bold !important;
 }
 
+.box-shadow {
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.13));
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
+}

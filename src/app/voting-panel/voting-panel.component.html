@@ -1,38 +1,23 @@
 <div class="box-main">
   <div class='page-panel-voting'>
-    <div class="sub-header">
-      <div class='sub-header-legislature-photo'>
-        <img src="{{townHallUrlImage}}" alt="brasao-municipio">
-      </div>
-      <div class="sub-header-itens">
-        <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
-          <div class="status-info">
-            <div *ngIf="item.status == 'PRESENCE'"
-              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
-              class="status"></div>
-            <div *ngIf="item.status != 'PRESENCE'" class="status"
-              [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
-            </div>
-          </div>
-          <div class="type" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-            {{item.role}} : {{item.parlamentar.name}}</div>
-          <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-            {{item.parlamentar.politicalParty}}</div>
-        </div>
-      </div>
+    <div class="header box-shadow">
+      5ª Sessão Ordinária de 2023 da 3ª Sessão Legislativa da 19ª Legislatura
     </div>
     <div class="box-body">
       <div class="box-left">
-        <div class="item" *ngFor="let item of parlamentaresTownhall">
-          <div class="status-info">
-            <div
-              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
-              class="status"></div>
-            <div class="parlamentarian-info">
-              <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
-              </div>
-              <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.politicalParty}}</div>
+        <div class="item box-shadow"
+          [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
+          *ngFor="let item of parlamentaresTownhall">
+          <div class="picture" style="--bg-image: url('https://sapl.caninde.ce.leg.br/media/sapl/public/parlamentar/34/edinaldo.png');">
+          </div>
+          <div class="parlamentarian-info">
+            <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+              {{item.parlamentar.politicalParty}}</div>
+            <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
             </div>
+          </div>
+          <div class="role" *ngIf="item.role!=null">
+            {{item.role}}
           </div>
         </div>
       </div>

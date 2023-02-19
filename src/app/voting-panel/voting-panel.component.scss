@@ -8,19 +8,30 @@
   max-height: 100vh;
 }
 
-.box-main .app-header {
-  display: flex;
-  width: 100vw;
+.box-main .page-panel-voting {
+  display: grid;
+  grid-auto-flow: row;
+  align-items: center;
+
+  background-color: var(--voting-panel-bg-color)
 }
 
-.box-main .page-panel-voting {
-  display: flex;
-  justify-content: flex-start;
+.box-main .page-panel-voting .header {
+  display: grid;
+
+  height: 10rem;
+
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: var(--app-background-color);
+  margin: 3rem;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 4.3rem;
+  color: var(--voting-panel-text-color);
+
+  background-color: var(--voting-panel-header-background-color);
 }
 
 .status-info {
@@ -42,6 +53,10 @@
   background-color: var(--app-vote-abs);
 }
 
+.status-neutral {
+  background-color: var(--app-vote-panel-label-color-no-presence) !important;
+}
+
 .status-total {
   background-color: var(--app-status-total);
 }
@@ -54,176 +69,75 @@
   background-color: gray;
 }
 
-.status-neutral {
-  background-color: var(--app-vote-panel-label-color-no-presence) !important;
-}
-
-.box-main .page-panel-voting .sub-header {
-  width: 99%;
-
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  justify-content: space-evenly;
-  align-items: center;
-
-  background-color: var(--app-primary-color);
-
-  -webkit-border-radius: 2rem;
-  -moz-border-radius: 2rem;
-  border-radius: 2rem;
-  margin: 25px;
-}
-
-.box-main .page-panel-voting .sub-header .sub-header-legislature-photo {
-  display: flex;
-  align-content: center;
-  width: 100%;
-  justify-content: center;
-  flex: 1;
-}
-
-.box-main .page-panel-voting .sub-header .sub-header-legislature-photo img {
-  max-width: 7.5rem;
-}
-
-
-.box-main .page-panel-voting .sub-header .sub-header-itens {
-  width: 100%;
-
+.box-main .page-panel-voting .box-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  margin: 1rem 0;
-}
-
-
-.box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item .status-info .status {
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  flex-shrink: 0;
-
-  margin: 1rem;
-
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  {
-    width: 95%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
-    margin-left: 2rem;
-}
-
-.box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  .type {
-  width: 100%;
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 3.43rem;
-  color: var(--app-vote-panel-label-color-yellow);
-  text-transform: uppercase;
-}
-
-.box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  .political-party {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 3.43rem;
-  color: var(--app-vote-panel-label-color-yellow);
-  text-transform: uppercase;
-}
-
-
-.box-main .page-panel-voting .box-body {
-  display: flex;
-  width: 99%;
+  grid-auto-flow: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  height: 100%;
-  padding-bottom: 20px;
+  margin: 0 1.5rem;
 }
 
 /* BOX LEFT */
 .box-main .page-panel-voting .box-body .box-left {
-  width: 100%;
-  height: 100%;
   display: grid;
-
-  background-color: var(--app-primary-color);
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 3.7rem;
+  grid-row-gap: 1rem;
 
   margin-right: 12.5px;
   padding: 15px;
   margin-bottom: 20px;
-
-  -webkit-border-radius: 2rem;
-  -moz-border-radius: 2rem;
-  border-radius: 2rem;
-
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .box-main .page-panel-voting .box-body .box-left .item {
-  width: 100%;
-  height: 40px;
+  height: 10rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
 }
 
-.box-main .page-panel-voting .box-body .box-left .item .status-info {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: row;
-}
-
-.box-main .page-panel-voting .box-body .box-left .item .status-info .status {
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  flex-shrink: 0;
-
-  margin-left: 3rem;
-
+.box-main .page-panel-voting .box-body .box-left .item .picture {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 1rem;
+  background-image: var(--bg-image);
+  background-size: cover;
 }
 
-.box-main .page-panel-voting .box-body .box-left .item .status-info .parlamentarian-info {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
+.box-main .page-panel-voting .box-body .box-left .item .parlamentarian-info {
+  flex-grow: 1;
 }
 
-.box-main .page-panel-voting .box-body .box-left .item .status-info .parlamentarian-info .title {
-  width: 100%;
-  font-family: "Montserrat";
+.box-main .page-panel-voting .box-body .box-left .item .parlamentarian-info .title {
+  font-family: "Roboto";
   font-style: normal;
-  font-weight: bold;
-  font-size: 4.5rem;
-  color: var(--app-vote-panel-label-color-yellow);
-  margin-left: 2rem;
+  font-weight: 900;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: var(--voting-panel-text-color);
 }
 
-.box-main .page-panel-voting .box-body .box-left .item .status-info .parlamentarian-info .political-party {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
-  font-size: 3rem;
-  color: var(--app-vote-panel-label-color-yellow);
-  margin: 0 2rem;
-  text-align: right;
+.box-main .page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 2.5rem;
+  color: var(--voting-panel-text-color);
+}
+
+.box-main .page-panel-voting .box-body .box-left .item .role {
+  font-family: "Roboto";
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: var(--voting-panel-text-color);
+  align-self: center;
+  transform: rotate(-90deg);
+  text-transform: uppercase;
 }
 
 .label-presence {
@@ -422,54 +336,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item .status-info {
-    margin-right: 0.5rem;
-  }
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item .status-info .status {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .box-main .page-panel-voting .box-body .box-left .item .status-info .title {
-    font-size: 1.3rem;
-    margin-left: 2rem;
-  }
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  {
-    margin-left: 0;
-  }
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  .type {
-    font-size: 1.5rem;
-  }
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item  .political-party {
-    font-weight: 100;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .box-main .page-panel-voting .sub-header .sub-header-itens .sub-header-item .status-info .status {
-    margin: 1rem 0.5rem;
-  }
-
-  .box-main .page-panel-voting .sub-header {
-    width: 87%;
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    background-color: var(--app-primary-color);
-
-    -webkit-border-radius: 2rem;
-    -moz-border-radius: 2rem;
-    border-radius: 2rem;
-    margin: 1.5rem;
-  }
 
   .box-main .page-panel-voting .box-body .box-right .expedient {
     font-weight: 400;
