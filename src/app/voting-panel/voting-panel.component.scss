@@ -34,19 +34,19 @@
 }
 
 .status-yes {
-  background-color: var(--app-vote-yes);
+  background-color: var(--app-vote-yes) !important;
 }
 
 .status-no {
-  background-color: var(--app-vote-no);
+  background-color: var(--app-vote-no) !important;
 }
 
 .status-abs {
-  background-color: var(--app-vote-abs);
+  background-color: var(--app-vote-abs) !important;
 }
 
 .status-neutral {
-  background-color: var(--app-vote-panel-label-bg-no-presence) !important;
+  background-color: var(--voting-panel-item-background-color) !important;
 }
 
 .status-total {
@@ -86,8 +86,9 @@
   display: grid;
   align-items: center;
   grid-auto-flow: column;
-  grid-template-columns: 18% 64%;
+  grid-template-columns: 18% 68% 18%;
 }
+
 
  .page-panel-voting .box-body .box-left .item .picture {
   -webkit-border-radius: 50%;

@@ -1,81 +1,81 @@
-  <div class='page-panel-voting'>
-    <div class="header box-shadow">
-      5ª Sessão Ordinária de 2023 da 3ª Sessão Legislativa da 19ª Legislatura
-    </div>
-    <div class="box-body">
-      <div class="box-left">
-        <div class="item box-shadow"
-          [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
-          *ngFor="let item of parlamentaresTownhall">
-          <div class="picture"
-          [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
+<div class='page-panel-voting'>
+  <div class="header box-shadow">
+    5ª Sessão Ordinária de 2023 da 3ª Sessão Legislativa da 19ª Legislatura
+  </div>
+  <div class="box-body">
+    <div class="box-left">
+      <div class="item box-shadow" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
+          'status-yes':item.result=='YES',
+          'status-no':item.result=='NO',
+          'status-abs':item.result=='ABSTENTION'}" *ngFor="let item of parlamentaresTownhall">
+        <div class="picture" [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
           style="--bg-image: url('https://sapl.caninde.ce.leg.br/media/sapl/public/parlamentar/34/edinaldo.png');">
-          </div>
-          <div class="parlamentarian-info">
-            <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-              {{item.parlamentar.politicalParty}}</div>
-            <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
-            </div>
-          </div>
-          <div class="role" *ngIf="item.role!=null">
-            {{item.role.trimLeft()}}
+        </div>
+        <div class="parlamentarian-info">
+          <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+            {{item.parlamentar.politicalParty}}</div>
+          <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
           </div>
         </div>
-      </div>
-      <div class='box-right box-shadow'>
-          <div class="expedient" *ngIf="!existsOpenVoting">
-            {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
-          </div>
-          <div class="info" *ngIf="existsOpenVoting">
-            <div class="title">
-              {{votingTitle}}
-            </div>
-            <div class="subtitle">
-              {{votingSubTitle.slice(0, 350)}}
-            </div>
-          </div>
+        <div class="role" *ngIf="item.role!=null" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+          {{item.role}}
+        </div>
       </div>
     </div>
-    <div class="footer box-shadow">
-      <div class="box-yes  status-yes">
-        <div class="quantity">
-          {{yesCounter}}
+    <div class='box-right box-shadow'>
+      <div class="expedient" *ngIf="!existsOpenVoting">
+        {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
+      </div>
+      <div class="info" *ngIf="existsOpenVoting">
+        <div class="title">
+          {{votingTitle}}
         </div>
-        <span class="description">
-          Sim
-        </span>
-      </div>
-      <div class="box-no status-no">
-        <div class="quantity">
-          {{noCounter}}
+        <div class="subtitle">
+          {{votingSubTitle.slice(0, 350)}}
         </div>
-        <span class="description">
-          Não
-        </span>
-      </div>
-      <div class="box-abs  status-abs">
-        <div class="quantity">
-          {{absCounter}}
-        </div>
-        <span class="description">
-          Abst
-        </span>
-      </div>
-      <div class="box-total status-total">
-        <div class="quantity">
-          {{totalCounter}}
-        </div>
-        <span class="description">
-          Total
-        </span>
-      </div>
-      <div class="box-result"
-        [ngClass]="{'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
-        {{finalResult}}
-      </div>
-      <div class="clock">
-        <app-clock></app-clock>
       </div>
     </div>
   </div>
-  <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded box-shadow"></button>
+  <div class="footer box-shadow">
+    <div class="box-yes  status-yes">
+      <div class="quantity">
+        {{yesCounter}}
+      </div>
+      <span class="description">
+        Sim
+      </span>
+    </div>
+    <div class="box-no status-no">
+      <div class="quantity">
+        {{noCounter}}
+      </div>
+      <span class="description">
+        Não
+      </span>
+    </div>
+    <div class="box-abs  status-abs">
+      <div class="quantity">
+        {{absCounter}}
+      </div>
+      <span class="description">
+        Abst
+      </span>
+    </div>
+    <div class="box-total status-total">
+      <div class="quantity">
+        {{totalCounter}}
+      </div>
+      <span class="description">
+        Total
+      </span>
+    </div>
+    <div class="box-result" [ngClass]="{'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
+      {{finalResult}}
+    </div>
+    <div class="clock">
+      <app-clock></app-clock>
+    </div>
+  </div>
+</div>
+<button (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
+  class="p-button-raised p-button-rounded box-shadow"></button>

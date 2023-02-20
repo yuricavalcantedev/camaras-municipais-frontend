@@ -60,7 +60,7 @@ export class ShowTimerComponent implements OnInit {
     setInterval(() => {
 
       if(this.cookieService.get('parlamentarObject').length > 0){
-        
+
         //check if user is sending a new user than the one is already speaking
         this.keepTimerRunning = this.parlamentar.name != JSON.parse(this.cookieService.get('parlamentarObject')).name;
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
@@ -130,7 +130,7 @@ export class ShowTimerComponent implements OnInit {
   }
 
   clearMainTimer(clearAll: boolean){
-    
+
     if(clearAll){
       let urlImage = this.parlamentar.urlImage;
       this.parlamentar = new ParlamentarTimer();
@@ -181,12 +181,12 @@ export class ShowTimerComponent implements OnInit {
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
       if(minutes == 0 && seconds == 59){
-        this.soundService.playWarningSound();
+        this.soundService.playSound("assets/sounds/warning_sound.mp3");
       }
 
       if (minutes == -1 && seconds == 0) {
         this.clearMainTimer(true);
-        this.soundService.playSound();
+        this.soundService.playSound("assets/sounds/main_sound.mp3");
       }
     }, this.ONE_SECOND);
   }

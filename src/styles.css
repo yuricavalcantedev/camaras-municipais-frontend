@@ -96,7 +96,7 @@ html {
   --app-primary-color: #171430;
   --app-background-color: #eeeeee;
   --app-header-text-color: #fff;
-  --app-footer-text-color: #3a3b38;
+  --app-footer-text-color: #FFF;;
   --app-box-voting-background-color: #d9d9d9;
   --app-vote-yes: #7ED283;
   --app-vote-no: #eb606b;
@@ -121,6 +121,7 @@ html {
   --voting-panel-box-right-background-color: #fffffd;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;
   --voting-panel-bt-fullscreen-color: #fffffd;
+  --voting-panel-item-background-color: #fffffd;
 
 }
 
