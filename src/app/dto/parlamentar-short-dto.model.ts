@@ -6,7 +6,7 @@ export class ParlamentarShortDTO{
     name : string;
     politicalParty : string;
     urlImage : string;
-    role : Role;
+    role : Role = new Role('');
 
     constructor(){}
 }

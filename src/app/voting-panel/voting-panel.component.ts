@@ -29,8 +29,10 @@ export class VotingPanelComponent implements OnInit {
   townHallUrlImage: string = '';
 
   finalResult: string = '';
+  resultType: string = '';
   votingTitle:string = '';
   votingSubTitle: string = '';
+  visibilityVotingType: string = '';
   expedientType: string = '';
   otherExpedient: string = '';
 
@@ -78,15 +80,22 @@ export class VotingPanelComponent implements OnInit {
       });
 
       syncCalling.then(() => {
+        
         if(this.session != null){
-
           this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
-          this.existsClosedVoting = this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
-
+          this.existsClosedVoting = this.session.votingList.length == 0 ? false : this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
         }
 
+        let votingId;
+
         if(this.existsOpenVoting){
-          this.findSessionVotingInfoByUUID(sessionUUID);
+          votingId = this.session.votingList.find(voting => voting.status == 'VOTING').id; 
+          this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
+
+        }else if(this.existsClosedVoting){
+          votingId = this.session.votingList[this.session.votingList.length - 1].id;
+          this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
+
         }else{
           this.setExpiendType();
           this.findSessionStandardInfoByUUID(sessionUUID);
@@ -95,6 +104,7 @@ export class VotingPanelComponent implements OnInit {
     }, this.TIME_TO_GET_DATA);
 
   }
+
   private setExpiendType() {
     if (this.cookieService.get('expedientType').length > 0) {
       this.expedientType = this.cookieService.get('expedientType');
@@ -113,6 +123,7 @@ export class VotingPanelComponent implements OnInit {
     this.sessionService.findByUUID(sessionUUID).subscribe({
       next: data => {
           this.session = data;
+          console.log(this.session);
       }, error: err => {
         console.log(err.error.description);
       }
@@ -125,19 +136,27 @@ export class VotingPanelComponent implements OnInit {
       this.votingTitle = voting.description;
     }
   }
+  
+  extractResultFromVoting(voting: Voting){
+    if(voting != undefined){
+      this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : '';
+      this.finalResult = this.voting.result;
+    }
+  }
 
-  findSessionVotingInfoByUUID(sessionUUID: string){
-
-    let condition = this.existsClosedVoting ? 'VOTED' : 'VOTING';
-    this.sessionService.findSessionVotingInfoByUUID(sessionUUID, condition).subscribe({
+  findSessionVotingInfoBySessionAndVotingId(sessionUUID: string, votingId: number){
+    this.sessionService.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId).subscribe({
       next: data => {
 
         this.parlamentaresTable = data.parlamentarTableList;
         this.parlamentaresTownhall = data.parlamentarList;
         this.voting = data.voting;
         this.speakerList = data.speakerList;
+        this.visibilityVotingType = this.voting.legislativeSubjectType.visibilityType;
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
+        this.extractResultFromVoting(this.voting);
+        console.log(this.voting);
       }, error: error => {
         console.log(error);
       }

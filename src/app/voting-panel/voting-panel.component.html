@@ -8,7 +8,8 @@
         <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
           <div class="status-info">
             <div *ngIf="item.status == 'PRESENCE'"
-              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
+              [ngClass]="{'status-yes':item.result =='YES' && visibilityVotingType != 'SECRETA', 'status-no':item.result == 'NO' && visibilityVotingType != 'SECRETA', 
+              'status-abs':item.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA', 'status-neutral':item.result == 'NULL'}"
               class="status"></div>
             <div *ngIf="item.status != 'PRESENCE'" class="status"
               [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
@@ -25,8 +26,9 @@
       <div class="box-left">
         <div class="item" *ngFor="let item of parlamentaresTownhall">
           <div class="status-info">
-            <div
-              [ngClass]="{'status-yes':item.result=='YES', 'status-no':item.result=='NO', 'status-abs':item.result=='ABSTENTION', 'status-neutral':item.result=='NULL'}"
+            <div *ngIf="item.status == 'PRESENCE'"
+              [ngClass]="{'status-yes':item.result =='YES' && visibilityVotingType != 'SECRETA', 'status-no':item.result =='NO' && visibilityVotingType != 'SECRETA', 
+              'status-abs':item.result =='ABSTENTION' && visibilityVotingType != 'SECRETA', 'status-neutral':item.result =='NULL'}"
               class="status"></div>
             <div class="parlamentarian-info">
               <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
@@ -41,7 +43,7 @@
           <div class="expedient" *ngIf="!existsOpenVoting">
             {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
           </div>
-          <div class="info" *ngIf="existsOpenVoting">
+          <div class="info" *ngIf="existsOpenVoting || existsClosedVoting">
             <div class="title">
               {{votingTitle}}
             </div>
@@ -88,7 +90,7 @@
             </span>
           </div>
           <div class="box-result"
-            [ngClass]="{'box-result-no-result':finalResult==='', 'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
+            [ngClass]="{'box-result-no-result':resultType==='', 'status-yes':resultType=='APROVADA', 'status-no':resultType=='REJEITADA'}">
             {{finalResult}}
           </div>
         </div>

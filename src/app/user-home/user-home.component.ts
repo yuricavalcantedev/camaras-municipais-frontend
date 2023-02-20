@@ -28,9 +28,14 @@ export class UserHomeComponent implements OnInit {
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
   existsOpenVoting: boolean = false;
+  userHasVoted: boolean = false;
   townHallId : number = 0;
   votingOptions: string[] = [];
   voting: Voting;
+  lastVotingId: number = 0;
+  disableYesButton: boolean = false;
+  disableNoButton: boolean = false;
+  disableAbstentionButton: boolean = false;
 
   showInscriptionListDialog : boolean = false;
 
@@ -43,6 +48,7 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.session = new SessionParlamentarDTO();
     this.votingOptions.push('YES');
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
@@ -65,6 +71,7 @@ export class UserHomeComponent implements OnInit {
     this.username = this.cookieService.get('user-username');
     this.userService.findByUsername(this.username).subscribe(res => {
       this.parlamentar = res;
+      console.log(this.parlamentar);
     });
 
 
@@ -91,10 +98,19 @@ export class UserHomeComponent implements OnInit {
         this.session = res;
         this.voting = this.session.voting;
         this.linkSessao = this.session.sessionSubjectURL;
-        this.existsOpenVoting = this.session.voting != null && this.session.voting.status == 'VOTING';
+        this.existsOpenVoting = this.voting != null && this.session.voting.status == 'VOTING';
+        
+        console.log(this.lastVotingId, this.userHasVoted);
+        if(this.voting == null){
+          this.userHasVoted = false;
+          this.disableAbstentionButton = false;
+          this.disableNoButton = false;
+          this.disableYesButton = false;
+        }
+
         this.updatePresence();
         if(this.existsOpenVoting){
-          this.votingTitle = this.session.voting.description;
+          this.votingTitle = this.voting.description;
         }else{
           this.votingTitle = "";
         }
@@ -138,11 +154,28 @@ export class UserHomeComponent implements OnInit {
         this.sessionService.computeVote(this.session.uuid, voteDTO).subscribe({
           next: data => {
             this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Seu voto foi contabilizado com exito!'});
+            this.userHasVoted = true;
+            this.lastVotingId = this.session.voting.id;
+            this.disableButtonOption(vote);
           },error: err => {
             this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, contate o administrador.'});
           }
         });
       }
+    }
+  }
+
+  disableButtonOption(vote: string){
+
+    if(vote == 'YES'){
+      this.disableNoButton = true;
+      this.disableAbstentionButton = true;
+    }else if(vote == 'NO'){
+      this.disableYesButton = true;
+      this.disableAbstentionButton = true;
+    }else{
+      this.disableYesButton = true;
+      this.disableNoButton = true;
     }
   }
 
@@ -165,8 +198,25 @@ export class UserHomeComponent implements OnInit {
     this.utilService.fullScreen();
   }
 
-  getDisableColor(){
-    return this.existsOpenVoting ? '' : 'gray';
+  getDisableColor(button: string){
+    
+    if(!this.existsOpenVoting){
+      return 'gray';
+    }
+
+    if(this.disableYesButton && button == 'YES'){
+      return 'gray';
+    }
+
+    if(this.disableNoButton && button == 'NO'){
+      return 'gray';
+    }
+
+    if(this.disableAbstentionButton && button == 'ABSTENTION'){
+      return 'gray';
+    }
+
+    return '';
   }
 
   clear(){

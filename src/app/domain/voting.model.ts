@@ -1,3 +1,4 @@
+import { LegislativeSubjectType } from "./legislative-subject.model";
 import { ParlamentarVoting } from "./parlamentar-voting.model";
 import { Session } from "./session.model";
 import { Subject } from "./subject.model";
@@ -15,4 +16,5 @@ export class Voting{
     abstentionCount: number = 0;
     result : string;
     description: string;
+    legislativeSubjectType: LegislativeSubjectType;
 }
