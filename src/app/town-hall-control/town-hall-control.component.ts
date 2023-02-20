@@ -216,7 +216,7 @@ export class TownHallControlComponent implements OnInit {
   }
 
   deleteSession(){
-      
+
     this.showDeleteSessionDialog = false;
     this.sessionService.delete(this.session.uuid).subscribe({
       next: data => {
@@ -244,6 +244,7 @@ export class TownHallControlComponent implements OnInit {
         this.session.votingList.push(data);
         this.onHideVotingDialog();
         this.existsOpenVoting = true;
+        this.cookieService.set('playInVoting', 'true');
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação aberta!'});
       }, error: error => {
         console.log(error);
@@ -308,7 +309,7 @@ export class TownHallControlComponent implements OnInit {
       window.open('/mostrarTempo', "_blank");
     }
   }
-  
+
   setExpedient() {
     this.cookieService.set('otherExpedient', this.outroExpediente);
     this.cookieService.set('expedientType', this.expediente);
@@ -361,6 +362,7 @@ export class TownHallControlComponent implements OnInit {
   chooseExpediente(flag: boolean){
     this.disableInput = flag;
     this.disableExpedientDiversos = flag;
+    this.setExpedient();
   }
 
   onTownHallChange(){

@@ -45,7 +45,7 @@ export class VotingPanelComponent implements OnInit {
 
   TIME_TO_GET_DATA: number = 1500;
 
-  shouldPlaySound: boolean = true;
+  playInVoting: boolean;
 
   constructor(private cookieService: CookieService,
     private sessionService: SessionService,
@@ -68,6 +68,10 @@ export class VotingPanelComponent implements OnInit {
       this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
     }
 
+    if (this.cookieService.get('playInVoting')) {
+      this.playInVoting = (this.cookieService.get('playInVoting') == 'true');
+    }
+
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
@@ -82,20 +86,16 @@ export class VotingPanelComponent implements OnInit {
 
       syncCalling.then(() => {
         if (this.session != null) {
-
-          this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
-          this.existsClosedVoting = this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
-
-          if (this.existsOpenVoting && this.shouldPlaySound) {
-            this.soundService.playSound("assets/sounds/em_votacao.mp3");
-            this.shouldPlaySound = false;
+          if (this.session.votingList.length > 0) {
+            this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
+            this.existsClosedVoting = this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
           }
+          this.playInVoting = (this.cookieService.get('playInVoting') == 'true');
 
-          console.log({existsClosedVoting: this.existsClosedVoting, existsOpenVoting: this.existsOpenVoting, soundInVotingPlayed: this.shouldPlaySound })
-        }
-
-        if (this.existsClosedVoting) {
-          this.shouldPlaySound = true;
+          if (this.existsOpenVoting && this.playInVoting) {
+            this.soundService.playSound("assets/sounds/em_votacao.mp3");
+            this.cookieService.set('playInVoting', 'false');
+          }
         }
 
         if (this.existsOpenVoting) {
@@ -150,6 +150,7 @@ export class VotingPanelComponent implements OnInit {
         this.speakerList = data.speakerList;
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
+        console.log({ parlamentaresTownhall: this.parlamentaresTownhall })
       }, error: error => {
         console.log(error);
       }
@@ -166,7 +167,7 @@ export class VotingPanelComponent implements OnInit {
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
-        console.log(this.parlamentaresTownhall)
+        console.log({ parlamentaresTownhall: this.parlamentaresTownhall })
       }, error: error => {
         console.log(error);
       }

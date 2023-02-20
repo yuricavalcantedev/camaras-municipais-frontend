@@ -9,7 +9,7 @@
           'status-no':item.result=='NO',
           'status-abs':item.result=='ABSTENTION'}" *ngFor="let item of parlamentaresTownhall">
         <div class="picture" [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
-          style="--bg-image: url('https://sapl.caninde.ce.leg.br/media/sapl/public/parlamentar/34/edinaldo.png');">
+          style="--bg-image: url({{item.parlamentar.urlImage}});">
         </div>
         <div class="parlamentarian-info">
           <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
