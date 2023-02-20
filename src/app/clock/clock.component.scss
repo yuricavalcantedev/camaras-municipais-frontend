@@ -2,14 +2,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .clock .txt-time {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
+  font-family: "Roboto";
+  font-weight: 900;
   font-size: 3rem;
-  color: var(--app-clock-color-yellow);
+  color: var(--app-clock-color);
 
   margin: 0 auto;
 

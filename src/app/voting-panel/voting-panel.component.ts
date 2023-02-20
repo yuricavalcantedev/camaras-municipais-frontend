@@ -5,6 +5,7 @@ import { SpeakerSession } from '../domain/speaker-session.model';
 import { Voting } from '../domain/voting.model';
 import { ParlamentarInfoStatusDTO } from '../dto/parlamentar-info-status-dto.model';
 import { SessionService } from '../service/session.service';
+import { SoundService } from '../service/sound.service';
 import { UtilService } from '../service/util.service';
 
 @Component({
@@ -14,9 +15,8 @@ import { UtilService } from '../service/util.service';
 })
 export class VotingPanelComponent implements OnInit {
 
-  inFullScren = false
+  inFullScren = false;
 
-  parlamentaresTable: ParlamentarInfoStatusDTO[] = [];
   parlamentaresTownhall: ParlamentarInfoStatusDTO[] = [];
   voting: Voting;
 
@@ -30,7 +30,7 @@ export class VotingPanelComponent implements OnInit {
 
   finalResult: string = '';
   resultType: string = '';
-  votingTitle:string = '';
+  votingTitle: string = '';
   votingSubTitle: string = '';
   visibilityVotingType: string = '';
   expedientType: string = '';
@@ -47,9 +47,12 @@ export class VotingPanelComponent implements OnInit {
 
   TIME_TO_GET_DATA: number = 1500;
 
+  playInVoting: boolean;
 
-
-  constructor(private cookieService: CookieService, private sessionService: SessionService, private utilService: UtilService) { }
+  constructor(private cookieService: CookieService,
+    private sessionService: SessionService,
+    private utilService: UtilService,
+    private soundService: SoundService) { }
 
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: any) {
@@ -59,19 +62,23 @@ export class VotingPanelComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.cookieService.get('townHallCityName').length > 0){
+    if (this.cookieService.get('townHallCityName').length > 0) {
       this.townHallName = this.cookieService.get('townHallCityName');
     }
 
-    if(this.cookieService.get('townHallUrlImage').length > 0){
+    if (this.cookieService.get('townHallUrlImage').length > 0) {
       this.townHallUrlImage = this.cookieService.get('townHallUrlImage');
+    }
+
+    if (this.cookieService.get('playInVoting')) {
+      this.playInVoting = (this.cookieService.get('playInVoting') == 'true');
     }
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
 
-    setInterval(() =>{
+    setInterval(() => {
 
       this.setExpiendType();
       const syncCalling = new Promise<boolean>((resolve, reject) => {
@@ -80,23 +87,30 @@ export class VotingPanelComponent implements OnInit {
       });
 
       syncCalling.then(() => {
-        
-        if(this.session != null){
+
+        if (this.session != null) {
           this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
           this.existsClosedVoting = this.session.votingList.length == 0 ? false : this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';
         }
 
         let votingId;
 
-        if(this.existsOpenVoting){
-          votingId = this.session.votingList.find(voting => voting.status == 'VOTING').id; 
+        this.playInVoting = (this.cookieService.get('playInVoting') == 'true');
+
+        if (this.existsOpenVoting && this.playInVoting) {
+          this.soundService.playSound("assets/sounds/em_votacao.mp3");
+          this.cookieService.set('playInVoting', 'false');
+        }
+
+        if (this.existsOpenVoting) {
+          votingId = this.session.votingList.find(voting => voting.status == 'VOTING').id;
           this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
 
-        }else if(this.existsClosedVoting){
+        } else if (this.existsClosedVoting) {
           votingId = this.session.votingList[this.session.votingList.length - 1].id;
           this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
 
-        }else{
+        } else {
           this.setExpiendType();
           this.findSessionStandardInfoByUUID(sessionUUID);
         }
@@ -122,23 +136,23 @@ export class VotingPanelComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe({
       next: data => {
-          this.session = data;
-          console.log(this.session);
+        this.session = data;
       }, error: err => {
         console.log(err.error.description);
       }
     });
   }
 
-  extractTitleAndSubTitle(voting: Voting){
+  extractTitleAndSubTitle(voting: Voting) {
 
-    if(voting != undefined){
-      this.votingTitle = voting.description;
+    if (voting != undefined) {
+      this.votingTitle = voting.legislativeSubjectType.title;
+      this.votingSubTitle = voting.description;
     }
   }
-  
-  extractResultFromVoting(voting: Voting){
-    if(voting != undefined){
+
+  extractResultFromVoting(voting: Voting) {
+    if (voting != undefined) {
       this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : '';
       this.finalResult = this.voting.result;
     }
@@ -148,8 +162,7 @@ export class VotingPanelComponent implements OnInit {
     this.sessionService.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId).subscribe({
       next: data => {
 
-        this.parlamentaresTable = data.parlamentarTableList;
-        this.parlamentaresTownhall = data.parlamentarList;
+        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList)
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.visibilityVotingType = this.voting.legislativeSubjectType.visibilityType;
@@ -163,52 +176,42 @@ export class VotingPanelComponent implements OnInit {
     });
   }
 
-  findSessionStandardInfoByUUID(sessionUUID:string){
+  findSessionStandardInfoByUUID(sessionUUID: string) {
 
     this.sessionService.findSessionStandardInfoByUUID(sessionUUID).subscribe({
 
       next: data => {
-        this.parlamentaresTable = data.parlamentarTableList;
-        this.parlamentaresTownhall = data.parlamentarList;
+        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList)
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
+        console.log({ parlamentaresTownhall: this.parlamentaresTownhall })
       }, error: error => {
         console.log(error);
       }
     });
   }
 
-  computePartialVotes(){
+  computePartialVotes() {
 
     this.yesCounter = 0;
     this.noCounter = 0;
     this.absCounter = 0;
 
-    this.parlamentaresTable.forEach(parlamentar => {
-      switch(parlamentar.result){
-        case 'YES': this.yesCounter++;
-        break;
-        case 'NO': this.noCounter++;
-        break;
-        case 'ABSTENTION': this.absCounter++;
-        break;
-      }
-    });
 
     this.parlamentaresTownhall.forEach(parlamentar => {
-      switch(parlamentar.result){
+      switch (parlamentar.result) {
         case 'YES': this.yesCounter++;
-        break;
+          break;
         case 'NO': this.noCounter++;
-        break;
+          break;
         case 'ABSTENTION': this.absCounter++;
-        break;
+          break;
       }
     });
 
-    this.totalCounter = this.parlamentaresTable.length + this.parlamentaresTownhall.length;
+    this.totalCounter = this.parlamentaresTownhall.length;
 
   }
 

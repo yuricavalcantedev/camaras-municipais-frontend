@@ -1,101 +1,81 @@
-<div class="box-main">
-  <div class='page-panel-voting'>
-    <div class="sub-header">
-      <div class='sub-header-legislature-photo'>
-        <img src="{{townHallUrlImage}}" alt="brasao-municipio">
-      </div>
-      <div class="sub-header-itens">
-        <div class="sub-header-item" *ngFor="let item of parlamentaresTable">
-          <div class="status-info">
-            <div *ngIf="item.status == 'PRESENCE'"
-              [ngClass]="{'status-yes':item.result =='YES' && visibilityVotingType != 'SECRETA', 'status-no':item.result == 'NO' && visibilityVotingType != 'SECRETA', 
-              'status-abs':item.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA', 'status-neutral':item.result == 'NULL'}"
-              class="status"></div>
-            <div *ngIf="item.status != 'PRESENCE'" class="status"
-              [ngClass]="{'status-neutral':item.status != 'PRESENCE'}">
-            </div>
-          </div>
-          <div class="type" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-            {{item.role}} : {{item.parlamentar.name}}</div>
+<div class='page-panel-voting'>
+  <div class="header box-shadow">
+    {{this.session.name}}
+  </div>
+  <div class="box-body">
+    <div class="box-left">
+      <div class="item box-shadow" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
+          'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
+          'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
+          'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}" *ngFor="let item of parlamentaresTownhall">
+        <div class="picture" [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
+          style="--bg-image: url({{item.parlamentar.urlImage}});">
+        </div>
+        <div class="parlamentarian-info">
           <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
             {{item.parlamentar.politicalParty}}</div>
+          <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
+          </div>
+        </div>
+        <div class="role" *ngIf="item.role!=null" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
+          {{item.role}}
         </div>
       </div>
     </div>
-    <div class="box-body">
-      <div class="box-left">
-        <div class="item" *ngFor="let item of parlamentaresTownhall">
-          <div class="status-info">
-            <div *ngIf="item.status == 'PRESENCE'"
-              [ngClass]="{'status-yes':item.result =='YES' && visibilityVotingType != 'SECRETA', 'status-no':item.result =='NO' && visibilityVotingType != 'SECRETA', 
-              'status-abs':item.result =='ABSTENTION' && visibilityVotingType != 'SECRETA', 'status-neutral':item.result =='NULL'}"
-              class="status"></div>
-            <div class="parlamentarian-info">
-              <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
-              </div>
-              <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.politicalParty}}</div>
-            </div>
-          </div>
-        </div>
+    <div class='box-right box-shadow'>
+      <div class="expedient" *ngIf="!existsOpenVoting">
+        {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
       </div>
-      <div class='box-right'>
-        <div class="box-right-in">
-          <div class="expedient" *ngIf="!existsOpenVoting">
-            {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
-          </div>
-          <div class="info" *ngIf="existsOpenVoting || existsClosedVoting">
-            <div class="title">
-              {{votingTitle}}
-            </div>
-            <div class="subtitle">
-              {{votingSubTitle.slice(0, 350)}}
-            </div>
-          </div>
-          <div class="hr-rule"></div>
-          <div class="clock">
-            <app-clock></app-clock>
-          </div>
+      <div class="info" *ngIf="existsOpenVoting">
+        <div class="title">
+          {{votingTitle}}
         </div>
-        <div class="footer">
-          <div class="box-yes">
-            <div class="quantity status-yes">
-              {{yesCounter}}
-            </div>
-            <span class="description">
-              Sim
-            </span>
-          </div>
-          <div class="box-no">
-            <div class="quantity status-no">
-              {{noCounter}}
-            </div>
-            <span class="description">
-              Não
-            </span>
-          </div>
-          <div class="box-abs">
-            <div class="quantity status-abs">
-              {{absCounter}}
-            </div>
-            <span class="description">
-              Abst
-            </span>
-          </div>
-          <div class="box-total">
-            <div class="quantity status-total">
-              {{totalCounter}}
-            </div>
-            <span class="description">
-              Total
-            </span>
-          </div>
-          <div class="box-result"
-            [ngClass]="{'box-result-no-result':resultType==='', 'status-yes':resultType=='APROVADA', 'status-no':resultType=='REJEITADA'}">
-            {{finalResult}}
-          </div>
+        <div class="subtitle">
+          {{votingSubTitle.slice(0, 350)}}
         </div>
       </div>
     </div>
   </div>
-  <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+  <div class="footer box-shadow">
+    <div class="box-yes  status-yes">
+      <div class="quantity">
+        {{yesCounter}}
+      </div>
+      <span class="description">
+        Sim
+      </span>
+    </div>
+    <div class="box-no status-no">
+      <div class="quantity">
+        {{noCounter}}
+      </div>
+      <span class="description">
+        Não
+      </span>
+    </div>
+    <div class="box-abs  status-abs">
+      <div class="quantity">
+        {{absCounter}}
+      </div>
+      <span class="description">
+        Abst
+      </span>
+    </div>
+    <div class="box-total status-total">
+      <div class="quantity">
+        {{totalCounter}}
+      </div>
+      <span class="description">
+        Total
+      </span>
+    </div>
+    <div class="box-result" [ngClass]="{'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
+      {{finalResult}}
+    </div>
+    <div class="clock">
+      <app-clock></app-clock>
+    </div>
+  </div>
 </div>
+<button (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
+  class="p-button-raised p-button-rounded box-shadow"></button>
