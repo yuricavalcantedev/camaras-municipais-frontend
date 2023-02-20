@@ -146,7 +146,8 @@ export class VotingPanelComponent implements OnInit {
   extractTitleAndSubTitle(voting: Voting) {
 
     if (voting != undefined) {
-      this.votingTitle = voting.description;
+      this.votingTitle = voting.legislativeSubjectType.title;
+      this.votingSubTitle = voting.description;
     }
   }
 
