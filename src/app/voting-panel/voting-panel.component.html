@@ -5,9 +5,9 @@
   <div class="box-body">
     <div class="box-left">
       <div class="item box-shadow" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
-          'status-yes':item.result=='YES',
-          'status-no':item.result=='NO',
-          'status-abs':item.result=='ABSTENTION'}" *ngFor="let item of parlamentaresTownhall">
+          'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
+          'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
+          'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}" *ngFor="let item of parlamentaresTownhall">
         <div class="picture" [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
           style="--bg-image: url({{item.parlamentar.urlImage}});">
         </div>
