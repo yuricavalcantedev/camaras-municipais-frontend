@@ -12,6 +12,7 @@ import { TownHall } from '../domain/townhall.model';
 export class TownHallService {
 
   baseUrl = environment.apiUrl + '/townhalls';
+  updateTableurl = '/{id}/table';
 
   constructor(private http: HttpClient, private messageService: MessageService) {}
 
@@ -43,7 +44,6 @@ export class TownHallService {
   }
 
   updateTownHall(townHall : TownHall) : Observable<TownHall>{
-    
     return this.http.put<TownHall>(this.baseUrl, townHall);
   }
 
@@ -60,7 +60,6 @@ export class TownHallService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
     return throwError(() => {
       return errorMessage;
     });

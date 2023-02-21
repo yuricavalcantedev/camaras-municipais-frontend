@@ -28,6 +28,7 @@ export class AdminTownHallComponent implements OnInit {
   loading: boolean = false;
 
   showLegislatureDialog: boolean = false;
+  showTableDialog: boolean = false;
   eVotingTypeResultList = ['MAIORIA_SIMPLES', 'MAIORIA_QUALIFICADA', 'MAIORIA_ABSOLUTA'];
   eVotingVisibilityTypeList = ['SIMBOLICA', 'NOMINAL', 'SECRETA'];
   
@@ -71,8 +72,11 @@ export class AdminTownHallComponent implements OnInit {
   onUpdateLegislatureModal(townhall: any){
     this.townHallSelectedLegislatureUpdate = townhall;
     this.showLegislatureDialog = true;
-    console.log(this.townHallSelectedLegislatureUpdate);
+  }
 
+  onUpdateTableModal(townhall: any){
+    this.townHallSelectedLegislatureUpdate = townhall;
+    this.showTableDialog = true;
   }
 
   openModal(townHall: TownHall, isEditing: boolean){
@@ -154,7 +158,6 @@ export class AdminTownHallComponent implements OnInit {
 
     this.showTable = false;
     this.townHallService.getTownHallList().subscribe(res => {
-      console.log(res);
       this.townHallList = res;
       this.showTable = true;
     });
@@ -167,7 +170,6 @@ export class AdminTownHallComponent implements OnInit {
 
   updateTownHall(townHall: TownHall){
 
-    console.log(townHall);
     this.townHallService.updateTownHall(townHall).subscribe({
         next: data => {
           this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara atualizada com sucesso!'});
@@ -182,9 +184,7 @@ export class AdminTownHallComponent implements OnInit {
           this.showLegislatureDialog = false;
           this.loading = false;
           this.resetEnviroment();
-          
         }
-      });
+    });
   }
-
 }

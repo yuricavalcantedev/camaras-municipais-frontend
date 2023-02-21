@@ -2,7 +2,7 @@ export class LegislativeSubjectType{
     
     id: number;
     title: string;
-    sequenceSAPL: number;
+    saplId: number;
     resultType: string;
     visibilityType: string;
     

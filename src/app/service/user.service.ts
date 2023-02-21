@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Observable, retry, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Parlamentar } from '../domain/parlamentar.model';
 import { User } from '../domain/user.model';
 import { ParlamentarShortDTO } from '../dto/parlamentar-short-dto.model';
 import { UserDTOUpdatePassword } from '../dto/user-dto-update-password.model';

@@ -1,4 +1,6 @@
 import { LegislativeSubjectType } from "./legislative-subject.model";
+import { TableRole } from "./table-role.model";
+import { User } from "./user.model";
 
 export class TownHall{
     
@@ -8,8 +10,10 @@ export class TownHall{
     city: string = "";
     legislature: string = "";
     apiURL: string = "";
-    legislativeSubjectTypeList: LegislativeSubjectType[];
-    
+    legislativeSubjectTypeList: LegislativeSubjectType[] = [];
+    tableRoleList: TableRole[] = [];
+    userList: User[] = [];
+
     constructor(){}
 
     buildFromFormGroup(form: any){
