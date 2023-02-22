@@ -101,7 +101,7 @@ html {
   --app-vote-yes: #7ED283;
   --app-vote-no: #eb606b;
   --app-vote-abs: #fbcb60;
-  --app-status-total: #e9e5d8;
+  --app-status-total: #c5c3bc;
   --app-vote-label-color: #3a3b38;
   --app-voting-not-present: #171430;
   --app-voting-present: #fff;
@@ -116,7 +116,7 @@ html {
 
   --voting-panel-bg-color: #EEEEEE;
   --voting-panel-text-color: #3a3b38;
-  --voting-panel-header-background-color: #fffffd;
+  --voting-panel-header-background-color: #e9e5d8;
   --voting-panel-footer-background-color: #e9e5d8;
   --voting-panel-box-right-background-color: #fffffd;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;

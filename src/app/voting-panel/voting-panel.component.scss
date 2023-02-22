@@ -209,7 +209,7 @@
  .page-panel-voting .footer {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 5% 5% 10% 10% 35% 35%;
+  grid-template-columns: 5% 5% 5% 10% 37.5% 37.5%;
   margin: 1.5rem 3rem;
   font-family: "Roboto";
 
@@ -243,6 +243,7 @@
 
   color: var(--voting-panel-text-color);
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 
