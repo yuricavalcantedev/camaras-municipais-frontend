@@ -126,6 +126,7 @@ export class VotingPanelComponent implements OnInit {
     if (this.cookieService.get('otherExpedient').length > 0) {
       this.otherExpedient = this.cookieService.get('otherExpedient');
     }
+    
   }
 
   fullScreen() {
@@ -169,7 +170,6 @@ export class VotingPanelComponent implements OnInit {
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
         this.extractResultFromVoting(this.voting);
-        console.log(this.voting);
       }, error: error => {
         console.log(error);
       }
@@ -186,7 +186,6 @@ export class VotingPanelComponent implements OnInit {
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
-        console.log({ parlamentaresTownhall: this.parlamentaresTownhall })
       }, error: error => {
         console.log(error);
       }

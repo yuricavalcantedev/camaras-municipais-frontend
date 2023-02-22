@@ -87,6 +87,7 @@ export class TownHallControlComponent implements OnInit {
 
       this.expediente = "Grande Expediente";
       this.outroExpediente = ""
+      this.setExpedient();
       this.clearParlamentarTimerInfoFromCookies();
 
   }
