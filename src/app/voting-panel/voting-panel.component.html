@@ -69,8 +69,8 @@
         Total de Presentes
       </span>
     </div>
-    <div class="box-result" [ngClass]="{'status-yes':finalResult=='APROVADO', 'status-no':finalResult=='REPROVADO'}">
-      {{finalResult}}
+    <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
+      {{resultType}}
     </div>
     <div class="clock">
       <app-clock></app-clock>
