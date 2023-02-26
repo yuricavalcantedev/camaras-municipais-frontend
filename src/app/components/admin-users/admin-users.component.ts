@@ -3,15 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Role } from '../domain/role.model';
-import { TownHall } from '../domain/townhall.model';
-import { User } from '../domain/user.model';
-import { UpdateUserRoleDTO } from '../dto/update-user-role-dto.model';
-import { UserDTO } from '../dto/user-dto.model';
-import { FormResetPasswordComponent } from '../form-reset-password/form-reset-password.component';
-import { RoleService } from '../service/role.service';
-import { TownHallService } from '../service/townhall.service';
-import { UserService } from '../service/user.service';
+import { Role } from '../../domain/role.model';
+import { TownHall } from '../../domain/townhall.model';
+import { User } from '../../domain/user.model';
+import { UpdateUserRoleDTO } from '../../dto/update-user-role-dto.model';
+import { UserDTO } from '../../dto/user-dto.model';
+import { FormResetPasswordComponent } from '../../form-reset-password/form-reset-password.component';
+import { RoleService } from '../../service/role.service';
+import { TownHallService } from '../../service/townhall.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-admin-users',
@@ -120,7 +120,6 @@ export class AdminUsersComponent implements OnInit {
 
     this.showTable = false;
     this.userService.findAll().subscribe(res => {
-      console.log(res);
       this.userList = res;
       this.showTable = true;
     });
@@ -153,7 +152,6 @@ export class AdminUsersComponent implements OnInit {
       
       let formValue = this.formUser.value;
       let role = this.selectRole();
-      console.log(role, this.roles);
       this.selectedTownhall = this.townhalls.find(t => t.id == formValue.townHallId);
       let userDTO = new UserDTO(formValue.name, formValue.username, formValue.password, this.selectedTownhall, role);
       

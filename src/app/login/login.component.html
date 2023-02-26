@@ -33,3 +33,11 @@
         <div class="flex-1 h-4rem btext-white font-bold text-center p-4 border-round"></div>
     </div>
 </div>
+
+<!-- Loading dialog -->
+<p-dialog header="Realizando login" [(visible)]="loading" (onHide)="loading = false"  [style]="{width: '40vw'}" [modal]="true">
+    <div>
+        <p>Aguarde um momento...</p>
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </div>
+</p-dialog>

@@ -126,22 +126,22 @@
                     </div>
                     <div class="grid" *ngIf="roleInSessionListPart1.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart1">
-                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                            <p class="p-session-role-info p-bolder">{{item.name}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
 
                     <div class="grid" *ngIf="roleInSessionListPart2.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart2">
-                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                            <p class="p-session-role-info p-bolder">{{item.name}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
 
                     <div class="grid" *ngIf="roleInSessionListPart3.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart3">
-                            <p class="p-session-role-info p-bolder">{{item.role}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentarName}}</p>
+                            <p class="p-session-role-info p-bolder">{{item.name}}</p>
+                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
                 </p-panel>
@@ -263,6 +263,10 @@
         <div class="row">
             <p>Você quer começar uma votação com {{selectedSubjectList.length}} ordem(s) do dia?</p>
             <p style="margin-top: 10px;" *ngFor="let subject of selectedSubjectList"> {{subject.description}}</p>
+            <div *ngIf="loading">
+                <p>Abrindo votação...</p>
+                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
               <div class="row" style="margin-top: 10px;">
                 <div class="align-items-center">
                     <button style="margin-left:10px;" pButton pRipple type="submit" label="Abrir "(click)="onOpeningVoting()" icon="pi pi-play" class="p-button-rounded p-button-success"></button>

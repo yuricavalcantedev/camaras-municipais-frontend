@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Session } from '../domain/session.model';
-import { SpeakerSession } from '../domain/speaker-session.model';
-import { Voting } from '../domain/voting.model';
-import { ParlamentarInfoStatusDTO } from '../dto/parlamentar-info-status-dto.model';
-import { SessionService } from '../service/session.service';
-import { SoundService } from '../service/sound.service';
-import { UtilService } from '../service/util.service';
+import { Session } from '../../domain/session.model';
+import { SpeakerSession } from '../../domain/speaker-session.model';
+import { Voting } from '../../domain/voting.model';
+import { ParlamentarInfoStatusDTO } from '../../dto/parlamentar-info-status-dto.model';
+import { SessionService } from '../../service/session.service';
+import { SoundService } from '../../service/sound.service';
+import { UtilService } from '../../service/util.service';
 
 @Component({
   selector: 'app-voting-panel',
@@ -39,7 +39,7 @@ export class VotingPanelComponent implements OnInit {
   existsOpenVoting: boolean = false;
   existsClosedVoting: boolean = false;
 
-  session: Session = null;
+  session: Session = new Session();
   speakerList: SpeakerSession[] = [];
   sessionInfoInterval: any;
   getSessionInterval: any;
@@ -87,7 +87,6 @@ export class VotingPanelComponent implements OnInit {
       });
 
       syncCalling.then(() => {
-
         if (this.session != null) {
           this.existsOpenVoting = this.session.votingList.find(voting => voting.status == 'VOTING') != undefined;
           this.existsClosedVoting = this.session.votingList.length == 0 ? false : this.session.votingList[this.session.votingList.length - 1].status == 'VOTED';

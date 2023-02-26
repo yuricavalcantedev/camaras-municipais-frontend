@@ -1,10 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { TimerControlDTO } from '../domain/timer-control-dto.model';
-import { UtilShowTimer } from '../domain/utilsShowTimer.model';
-import { ParlamentarTimer } from '../dto/parlamentar-timer.model';
-import { SoundService } from '../service/sound.service';
-import { UtilService } from '../service/util.service';
+import { TimerControlDTO } from '../../domain/timer-control-dto.model';
+import { UtilShowTimer } from '../../domain/utilsShowTimer.model';
+import { ParlamentarTimer } from '../../dto/parlamentar-timer.model';
+import { SoundService } from '../../service/sound.service';
+import { UtilService } from '../../service/util.service';
 
 @Component({
   selector: 'app-show-timer',
@@ -64,7 +64,6 @@ export class ShowTimerComponent implements OnInit {
         //check if user is sending a new user than the one is already speaking
         this.keepTimerRunning = this.parlamentar.name != JSON.parse(this.cookieService.get('parlamentarObject')).name;
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
-        console.log(this.parlamentar);
       }
 
       if(this.cookieService.get('parlamentarAParteObject')){

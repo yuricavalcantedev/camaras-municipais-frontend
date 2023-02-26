@@ -30,15 +30,15 @@ import { ChipModule } from 'primeng/chip';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { ShowTimerComponent } from './show-timer/show-timer.component';
-import { TimerControlComponent } from './timer-control/timer-control.component';
-import { TownHallControlComponent } from './town-hall-control/town-hall-control.component';
-import { AdminTownHallComponent } from './admin-town-hall/admin-town-hall.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { AdminParlamentaresComponent } from './admin-parlamentares/admin-parlamentares.component';
-import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { ShowTimerComponent } from './components/show-timer/show-timer.component';
+import { TimerControlComponent } from './components/timer-control/timer-control.component';
+import { TownHallControlComponent } from './components/town-hall-control/town-hall-control.component';
+import { AdminTownHallComponent } from './components/admin-town-hall/admin-town-hall.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminParlamentaresComponent } from './components/admin-parlamentares/admin-parlamentares.component';
+import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { FormResetPasswordComponent } from './form-reset-password/form-reset-password.component';
-import { UserHomeComponent } from './user-home/user-home.component';
+import { UserHomeComponent } from './components/user-home/user-home.component';
 
 import { ParlamentarService } from './service/parlamentar.service';
 import { TownHallService } from './service/townhall.service';
@@ -48,11 +48,12 @@ import { SoundService } from './service/sound.service';
 import { UtilService } from './service/util.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { VotingPanelComponent } from './voting-panel/voting-panel.component';
+import { VotingPanelComponent } from './components/voting-panel/voting-panel.component';
 import { HeaderComponent } from './header/header.component';
 import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
 import { DatePipe } from '@angular/common';
 import { ClockComponent } from "./clock/clock.component";
+import { TownhallSettingsComponent } from './components/townhall-settings/townhall-settings.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ClockComponent } from "./clock/clock.component";
     VotingPanelComponent,
     HeaderComponent,
     CardParlamentar,
-    ClockComponent
+    ClockComponent,
+    TownhallSettingsComponent
   ],
   imports: [
     BrowserModule,

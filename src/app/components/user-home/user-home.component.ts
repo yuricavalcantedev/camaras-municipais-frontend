@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { SessionService } from '../service/session.service';
-import { UserService } from '../service/user.service';
-import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
-import { ParlamentarPresenceDTO } from '../dto/parlamentar-presence-dto.model';
-import { SpeakerSubscriptionDTO } from '../dto/subscription-speaker.model';
-import { VoteDTO } from '../dto/vote-dto.model';
+import { SessionService } from '../../service/session.service';
+import { UserService } from '../../service/user.service';
+import { SessionParlamentarDTO } from '../../dto/session-parlamentar-dto.model';
+import { ParlamentarPresenceDTO } from '../../dto/parlamentar-presence-dto.model';
+import { SpeakerSubscriptionDTO } from '../../dto/subscription-speaker.model';
+import { VoteDTO } from '../../dto/vote-dto.model';
 import { MessageService } from 'primeng/api';
-import { UtilService } from '../service/util.service';
-import { Voting } from '../domain/voting.model';
+import { UtilService } from '../../service/util.service';
+import { Voting } from '../../domain/voting.model';
 import { Router } from '@angular/router';
-import { ParlamentarShortDTO } from '../dto/parlamentar-short-dto.model';
-import { TownHallService } from '../service/townhall.service';
+import { ParlamentarShortDTO } from '../../dto/parlamentar-short-dto.model';
+import { TownHallService } from '../../service/townhall.service';
 
 @Component({
   selector: 'app-user-home',
@@ -71,7 +71,6 @@ export class UserHomeComponent implements OnInit {
     this.username = this.cookieService.get('user-username');
     this.userService.findByUsername(this.username).subscribe(res => {
       this.parlamentar = res;
-      console.log(this.parlamentar);
     });
 
 
@@ -99,8 +98,6 @@ export class UserHomeComponent implements OnInit {
         this.voting = this.session.voting;
         this.linkSessao = this.session.sessionSubjectURL;
         this.existsOpenVoting = this.voting != null && this.session.voting.status == 'VOTING';
-        
-        console.log(this.lastVotingId, this.userHasVoted);
         if(this.voting == null){
           this.userHasVoted = false;
           this.disableAbstentionButton = false;

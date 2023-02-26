@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Timer } from '../interfaces/timers';
+import { Timer } from '../../interfaces/timers';
 
 @Component({
   selector: 'app-timer-control',

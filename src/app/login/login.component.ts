@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   existsOpenSession: boolean = false;
+  loading: boolean = false;
 
   constructor(private loginService: LoginService, private messageService: MessageService, private cookieService: CookieService, private router: Router) { }
 
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
 
     let formValue = this.loginForm.value;
     let loginDTO = new LoginDTO(formValue.username, formValue.password);
+    this.loading = true;
 
     this.loginService.signIn(loginDTO).subscribe({      
       next: (user : UserLoggedDTO) => {
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('user-username', loginDTO.username);
         this.cookieService.set('user-townhall-id', user.townHall.id + '');
 
+        this.loading = false;
         switch(user.roles[0].name){
           
           case 'ROLE_ADMIN': this.router.navigate(['admin']);
@@ -61,18 +64,16 @@ export class LoginComponent implements OnInit {
   
       error: error => {
         console.log(error);
+        this.loading = false;
         if(error.status == 400){
           this.messageService.add({severity:'error', summary:'Erro!', detail: error.error.description});
         }
-        
       }
     });
-  
   }
 
   get form(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }
-  
 
 }

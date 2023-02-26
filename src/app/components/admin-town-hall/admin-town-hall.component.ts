@@ -3,9 +3,10 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { TownHall } from '../domain/townhall.model';
-import { TownHallFormAdapter } from '../domain/townHallAdapter.model';
-import { TownHallService } from '../service/townhall.service';
+import { TownHall } from '../../domain/townhall.model';
+import { TownHallFormAdapter } from '../../domain/townHallAdapter.model';
+import { User } from '../../domain/user.model';
+import { TownHallService } from '../../service/townhall.service';
 
 @Component({
   selector: 'app-admin-town-hall',
@@ -16,6 +17,7 @@ export class AdminTownHallComponent implements OnInit {
 
 
   townHallList: TownHall[];
+  townHallListAux: TownHall[];
   formTownHall: FormGroup;  
   titleModal: string = 'Adicionar Câmara';
   labelBtConfirmModal: string = '';
@@ -29,8 +31,8 @@ export class AdminTownHallComponent implements OnInit {
 
   showLegislatureDialog: boolean = false;
   showTableDialog: boolean = false;
-  eVotingTypeResultList = ['MAIORIA_SIMPLES', 'MAIORIA_QUALIFICADA', 'MAIORIA_ABSOLUTA'];
-  eVotingVisibilityTypeList = ['SIMBOLICA', 'NOMINAL', 'SECRETA'];
+  
+  userOptions: User[] = [];
   
 
   townHallSelectedLegislatureUpdate: TownHall = new TownHall();
@@ -69,14 +71,8 @@ export class AdminTownHallComponent implements OnInit {
     return this.formTownHall.controls;
   }
 
-  onUpdateLegislatureModal(townhall: any){
-    this.townHallSelectedLegislatureUpdate = townhall;
-    this.showLegislatureDialog = true;
-  }
-
-  onUpdateTableModal(townhall: any){
-    this.townHallSelectedLegislatureUpdate = townhall;
-    this.showTableDialog = true;
+  routeToSettingsTownhall(id: any){
+    this.router.navigate(['townhallSettings', id]);
   }
 
   openModal(townHall: TownHall, isEditing: boolean){
@@ -133,7 +129,6 @@ export class AdminTownHallComponent implements OnInit {
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara criada com sucesso!'});
         this.loading = false;
         this.resetEnviroment();
-        
       },
       error: error => {
         this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail:error.error.description});
@@ -159,6 +154,7 @@ export class AdminTownHallComponent implements OnInit {
     this.showTable = false;
     this.townHallService.getTownHallList().subscribe(res => {
       this.townHallList = res;
+      this.townHallListAux = res;
       this.showTable = true;
     });
   }

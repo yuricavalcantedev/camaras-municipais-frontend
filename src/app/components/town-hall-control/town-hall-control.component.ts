@@ -3,19 +3,19 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
-import { ParlamentarPresence } from '../domain/parlamentar-presence.model';
-import { Parlamentar } from '../domain/parlamentar.model';
-import { RoleInSession } from '../domain/role-session.model';
-import { Session } from '../domain/session.model';
-import { Subject } from '../domain/subject.model';
-import { TownHall } from '../domain/townhall.model';
-import { ParlamentarTimer } from '../dto/parlamentar-timer.model';
-import { SessionDTOCreate } from '../dto/session-dto-create.model';
-import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
-import { Timer } from '../interfaces/timers';
-import { ParlamentarService } from '../service/parlamentar.service';
-import { SessionService } from '../service/session.service';
-import { TownHallService } from '../service/townhall.service';
+import { TableRole } from 'src/app/domain/table-role.model';
+import { ParlamentarPresence } from '../../domain/parlamentar-presence.model';
+import { Parlamentar } from '../../domain/parlamentar.model';
+import { Session } from '../../domain/session.model';
+import { Subject } from '../../domain/subject.model';
+import { TownHall } from '../../domain/townhall.model';
+import { ParlamentarTimer } from '../../dto/parlamentar-timer.model';
+import { SessionDTOCreate } from '../../dto/session-dto-create.model';
+import { SubjectVotingDTO } from '../../dto/subject-voting-dto.model';
+import { Timer } from '../../interfaces/timers';
+import { ParlamentarService } from '../../service/parlamentar.service';
+import { SessionService } from '../../service/session.service';
+import { TownHallService } from '../../service/townhall.service';
 
 @Component({
   selector: 'app-town-hall-control',
@@ -54,9 +54,9 @@ export class TownHallControlComponent implements OnInit {
   sessionUUID: string = '';
   session: Session;
   form: FormGroup;
-  roleInSessionListPart1: RoleInSession[] = new Array();
-  roleInSessionListPart2: RoleInSession[] = new Array();
-  roleInSessionListPart3: RoleInSession[] = new Array();
+  roleInSessionListPart1: TableRole[] = new Array();
+  roleInSessionListPart2: TableRole[] = new Array();
+  roleInSessionListPart3: TableRole[] = new Array();
 
   isShowTimerTabOpened: boolean = false;
   isVotingPanelTabOpened: boolean = false;
@@ -102,6 +102,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     this.sessionUUID = this.cookieService.get('session-uuid');
+    this.session = new Session();
 
     this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
       next: data => {
@@ -198,7 +199,7 @@ export class TownHallControlComponent implements OnInit {
           this.session = res;
           this.cookieService.set('session-uuid', this.session.uuid);
           this.existsSession = true;
-          this.fillRoleInSessionLists(this.session.roleInSessionList);
+          this.fillRoleInSessionLists(this.townhall.tableRoleList);
           this.onCancelar();
           this.loading = false;
           this.form.get('id').enable();
@@ -239,6 +240,7 @@ export class TownHallControlComponent implements OnInit {
 
   onOpeningVoting(){
 
+    this.loading = true;
     let subjectDTOList = this.selectedSubjectList.map((subject) => new SubjectVotingDTO(subject));
     this.sessionService.createVoting(this.session.uuid, subjectDTOList).subscribe({
       next: data => {
@@ -246,11 +248,13 @@ export class TownHallControlComponent implements OnInit {
         this.onHideVotingDialog();
         this.existsOpenVoting = true;
         this.cookieService.set('playInVoting', 'true');
+        this.loading = false;
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação aberta!'});
       }, error: error => {
-        console.log(error);
+        
         this.selectedSubjectList = [];
         this.onHideVotingDialog();
+        this.loading = false;
         this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:error.error.description});
       }
 
@@ -271,7 +275,6 @@ export class TownHallControlComponent implements OnInit {
         }
       },
       error: error => {
-
         //do nothing
       }
     });
@@ -375,16 +378,16 @@ export class TownHallControlComponent implements OnInit {
   }
 
 
-  fillRoleInSessionLists(roleInSessionList: RoleInSession[]): void{
+  fillRoleInSessionLists(tableRoleList: TableRole[]): void{
 
-    for(let i = 0; i < roleInSessionList.length; i++){
+    for(let i = 0; i < tableRoleList.length; i++){
 
       if(i < 4){
-        this.roleInSessionListPart1.push(roleInSessionList[i]);
+        this.roleInSessionListPart1.push(tableRoleList[i]);
       }else if( i < 8){
-        this.roleInSessionListPart2.push(roleInSessionList[i]);
+        this.roleInSessionListPart2.push(tableRoleList[i]);
       }else if( i < 12){
-        this.roleInSessionListPart3.push(roleInSessionList[i]);
+        this.roleInSessionListPart3.push(tableRoleList[i]);
       }
     }
   }

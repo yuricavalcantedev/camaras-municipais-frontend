@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Parlamentar } from '../domain/parlamentar.model';
-import { TownHall } from '../domain/townhall.model';
-import { UpdateUserRoleDTO } from '../dto/update-user-role-dto.model';
-import { FormResetPasswordComponent } from '../form-reset-password/form-reset-password.component';
-import { ParlamentarService } from '../service/parlamentar.service';
-import { TownHallService } from '../service/townhall.service';
-import { UserService } from '../service/user.service';
+import { Parlamentar } from '../../domain/parlamentar.model';
+import { TownHall } from '../../domain/townhall.model';
+import { UpdateUserRoleDTO } from '../../dto/update-user-role-dto.model';
+import { FormResetPasswordComponent } from '../../form-reset-password/form-reset-password.component';
+import { ParlamentarService } from '../../service/parlamentar.service';
+import { TownHallService } from '../../service/townhall.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-admin-parlamentares',
@@ -25,7 +25,7 @@ export class AdminParlamentaresComponent implements OnInit {
   showTable: boolean = false;
 
   constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService,
-    private messageService: MessageService, public dialogService: DialogService, private userService : UserService) { }
+    private messageService: MessageService, public dialogService: DialogService) { }
 
   ngOnInit(): void {
 
@@ -44,7 +44,6 @@ export class AdminParlamentaresComponent implements OnInit {
   searchParlamentar(){
     this.parlamentarService.getParlamentarList(this.selectedTownhall.id).subscribe(data => {
       this.parlamentarList = data;
-      console.log(this.parlamentarList);
       this.showTable = true;
     });
   }
