@@ -24,6 +24,7 @@ export class VotingPanelComponent implements OnInit {
   noCounter: number = 0;
   absCounter: number = 0;
   totalCounter: number = 0;
+  presentCounter: number = 0;
 
   townHallName: string = '';
   townHallUrlImage: string = '';
@@ -125,7 +126,7 @@ export class VotingPanelComponent implements OnInit {
     if (this.cookieService.get('otherExpedient').length > 0) {
       this.otherExpedient = this.cookieService.get('otherExpedient');
     }
-    
+
   }
 
   fullScreen() {
@@ -169,6 +170,9 @@ export class VotingPanelComponent implements OnInit {
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
         this.extractResultFromVoting(this.voting);
+
+        this.presentCounter = this.parlamentaresTownhall.filter(parlamentar => parlamentar.status === "PRESENCE").length;
+
       }, error: error => {
         console.log(error);
       }
@@ -180,11 +184,12 @@ export class VotingPanelComponent implements OnInit {
     this.sessionService.findSessionStandardInfoByUUID(sessionUUID).subscribe({
 
       next: data => {
-        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList)
+        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList);
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.votingTitle = '';
         this.votingSubTitle = '';
+        this.presentCounter = this.parlamentaresTownhall.filter(parlamentar => parlamentar.status === "PRESENCE").length;
       }, error: error => {
         console.log(error);
       }
