@@ -92,10 +92,12 @@
   align-items: center;
   grid-auto-flow: column;
   grid-template-columns: 18% 68% 18%;
+}
 
-  // -webkit-border-radius: 8px;
-  // -moz-border-radius: 8px;
-  // border-radius: 8px;
+.border-raius {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
 }
 
 
