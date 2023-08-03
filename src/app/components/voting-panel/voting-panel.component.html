@@ -1,10 +1,10 @@
 <div class='page-panel-voting'>
-  <div class="header box-shadow">
+  <div class="header box-shadow border-raius">
     {{this.session.name}}
   </div>
   <div class="box-body">
     <div class="box-left">
-      <div class="item box-shadow" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
+      <div class="item box-shadow border-raius" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
           'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
           'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
           'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}" *ngFor="let item of parlamentaresTownhall">
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class='box-right box-shadow'>
+    <div class='box-right box-shadow border-raius'>
       <div class="expedient" *ngIf="!existsOpenVoting">
         {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
       </div>
@@ -36,38 +36,38 @@
       </div>
     </div>
   </div>
-  <div class="footer box-shadow">
-    <div class="box-yes  status-yes">
-      <div class="quantity">
-        {{yesCounter}}
-      </div>
+  <div class="footer box-shadow border-raius">
+    <div class="box-yes">
       <span class="description">
         Sim
       </span>
-    </div>
-    <div class="box-no status-no">
-      <div class="quantity">
-        {{noCounter}}
+      <div class="quantity status-yes border-raius">
+        {{yesCounter}}
       </div>
+    </div>
+    <div class="box-no">
       <span class="description">
         Não
       </span>
-    </div>
-    <div class="box-abs  status-abs">
-      <div class="quantity">
-        {{absCounter}}
+      <div class="quantity status-no border-raius">
+        {{noCounter}}
       </div>
+    </div>
+    <div class="box-abs">
       <span class="description">
         Abst
       </span>
-    </div>
-    <div class="box-total status-total">
-      <div class="quantity">
-        {{presentCounter}}
+      <div class="quantity status-abs border-raius">
+        {{absCounter}}
       </div>
+    </div>
+    <div class="box-total">
       <span class="description">
         Total de Presentes
       </span>
+      <div class="quantity status-total border-raius">
+        {{presentCounter}}
+      </div>
     </div>
     <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
       {{resultType}}
