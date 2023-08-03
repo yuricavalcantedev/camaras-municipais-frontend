@@ -8,7 +8,7 @@
   background-color: var(--voting-panel-bg-color)
 }
 
- .page-panel-voting .header {
+.page-panel-voting .header {
   display: grid;
 
   height: 10rem;
@@ -34,15 +34,19 @@
 }
 
 .status-yes {
-  background-color: var(--app-vote-yes) !important;
+  // background-color: var(--app-vote-yes) !important;
+  border: 2px solid var(--app-vote-yes);
+
 }
 
 .status-no {
-  background-color: var(--app-vote-no) !important;
+  // background-color: var(--app-vote-no) !important;
+  border: 2px solid var(--app-vote-no);
 }
 
 .status-abs {
-  background-color: var(--app-vote-abs) !important;
+  // background-color: var(--app-vote-abs) !important;
+  border: 2px solid var(--app-vote-abs);
 }
 
 .status-neutral {
@@ -50,7 +54,8 @@
 }
 
 .status-total {
-  background-color: var(--app-status-total);
+  // background-color: var(--app-status-total);
+  border: 2px solid var(--app-status-total);
 }
 
 .status-abscense {
@@ -61,7 +66,7 @@
   background-color: gray;
 }
 
- .page-panel-voting .box-body {
+.page-panel-voting .box-body {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-auto-flow: column;
@@ -71,7 +76,7 @@
 }
 
 /* BOX LEFT */
- .page-panel-voting .box-body .box-left {
+.page-panel-voting .box-body .box-left {
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr 1fr;
@@ -81,16 +86,20 @@
   margin-right: 12.5px;
 }
 
- .page-panel-voting .box-body .box-left .item {
+.page-panel-voting .box-body .box-left .item {
   height: 8.5rem;
   display: grid;
   align-items: center;
   grid-auto-flow: column;
   grid-template-columns: 18% 68% 18%;
+
+  // -webkit-border-radius: 8px;
+  // -moz-border-radius: 8px;
+  // border-radius: 8px;
 }
 
 
- .page-panel-voting .box-body .box-left .item .picture {
+.page-panel-voting .box-body .box-left .item .picture {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -101,18 +110,20 @@
   background-size: cover;
   filter: none;
 }
- .page-panel-voting .box-body .box-left .item .picture-status-neutral {
+
+.page-panel-voting .box-body .box-left .item .picture-status-neutral {
   -webkit-filter: opacity(0.1);
-	filter: opacity(0.1);
-	filter: opacity(0.1); /* IE */
+  filter: opacity(0.1);
+  filter: opacity(0.1);
+  /* IE */
 }
 
 
- .page-panel-voting .box-body .box-left .item .parlamentarian-info {
+.page-panel-voting .box-body .box-left .item .parlamentarian-info {
   flex-grow: 1;
 }
 
- .page-panel-voting .box-body .box-left .item .parlamentarian-info .title {
+.page-panel-voting .box-body .box-left .item .parlamentarian-info .title {
   font-family: "Roboto";
 
   font-weight: 900;
@@ -121,14 +132,14 @@
   color: var(--voting-panel-text-color);
 }
 
- .page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
+.page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
   font-family: "Roboto";
   font-weight: 300;
   font-size: 2.5rem;
   color: var(--voting-panel-text-color);
 }
 
- .page-panel-voting .box-body .box-left .item .role {
+.page-panel-voting .box-body .box-left .item .role {
   font-family: "Roboto";
   font-weight: 900;
   font-size: 2.3rem;
@@ -145,6 +156,10 @@
 
 .label-no-presence {
   color: var(--app-vote-panel-label-color-no-presence) !important;
+  -webkit-filter: opacity(0.1) !important;
+  filter: opacity(0.1) !important;
+  filter: opacity(0.1) !important;
+  /* IE */
 }
 
 /* BOX LEFT */
@@ -152,7 +167,7 @@
 
 /* BOX RIGHT */
 
- .page-panel-voting .box-body .box-right {
+.page-panel-voting .box-body .box-right {
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -162,7 +177,7 @@
   background-color: var(--voting-panel-box-right-background-color);
 }
 
- .page-panel-voting .box-body .box-right  .expedient {
+.page-panel-voting .box-body .box-right .expedient {
   font-family: "Roboto";
   font-weight: 900;
   font-size: 11rem;
@@ -175,23 +190,23 @@
   margin: auto;
 }
 
- .page-panel-voting .box-body .box-right  .info {
+.page-panel-voting .box-body .box-right .info {
   display: flex;
   flex: 1;
   justify-content: flex-start;
   flex-direction: column;
 }
 
- .page-panel-voting .box-body .box-right  .info .title {
+.page-panel-voting .box-body .box-right .info .title {
   font-family: "Roboto";
   font-weight: 900;
   font-size: 2.5rem;
-  color: var(--voting-panel-right-title-color);
+  color: var(--voting-panel-right-info-title-color);
 
   margin: 4rem;
 }
 
- .page-panel-voting .box-body .box-right  .info .subtitle {
+.page-panel-voting .box-body .box-right .info .subtitle {
   font-family: "Roboto";
 
   font-size: 2.5rem;
@@ -206,10 +221,10 @@
 
 /* BOX RIGHT */
 
- .page-panel-voting .footer {
+.page-panel-voting .footer {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 5% 5% 5% 10% 25% 50%;
+  grid-template-columns: 5% 5% 5% 15% 20% 50%;
   margin: 1.5rem 3rem;
   font-family: "Roboto";
 
@@ -219,7 +234,7 @@
   background-color: var(--voting-panel-footer-background-color);
 }
 
- .page-panel-voting .footer .quantity {
+.page-panel-voting .footer .quantity {
   display: flex;
   justify-content: center;
   font-family: Roboto;
@@ -242,26 +257,33 @@
 
 
   color: var(--voting-panel-text-color);
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   text-align: center;
 }
 
 
- .page-panel-voting .footer .box-yes,
+.page-panel-voting .footer .box-yes,
 .box-no,
 .box-abs,
 .box-total {
   display: flex;
   flex-direction: column;
+  margin-right: 5px;
+  margin-bottom: 10px;
 }
 
- .page-panel-voting .footer .box-result {
+.page-panel-voting .footer .box-yes {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.page-panel-voting .footer .box-result {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Roboto;
   font-weight: 900;
-  font-size:4rem;
+  font-size: 4rem;
   color: var(--app-result-color);
   text-transform: uppercase;
 }

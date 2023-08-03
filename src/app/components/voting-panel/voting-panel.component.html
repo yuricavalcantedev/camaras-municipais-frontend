@@ -37,37 +37,37 @@
     </div>
   </div>
   <div class="footer box-shadow">
-    <div class="box-yes  status-yes">
-      <div class="quantity">
-        {{yesCounter}}
-      </div>
+    <div class="box-yes">
       <span class="description">
         Sim
       </span>
-    </div>
-    <div class="box-no status-no">
-      <div class="quantity">
-        {{noCounter}}
+      <div class="quantity status-yes">
+        {{yesCounter}}
       </div>
+    </div>
+    <div class="box-no">
       <span class="description">
         Não
       </span>
-    </div>
-    <div class="box-abs  status-abs">
-      <div class="quantity">
-        {{absCounter}}
+      <div class="quantity status-no">
+        {{noCounter}}
       </div>
+    </div>
+    <div class="box-abs">
       <span class="description">
         Abst
       </span>
-    </div>
-    <div class="box-total status-total">
-      <div class="quantity">
-        {{presentCounter}}
+      <div class="quantity status-abs">
+        {{absCounter}}
       </div>
+    </div>
+    <div class="box-total">
       <span class="description">
         Total de Presentes
       </span>
+      <div class="quantity status-total">
+        {{presentCounter}}
+      </div>
     </div>
     <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
       {{resultType}}
