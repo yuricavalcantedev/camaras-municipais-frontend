@@ -54,6 +54,7 @@ import { CardParlamentar } from './card-parlamentar/card-parlamentar.component';
 import { DatePipe } from '@angular/common';
 import { ClockComponent } from "./clock/clock.component";
 import { TownhallSettingsComponent } from './components/townhall-settings/townhall-settings.component';
+import { VotingPanelHeaderComponent } from './components/voting-panel-header/voting-panel-header.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { TownhallSettingsComponent } from './components/townhall-settings/townha
     HeaderComponent,
     CardParlamentar,
     ClockComponent,
-    TownhallSettingsComponent
+    TownhallSettingsComponent,
+    VotingPanelHeaderComponent
   ],
   imports: [
     BrowserModule,
