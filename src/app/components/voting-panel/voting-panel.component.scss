@@ -34,18 +34,15 @@
 }
 
 .status-yes {
-  // background-color: var(--app-vote-yes) !important;
   border: 2px solid var(--app-vote-yes);
 
 }
 
 .status-no {
-  // background-color: var(--app-vote-no) !important;
   border: 2px solid var(--app-vote-no);
 }
 
 .status-abs {
-  // background-color: var(--app-vote-abs) !important;
   border: 2px solid var(--app-vote-abs);
 }
 
@@ -54,7 +51,6 @@
 }
 
 .status-total {
-  // background-color: var(--app-status-total);
   border: 2px solid var(--app-status-total);
 }
 
@@ -211,7 +207,7 @@
 .page-panel-voting .box-body .box-right .info .subtitle {
   font-family: "Roboto";
 
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: var(--voting-panel-right-subtitle-color);
 
   overflow: hidden;
@@ -288,6 +284,7 @@
   font-size: 4rem;
   color: var(--app-result-color);
   text-transform: uppercase;
+  margin: 10px;
 }
 
 .box-result-no-result {

@@ -109,33 +109,23 @@ html {
   --app-vote-panel-label-color: #fff;
   --app-vote-panel-label-color-presence: #ffbd41;
   --app-vote-panel-label-bg-no-presence: #e4dcdc0f;
-  /* --app-vote-panel-label-color-no-presence: #00000047; */
   --app-vote-panel-label-color-no-presence: #ffffff;
   --app-box-right-title-color: #fff;
   --app-box-right-subtitle-color: #fff;
-  --app-result-color: #3a3b38;
-  /* --app-clock-color: #3a3b38; */
+  --app-result-color: #ffffff;
   --app-clock-color: #ffffff;
 
-  /* --voting-panel-bg-color: #EEEEEE; */
   --voting-panel-bg-color: #262626;
   --voting-panel-text-color: #ffffff;
-  /* --voting-panel-text-color: #3a3b38; */
-  /* --voting-panel-header-background-color: #b4b1a7; */
   --voting-panel-header-background-color: #323232;
-  /* --voting-panel-footer-background-color: #b4b1a7; */
   --voting-panel-footer-background-color: #323232;
   --voting-panel-box-right-background-color: #fffffd;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;
   --voting-panel-bt-fullscreen-color: #fffffd;
-  /* --voting-panel-item-background-color: #fffffd; */
   --voting-panel-item-background-color: #323232;
-  /* --voting-panel-right-title-color: #3a3b38; */
   --voting-panel-right-title-color: #ffffff;
   --voting-panel-right-info-title-color: #3a3b38;
-  /* --voting-panel-right-subtitle-color: #3a3b38; */
   --voting-panel-right-subtitle-color: #3a3b38;
-  /* --app-box-right-expedient-color: #3a3b38; */
   --app-box-right-expedient-color: #3a3b38;
 
 }
