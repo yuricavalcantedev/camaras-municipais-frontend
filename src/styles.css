@@ -99,6 +99,9 @@ html {
   --app-footer-text-color: #FFF;;
   --app-box-voting-background-color: #d9d9d9;
   --app-vote-yes: #7ED283;
+  --app-vote-yes-50: #6acf71;
+  --app-vote-yes-100: #4bc853;
+
   --app-vote-no: #eb606b;
   --app-vote-abs: #fbcb60;
   --app-a-parte-info-color: #FFBD41;
@@ -116,10 +119,21 @@ html {
   --app-box-right-title-color: #fff;
   --app-box-right-subtitle-color: #fff;
 
-  --app-result-color: #ffffff;
+  --app-result-color: #323232;
   --app-clock-color: #ffffff;
 
-  --voting-panel-text-color: #ffffff;
+  --voting-panel-box-result-text-color: #323232;
+  --voting-panel-box-result-quantity-text-color: #323232;
+  --voting-panel-total-parlamentar-text-color: #323232;
+  --voting-panel-total-presentes-text-color: #323232;
+  --voting-panel-loading-bg: #323232;
+  --voting-panel-loading-color: #EEEEEE;
+
+  --voting-panel-parlamentarian-name-text-color: #ffffff;
+  --voting-panel-parlamentarian-political-party-text-color: #ffffff;
+  --voting-panel-parlamentarian-role-text-color: #ffffff;
+
+  --voting-panel-bg: #DBDBDB;
 
   --voting-panel-box-right-background-color: #323232;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;
@@ -131,7 +145,7 @@ html {
   --app-box-right-expedient-color: #ffffff;
 
   --vp-header-chamber-bg: #323232;
-
+  --vp-header-session-name: #ffffff;
 }
 
 /* You can add global styles to this file, and also import other style files */

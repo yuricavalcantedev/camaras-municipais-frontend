@@ -1,12 +1,12 @@
 .page-panel-voting {
-  display: grid;
+  display: flex;
   width: 100vw;
   height: 100vh;
-  grid-auto-flow: row;
   align-items: center;
-  padding: 2rem;
-
+  padding: 0.5rem;
   background-color: var(--app-background-color);
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .status-info {
@@ -17,25 +17,31 @@
 }
 
 .status-yes {
-  border: 2px solid var(--app-vote-yes);
-
+  background-color: var(--app-vote-yes);
 }
 
 .status-no {
-  border: 2px solid var(--app-vote-no);
+  background-color: var(--app-vote-no);
 }
 
 .status-abs {
-  border: 2px solid var(--app-vote-abs);
-}
-
-.status-neutral {
-  background-color: var(--voting-panel-item-background-color) !important;
-  opacity: 0.1;
+  background-color: var(--app-vote-abs);
 }
 
 .status-total {
-  border: 2px solid var(--app-status-total);
+  background-color: var(--app-status-total);
+}
+
+.status-presence {
+  background-color: var(--voting-panel-item-background-color) !important;
+}
+
+.status-no-presence {
+  -webkit-filter: opacity(0.1);
+  filter: opacity(0.1);
+  filter: opacity(0.1);
+  /* IE */
+  background-color: var(--voting-panel-item-background-color) !important;
 }
 
 .status-abscense {
@@ -47,10 +53,9 @@
 }
 
 .page-panel-voting .box-body {
+  width: 99vw;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-auto-flow: row;
-  justify-content: space-between;
+  grid-template-columns: 56% 43.7%;
 }
 
 /* BOX LEFT */
@@ -69,15 +74,21 @@
   display: grid;
   align-items: center;
   grid-auto-flow: column;
-  grid-template-columns: 18% 68% 18%;
+  grid-template-columns: 15% 85%;
 }
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+
 
 .border-raius {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
-
 
 .page-panel-voting .box-body .box-left .item .picture {
   -webkit-border-radius: 50%;
@@ -91,65 +102,49 @@
   filter: none;
 }
 
-.page-panel-voting .box-body .box-left .item .picture-status-neutral {
-  -webkit-filter: opacity(0.1);
-  filter: opacity(0.1);
-  filter: opacity(0.1);
-  /* IE */
-}
-
-
 .page-panel-voting .box-body .box-left .item .parlamentarian-info {
   flex-grow: 1;
 }
 
-.page-panel-voting .box-body .box-left .item .parlamentarian-info .title {
+.page-panel-voting .box-body .box-left .item .parlamentarian-info .name {
   font-family: "Roboto";
 
-  font-weight: 900;
-  font-size: 2.5rem;
+  font-weight: 600;
+  font-size: 3.2rem;
   text-transform: uppercase;
-  color: var(--voting-panel-text-color);
+  color: var(--voting-panel-parlamentarian-name-text-color);
 }
 
 .page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
   font-family: "Roboto";
   font-weight: 300;
-  font-size: 2.5rem;
-  color: var(--voting-panel-text-color);
+  font-size: 3rem;
+  color: var(--voting-panel-parlamentarian-political-party-text-color);
 }
 
 .page-panel-voting .box-body .box-left .item .role {
   font-family: "Roboto";
-  font-weight: 900;
-  font-size: 2.3rem;
-  color: var(--voting-panel-text-color);
+  font-weight: 700;
+  font-size: 3rem;
+  color: var(--voting-panel-parlamentarian-role-text-color);
   align-self: center;
-  transform: rotate(-90deg);
   text-transform: uppercase;
   text-align: center;
+
+  font-style: normal;
+  letter-spacing: 0.08rem;
 }
 
 .label-presence {
   color: var(--app-vote-panel-label-color-presence) !important;
 }
 
-.label-no-presence {
-  color: var(--app-vote-panel-label-color-no-presence) !important;
-  -webkit-filter: opacity(0.1) !important;
-  filter: opacity(0.1) !important;
-  filter: opacity(0.1) !important;
-  /* IE */
-}
-
 /* BOX LEFT */
-
 
 /* BOX RIGHT */
 .box-right {
-  display: grid;
-  grid-template-rows: 60% 40%;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -188,84 +183,180 @@
   font-weight: 800;
   line-height: normal;
   letter-spacing: 0.13125rem;
-  font-size: 4.3rem;
+  font-size: 3rem;
   text-transform: uppercase;
   font-style: normal;
 
-  margin: 4rem;
+  margin: 2rem;
 }
 
 .page-panel-voting .box-body .box-right .box-right-in .info .subtitle {
   font-family: "Roboto";
-
-  font-size: 3rem;
   color: var(--voting-panel-right-subtitle-color);
+  font-size: 2.75rem;
 
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left: 4rem;
+  margin: 2rem;
 
-  font-size: 3.75rem;
   font-style: normal;
   font-weight: 300;
   line-height: 3.75rem;
   letter-spacing: 0.1125rem;
-
 }
 
 /* BOX RIGHT */
 
 .page-panel-voting .footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.box-total-presentes,
+.box-total-parlamentar {
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 5% 5% 5% 15% 20% 50%;
-  font-family: "Roboto";
-
-  font-weight: 900;
-  color: var(--voting-panel-text-color);
+  grid-template-columns: 25% 75%;
+  align-items: center;
+  flex-direction: row;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: var(--voting-panel-bg);
 }
 
-.page-panel-voting .footer .quantity {
-  display: flex;
-  justify-content: center;
-  font-family: Roboto;
-  font-weight: 900;
-  font-size: 5rem;
-  margin-top: 1rem;
-  color: var(--voting-panel-text-color);
-}
 
-.description {
+.page-panel-voting .footer .box-total-parlamentar .description {
   display: flex;
-  justify-content: center;
   align-items: center;
 
   font-family: "Roboto";
 
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 6rem;
   text-transform: uppercase;
 
 
-  color: var(--voting-panel-text-color);
+  color: var(--voting-panel-total-parlamentar-text-color);
   margin-top: 1rem;
   text-align: center;
 }
 
-
-.page-panel-voting .footer .box-yes,
-.box-no,
-.box-abs,
-.box-total {
+.page-panel-voting .footer .box-total-parlamentar .quantity {
   display: flex;
-  flex-direction: column;
-  margin-right: 5px;
-  margin-bottom: 10px;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
 }
 
-.page-panel-voting .footer .box-yes {
-  margin-left: 10px;
+.page-panel-voting .footer .box-total-presentes .description {
+  display: flex;
+  align-items: center;
+
+  font-family: "Roboto";
+
+  font-weight: bold;
+  font-size: 6rem;
+  text-transform: uppercase;
+
+
+  color: var(--voting-panel-total-parlamentar-text-color);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.page-panel-voting .footer .box-total-presentes .quantity {
+  display: flex;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
+}
+
+.box-yes .quantity,
+.box-no .quantity,
+.box-abs .quantity {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-box-result-quantity-text-color);
+}
+
+.box-yes .description,
+.box-no .description {
+  display: flex;
+  align-items: center;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: var(--voting-panel-box-result-text-color);
+  /* margin-top: 1rem; */
+  text-align: center;
+  transform: rotate(90deg);
+}
+
+.box-abs .description {
+  display: flex;
+  align-items: center;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: var(--voting-panel-box-result-text-color);
+  /* margin-top: 1rem; */
+  text-align: center;
+  transform: rotate(90deg);
+}
+
+
+.page-panel-voting .footer .yes-no-abs {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-panel-voting .footer .yes-no-abs .box-yes,
+.page-panel-voting .footer .yes-no-abs .box-no,
+.page-panel-voting .footer .yes-no-abs .box-abs {
+  display: flex;
+  flex-direction: row;
   margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.page-panel-voting .footer .yes-no-abs .box-yes,
+.page-panel-voting .footer .yes-no-abs .box-no {
+  margin-right: 10px;
+}
+
+.status-result-yes {
+  background-color: var(--app-vote-yes);
+  border: 2.5px dashed var(--app-vote-yes);
+}
+
+.status-result-no {
+  background-color: var(--app-vote-no);
+  border: 2.5px dashed var(--app-vote-no);
+}
+
+.status-result-abs {
+  background-color: var(--app-vote-abs);
+  border: 2.5px dashed var(--app-vote-abs);
+}
+
+.status-total {
+  background-color: var(--app-status-total);
 }
 
 .page-panel-voting .footer .box-result {
@@ -274,10 +365,9 @@
   align-items: center;
   font-family: Roboto;
   font-weight: 900;
-  font-size: 4rem;
+  font-size: 6rem;
   color: var(--app-result-color);
   text-transform: uppercase;
-  margin: 10px;
 }
 
 .box-result-no-result {
@@ -297,3 +387,56 @@
   background-color: var(--voting-panel-bt-fullscreen-background-color);
   cursor: pointer;
 }
+
+/* LOADING */
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--voting-panel-loading-bg);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading img {
+  max-height: 600px;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 600px;
+    height: 600px;
+    opacity: 0;
+  }
+}
+
+/* LOADING */

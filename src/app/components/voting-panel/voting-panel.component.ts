@@ -16,6 +16,7 @@ import { UtilService } from '../../service/util.service';
 export class VotingPanelComponent implements OnInit {
 
   inFullScren = false;
+  loading = false;
 
   parlamentaresTownhall: ParlamentarInfoStatusDTO[] = [];
   voting: Voting;
@@ -59,6 +60,10 @@ export class VotingPanelComponent implements OnInit {
   beforeunloadHandler(event: any) {
     this.cookieService.set('isVotingPanelTabOpened', 'false');
     clearInterval(this.sessionInfoInterval);
+  }
+
+  padWithLeadingZeros(num: number, totalLength: number) {
+    return String(num).padStart(totalLength, '0');
   }
 
   ngOnInit(): void {
@@ -117,6 +122,10 @@ export class VotingPanelComponent implements OnInit {
       });
     }, this.TIME_TO_GET_DATA);
 
+  }
+
+  setLoading(state: boolean) {
+    this.loading = state
   }
 
   private setExpiendType() {
@@ -190,6 +199,12 @@ export class VotingPanelComponent implements OnInit {
         this.votingTitle = '';
         this.votingSubTitle = '';
         this.presentCounter = this.parlamentaresTownhall.filter(parlamentar => parlamentar.status === "PRESENCE").length;
+
+
+        setTimeout(() => {
+          this.loading = false;
+        }, 2000);
+
       }, error: error => {
         console.log(error);
       }
@@ -215,7 +230,7 @@ export class VotingPanelComponent implements OnInit {
     });
 
     this.totalCounter = this.parlamentaresTownhall.length;
-
+    console.log({yesCounter: this.yesCounter})
   }
 
 }

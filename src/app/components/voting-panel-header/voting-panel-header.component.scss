@@ -1,8 +1,9 @@
 .header {
   display: grid;
-  grid-template-columns: 24.4% 75.6%;
+  grid-template-columns: 27.4% 72.6%;
   grid-auto-flow: column;
   margin-bottom: 1rem;
+  margin-left: -10px;
 }
 
 .header .chamber-logo {
@@ -17,7 +18,7 @@
 }
 
 .header .chamber-logo img {
-  max-height: 200px;
+  max-height: 150px;
 }
 
 .header .session-name {
@@ -33,7 +34,7 @@
   font-weight: 800;
   line-height: 4.375rem;
   letter-spacing: .15rem;
-  color: var(--voting-panel-text-color);
+  color: var(--vp-header-session-name);
 
   background-color: var(--vp-header-chamber-bg);
   border-radius: 0rem 1rem 0rem 0rem;
