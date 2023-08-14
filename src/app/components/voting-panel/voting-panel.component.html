@@ -1,79 +1,95 @@
-<div class='page-panel-voting'>
-  <div class="header box-shadow border-raius">
-    {{this.session.name}}
-  </div>
+<div class="loading" *ngIf="loading">
+  <img src="../../assets/images/logo_rsv.png"/>
+</div>
+<div *ngIf='!loading' class='page-panel-voting'>
+  <app-voting-panel-header
+    sessionName="{{this.session.name}}"
+    townHallUrlImage="{{townHallUrlImage}}"
+    townHallName="{{townHallName}}"></app-voting-panel-header>
   <div class="box-body">
     <div class="box-left">
-      <div class="item box-shadow border-raius" [ngClass]="{'status-neutral':(item.result=='NULL') && item.status == 'PRESENCE',
+      <div class="item box-shadow border-raius" [ngClass]="{'status-presence':(item.result=='NULL')
+            && item.status == 'PRESENCE',
+          'status-no-presence':item.status != 'PRESENCE',
           'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
           'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
-          'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}" *ngFor="let item of parlamentaresTownhall">
-        <div class="picture" [ngClass]="{'picture-status-neutral':item.status != 'PRESENCE'}"
-          style="--bg-image: url({{item.parlamentar.urlImage}});">
+          'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}"
+        *ngFor="let item of parlamentaresTownhall">
+        <div class="picture" style="--bg-image: url({{item.parlamentar.urlImage}});">
         </div>
         <div class="parlamentarian-info">
-          <div class="political-party" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-            {{item.parlamentar.politicalParty}}</div>
-          <div class="title" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">{{item.parlamentar.name}}
+          <div class="political-party">
+            {{item.parlamentar.politicalParty}} |
+            <span class="role" *ngIf="item.role!=null">
+              {{item.role}}
+            </span>
+          </div>
+          <div class="name">{{item.parlamentar.name}}
           </div>
         </div>
-        <div class="role" *ngIf="item.role!=null" [ngClass]="{'label-no-presence':item.status != 'PRESENCE'}">
-          {{item.role}}
+      </div>
+    </div>
+    <div class="box-right">
+      <div class='box-right-in box-shadow'>
+        <div class="expedient" *ngIf="!existsOpenVoting">
+          {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
+        </div>
+        <div class="info" *ngIf="existsOpenVoting">
+          <div class="title">
+            {{votingTitle}}
+          </div>
+          <div class="subtitle">
+            {{votingSubTitle.slice(0, 350)}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class='box-right box-shadow border-raius'>
-      <div class="expedient" *ngIf="!existsOpenVoting">
-        {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
-      </div>
-      <div class="info" *ngIf="existsOpenVoting">
-        <div class="title">
-          {{votingTitle}}
+      <div class="footer">
+        <div class="yes-no-abs">
+          <div class="box-yes box-shadow status-result-yes">
+            <div class="quantity">
+              {{padWithLeadingZeros(yesCounter, 2)}}
+            </div>
+            <span class="description">
+              Sim
+            </span>
+          </div>
+          <div class="box-no box-shadow status-result-no">
+            <div class="quantity">
+              {{padWithLeadingZeros(noCounter, 2)}}
+            </div>
+            <span class="description">
+              Não
+            </span>
+          </div>
+          <div class="box-abs box-shadow status-result-abs">
+            <div class="quantity">
+              {{padWithLeadingZeros(absCounter, 2)}}
+            </div>
+            <span class="description">
+              Abst
+            </span>
+          </div>
         </div>
-        <div class="subtitle">
-          {{votingSubTitle.slice(0, 350)}}
+        <div class="box-total-parlamentar box-shadow">
+          <div class="quantity">
+            {{padWithLeadingZeros(parlamentaresTownhall.length, 2)}}
+          </div>
+          <span class="description">
+            Parlamentares
+          </span>
+        </div>
+        <div class="box-total-presentes box-shadow">
+          <div class="quantity">
+            {{padWithLeadingZeros(presentCounter,2)}}
+          </div>
+          <span class="description">
+            Presentes
+          </span>
+        </div>
+        <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
+          {{resultType}}
         </div>
       </div>
-    </div>
-  </div>
-  <div class="footer box-shadow border-raius">
-    <div class="box-yes">
-      <span class="description">
-        Sim
-      </span>
-      <div class="quantity status-yes border-raius">
-        {{yesCounter}}
-      </div>
-    </div>
-    <div class="box-no">
-      <span class="description">
-        Não
-      </span>
-      <div class="quantity status-no border-raius">
-        {{noCounter}}
-      </div>
-    </div>
-    <div class="box-abs">
-      <span class="description">
-        Abst
-      </span>
-      <div class="quantity status-abs border-raius">
-        {{absCounter}}
-      </div>
-    </div>
-    <div class="box-total">
-      <span class="description">
-        Total de Presentes
-      </span>
-      <div class="quantity status-total border-raius">
-        {{presentCounter}}
-      </div>
-    </div>
-    <div class="box-result border-raius" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
-      {{resultType}}
-    </div>
-    <div class="clock">
-      <app-clock></app-clock>
     </div>
   </div>
 </div>

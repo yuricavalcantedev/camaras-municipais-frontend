@@ -93,41 +93,59 @@ html {
 }
 
 :root {
-  --app-primary-color: #171430;
+  --app-primary-color: #323232;
   --app-background-color: #eeeeee;
   --app-header-text-color: #fff;
   --app-footer-text-color: #FFF;;
   --app-box-voting-background-color: #d9d9d9;
   --app-vote-yes: #7ED283;
+  --app-vote-yes-50: #6acf71;
+  --app-vote-yes-100: #4bc853;
+
   --app-vote-no: #eb606b;
   --app-vote-abs: #fbcb60;
   --app-a-parte-info-color: #FFBD41;
   --app-status-total: #c5c3bc;
   --app-vote-label-color: #ffffff;
+
   --app-voting-not-present: #ffffff;
   --app-voting-present: #fff;
+
   --app-vote-panel-label-color: #fff;
   --app-vote-panel-label-color-presence: #ffbd41;
-  --app-vote-panel-label-bg-no-presence: #e4dcdc0f;
+  --app-vote-panel-label-bg-no-presence: #323232;
   --app-vote-panel-label-color-no-presence: #ffffff;
+
   --app-box-right-title-color: #fff;
   --app-box-right-subtitle-color: #fff;
-  --app-result-color: #ffffff;
+
+  --app-result-color: #323232;
   --app-clock-color: #ffffff;
 
-  --voting-panel-bg-color: #262626;
-  --voting-panel-text-color: #ffffff;
-  --voting-panel-header-background-color: #323232;
-  --voting-panel-footer-background-color: #323232;
-  --voting-panel-box-right-background-color: #fffffd;
+  --voting-panel-box-result-text-color: #323232;
+  --voting-panel-box-result-quantity-text-color: #323232;
+  --voting-panel-total-parlamentar-text-color: #323232;
+  --voting-panel-total-presentes-text-color: #323232;
+  --voting-panel-loading-bg: #323232;
+  --voting-panel-loading-color: #EEEEEE;
+
+  --voting-panel-parlamentarian-name-text-color: #ffffff;
+  --voting-panel-parlamentarian-political-party-text-color: #ffffff;
+  --voting-panel-parlamentarian-role-text-color: #ffffff;
+
+  --voting-panel-bg: #DBDBDB;
+
+  --voting-panel-box-right-background-color: #323232;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;
   --voting-panel-bt-fullscreen-color: #fffffd;
   --voting-panel-item-background-color: #323232;
   --voting-panel-right-title-color: #ffffff;
-  --voting-panel-right-info-title-color: #3a3b38;
-  --voting-panel-right-subtitle-color: #3a3b38;
-  --app-box-right-expedient-color: #3a3b38;
+  --voting-panel-right-info-title-color: #ffffff;
+  --voting-panel-right-subtitle-color: #ffffff;
+  --app-box-right-expedient-color: #ffffff;
 
+  --vp-header-chamber-bg: #323232;
+  --vp-header-session-name: #ffffff;
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -182,3 +200,4 @@ html {
   -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
 }
+
