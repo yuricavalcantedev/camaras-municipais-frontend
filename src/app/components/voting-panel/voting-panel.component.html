@@ -2,7 +2,10 @@
   <img src="../../assets/images/logo_rsv.png"/>
 </div>
 <div *ngIf='!loading' class='page-panel-voting'>
-  <app-voting-panel-header sessionName="{{this.session.name}}"></app-voting-panel-header>
+  <app-voting-panel-header
+    sessionName="{{this.session.name}}"
+    townHallUrlImage="{{townHallUrlImage}}"
+    townHallName="{{townHallName}}"></app-voting-panel-header>
   <div class="box-body">
     <div class="box-left">
       <div class="item box-shadow border-raius" [ngClass]="{'status-presence':(item.result=='NULL')

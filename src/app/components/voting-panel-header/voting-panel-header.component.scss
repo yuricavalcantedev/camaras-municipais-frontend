@@ -14,11 +14,12 @@
   border-radius: 1rem 0rem 0rem;
   justify-content: center;
   align-items: center;
-  padding: 16px 0;
+  padding: 2rem;
 }
 
 .header .chamber-logo img {
-  max-height: 150px;
+  width: 150px;
+  max-width: 150px;
 }
 
 .header .session-name {

@@ -93,7 +93,7 @@ html {
 }
 
 :root {
-  --app-primary-color: #171430;
+  --app-primary-color: #323232;
   --app-background-color: #eeeeee;
   --app-header-text-color: #fff;
   --app-footer-text-color: #FFF;;
@@ -113,7 +113,7 @@ html {
 
   --app-vote-panel-label-color: #fff;
   --app-vote-panel-label-color-presence: #ffbd41;
-  --app-vote-panel-label-bg-no-presence: #e4dcdc0f;
+  --app-vote-panel-label-bg-no-presence: #323232;
   --app-vote-panel-label-color-no-presence: #ffffff;
 
   --app-box-right-title-color: #fff;

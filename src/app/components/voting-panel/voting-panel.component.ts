@@ -230,7 +230,6 @@ export class VotingPanelComponent implements OnInit {
     });
 
     this.totalCounter = this.parlamentaresTownhall.length;
-    console.log({yesCounter: this.yesCounter})
   }
 
 }

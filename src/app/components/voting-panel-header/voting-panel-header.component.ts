@@ -9,4 +9,7 @@ export class VotingPanelHeaderComponent {
   constructor(){}
 
   @Input() sessionName: string;
+  @Input() townHallUrlImage: string;
+  @Input() townHallName: string;
+
 }
