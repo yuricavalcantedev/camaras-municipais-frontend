@@ -31,7 +31,7 @@ export class VotingPanelComponent implements OnInit {
   townHallUrlImage: string = '';
 
   finalResult: string = '';
-  resultType: string = '';
+  resultType: string = 'APROVADA';
   votingTitle: string = '';
   votingSubTitle: string = '';
   visibilityVotingType: string = '';
@@ -163,7 +163,7 @@ export class VotingPanelComponent implements OnInit {
 
   extractResultFromVoting(voting: Voting) {
     if (voting != undefined) {
-      this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : '';
+      this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : 'APROVADA';
       this.finalResult = this.voting.result;
     }
   }
@@ -172,13 +172,15 @@ export class VotingPanelComponent implements OnInit {
     this.sessionService.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId).subscribe({
       next: data => {
 
-        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList)
+        this.parlamentaresTownhall = data.parlamentarTableList.concat(data.parlamentarList);
         this.voting = data.voting;
         this.speakerList = data.speakerList;
         this.visibilityVotingType = this.voting.legislativeSubjectType.visibilityType;
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
         this.extractResultFromVoting(this.voting);
+
+        console.log({parlamentaresTownhall: this.parlamentaresTownhall})
 
         this.presentCounter = this.parlamentaresTownhall.filter(parlamentar => parlamentar.status === "PRESENCE").length;
 
