@@ -7,15 +7,16 @@
     townHallUrlImage="{{townHallUrlImage}}"
     townHallName="{{townHallName}}"></app-voting-panel-header>
   <div class="box-body">
-    <div class="box-left">
-      <div class="item box-shadow border-raius" [ngClass]="{'status-presence':(item.result=='NULL')
+    <div class="box-left" [ngClass]="{'box-left-big':parlamentaresTownhall.length<=8}">
+      <div class="item box-shadow" [ngClass]="{'status-presence':(item.result=='NULL')
             && item.status == 'PRESENCE',
+          'item-big':parlamentaresTownhall.length<=8,
           'status-no-presence':item.status != 'PRESENCE',
           'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
           'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
           'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}"
         *ngFor="let item of parlamentaresTownhall">
-        <div class="picture" style="--bg-image: url({{item.parlamentar.urlImage}});">
+        <div class="picture" [ngClass]="{'picture-big':parlamentaresTownhall.length<=8}" style="--bg-image: url({{item.parlamentar.urlImage}});">
         </div>
         <div class="parlamentarian-info">
           <div class="political-party">
@@ -24,7 +25,7 @@
               {{item.role}}
             </span>
           </div>
-          <div class="name">{{item.parlamentar.name}}
+          <div class="name" [ngClass]="{'name-big':parlamentaresTownhall.length<=8}">{{item.parlamentar.name}}
           </div>
         </div>
       </div>
@@ -91,6 +92,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="footer-bar">
+    <img src="../../../assets/images//logo_rsv.png" />
   </div>
 </div>
 <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
