@@ -31,7 +31,7 @@ export class VotingPanelComponent implements OnInit {
   townHallUrlImage: string = '';
 
   finalResult: string = '';
-  resultType: string = 'APROVADA';
+  resultType: string = '';
   votingTitle: string = '';
   votingSubTitle: string = '';
   visibilityVotingType: string = '';
@@ -163,7 +163,7 @@ export class VotingPanelComponent implements OnInit {
 
   extractResultFromVoting(voting: Voting) {
     if (voting != undefined) {
-      this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : 'APROVADA';
+      this.resultType = voting.result != null ? this.voting.result.split('-')[0].trim() : '';
       this.finalResult = this.voting.result;
     }
   }

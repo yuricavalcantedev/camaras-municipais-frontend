@@ -1,10 +1,9 @@
+
 <div class="loading" *ngIf="loading">
-  <img src="../../assets/images/logo_rsv.png"/>
+  <img src="../../assets/images/logo_rsv.png" />
 </div>
 <div *ngIf='!loading' class='page-panel-voting'>
-  <app-voting-panel-header
-    sessionName="{{this.session.name}}"
-    townHallUrlImage="{{townHallUrlImage}}"
+  <app-voting-panel-header sessionName="{{this.session.name}}" townHallUrlImage="{{townHallUrlImage}}"
     townHallName="{{townHallName}}"></app-voting-panel-header>
   <div class="box-body">
     <div class="box-left" [ngClass]="{'box-left-big':parlamentaresTownhall.length<=8}">
@@ -16,7 +15,8 @@
           'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
           'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}"
         *ngFor="let item of parlamentaresTownhall">
-        <div class="picture" [ngClass]="{'picture-big':parlamentaresTownhall.length<=8}" style="--bg-image: url({{item.parlamentar.urlImage}});">
+        <div class="picture" [ngClass]="{'picture-big':parlamentaresTownhall.length<=8}"
+          style="--bg-image: url({{item.parlamentar.urlImage}});">
         </div>
         <div class="parlamentarian-info">
           <div class="political-party">
