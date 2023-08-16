@@ -52,9 +52,13 @@
 }
 
 .page-panel-voting .box-body {
-  width: 99vw;
   display: grid;
   grid-template-columns: 56% 43.7%;
+  grid-template-rows: 100%;
+  height: 100%;
+  margin-bottom: 50px;
+  padding-right: 0.5rem;
+  width: 100vw;
 }
 
 /* BOX LEFT */
@@ -63,7 +67,7 @@
   grid-auto-flow: row;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1.5rem;
-
+  grid-auto-rows: min-content;
   margin-right: 12.5px;
 }
 
@@ -78,13 +82,13 @@
   grid-auto-flow: column;
   grid-template-columns: 15% 85%;
 
-  border-top:0px solid #DDDEDA;
-  border-right:0px solid #DDDEDA;
-  border-bottom:1px solid #DDDEDA;
-  border-left:0px solid #DDDEDA;
-  border-width:0px 0px 1px 0px;
-  border-style:solid solid solid solid;
-  border-color:#DDDEDA #DDDEDA #DDDEDA #DDDEDA;
+  border-top: 0px solid #DDDEDA;
+  border-right: 0px solid #DDDEDA;
+  border-bottom: 1px solid #DDDEDA;
+  border-left: 0px solid #DDDEDA;
+  border-width: 0px 0px 1px 0px;
+  border-style: solid solid solid solid;
+  border-color: #DDDEDA #DDDEDA #DDDEDA #DDDEDA;
 }
 
 .item-big {
