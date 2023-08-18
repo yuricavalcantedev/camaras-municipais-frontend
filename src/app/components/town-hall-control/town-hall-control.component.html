@@ -127,21 +127,21 @@
                     <div class="grid" *ngIf="roleInSessionListPart1.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart1">
                             <p class="p-session-role-info p-bolder">{{item.name}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
+                            <p *ngIf="item.parlamentar != null" class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
 
                     <div class="grid" *ngIf="roleInSessionListPart2.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart2">
                             <p class="p-session-role-info p-bolder">{{item.name}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
+                            <p *ngIf="item.parlamentar != null" class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
 
                     <div class="grid" *ngIf="roleInSessionListPart3.length != 0">
                         <div class="col" *ngFor="let item of roleInSessionListPart3">
                             <p class="p-session-role-info p-bolder">{{item.name}}</p>
-                            <p class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
+                            <p *ngIf="item.parlamentar != null" class="p-session-role-info p-info">{{item.parlamentar.name}}</p>
                         </div>
                     </div>
                 </p-panel>

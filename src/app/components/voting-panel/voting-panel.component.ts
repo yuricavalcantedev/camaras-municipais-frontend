@@ -7,6 +7,7 @@ import { ParlamentarInfoStatusDTO } from '../../dto/parlamentar-info-status-dto.
 import { SessionService } from '../../service/session.service';
 import { SoundService } from '../../service/sound.service';
 import { UtilService } from '../../service/util.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-voting-panel',
@@ -54,12 +55,12 @@ export class VotingPanelComponent implements OnInit {
   constructor(private cookieService: CookieService,
     private sessionService: SessionService,
     private utilService: UtilService,
-    private soundService: SoundService) { }
+    private soundService: SoundService,
+    private router: Router) { }
 
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: any) {
-    this.cookieService.set('isVotingPanelTabOpened', 'false');
-    clearInterval(this.sessionInfoInterval);
+    this.clearIntervalAndCookie();
   }
 
   padWithLeadingZeros(num: number, totalLength: number) {
@@ -84,7 +85,7 @@ export class VotingPanelComponent implements OnInit {
     let sessionUUID = this.cookieService.get('session-uuid');
 
 
-    setInterval(() => {
+    this.sessionInfoInterval = setInterval(() => {
 
       this.setExpiendType();
       const syncCalling = new Promise<boolean>((resolve, reject) => {
@@ -208,7 +209,11 @@ export class VotingPanelComponent implements OnInit {
         }, 2000);
 
       }, error: error => {
-        console.log(error);
+        this.clearIntervalAndCookie();
+        this.router.navigate(['townhallSettings/' + this.townhallId], 
+        {queryParams: {
+          errorCode: 4001
+        }});
       }
     });
   }
@@ -232,6 +237,11 @@ export class VotingPanelComponent implements OnInit {
     });
 
     this.totalCounter = this.parlamentaresTownhall.length;
+  }
+
+  clearIntervalAndCookie(){
+    clearInterval(this.sessionInfoInterval);
+    this.cookieService.set('isVotingPanelTabOpened', 'false');
   }
 
 }

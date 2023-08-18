@@ -8,7 +8,8 @@ import { TownHallService } from 'src/app/service/townhall.service';
 @Component({
   selector: 'app-townhall-settings',
   templateUrl: './townhall-settings.component.html',
-  styleUrls: ['./townhall-settings.component.css']
+  styleUrls: ['./townhall-settings.component.css'],
+  providers:[MessageService]
 })
 export class TownhallSettingsComponent implements OnInit {
 
@@ -19,40 +20,48 @@ export class TownhallSettingsComponent implements OnInit {
   loading: boolean = false;
 
  
-  constructor(private _activatedroute: ActivatedRoute, private _townHallService: TownHallService, private cookieService: CookieService, 
-    private _messageService: MessageService, private router: Router){
+  constructor(private activatedroute: ActivatedRoute, private townHallService: TownHallService, private cookieService: CookieService, 
+    private messageService: MessageService, private router: Router){
     
     if(this.cookieService.get('user-role') != 'ROLE_ADMIN'){
       this.cookieService.deleteAll();
       this.router.navigate(['']);
     }
 
-    this.townhallId = _activatedroute.snapshot.paramMap.get("id");
-    this._townHallService.getById(this.townhallId).subscribe({
+    this.townhallId = activatedroute.snapshot.paramMap.get("id");
+    this.townHallService.getById(this.townhallId).subscribe({
         
       next: data => {
         this.townhall = data;
       },
       error: error => {
-        this._messageService.add({severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
+        this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Aconteceu algum erro inesperado!'});
       }
     });
   }
 
   ngOnInit(): void {
+
+    this.activatedroute.queryParams.subscribe(params => {
+      const errorCode = params['errorCode'];
+      if(errorCode == 4001){
+        this.messageService.add({key: 'bc', severity:'error', summary:'Ocorreu um erro', 
+          detail: 'A câmara atual não possui uma mesa configurada! Configure a mesa e tente novamente'});
+      }
+    })
   }
 
   updateTownHall(){
   
     this.loading = true;
-    this._townHallService.updateTownHall(this.townhall).subscribe({
+    this.townHallService.updateTownHall(this.townhall).subscribe({
         next: data => {
-          this._messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara atualizada com sucesso!'});
+          this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara atualizada com sucesso!'});
           this.loading = false;
         },
         error: error => {
           console.log(error);
-          this._messageService.add({severity:'error', summary:'Ocorreu um erro', detail: error.error.message});
+          this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail: error.error.message});
           this.loading = false;
         }
     });
