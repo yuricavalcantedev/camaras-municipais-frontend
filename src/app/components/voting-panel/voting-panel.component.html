@@ -10,6 +10,9 @@
       <div class="item box-shadow" [ngClass]="{'status-presence':(item.result=='NULL')
             && item.status == 'PRESENCE',
           'item-big':parlamentaresTownhall.length<=8,
+          'item-maior-8':(parlamentaresTownhall.length == 9),
+          'item-maior-11':(parlamentaresTownhall.length > 9 && parlamentaresTownhall.length<=12),
+          'item-maior-13':(parlamentaresTownhall.length > 12 && parlamentaresTownhall.length <= 14),
           'status-no-presence':item.status != 'PRESENCE',
           'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
           'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
