@@ -36,9 +36,9 @@
 }
 
 .status-no-presence {
-  -webkit-filter: opacity(0.1);
-  filter: opacity(0.1);
-  filter: opacity(0.1);
+  -webkit-filter: opacity(0.5);
+  filter: opacity(0.5);
+  filter: opacity(0.5);
   /* IE */
   background-color: var(--voting-panel-item-background-color) !important;
 }
@@ -91,9 +91,21 @@
   border-color: #DDDEDA #DDDEDA #DDDEDA #DDDEDA;
 }
 
+.item-maior-8 {
+  height: 13.5rem !important;
+}
+
+.item-maior-11 {
+  height: 11rem !important;
+}
+
+.item-maior-13 {
+  height: 9.5rem !important;
+}
+
 .item-big {
   grid-template-columns: 26% 74% !important;
-  height: 14rem !important;
+  height: 15.5rem !important;
 }
 
 @property --border-angle {
