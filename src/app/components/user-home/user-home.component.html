@@ -113,7 +113,7 @@
   <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>
 
-<p-dialog header="Lista de Oradores" [(visible)]="showInscriptionListDialog" (onHide)="clear()"  [style]="{width: '75vw'}" [modal]="true">
+<p-dialog header="Lista de Oradores" [(visible)]="showInscriptionListDialog" (onHide)="clear()"  [style]="{width: '75vw', height:'35vw'}" [modal]="true">
   <div class="row" *ngIf="session.speakerSessionList.length != 0">
     <p-table [value]="session.speakerSessionList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
       <ng-template pTemplate="header">

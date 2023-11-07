@@ -36,6 +36,7 @@ export class UserHomeComponent implements OnInit {
   disableYesButton: boolean = false;
   disableNoButton: boolean = false;
   disableAbstentionButton: boolean = false;
+  hasUpdatedPresence: boolean = false;
 
   showInscriptionListDialog : boolean = false;
 
@@ -104,8 +105,9 @@ export class UserHomeComponent implements OnInit {
           this.disableNoButton = false;
           this.disableYesButton = false;
         }
-
-        this.updatePresence();
+        if(!this.hasUpdatedPresence){
+          this.updatePresence();
+        }
         if(this.existsOpenVoting){
           this.votingTitle = this.voting.description;
         }else{
@@ -113,7 +115,6 @@ export class UserHomeComponent implements OnInit {
         }
       }
     }, error => {
-      console.log(error);
     });
   }
 
@@ -121,7 +122,7 @@ export class UserHomeComponent implements OnInit {
 
     let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, 'PRESENCE');
     this.sessionService.updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO).subscribe(() =>{
-
+      this.hasUpdatedPresence = true;
     });
   }
 
@@ -130,7 +131,7 @@ export class UserHomeComponent implements OnInit {
     let speakerDTO = new SpeakerSubscriptionDTO(this.townHallId, this.parlamentar.id);
     this.sessionService.subscriptionInSpeakerList(this.session.uuid, speakerDTO).subscribe({
       next: data => {
-        this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Seu voto foi contabilizado com exito!'});
+        this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Inscrição feita com sucesso!'});
       },error: err => {
         this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, contate o administrador.'});
       }
@@ -153,26 +154,11 @@ export class UserHomeComponent implements OnInit {
             this.messageService.add({key: 'bc', severity:'success', summary:'Sucesso!', detail:'Seu voto foi contabilizado com exito!'});
             this.userHasVoted = true;
             this.lastVotingId = this.session.voting.id;
-            this.disableButtonOption(vote);
           },error: err => {
             this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:'Ocorreu um erro inesperado, contate o administrador.'});
           }
         });
       }
-    }
-  }
-
-  disableButtonOption(vote: string){
-
-    if(vote == 'YES'){
-      this.disableNoButton = true;
-      this.disableAbstentionButton = true;
-    }else if(vote == 'NO'){
-      this.disableYesButton = true;
-      this.disableAbstentionButton = true;
-    }else{
-      this.disableYesButton = true;
-      this.disableNoButton = true;
     }
   }
 

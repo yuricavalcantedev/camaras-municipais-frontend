@@ -5,3 +5,11 @@ input{
 .closer{
     margin-bottom: -10px;
 }
+
+th{
+    font-size: 17px;
+}
+  
+tr{
+    font-size: 15px;
+}

@@ -174,11 +174,11 @@ export class ShowTimerComponent implements OnInit {
     this.mainTimerInterval = setInterval(() => {
 
       seconds = (seconds == 0) ? 59 : --seconds;
-      minutes = seconds == 0 ? --minutes : minutes;
-
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
+      minutes = (seconds == 0) ? --minutes : minutes;
+      
       if(minutes == 0 && seconds == 59){
         this.soundService.playSound("assets/sounds/warning_sound.mp3");
       }

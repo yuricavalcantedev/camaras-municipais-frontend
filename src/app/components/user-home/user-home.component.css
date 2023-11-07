@@ -8,6 +8,15 @@
   background-color: var(--app-background-color);
 }
 
+th{
+  font-size: 20px;
+}
+
+tr{
+  font-size: 17px;
+}
+
+
 .app-header {
   display: flex;
   width: 100vw;

@@ -17,3 +17,11 @@ input{
 .custom-rb{
     float: left;
 }
+
+th{
+    font-size: 17px;
+}
+  
+tr{
+    font-size: 15px;
+}

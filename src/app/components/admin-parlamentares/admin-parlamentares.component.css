@@ -2,3 +2,11 @@
     background: var(--primary-color);
     color: var(--primary-color-text);
 }
+
+th{
+    font-size: 17px;
+}
+  
+tr{
+    font-size: 15px;
+}

@@ -55,6 +55,7 @@ import { DatePipe } from '@angular/common';
 import { ClockComponent } from "./clock/clock.component";
 import { TownhallSettingsComponent } from './components/townhall-settings/townhall-settings.component';
 import { VotingPanelHeaderComponent } from './components/voting-panel-header/voting-panel-header.component';
+import { HomeButtonComponent } from './home-button/home-button.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { VotingPanelHeaderComponent } from './components/voting-panel-header/vot
     CardParlamentar,
     ClockComponent,
     TownhallSettingsComponent,
-    VotingPanelHeaderComponent
+    VotingPanelHeaderComponent,
+    HomeButtonComponent
   ],
   imports: [
     BrowserModule,

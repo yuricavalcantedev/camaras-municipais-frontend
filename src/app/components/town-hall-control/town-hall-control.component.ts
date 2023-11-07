@@ -107,6 +107,7 @@ export class TownHallControlComponent implements OnInit {
     this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
       next: data => {
 
+        console.log(data);
         if(data != null){
           this.sessionUUID = data.uuid;
           this.cookieService.set('session-uuid', data.uuid);
@@ -266,7 +267,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe({
       next: data => {
-
+        console.log(data);
         this.session = data;
         if(this.session.votingList.length == 0){
           this.existsOpenVoting = false;
