@@ -124,8 +124,8 @@ html {
 
   --voting-panel-box-result-text-color: #323232;
   --voting-panel-box-result-quantity-text-color: #323232;
-  --voting-panel-total-parlamentar-text-color: #323232;
-  --voting-panel-total-presentes-text-color: #323232;
+  --voting-panel-total-parlamentar-text-color: #ffffff;
+  --voting-panel-total-presentes-text-color: #ffffff;
   --voting-panel-loading-bg: #323232;
   --voting-panel-loading-color: #EEEEEE;
 
@@ -133,7 +133,7 @@ html {
   --voting-panel-parlamentarian-political-party-text-color: #ffffff;
   --voting-panel-parlamentarian-role-text-color: #ffffff;
 
-  --voting-panel-bg: #DBDBDB;
+  --voting-panel-bg: #323232;
 
   --voting-panel-box-right-background-color: #323232;
   --voting-panel-bt-fullscreen-background-color: #3a3b38;
