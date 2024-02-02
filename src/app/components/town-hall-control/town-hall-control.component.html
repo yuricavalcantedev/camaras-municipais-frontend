@@ -172,7 +172,7 @@
                                 </td>
                                 <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">{{subject.description}}</td>
                                 <td>
-                                    <a [href]="subject.originalTextUrl" target="_blank">
+                                    <a *ngIf="subject.originalTextUrl !== ''" [href]="subject.originalTextUrl" target="_blank">
                                         <p-button label="Abrir PDF" icon="pi pi-file-pdf"></p-button>
                                     </a>
                                 </td>
