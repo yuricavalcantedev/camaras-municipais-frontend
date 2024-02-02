@@ -16,6 +16,9 @@ import { Timer } from '../../interfaces/timers';
 import { ParlamentarService } from '../../service/parlamentar.service';
 import { SessionService } from '../../service/session.service';
 import { TownHallService } from '../../service/townhall.service';
+import { UtilService } from 'src/app/service/util.service';
+import { VoteDTO } from 'src/app/dto/vote-dto.model';
+import { Voting } from 'src/app/domain/voting.model';
 
 @Component({
   selector: 'app-town-hall-control',
@@ -50,7 +53,6 @@ export class TownHallControlComponent implements OnInit {
   outroExpediente: string;
   disableInput: boolean = true;
 
-
   sessionUUID: string = '';
   session: Session;
   form: FormGroup;
@@ -60,6 +62,7 @@ export class TownHallControlComponent implements OnInit {
 
   isShowTimerTabOpened: boolean = false;
   isVotingPanelTabOpened: boolean = false;
+  someVoting: Voting = undefined;
 
   firstInterval: any;
   secondInterval: any;
@@ -104,6 +107,8 @@ export class TownHallControlComponent implements OnInit {
     this.sessionUUID = this.cookieService.get('session-uuid');
     this.session = new Session();
 
+    this.computeSessionVoting();
+
     this.sessionService.findSessionTodayByTownhall(this.townhallId).subscribe({
       next: data => {
 
@@ -114,6 +119,7 @@ export class TownHallControlComponent implements OnInit {
           this.existsSession = true;
           this.firstInterval = setInterval(() =>{
             this.findSessionByUUID(this.sessionUUID);
+            this.computeSessionVoting();
           }, 5000);
         }
       },
@@ -139,6 +145,12 @@ export class TownHallControlComponent implements OnInit {
       id:new FormControl('', [Validators.required]),
     });
 
+  }
+
+  computeSessionVoting() {
+    this.someVoting = this.session.votingList.find(
+      (voting) => voting.parlamentarVotingList.some(parlamentarVoting => parlamentarVoting.result !== 'NULL')
+    );
   }
 
   openDialog(){
@@ -208,6 +220,7 @@ export class TownHallControlComponent implements OnInit {
 
           this.secondInterval = setInterval(() => {
             this.findSessionByUUID(this.session.uuid);
+            this.computeSessionVoting();
           }, 5000);
         },
         error: err => {
@@ -267,7 +280,7 @@ export class TownHallControlComponent implements OnInit {
 
     this.sessionService.findByUUID(sessionUUID).subscribe({
       next: data => {
-        console.log(data);
+        console.log({ sessionData: data });
         this.session = data;
         if(this.session.votingList.length == 0){
           this.existsOpenVoting = false;
@@ -399,6 +412,7 @@ export class TownHallControlComponent implements OnInit {
       next: res => {
         this.selectedSubjectList = [];
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação encerrada!'});
+        this.cookieService.set('playCloseVoting', 'true');
       },
       error: err => {
         this.messageService.add({severity:'error', summary:'Erro!', detail: err.error.description});
@@ -406,4 +420,21 @@ export class TownHallControlComponent implements OnInit {
     });
   }
 
+  async cleanPanel() {
+    console.log({ votingList: this.session.votingList })
+    console.log({someVoting: this.someVoting})
+
+    if (this.someVoting && this.someVoting.id) {
+      this.sessionService
+        .resetSessionVotingInfoBySessionAndVotingId(this.sessionUUID, this.someVoting.id)
+        .subscribe({
+          next: (data) => {
+            console.log({ findSessionVotingInfoBySessionAndVotingId: data })
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+    }
+  }
 }

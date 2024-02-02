@@ -33,6 +33,7 @@ export class VotingPanelComponent implements OnInit {
   finalResult: string = '';
   resultType: string = '';
   votingTitle: string = '';
+  votingAuthor: string = '';
   votingSubTitle: string = '';
   visibilityVotingType: string = '';
   expedientType: string = '';
@@ -50,6 +51,7 @@ export class VotingPanelComponent implements OnInit {
   TIME_TO_GET_DATA: number = 1500;
 
   playInVoting: boolean;
+  closeVoting: boolean;
 
   constructor(
     private cookieService: CookieService,
@@ -108,10 +110,16 @@ export class VotingPanelComponent implements OnInit {
         let votingId;
 
         this.playInVoting = this.cookieService.get('playInVoting') == 'true';
+        this.closeVoting = this.cookieService.get('playCloseVoting') == 'true';
 
         if (this.existsOpenVoting && this.playInVoting) {
           this.soundService.playSound('assets/sounds/em_votacao.mp3');
           this.cookieService.set('playInVoting', 'false');
+        }
+
+        if (!this.existsOpenVoting && this.closeVoting) {
+          this.soundService.playSound('assets/sounds/votacao_encerrada.mp3');
+          this.cookieService.set('playCloseVoting', 'false');
         }
 
         if (this.existsOpenVoting) {
@@ -129,6 +137,11 @@ export class VotingPanelComponent implements OnInit {
         }
       });
     }, this.TIME_TO_GET_DATA);
+
+    window.onload = () => {
+      this.fullScreen();
+    };
+
   }
 
   setLoading(state: boolean) {
@@ -166,6 +179,12 @@ export class VotingPanelComponent implements OnInit {
     }
   }
 
+  extractAuthor(voting: Voting) {
+    if (voting != undefined) {
+      this.votingAuthor = voting.author;
+    }
+  }
+
   extractResultFromVoting(voting: Voting) {
     if (voting != undefined) {
       this.resultType =
@@ -191,6 +210,7 @@ export class VotingPanelComponent implements OnInit {
             this.voting.legislativeSubjectType.visibilityType;
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
+        this.extractAuthor(data.voting);
         this.extractResultFromVoting(this.voting);
 
           console.log({ parlamentaresTownhall: this.parlamentaresTownhall });

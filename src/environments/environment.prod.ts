@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://floating-scrubland-72426.herokuapp.com',
-  frontEndUrl: 'https://camaras-municipais-frontend.vercel.app'
+  apiUrl: 'http://localhost:8080',
+  frontEndUrl: 'http://localhost:4200'
 };

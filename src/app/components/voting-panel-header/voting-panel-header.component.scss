@@ -1,8 +1,7 @@
 .header {
-  display: grid;
-  grid-template-columns: 27.4% 72.6%;
-  grid-auto-flow: column;
+  display: flex;
   margin-bottom: 1rem;
+  width: 100%
 }
 
 .header .chamber-logo {
@@ -13,7 +12,7 @@
   border-radius: 1rem 0rem 0rem;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 15rem;
 }
 
 .header .chamber-logo img {
@@ -23,10 +22,9 @@
 
 .header .session-name {
   display: flex;
-  justify-content: center;
+  width: 100%;
   align-items: center;
   padding: 4rem;
-
   font-family: Roboto;
   font-size: 5rem;
   font-style: normal;
@@ -34,8 +32,6 @@
   line-height: 4.375rem;
   letter-spacing: .15rem;
   color: var(--vp-header-session-name);
-
   background-color: var(--vp-header-chamber-bg);
   border-radius: 0rem 1rem 0rem 0rem;
-
 }

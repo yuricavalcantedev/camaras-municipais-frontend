@@ -13,7 +13,7 @@
                 <form #myForm [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="margin-top: 50px;">
                     <div>
                         <span class="p-float-label">
-                            <input id="float-input-login" formControlName="username" type="text" class="form-control" pInputText >
+                            <input [(ngModel)]="username" id="float-input-login" formControlName="username" type="text" class="form-control" pInputText >
                             <label for="float-input-login">Login</label>
                             <p-message severity="error" text="O campo login é obrigatório" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty"></p-message>
                         </span>

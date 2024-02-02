@@ -56,6 +56,7 @@ export class ShowTimerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cookieService.set('timeChanged', '')
 
     setInterval(() => {
 
@@ -124,6 +125,8 @@ export class ShowTimerComponent implements OnInit {
         this.subTimer(120);
       }
 
+      this.mainTimerInterval.refresh()
+
     }, this.ONE_SECOND);
 
   }
@@ -173,12 +176,23 @@ export class ShowTimerComponent implements OnInit {
     this.triggeredSound = false;
     this.mainTimerInterval = setInterval(() => {
 
+      const timeChanged = this.cookieService.get('timeChanged');
+
+      if (timeChanged === 'add') {
+        minutes += 1;
+      } else if (timeChanged === 'remove') {
+        if(minutes >= 1) {
+          minutes -= 1;
+        }
+      }
+      this.cookieService.set('timeChanged', '')
+      
       seconds = (seconds == 0) ? 59 : --seconds;
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
       minutes = (seconds == 0) ? --minutes : minutes;
-      
+
       if(minutes == 0 && seconds == 59){
         this.soundService.playSound("assets/sounds/warning_sound.mp3");
       }
