@@ -84,7 +84,7 @@
               transform="rotate(-90 66.2417 84.8432)" fill="white" />
           </svg>
         </button>
-        <button *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'" label="Lista de Inscritos" pButton (click)="showDialog()" class="p-button-raised p-button-rounded">
+        <button *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'" label="Opções" pButton (click)="handleShowOptionDialog()" class="p-button-raised p-button-rounded">
           <svg width="32" height="25" viewBox="0 0 32 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="6.69768" width="32" height="4.09302" rx="2.04651" fill="white"/>
             <rect y="6.69768" width="32" height="4.09302" rx="2.04651" fill="white"/>
@@ -113,7 +113,7 @@
   <button (click)="fullScreen()" pButton icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
 </div>
 
-<p-dialog header="Lista de Oradores" [(visible)]="showInscriptionListDialog" (onHide)="clear()"  [style]="{width: '75vw', height:'35vw'}" [modal]="true">
+<p-dialog header="Lista de Oradores" [(visible)]="showInscriptionListDialog" (onHide)="clearInscriptionListDialog()"  [style]="{width: '75vw', height:'35vw'}" [modal]="true">
   <div class="row" *ngIf="session.speakerSessionList.length != 0">
     <p-table [value]="session.speakerSessionList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
       <ng-template pTemplate="header">
@@ -135,5 +135,39 @@
   </div>
   <div class="row" *ngIf="session.speakerSessionList.length == 0">
     <p>Ainda não existem oradores inscritos</p>
+  </div>
+</p-dialog>
+
+<p-dialog header="Opções" transitionOptions="string 150ms cubic-bezier(0, 0, 0.2, 1)" [style]="{width: '75vw', height:'35vw'}" [(visible)]="showOptionsDialog" (onHide)="clearOptionsDialog()" [modal]="true">
+  <div class="options-in">
+
+    <div class="add-time">
+      <button label=" 1m" pButton (click)="handlerRemoveTimeDialog()" class="p-button-raised p-button-rounded custom-icon">
+        <i class="pi pi-minus"></i>
+      </button>
+      <button  label="1m" pButton (click)="handleAddTimeDialog()" class="p-button-raised p-button-rounded custom-icon">
+        <i class="pi pi-plus"></i>
+      </button>
+    </div>
+
+    <div class="finish-voting">
+      <button [disabled]="!existsOpenVoting" label="Encerrar Votação" pButton (click)="closeVoting()" class="p-button-raised p-button-rounded custom-icon">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+    <div class="susbcription-list">
+      <button label="Lista de Inscritos" pButton (click)="showDialog()" class="p-button-raised p-button-rounded custom-icon">
+        <i class="pi pi-align-justify"></i>
+      </button>
+    </div>
+    <div class="exit">
+      <button label="Sair" pButton (click)="logOut()" class="p-button-raised p-button-rounded custom-icon">
+        <svg width="94" height="74" viewBox="0 0 94 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M63.5312 61.8594V40.125H33.2285C32.3417 40.125 31.4912 39.7727 30.8641 39.1456C30.2371 38.5186 29.8848 37.6681 29.8848 36.7812C29.8848 35.8944 30.2371 35.0439 30.8641 34.4169C31.4912 33.7898 32.3417 33.4375 33.2285 33.4375H63.5312V11.7031C63.5279 8.60028 62.2939 5.62547 60.0998 3.43143C57.9058 1.23739 54.931 0.00331914 51.8281 0L11.7031 0C8.60028 0.00331914 5.62547 1.23739 3.43143 3.43143C1.23739 5.62547 0.00331914 8.60028 0 11.7031L0 61.8594C0.00331914 64.9622 1.23739 67.937 3.43143 70.1311C5.62547 72.3251 8.60028 73.5592 11.7031 73.5625H51.8281C54.931 73.5592 57.9058 72.3251 60.0998 70.1311C62.2939 67.937 63.5279 64.9622 63.5312 61.8594ZM82.2082 40.125L71.1989 51.1364C70.5983 51.7686 70.2684 52.6104 70.2796 53.4823C70.2907 54.3542 70.6421 55.1873 71.2586 55.8039C71.8752 56.4204 72.7083 56.7718 73.5802 56.7829C74.4521 56.7941 75.2939 56.4642 75.9261 55.8636L92.6449 39.1449C93.2715 38.5179 93.6235 37.6677 93.6235 36.7812C93.6235 35.8948 93.2715 35.0446 92.6449 34.4176L75.9261 17.6989C75.2939 17.0983 74.4521 16.7684 73.5802 16.7796C72.7083 16.7907 71.8752 17.1421 71.2586 17.7586C70.6421 18.3752 70.2907 19.2083 70.2796 20.0802C70.2684 20.9521 70.5983 21.7939 71.1989 22.4261L82.2082 33.4375H63.5312V40.125H82.2082Z"
+            fill="white" />
+        </svg>
+      </button>
+    </div>
   </div>
 </p-dialog>

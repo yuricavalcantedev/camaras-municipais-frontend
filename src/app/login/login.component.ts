@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { LoginDTO } from '../dto/login-dto.model';
 import { UserLoggedDTO } from '../dto/user-logged-dto.model';
 import { LoginService } from '../service/login.service';
+import { UtilService } from '../service/util.service';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +18,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   existsOpenSession: boolean = false;
   loading: boolean = false;
+  username: string = '';
 
-  constructor(private loginService: LoginService, private messageService: MessageService, private cookieService: CookieService, private router: Router) { }
+  constructor(private loginService: LoginService, private messageService: MessageService, private cookieService: CookieService, private router: Router,
+    private utilService: UtilService) { }
 
   ngOnInit(): void {
+
+    this.username = localStorage.getItem('username');
 
     this.loginForm = new FormGroup({
       username: new FormControl (['', Validators.required]),
@@ -45,10 +50,13 @@ export class LoginComponent implements OnInit {
 
         this.cookieService.set('user-role', user.roles[0].name);
         this.cookieService.set('user-name', user.name);
+        localStorage.setItem('username', loginDTO.username);
         this.cookieService.set('user-username', loginDTO.username);
         this.cookieService.set('user-townhall-id', user.townHall.id + '');
 
         this.loading = false;
+        this.utilService.fullScreen();
+        
         switch(user.roles[0].name){
           
           case 'ROLE_ADMIN': this.router.navigate(['admin']);

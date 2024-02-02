@@ -45,6 +45,9 @@
           <div class="subtitle">
             {{votingSubTitle.slice(0, 350)}}
           </div>
+          <div class="author">
+            Autor(es): {{votingAuthor}}
+          </div>
         </div>
       </div>
       <div class="footer">
@@ -90,6 +93,11 @@
             Presentes
           </span>
         </div>
+
+        <div *ngIf="resultType==''" class="box-result" [ngClass]="{'status-neutral':resultType==''}">
+          
+        </div>
+
         <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REPROVADA'}">
           {{resultType}}
         </div>
@@ -98,7 +106,7 @@
   </div>
   <div class="footer-bar">
     <img src="../../../assets/images//logo_rsv.png" />
+    <button #fullScreenButton (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
+  class="p-button-raised p-button-rounded box-shadow"></button>
   </div>
 </div>
-<button (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
-  class="p-button-raised p-button-rounded box-shadow"></button>

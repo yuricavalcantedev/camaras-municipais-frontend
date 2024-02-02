@@ -9,4 +9,5 @@ export class Subject{
     description: string;
     status: string;
     saplMateriaId: number;
+    originalTextUrl: string;
 }

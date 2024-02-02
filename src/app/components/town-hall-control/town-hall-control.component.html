@@ -59,7 +59,8 @@
                     <div class="col">
                         <button pButton pRipple id="update-presence-list" label="Atualizar Presença" [disabled]="selectedParlamentarPresenceIdList.length == 0" (click)="updatePresenceParlamentarList()" class="p-button-secondary"></button>
                         <button pButton pRipple id="open-voting-button" label="Abrir Painel de Votacao" (click)="openEletronicPanel()"></button>
-
+                        <button pButton pRipple id="clean-voting-button" label="Limpar Painel de Votacao" [disabled]="!someVoting"
+                            (click)="cleanPanel()"></button>
                     </div>
                 </div>
 
@@ -161,6 +162,7 @@
                                 <th style="width: 1rem">
                                 </th>
                                 <th>Ordem</th>
+                                <th>PDF</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-subject>
@@ -169,6 +171,11 @@
                                     <p-tableCheckbox  [disabled]="subject.status == 'VOTED' || subject.status == 'VOTING'" [value]="subject"></p-tableCheckbox>
                                 </td>
                                 <td [ngClass]="{'subject-disable': subject.status === 'VOTED' || subject.status == 'VOTING'}">{{subject.description}}</td>
+                                <td>
+                                    <a *ngIf="subject.originalTextUrl !== ''" [href]="subject.originalTextUrl" target="_blank">
+                                        <p-button label="Abrir PDF" icon="pi pi-file-pdf"></p-button>
+                                    </a>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>

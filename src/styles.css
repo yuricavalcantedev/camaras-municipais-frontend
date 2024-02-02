@@ -115,6 +115,7 @@ html {
   --app-vote-panel-label-color-presence: #ffbd41;
   --app-vote-panel-label-bg-no-presence: #323232;
   --app-vote-panel-label-color-no-presence: #ffffff;
+  --app-vote-panel-label-neutral-color: #fff;
 
   --app-box-right-title-color: #fff;
   --app-box-right-subtitle-color: #fff;
