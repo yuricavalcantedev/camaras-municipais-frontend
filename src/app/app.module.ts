@@ -56,6 +56,8 @@ import { ClockComponent } from "./clock/clock.component";
 import { TownhallSettingsComponent } from './components/townhall-settings/townhall-settings.component';
 import { VotingPanelHeaderComponent } from './components/voting-panel-header/voting-panel-header.component';
 import { HomeButtonComponent } from './home-button/home-button.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @NgModule({
   declarations: [
@@ -103,6 +105,7 @@ import { HomeButtonComponent } from './home-button/home-button.component';
     TooltipModule,
     BlockUIModule,
     ProgressBarModule,
+    ProgressSpinnerModule,
     RadioButtonModule,
     HttpClientModule,
     AppRoutingModule
