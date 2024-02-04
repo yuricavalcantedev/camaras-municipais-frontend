@@ -5,6 +5,9 @@ import { UtilShowTimer } from '../../domain/utilsShowTimer.model';
 import { ParlamentarTimer } from '../../dto/parlamentar-timer.model';
 import { SoundService } from '../../service/sound.service';
 import { UtilService } from '../../service/util.service';
+import { ControlService } from 'src/app/service/control.service';
+import { EControlType } from 'src/app/dto/control-type.enum';
+import { Control } from 'src/app/domain/control.model';
 
 @Component({
   selector: 'app-show-timer',
@@ -44,10 +47,12 @@ export class ShowTimerComponent implements OnInit {
   endSubTimer: boolean = false;
 
   ONE_SECOND: number = 1000;
+  GET_CONTROL_TIME: number = 3000;
   keepTimerRunning: boolean = false;
+  controllList: Control[] = null;
+  townHallId: number = 0;
 
-
-  constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService) {
+  constructor(private soundService: SoundService, private utilService: UtilService, private cookieService: CookieService, private controlService: ControlService) {
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -73,6 +78,10 @@ export class ShowTimerComponent implements OnInit {
 
       if(this.cookieService.get('townHallCityName').length > 0){
         this.townHallName = this.cookieService.get('townHallCityName');
+      }
+
+      if (this.cookieService.get('user-townhall-id').length > 0) {
+        this.townHallId = Number.parseInt(this.cookieService.get('user-townhall-id'));
       }
 
       if(this.cookieService.get('townHallUrlImage').length > 0){
@@ -124,11 +133,16 @@ export class ShowTimerComponent implements OnInit {
         this.showAParteTime = true;
         this.subTimer(120);
       }
-
-      this.mainTimerInterval.refresh()
-
     }, this.ONE_SECOND);
 
+    setInterval(() => {
+      this.getControlTime();
+      if (!this.isMainTimerRunning && this.controllList.length) {
+        console.log("RESTARTING TIMER");
+        this.mainTimer(1);
+        this.isMainTimerRunning = true;
+      }
+    }, this.GET_CONTROL_TIME);
   }
 
   clearMainTimer(clearAll: boolean){
@@ -176,24 +190,15 @@ export class ShowTimerComponent implements OnInit {
     this.triggeredSound = false;
     this.mainTimerInterval = setInterval(() => {
 
-      const timeChanged = this.cookieService.get('timeChanged');
-
-      if (timeChanged === 'add') {
-        minutes += 1;
-      } else if (timeChanged === 'remove') {
-        if(minutes >= 1) {
-          minutes -= 1;
-        }
-      }
-      this.cookieService.set('timeChanged', '')
-      
+      minutes = this.handleControlList(minutes);
       seconds = (seconds == 0) ? 59 : --seconds;
+
       this.mainTextMinutes = minutes < 10 ? '0' + minutes : minutes;
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
       minutes = (seconds == 0) ? --minutes : minutes;
 
-      if(minutes == 0 && seconds == 59){
+      if (minutes == 0 && (seconds == 30 || seconds == 59 || seconds == 120)) {
         this.soundService.playSound("assets/sounds/warning_sound.mp3");
       }
 
@@ -204,6 +209,22 @@ export class ShowTimerComponent implements OnInit {
     }, this.ONE_SECOND);
   }
 
+
+  private handleControlList(minutes: number) {
+    console.log("handleControlList", minutes)
+    this.controllList.forEach((control, index) => {
+      if (control.command === 'add') {
+        minutes += 1;
+      } else if (control.command === 'remove') {
+        if (minutes >= 1) {
+          minutes -= 1;
+        }
+      }
+      this.controllList.splice(index, 1);
+      this.deleteControlTime(control.id);
+    });
+    return minutes;
+  }
 
   subTimer(timeInSeconds: number){
 
@@ -236,5 +257,20 @@ export class ShowTimerComponent implements OnInit {
     this.utilService.fullScreen();
   }
 
+  getControlTime() {
+    this.controlService.findByTypeAndParlamentarIdAll(EControlType.TIME, this.townHallId.toString()).subscribe(res => {
+      this.controllList = res.sort((a, b) => b.id - a.id);
+    });
+  }
+
+  deleteControlTime(id: number) {
+    this.controlService.delete(id).subscribe({
+      next: data => {
+        console.log({ deleteControlTime: data })
+      }, error: error => {
+        console.error({ deleteControlTime: error })
+      }
+    });
+  }
 
 }
