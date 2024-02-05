@@ -29,8 +29,12 @@ input{
 }
 
 .form-in {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
+
 .logo {
   display: flex;
   flex: 1;

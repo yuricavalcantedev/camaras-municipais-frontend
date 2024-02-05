@@ -231,11 +231,11 @@ export class UserHomeComponent implements OnInit {
     this.showOptionsDialog = true;
   }
 
-  handleControlTime(command: string) {
-    const controlDTO = new ControlDTO(EControlType.TIME, command, this.townHallId.toString())
+  handleControl(controlDTO: ControlDTO) {
+    
     this.controlService.create(controlDTO).subscribe({
       next: data => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Tempo incrementado com sucesso!' });
+        this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Control criado incrementado com sucesso!' });
         this.loading = false;
       },
       error: error => {
@@ -246,11 +246,13 @@ export class UserHomeComponent implements OnInit {
   }
 
   handleAddTimeDialog() {
-    this.handleControlTime("add")
+    const controlDTO = new ControlDTO(EControlType.TIME, "add", this.townHallId.toString())
+    this.handleControl(controlDTO);
   }
 
   handlerRemoveTimeDialog() {
-    this.handleControlTime("remove")
+    const controlDTO = new ControlDTO(EControlType.TIME, "remove", this.townHallId.toString())
+    this.handleControl(controlDTO)
   }
 
   handleFinishVotingDialog() {

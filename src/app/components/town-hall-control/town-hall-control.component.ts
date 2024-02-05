@@ -421,9 +421,6 @@ export class TownHallControlComponent implements OnInit {
   }
 
   async cleanPanel() {
-    console.log({ votingList: this.session.votingList })
-    console.log({someVoting: this.someVoting})
-
     if (this.someVoting && this.someVoting.id) {
       this.sessionService
         .resetSessionVotingInfoBySessionAndVotingId(this.sessionUUID, this.someVoting.id)
