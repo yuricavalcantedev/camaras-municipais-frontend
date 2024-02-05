@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { ParlamentarShortDTO } from '../../dto/parlamentar-short-dto.model';
 import { TownHallService } from '../../service/townhall.service';
 import { ParlamentarTimer } from 'src/app/dto/parlamentar-timer.model';
+import { ControlService } from 'src/app/service/control.service';
+import { ControlDTO } from 'src/app/dto/control-dto.model';
+import { EControlType } from 'src/app/dto/control-type.enum';
 
 @Component({
   selector: 'app-user-home',
@@ -49,8 +52,11 @@ export class UserHomeComponent implements OnInit {
   parlamentarObject: ParlamentarTimer = null;
 
   constructor(private userService: UserService, private messageService: MessageService,
-    private sessionService: SessionService, private cookieService: CookieService, public townHallService: TownHallService, private router: Router, private utilService: UtilService) { }
+    private sessionService: SessionService, private cookieService: CookieService,
+    public townHallService: TownHallService, private router: Router,
+    private utilService: UtilService, private controlService: ControlService) { }
 
+  loading: boolean = false;
 
   ngOnInit(): void {
 
@@ -99,6 +105,10 @@ export class UserHomeComponent implements OnInit {
 
   showDialog() {
     this.showInscriptionListDialog = true;
+  }
+
+  hideOptionsDialog() {
+    this.showOptionsDialog = false;
   }
 
   findSessionTodayByTownhall(townHallId: number) {
@@ -221,21 +231,28 @@ export class UserHomeComponent implements OnInit {
     this.showOptionsDialog = true;
   }
 
+  handleControl(controlDTO: ControlDTO) {
+    
+    this.controlService.create(controlDTO).subscribe({
+      next: data => {
+        this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Control criado incrementado com sucesso!' });
+        this.loading = false;
+      },
+      error: error => {
+        this.messageService.add({ severity: 'error', summary: 'Ocorreu um erro', detail: error.error.description });
+        this.loading = false;
+      }
+    });
+  }
+
   handleAddTimeDialog() {
-
-    this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
-
-    if (this.isShowTimerTabOpened) {
-      this.cookieService.set('timeChanged', 'add');
-    }
-
+    const controlDTO = new ControlDTO(EControlType.TIME, "add", this.townHallId.toString())
+    this.handleControl(controlDTO);
   }
 
   handlerRemoveTimeDialog() {
-    this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
-    if (this.isShowTimerTabOpened) {
-      this.cookieService.set('timeChanged', 'remove');
-    }
+    const controlDTO = new ControlDTO(EControlType.TIME, "remove", this.townHallId.toString())
+    this.handleControl(controlDTO)
   }
 
   handleFinishVotingDialog() {
