@@ -52,6 +52,7 @@ export class VotingPanelComponent implements OnInit {
 
   playInVoting: boolean;
   closeVoting: boolean;
+  lastVoting: number;
 
   constructor(
     private cookieService: CookieService,
@@ -127,13 +128,14 @@ export class VotingPanelComponent implements OnInit {
           votingId = this.session.votingList.find(
             (voting) => voting.status == 'VOTING'
           ).id;
+          this.lastVoting = votingId;
           this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
         } else if (this.existsClosedVoting) {
           votingId =
             this.session.votingList[this.session.votingList.length - 1].id;
             console.log("Sessao", this.session);
             console.log("Id da ultima votacao", votingId);
-          this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
+          this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, this.lastVoting);
         } else {
           this.setExpiendType();
           this.findSessionStandardInfoByUUID(sessionUUID);
