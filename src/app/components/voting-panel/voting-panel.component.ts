@@ -122,6 +122,7 @@ export class VotingPanelComponent implements OnInit {
           this.cookieService.set('playCloseVoting', 'false');
         }
 
+        console.log(this.session.votingList);
         if (this.existsOpenVoting) {
           votingId = this.session.votingList.find(
             (voting) => voting.status == 'VOTING'
@@ -130,6 +131,8 @@ export class VotingPanelComponent implements OnInit {
         } else if (this.existsClosedVoting) {
           votingId =
             this.session.votingList[this.session.votingList.length - 1].id;
+            console.log("Sessao", this.session);
+            console.log("Id da ultima votacao", votingId);
           this.findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId);
         } else {
           this.setExpiendType();
@@ -213,7 +216,8 @@ export class VotingPanelComponent implements OnInit {
         this.extractAuthor(data.voting);
         this.extractResultFromVoting(this.voting);
 
-          console.log({ parlamentaresTownhall: this.parlamentaresTownhall });
+          console.log(this.parlamentaresTownhall);
+          console.log(this.voting);
 
           this.presentCounter = this.parlamentaresTownhall.filter(
             (parlamentar) => parlamentar.status === 'PRESENCE'
