@@ -20,15 +20,14 @@ import { EControlType } from 'src/app/dto/control-type.enum';
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
-  styleUrls: ['./user-home.component.css']
+  styleUrls: ['./user-home.component.css'],
 })
 export class UserHomeComponent implements OnInit {
-
   username: string = '';
   parlamentar: ParlamentarShortDTO = new ParlamentarShortDTO();
-  townHallCityName: string = "";
+  townHallCityName: string = '';
   townHallUrlImage: string = '';
-  linkSessao: string = "";
+  linkSessao: string = '';
   session: SessionParlamentarDTO;
   existsSession: boolean = false;
   existsOpenVoting: boolean = false;
@@ -51,40 +50,48 @@ export class UserHomeComponent implements OnInit {
   endMainTimer: boolean = false;
   parlamentarObject: ParlamentarTimer = null;
 
-  constructor(private userService: UserService, private messageService: MessageService,
-    private sessionService: SessionService, private cookieService: CookieService,
-    public townHallService: TownHallService, private router: Router,
-    private utilService: UtilService, private controlService: ControlService) { }
+  constructor(
+    private userService: UserService,
+    private messageService: MessageService,
+    private sessionService: SessionService,
+    private cookieService: CookieService,
+    public townHallService: TownHallService,
+    private router: Router,
+    private utilService: UtilService,
+    private controlService: ControlService
+  ) {}
 
   loading: boolean = false;
 
   ngOnInit(): void {
-
     this.session = new SessionParlamentarDTO();
     this.votingOptions.push('YES');
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
 
-    this.townHallId = Number.parseInt(this.cookieService.get('user-townhall-id'));
+    this.townHallId = Number.parseInt(
+      this.cookieService.get('user-townhall-id')
+    );
     this.townHallService.getById(this.townHallId).subscribe({
-
-      next: townHall => {
-
+      next: (townHall) => {
         this.townHallCityName = townHall.name;
         this.townHallUrlImage = townHall.urlImage;
         this.cookieService.set('townHallCityName', this.townHallCityName);
         this.cookieService.set('townHallUrlImage', this.townHallUrlImage);
       },
-      error: error => {
-        this.messageService.add({ severity: 'error', summary: 'Erro!', detail: 'Aconteceu algum erro inesperado!' });
-      }
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro!',
+          detail: 'Aconteceu algum erro inesperado!',
+        });
+      },
     });
 
     this.username = this.cookieService.get('user-username');
-    this.userService.findByUsername(this.username).subscribe(res => {
+    this.userService.findByUsername(this.username).subscribe((res) => {
       this.parlamentar = res;
     });
-
 
     setInterval(() => {
       this.findSessionTodayByTownhall(this.townHallId);
@@ -92,10 +99,12 @@ export class UserHomeComponent implements OnInit {
 
     setInterval(() => {
       this.endMainTimer = this.cookieService.get('endMainTimer') == 'true';
-      this.parlamentarObject = this.cookieService.get('parlamentarObject') !== '' ? JSON.parse(this.cookieService.get('parlamentarObject')) : null;
-      console.log(this.parlamentarObject)
+      this.parlamentarObject =
+        this.cookieService.get('parlamentarObject') !== ''
+          ? JSON.parse(this.cookieService.get('parlamentarObject'))
+          : null;
+      console.log(this.parlamentarObject);
     }, 1000);
-
   }
 
   logOut() {
@@ -112,72 +121,111 @@ export class UserHomeComponent implements OnInit {
   }
 
   findSessionTodayByTownhall(townHallId: number) {
-
-    this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(res => {
-      if (res != null) {
-
-        this.session = res;
-        this.voting = this.session.voting;
-        this.linkSessao = this.session.sessionSubjectURL;
-        this.existsOpenVoting = this.voting != null && this.session.voting.status == 'VOTING';
-        if (this.voting == null) {
-          this.userHasVoted = false;
-          this.disableAbstentionButton = false;
-          this.disableNoButton = false;
-          this.disableYesButton = false;
+    this.sessionService.findSessionTodayByTownhall(townHallId).subscribe(
+      (res) => {
+        if (res != null) {
+          this.session = res;
+          this.voting = this.session.voting;
+          this.linkSessao = this.session.sessionSubjectURL;
+          this.existsOpenVoting =
+            this.voting != null && this.session.voting.status == 'VOTING';
+          if (this.voting == null) {
+            this.userHasVoted = false;
+            this.disableAbstentionButton = false;
+            this.disableNoButton = false;
+            this.disableYesButton = false;
+          }
+          if (!this.hasUpdatedPresence) {
+            this.updatePresence();
+          }
+          if (this.existsOpenVoting) {
+            this.votingTitle = this.voting.description;
+          } else {
+            this.votingTitle = '';
+          }
         }
-        if (!this.hasUpdatedPresence) {
-          this.updatePresence();
-        }
-        if (this.existsOpenVoting) {
-          this.votingTitle = this.voting.description;
-        } else {
-          this.votingTitle = "";
-        }
-      }
-    }, error => {
-    });
+      },
+      (error) => {}
+    );
   }
 
   updatePresence() {
-
-    let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, 'PRESENCE');
-    this.sessionService.updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO).subscribe(() => {
-      this.hasUpdatedPresence = true;
-    });
+    let parlamentarPresenceDTO = new ParlamentarPresenceDTO(
+      this.parlamentar.id,
+      'PRESENCE'
+    );
+    this.sessionService
+      .updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO)
+      .subscribe(() => {
+        this.hasUpdatedPresence = true;
+      });
   }
 
   subscriptionInSpeakerList() {
-
-    let speakerDTO = new SpeakerSubscriptionDTO(this.townHallId, this.parlamentar.id);
-    this.sessionService.subscriptionInSpeakerList(this.session.uuid, speakerDTO).subscribe({
-      next: data => {
-        this.messageService.add({ key: 'bc', severity: 'success', summary: 'Sucesso!', detail: 'Inscrição feita com sucesso!' });
-      }, error: err => {
-        this.messageService.add({ key: 'bc', severity: 'error', summary: 'Erro!', detail: 'Ocorreu um erro inesperado, contate o administrador.' });
-      }
-    });
+    let speakerDTO = new SpeakerSubscriptionDTO(
+      this.townHallId,
+      this.parlamentar.id
+    );
+    this.sessionService
+      .subscriptionInSpeakerList(this.session.uuid, speakerDTO)
+      .subscribe({
+        next: (data) => {
+          this.messageService.add({
+            key: 'bc',
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Inscrição feita com sucesso!',
+          });
+        },
+        error: (err) => {
+          this.messageService.add({
+            key: 'bc',
+            severity: 'error',
+            summary: 'Erro!',
+            detail: 'Ocorreu um erro inesperado, contate o administrador.',
+          });
+        },
+      });
   }
 
   sendVote(vote: string) {
-
-    if (this.votingOptions.find(option => option == vote) == undefined) {
-
-      this.messageService.add({ key: 'bc', severity: 'error', summary: 'Erro!', detail: 'Opcao de voto invalida!' });
+    if (this.votingOptions.find((option) => option == vote) == undefined) {
+      this.messageService.add({
+        key: 'bc',
+        severity: 'error',
+        summary: 'Erro!',
+        detail: 'Opcao de voto invalida!',
+      });
     } else {
-
-      let parlamentarVotingId = this.findParlamentarVotingId(this.parlamentar.id);
+      let parlamentarVotingId = this.findParlamentarVotingId(
+        this.parlamentar.id
+      );
       if (parlamentarVotingId != null) {
-        let voteDTO = new VoteDTO(parlamentarVotingId, this.parlamentar.id, vote);
+        let voteDTO = new VoteDTO(
+          parlamentarVotingId,
+          this.parlamentar.id,
+          vote
+        );
 
         this.sessionService.computeVote(this.session.uuid, voteDTO).subscribe({
-          next: data => {
-            this.messageService.add({ key: 'bc', severity: 'success', summary: 'Sucesso!', detail: 'Seu voto foi contabilizado com exito!' });
+          next: (data) => {
+            this.messageService.add({
+              key: 'bc',
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'Seu voto foi contabilizado com exito!',
+            });
             this.userHasVoted = true;
             this.lastVotingId = this.session.voting.id;
-          }, error: err => {
-            this.messageService.add({ key: 'bc', severity: 'error', summary: 'Erro!', detail: 'Ocorreu um erro inesperado, contate o administrador.' });
-          }
+          },
+          error: (err) => {
+            this.messageService.add({
+              key: 'bc',
+              severity: 'error',
+              summary: 'Erro!',
+              detail: 'Ocorreu um erro inesperado, contate o administrador.',
+            });
+          },
         });
       }
     }
@@ -189,12 +237,13 @@ export class UserHomeComponent implements OnInit {
   }
 
   goToSaplSession() {
-    window.open(this.linkSessao, "_blank");
+    window.open(this.linkSessao, '_blank');
   }
 
   findParlamentarVotingId(parlamentarId: number): number {
-
-    let parlamentarVoting = this.session.voting.parlamentarVotingList.find(p => p.parlamentarId == parlamentarId);
+    let parlamentarVoting = this.session.voting.parlamentarVotingList.find(
+      (p) => p.parlamentarId == parlamentarId
+    );
     return parlamentarVoting != null ? parlamentarVoting.id : null;
   }
 
@@ -202,22 +251,27 @@ export class UserHomeComponent implements OnInit {
     this.utilService.fullScreen();
   }
 
-  getDisableColor(button: string) {
-
+  getColor(button: string) {
     if (!this.existsOpenVoting) {
       return 'gray';
     }
 
     if (this.disableYesButton && button == 'YES') {
       return 'gray';
+    } else if (!this.disableYesButton && button == 'YES') {
+      return '#4bc853';
     }
 
     if (this.disableNoButton && button == 'NO') {
       return 'gray';
+    } else if (!this.disableYesButton && button == 'NO') {
+      return '#eb606b';
     }
 
     if (this.disableAbstentionButton && button == 'ABSTENTION') {
       return 'gray';
+    } else if (!this.disableYesButton && button == 'ABSTENTION') {
+      return '#fbcb60';
     }
 
     return '';
@@ -232,47 +286,67 @@ export class UserHomeComponent implements OnInit {
   }
 
   handleControl(controlDTO: ControlDTO) {
-    
     this.controlService.create(controlDTO).subscribe({
-      next: data => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Control criado incrementado com sucesso!' });
+      next: (data) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso!',
+          detail: 'Control criado incrementado com sucesso!',
+        });
         this.loading = false;
       },
-      error: error => {
-        this.messageService.add({ severity: 'error', summary: 'Ocorreu um erro', detail: error.error.description });
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Ocorreu um erro',
+          detail: error.error.description,
+        });
         this.loading = false;
-      }
+      },
     });
   }
 
   handleAddTimeDialog() {
-    const controlDTO = new ControlDTO(EControlType.TIME, "add", this.townHallId.toString())
+    const controlDTO = new ControlDTO(
+      EControlType.TIME,
+      'add',
+      this.townHallId.toString()
+    );
     this.handleControl(controlDTO);
   }
 
   handlerRemoveTimeDialog() {
-    const controlDTO = new ControlDTO(EControlType.TIME, "remove", this.townHallId.toString())
-    this.handleControl(controlDTO)
+    const controlDTO = new ControlDTO(
+      EControlType.TIME,
+      'remove',
+      this.townHallId.toString()
+    );
+    this.handleControl(controlDTO);
   }
 
-  handleFinishVotingDialog() {
-  }
+  handleFinishVotingDialog() {}
 
   clearOptionsDialog() {
     this.showOptionsDialog = false;
   }
 
   closeVoting() {
-
     this.sessionService.closeVoting(this.session.uuid).subscribe({
-      next: res => {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso!', detail: 'Votação encerrada!' });
+      next: (res) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso!',
+          detail: 'Votação encerrada!',
+        });
         this.cookieService.set('playVoting', 'true');
       },
-      error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Erro!', detail: err.error.description });
-      }
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro!',
+          detail: err.error.description,
+        });
+      },
     });
   }
-
 }

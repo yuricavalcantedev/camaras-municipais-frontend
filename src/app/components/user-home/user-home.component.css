@@ -8,11 +8,11 @@
   background-color: var(--app-background-color);
 }
 
-th{
+th {
   font-size: 20px;
 }
 
-tr{
+tr {
   font-size: 17px;
 }
 
@@ -31,9 +31,7 @@ tr{
   height: 100vh;
 }
 
-:host
-  ::ng-deep
-  button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
+:host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
   width: 4rem;
   height: 4rem;
   margin: 0px;
@@ -42,8 +40,9 @@ tr{
   bottom: 20px;
   left: auto;
   position: fixed;
-  background-color: #171430;
+  background-color: var(--app-primary-color);
   cursor: pointer;
+  border: none;
 }
 
 /* BOX LEFT */
@@ -97,12 +96,12 @@ tr{
   padding: 20px;
   background-color: var(--app-primary-color);
 
-  -webkit-border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  -webkit-border-top-left-radius: 2rem;
+  -webkit-border-top-right-radius: 2rem;
+  -moz-border-radius-topleft: 2rem;
+  -moz-border-radius-topright: 2rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
 }
 
 .box-main .page-voting .box-right .header .title {
@@ -131,6 +130,7 @@ tr{
   flex-direction: column;
 
   background-color: var(--app-primary-color);
+  transition: transform 1s ease;
 }
 
 .box-main .page-voting .box-right .ementa .title {
@@ -138,6 +138,7 @@ tr{
   font-style: normal;
   font-weight: bold;
   font-size: 2.5rem;
+  text-align: justify;
   color: var(--app-box-right-title-color);
 
   margin: 1.5rem;
@@ -158,7 +159,6 @@ tr{
   flex-direction: row;
   align-items: center;
   width: 100%;
-
   height: 100%;
 }
 
@@ -166,27 +166,6 @@ tr{
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.box-main .page-voting .box-right .voting-options div.label {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: bold;
-  color: var(--app-header-text-color);
-  font-size: 32px;
-
-  background-color: var(--app-vote-label-background-color);
-  color: var(--app-vote-label-color);
-
-  -webkit-border-radius: 0.63rem;
-  -moz-border-radius: 0.63rem;
-  border-radius: 0.63rem;
-
-  text-align: center;
-  text-transform: uppercase;
-
-  margin-top: 2rem;
-  padding: 1rem;
 }
 
 .box-main .page-voting .box-right .custom-icon-rounded {
@@ -215,11 +194,8 @@ tr{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin-bottom: 20px;
   width: 100%;
-  padding: 3.2rem;
-
-  gap: 20px;
-
   color: var(--app-footer-text-color);
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
@@ -260,30 +236,34 @@ tr{
   justify-content: center;
 }
 
-.options-in button {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 4rem;
-  background-color: var(--app-primary-color);
-  text-transform: uppercase;
-  padding-left: 25px;
-  width: 100%;
-  height: 100%;
-}
-
-.options-in button svg {
-  width: 5rem;
-}
-
 .options-in .add-time {
   gap: 10px;
 }
 
-.options-in button i	 {
+.options-in button i {
   font-size: 5rem;
   margin-right: 10px;
 }
+
+.label {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  color: var(--app-primary-color);
+  font-size: 64px;
+
+  background-color: var(--app-vote-label-background-color);
+  /* color: var(--app-vote-label-color); */
+
+  -webkit-border-radius: 0.63rem;
+  -moz-border-radius: 0.63rem;
+  border-radius: 0.63rem;
+
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
 
 /* BOX RIGHT */
 
@@ -291,17 +271,21 @@ tr{
   .box-main .page-voting .box-right .header .pauta-sessao button {
     font-size: 1rem;
   }
+
   .box-main .page-voting .box-right .header .title {
     font-size: 3rem;
   }
+
   .box-main .page-voting .box-right .custom-icon-rounded {
     width: 10rem;
     height: 10rem;
   }
+
   .box-main .page-voting .box-right .voting-options div.label {
     font-size: 3rem;
     padding: 1rem;
   }
+
   .box-main .page-voting .box-right .voting-options div {
     display: flex;
     flex-direction: column;
@@ -310,7 +294,12 @@ tr{
 
   .box-main .page-voting .box-right .footer button {
     display: flex;
-    flex-direction: column;
     font-size: 2rem;
   }
+
+  .label {
+    font-size: 3rem;
+    padding: 1rem;
+  }
+
 }

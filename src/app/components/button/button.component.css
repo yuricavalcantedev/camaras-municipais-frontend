@@ -1,0 +1,63 @@
+.button:not([disabled]):hover {
+  transform: scale(1.01);
+}
+
+.button:disabled {
+  background:gray;
+}
+
+.button {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+
+  background-color: #323232;
+  border-radius: 2rem;
+
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icon-rounded {
+  width: 15rem;
+  height: 15rem;
+}
+
+.icon {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+
+.label {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  color: var(--app-header-text-color);
+  font-size: 32px;
+
+  background-color: var(--app-vote-label-background-color);
+  color: var(--app-vote-label-color);
+
+  -webkit-border-radius: 0.63rem;
+  -moz-border-radius: 0.63rem;
+  border-radius: 0.63rem;
+
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .label {
+    font-size: 3rem;
+    padding: 1rem;
+  }
+}

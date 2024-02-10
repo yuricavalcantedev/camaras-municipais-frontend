@@ -1,0 +1,6 @@
+<div class="button" [style.flex-direction]="horizontal ? 'row' : 'column'">
+  <div class="icon" [class]="state" [ngClass]="{ 'icon-rounded': rounded }">
+    <i [class]="icon" [style.color]="color" [style]="{ 'font-size': size}"></i>
+  </div>
+  <ng-content></ng-content>
+</div>

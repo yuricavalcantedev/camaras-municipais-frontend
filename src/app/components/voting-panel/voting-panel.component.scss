@@ -21,14 +21,21 @@
 
 .status-yes {
   background-color: var(--app-vote-yes);
+  color: var(--app-primary-color);
+}
+
+.status-black {
+  color: var(--app-primary-color) !important;
 }
 
 .status-no {
   background-color: var(--app-vote-no);
+  color: var(--app-primary-color);
 }
 
 .status-abs {
   background-color: var(--app-vote-abs);
+  color: var(--app-primary-color);
 }
 
 .status-total {
@@ -83,8 +90,9 @@
   height: 8.5rem;
   display: grid;
   align-items: center;
+  justify-content: space-around;
   grid-auto-flow: column;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: auto 85%;
 
   border-top: 0px solid #DDDEDA;
   border-right: 0px solid #DDDEDA;
@@ -93,6 +101,7 @@
   border-width: 0px 0px 1px 0px;
   border-style: solid solid solid solid;
   border-color: #DDDEDA #DDDEDA #DDDEDA #DDDEDA;
+  gap: 10px;
 }
 
 .item-maior-8 {
@@ -131,10 +140,11 @@
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
-  margin: 0 1rem;
+  margin: 0 auto;
   background-image: var(--bg-image);
   background-size: cover;
   filter: none;
+  margin-left: 1.5rem;
 }
 
 .picture-big {
