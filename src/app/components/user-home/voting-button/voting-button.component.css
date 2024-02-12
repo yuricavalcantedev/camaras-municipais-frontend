@@ -1,0 +1,47 @@
+.button:hover {
+  transform: scale(1.1);
+}
+
+.button {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icon-rounded {
+  border-radius: 50%;
+  width: 15rem;
+  height: 15rem;
+}
+
+.icon {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+.button-disabled {
+  background-color: gray;
+}
+
+.button-yes {
+  background-color: #4bc853;
+}
+
+.button-no {
+  background-color: #eb606b;
+}
+
+.button-abs {
+  background-color: #fbcb60;
+}

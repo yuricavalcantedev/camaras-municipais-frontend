@@ -1,5 +1,5 @@
-import { Session } from "inspector";
 import { LegislativeSubjectType } from "./legislative-subject.model";
+import { Session } from "./session.model";
 import { TableRole } from "./table-role.model";
 import { User } from "./user.model";
 

@@ -1,0 +1,6 @@
+<button type="button" class="button" [disabled]="disabled" [style.flex-direction]="horizontal ? 'row' : 'column'">
+  <div class="icon">
+    <i [class]="icon" [style.color]="colorButton" [style]="{ 'font-size': iconSize}"></i>
+  </div>
+  <div class="label">{{label}}</div>
+</button>

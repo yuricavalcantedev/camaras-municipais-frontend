@@ -57,6 +57,8 @@ import { TownhallSettingsComponent } from './components/townhall-settings/townha
 import { VotingPanelHeaderComponent } from './components/voting-panel-header/voting-panel-header.component';
 import { HomeButtonComponent } from './home-button/home-button.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { VotingButtonComponent } from './components/user-home/voting-button/voting-button.component';
+import { ButtonComponent } from './components/button/button.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ClockComponent,
     TownhallSettingsComponent,
     VotingPanelHeaderComponent,
-    HomeButtonComponent
+    HomeButtonComponent,
+    VotingButtonComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

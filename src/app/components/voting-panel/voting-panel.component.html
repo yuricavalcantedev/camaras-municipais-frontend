@@ -1,112 +1,164 @@
-
 <div class="loading" *ngIf="loading">
   <img src="../../assets/images/logo_rsv.png" />
 </div>
-<div *ngIf='!loading' class='page-panel-voting'>
-  <app-voting-panel-header sessionName="{{this.session.name}}" townHallUrlImage="{{townHallUrlImage}}"
-    townHallName="{{townHallName}}"></app-voting-panel-header>
+<div *ngIf="!loading" class="page-panel-voting">
+  <app-voting-panel-header
+    sessionName="{{ this.session.name }}"
+    townHallUrlImage="{{ townHallUrlImage }}"
+    townHallName="{{ townHallName }}"
+  ></app-voting-panel-header>
   <div class="box-body">
-    <div class="box-left" [ngClass]="{'box-left-big':parlamentaresTownhall.length<=8}">
-      <div class="item box-shadow" [ngClass]="{'status-presence':(item.result=='NULL')
-            && item.status == 'PRESENCE',
-          'item-big':parlamentaresTownhall.length<=8,
-          'item-maior-8':(parlamentaresTownhall.length == 9),
-          'item-maior-11':(parlamentaresTownhall.length > 9 && parlamentaresTownhall.length<=12),
-          'item-maior-13':(parlamentaresTownhall.length > 12 && parlamentaresTownhall.length <= 14),
-          'status-no-presence':item.status != 'PRESENCE',
-          'status-yes':item.result=='YES' && visibilityVotingType != 'SECRETA',
-          'status-no':item.result=='NO' && visibilityVotingType != 'SECRETA',
-          'status-abs':item.result=='ABSTENTION' && visibilityVotingType != 'SECRETA'}"
-        *ngFor="let item of parlamentaresTownhall">
-        <div class="picture" [ngClass]="{'picture-big':parlamentaresTownhall.length<=8}"
-          style="--bg-image: url({{item.parlamentar.urlImage}});">
-        </div>
+    <div
+      class="box-left"
+      [ngClass]="{ 'box-left-big': parlamentaresTownhall.length <= 8 }"
+    >
+      <div
+        class="item box-shadow"
+        [ngClass]="{
+          'status-presence': item.result == 'NULL' && item.status == 'PRESENCE',
+          'status-no-presence': item.status != 'PRESENCE',
+          'item-big': parlamentaresTownhall.length <= 8,
+          'item-maior-8': parlamentaresTownhall.length == 9,
+          'item-maior-11':
+            parlamentaresTownhall.length > 9 &&
+            parlamentaresTownhall.length <= 12,
+          'item-maior-13':
+            parlamentaresTownhall.length > 12 &&
+            parlamentaresTownhall.length <= 14,
+          'status-yes':
+            item.result == 'YES' && visibilityVotingType != 'SECRETA',
+          'status-no': item.result == 'NO' && visibilityVotingType != 'SECRETA',
+          'status-abs':
+            item.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA'
+        }"
+        *ngFor="let item of parlamentaresTownhall"
+      >
+        <div
+          class="picture"
+          [ngClass]="{ 'picture-big': parlamentaresTownhall.length <= 8 }"
+          style="--bg-image: url({{ item.parlamentar.urlImage }});"
+        ></div>
         <div class="parlamentarian-info">
-          <div class="political-party">
-            {{item.parlamentar.politicalParty}} |
-            <span class="role" *ngIf="item.role!=null">
-              {{item.role}}
+          <div
+            class="political-party"
+            [ngClass]="{
+              'status-black':
+                (item.result == 'YES' ||
+                  item.result == 'NO' ||
+                  item.result == 'ABSTENTION') &&
+                visibilityVotingType != 'SECRETA'
+            }"
+          >
+            {{ item.parlamentar.politicalParty }}
+            <span
+              class="role"
+              *ngIf="item.role != null"
+              [ngClass]="{
+                'status-black':
+                  (item.result == 'YES' ||
+                    item.result == 'NO' ||
+                    item.result == 'ABSTENTION') &&
+                  visibilityVotingType != 'SECRETA'
+              }"
+            >
+              | {{ item.role }}
             </span>
           </div>
-          <div class="name" [ngClass]="{'name-big':parlamentaresTownhall.length<=8}">{{item.parlamentar.name}}
+          <div
+            class="name"
+            [ngClass]="{
+              'name-big': parlamentaresTownhall.length <= 8,
+              'status-black':
+                (item.result == 'YES' ||
+                  item.result == 'NO' ||
+                  item.result == 'ABSTENTION') &&
+                visibilityVotingType != 'SECRETA'
+            }"
+          >
+            {{ item.parlamentar.name }}
           </div>
         </div>
       </div>
     </div>
     <div class="box-right">
-      <div class='box-right-in box-shadow'>
+      <div class="box-right-in box-shadow">
         <div class="expedient" *ngIf="!existsOpenVoting">
-          {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
+          {{
+            expedientType == "Expedientes diversos"
+              ? otherExpedient
+              : expedientType
+          }}
         </div>
         <div class="info" *ngIf="existsOpenVoting">
           <div class="title">
-            {{votingTitle}}
+            {{ votingTitle }}
           </div>
           <div class="subtitle">
-            {{votingSubTitle.slice(0, 350)}}
+            {{ votingSubTitle.slice(0, 350) }}
           </div>
-          <div class="author">
-            Autor(es): {{votingAuthor}}
-          </div>
+          <div class="author">Autor(es): {{ votingAuthor }}</div>
         </div>
       </div>
       <div class="footer">
         <div class="yes-no-abs">
           <div class="box-yes box-shadow status-result-yes">
             <div class="quantity">
-              {{padWithLeadingZeros(yesCounter, 2)}}
+              {{ padWithLeadingZeros(yesCounter, 2) }}
             </div>
-            <span class="description">
-              Sim
-            </span>
+            <span class="description"> Sim </span>
           </div>
           <div class="box-no box-shadow status-result-no">
             <div class="quantity">
-              {{padWithLeadingZeros(noCounter, 2)}}
+              {{ padWithLeadingZeros(noCounter, 2) }}
             </div>
-            <span class="description">
-              Não
-            </span>
+            <span class="description"> Não </span>
           </div>
           <div class="box-abs box-shadow status-result-abs">
             <div class="quantity">
-              {{padWithLeadingZeros(absCounter, 2)}}
+              {{ padWithLeadingZeros(absCounter, 2) }}
             </div>
-            <span class="description">
-              Abst
-            </span>
+            <span class="description"> Abst </span>
           </div>
         </div>
         <div class="box-total-parlamentar box-shadow">
           <div class="quantity">
-            {{padWithLeadingZeros(parlamentaresTownhall.length, 2)}}
+            {{ padWithLeadingZeros(parlamentaresTownhall.length, 2) }}
           </div>
-          <span class="description">
-            Parlamentares
-          </span>
+          <span class="description"> Parlamentares </span>
         </div>
         <div class="box-total-presentes box-shadow">
           <div class="quantity">
-            {{padWithLeadingZeros(presentCounter,2)}}
+            {{ padWithLeadingZeros(presentCounter, 2) }}
           </div>
-          <span class="description">
-            Presentes
-          </span>
+          <span class="description"> Presentes </span>
         </div>
 
-        <div *ngIf="resultType===''" class="box-result" [ngClass]="{'status-neutral':resultType==''}">
-          
-        </div>
+        <div
+          *ngIf="resultType === ''"
+          class="box-result"
+          [ngClass]="{ 'status-neutral': resultType == '' }"
+        ></div>
 
-        <div class="box-result" [ngClass]="{'status-yes':resultType=='APROVADA', 'status-no':resultType=='REJEITADA'}">
-          {{resultType}}
+        <div
+          class="box-result"
+          [ngClass]="{
+            'status-yes': resultType == 'APROVADA',
+            'status-no': resultType == 'REJEITADA'
+          }"
+        >
+          {{ resultType }}
         </div>
       </div>
     </div>
   </div>
   <div class="footer-bar">
     <img src="../../../assets/images//logo_rsv.png" />
-    <button #fullScreenButton (click)="fullScreen()" pButton icon="pi pi-arrows-alt"
-  class="p-button-raised p-button-rounded box-shadow"></button>
+    <button
+      #fullScreenButton
+      (click)="fullScreen()"
+      pButton
+      icon="pi pi-arrows-alt"
+      class="p-button-raised p-button-rounded box-shadow"
+    ></button>
   </div>
 </div>
