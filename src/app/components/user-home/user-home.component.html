@@ -86,7 +86,6 @@
       <div class="footer">
         <app-button
           *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'"
-          [disabled]="!existsOpenVoting || disableAbstentionButton"
           icon="pi pi-verified"
           iconSize="3.5rem"
           [horizontal]="true"
@@ -106,7 +105,6 @@
 
         <app-button
           *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'"
-          [disabled]="!existsOpenVoting || disableAbstentionButton"
           label="Sair"
           icon="pi pi-sign-out"
           iconSize="3.5rem"
