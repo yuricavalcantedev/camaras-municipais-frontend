@@ -108,6 +108,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   logOut() {
+    this.updatePresence('OTHER');
     this.cookieService.deleteAll();
     this.router.navigate(['login']);
   }
@@ -136,7 +137,7 @@ export class UserHomeComponent implements OnInit {
             this.disableYesButton = false;
           }
           if (!this.hasUpdatedPresence) {
-            this.updatePresence();
+            this.updatePresence('PRESENCE');
           }
           if (this.existsOpenVoting) {
             this.votingTitle = this.voting.description;
@@ -149,11 +150,9 @@ export class UserHomeComponent implements OnInit {
     );
   }
 
-  updatePresence() {
-    let parlamentarPresenceDTO = new ParlamentarPresenceDTO(
-      this.parlamentar.id,
-      'PRESENCE'
-    );
+  updatePresence(status: string) {
+    
+    let parlamentarPresenceDTO = new ParlamentarPresenceDTO(this.parlamentar.id, status);
     this.sessionService
       .updateParlamentarPresence(this.session.uuid, parlamentarPresenceDTO)
       .subscribe(() => {
