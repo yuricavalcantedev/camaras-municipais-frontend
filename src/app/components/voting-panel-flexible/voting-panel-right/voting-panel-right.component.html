@@ -1,0 +1,102 @@
+
+<div class="loading" *ngIf="loading">
+  <img src="../../assets/images/logo_rsv.png" />
+</div>
+
+<img src="../../../../assets/images/bandeira_brasil.png" alt="Bandeira do Brasil" class="bandeira-brasil">
+
+<div *ngIf="!loading" class="page-panel-voting">
+  <!-- <app-voting-panel-header
+    sessionName="{{ this.session.name }}"
+    townHallUrlImage="{{ townHallUrlImage }}"
+    townHallName="{{ townHallName }}"
+  ></app-voting-panel-header> -->
+  <h1 class="voting-title">
+    {{ townHallName }}
+  </h1>
+
+  <div class="box-body">
+
+    <div class="column" [ngStyle]="{
+      'justify-content': !existsOpenVoting ? 'center' : null
+    }">
+      <h2 class="expedient-title">
+        {{
+          expedientType == "Expedientes diversos" ? otherExpedient : expedientType
+        }}
+      </h2>
+      <div class="expedient-item flex flex-column" style="gap: 5rem">
+        <div class="box-total-presentes">
+          <span class="description color-yes fw-bold"> Presentes </span>
+          <p class="quantity color-yes fw-bold">
+            {{ padWithLeadingZeros(presentCounter, 2) }}
+          </p>
+        </div>
+        <div class="box-total-presentes box-total-ausentes">
+          <span class="description color-no fw-bold"> Ausentes </span>
+          <p class="quantity color-no fw-bold">0</p>
+        </div>
+
+        <div class="box-total-parlamentar">
+          <span class="description fw-bold color-neutral"> Parlamentares </span>
+          <p class="quantity fw-bold color-neutral">
+            {{ padWithLeadingZeros(parlamentaresTownhall.length, 2) }}
+          </p>
+        </div>
+      </div>
+      <div class="expedient-item">
+        <ng-container *ngIf="existsOpenVoting">
+          <div class="flex flex-column">
+            <strong class="color-neutral project-title">
+              {{ votingTitle }}
+            </strong>
+            <p style="margin-top: 6.1rem; margin-bottom: 8.4rem;"
+              class="color-neutral project-description"
+
+            >
+              {{ votingSubTitle.slice(0, 350) }}
+            </p>
+            <strong class="color-neutral project-description fw-bold">
+              Autor(es): {{ votingAuthor }}
+            </strong>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="column" style="justify-content: center;"  >
+      <div class="parlamentares-container expedient-item " >
+        <div class="box-yes status-result-yes">
+          <p class="quantity color-yes">
+            {{ padWithLeadingZeros(yesCounter, 2) }}
+          </p>
+          <span class="description color-yes"> Sim </span>
+        </div>
+        <div class="box-no status-result-no">
+          <p class="quantity color-no">
+            {{ padWithLeadingZeros(noCounter, 2) }}
+          </p>
+          <span class="description color-no"> Não </span>
+        </div>
+        <div class="box-abs status-result-abs">
+          <p class="quantity color-abs">
+            {{ padWithLeadingZeros(absCounter, 2) }}
+          </p>
+          <span class="description color-abs"> Abst </span>
+        </div>
+      </div>
+        <div *ngIf="resultType"  class="expedient-item flex flex-column " style="gap: 0;">
+          <p class="color-neutral votation-title fw-bold text-end">Votação: </p>
+          <p
+            class="fw-bold votation-result"
+            [ngClass]="{
+              'color-yes': resultType == 'APROVADA',
+              'color-no': resultType == 'REJEITADA'
+            }"
+          >
+            {{ resultType }}
+          </p>
+      </div>
+    </div>
+  </div>
+  <app-voting-footer></app-voting-footer>
+</div>

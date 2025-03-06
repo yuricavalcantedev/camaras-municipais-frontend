@@ -59,7 +59,13 @@ import { HomeButtonComponent } from './home-button/home-button.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { VotingButtonComponent } from './components/user-home/voting-button/voting-button.component';
 import { ButtonComponent } from './components/button/button.component';
-
+import { CardMenuComponent } from './card-menu/card-menu.component';
+import { CardVotingComponent } from './card-voting/card-voting.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButtonComponent } from './components/select-button/select-button.component';
+import { VotingPanelLeftComponent } from './components/voting-panel-flexible/voting-panel-left/voting-panel-left.component';
+import { VotingPanelRightComponent } from './components/voting-panel-flexible/voting-panel-right/voting-panel-right.component';
+import { VotingFooterComponent } from './components/voting-panel-flexible/components/voting-footer/voting-footer.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +89,13 @@ import { ButtonComponent } from './components/button/button.component';
     VotingPanelHeaderComponent,
     HomeButtonComponent,
     VotingButtonComponent,
-    ButtonComponent
+    ButtonComponent,
+    CardMenuComponent,
+    CardVotingComponent,
+    SelectButtonComponent,
+    VotingPanelLeftComponent,
+    VotingPanelRightComponent,
+    VotingFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +124,8 @@ import { ButtonComponent } from './components/button/button.component';
     ProgressSpinnerModule,
     RadioButtonModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SelectButtonModule,
   ],
   providers: [ParlamentarService, TownHallService, RoleService, SoundService, UtilService, MessageService, LoginService, CookieService, DatePipe, { provide: LOCALE_ID, useValue: "pt-BR" },],
   bootstrap: [AppComponent]

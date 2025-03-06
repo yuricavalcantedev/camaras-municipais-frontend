@@ -1,0 +1,431 @@
+* {
+  font-family: Roboto;
+}
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.column {
+     display: flex;
+    flex-direction: column;
+     gap: 13.2rem;
+}
+
+.bandeira-brasil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vw;
+  width: 100vw;
+  z-index: 1;
+}
+
+.page-panel-voting {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding: 0.5rem;
+  background-color: #000b0ffa;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+}
+
+.voting-title {
+  font-size: 8.7rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  padding-top: 11.9rem;
+  padding-bottom: 24.8rem;
+}
+
+.status-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+
+.status-neutral {
+  background-color: transparent  !important;
+}
+
+.color-yes {
+  color: #5DF06E;
+}
+
+.color-no {
+  color: #F11B1B;
+}
+
+.color-abs {
+  color: #FFCD27;
+}
+
+.color-neutral {
+  color: #fff;
+}
+
+.status-yes {
+  background-color: var(--app-vote-yes);
+  color: var(--app-primary-color);
+}
+
+.status-black {
+  color: var(--app-primary-color) !important;
+}
+
+.status-no {
+  background-color: var(--app-vote-no);
+  color: var(--app-primary-color);
+}
+
+.status-abs {
+  background-color: var(--app-vote-abs);
+  color: var(--app-primary-color);
+}
+
+.status-total {
+  background-color: var(--app-status-total);
+}
+
+.status-no-presence {
+  opacity: .3;
+}
+
+.status-abscense {
+  background-color: gray;
+}
+
+.status-abscense2 {
+  background-color: gray;
+}
+
+.page-panel-voting .box-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9rem;
+  width: 90%;
+  max-width: 100vw;
+  flex-grow: 1;
+  margin: 0 auto;
+}
+
+.expedient-title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 13rem;
+}
+
+
+.expedient-item {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.parlamentares-container {
+  gap: 6.3rem;
+  justify-content: flex-end;
+}
+
+/* BOX RIGHT */
+.box-right {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.box-right-in {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: var(--voting-panel-box-right-background-color);
+}
+
+.page-panel-voting .box-body .box-right .box-right-in .expedient {
+  font-weight: 900;
+  font-size: 11rem;
+  text-transform: uppercase;
+  color: var(--app-box-right-expedient-color);
+
+  display: flex;
+  align-self: center;
+  text-align: center;
+  margin: auto;
+}
+
+.page-panel-voting .box-body .box-right .box-right-in .info {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.page-panel-voting .box-body .box-right .box-right-in .info .title {
+  color: var(--voting-panel-right-info-title-color);
+
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 0.13125rem;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-style: normal;
+  text-align: justify;
+
+  margin: 2rem;
+}
+
+.page-panel-voting .box-body .box-right .box-right-in .info .author {
+  color: var(--voting-panel-right-info-title-color);
+
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 0.13125rem;
+  font-size: 3rem;
+  font-style: normal;
+
+  margin: 2rem;
+}
+
+.page-panel-voting .box-body .box-right .box-right-in .info .subtitle {
+  color: var(--voting-panel-right-subtitle-color);
+  font-size: 2.75rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 2rem;
+  text-align: justify;
+
+  font-style: normal;
+  font-weight: 300;
+  line-height: 3.75rem;
+  letter-spacing: 0.1125rem;
+}
+
+/* BOX RIGHT */
+
+.page-panel-voting .footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.box-total-presentes,
+.box-total-parlamentar,
+.box-total-ausentes
+{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.page-panel-voting .footer .box-total-parlamentar .description {
+  display: flex;
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 6rem;
+  text-transform: uppercase;
+
+
+  color: var(--voting-panel-total-parlamentar-text-color);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.page-panel-voting .footer .box-total-parlamentar .quantity {
+  display: flex;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
+}
+
+.page-panel-voting .footer .box-total-presentes .description {
+  display: flex;
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 6rem;
+  text-transform: uppercase;
+
+
+  color: var(--voting-panel-total-parlamentar-text-color);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.page-panel-voting .footer .box-total-presentes .quantity {
+  display: flex;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
+}
+
+.page-panel-voting .footer .box-total-ausentes .description {
+  display: flex;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
+}
+
+.page-panel-voting .footer .box-total-ausentes .quantity {
+  display: flex;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--voting-panel-total-parlamentar-text-color);
+}
+
+.box-yes, .box-no, .box-abs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.box-yes .quantity,
+.box-no .quantity,
+.box-abs .quantity {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 27.3rem;
+}
+
+.box-yes .description,
+.box-no .description, .box-abs .description {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 12rem;
+}
+
+.page-panel-voting .footer .yes-no-abs {
+  display: flex;
+  flex-direction: row;
+}
+
+.status-total {
+  background-color: var(--app-status-total);
+}
+
+.page-panel-voting .footer .box-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 6rem;
+  color: var(--app-result-color);
+  text-transform: uppercase;
+  height: 60px;
+}
+
+.box-result-no-result {
+  display: none;
+}
+
+
+
+/* LOADING */
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: #6ac4e4;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.loading img {
+  max-height: 600px;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 600px;
+    height: 600px;
+    opacity: 0;
+  }
+}
+
+/* LOADING */
+
+
+
+.box-total-parlamentar, .box-total-presentes {
+  font-size: 8.7rem;
+}
+
+.project-title {
+  font-size: 8.7rem;
+  font-weight: bold;
+}
+
+.project-description {
+  font-size: 5.4rem;
+}
+
+.votation-title {
+  font-size: 8.7rem
+}
+
+.votation-result {
+  font-size: 11.1rem;
+  text-align: end;
+}
+
+.text-end {
+  text-align: end;
+}

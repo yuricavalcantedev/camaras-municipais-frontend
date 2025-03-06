@@ -1,4 +1,33 @@
-<p-toast></p-toast>
+<p-toast>
+    
+</p-toast>
+
+<p-dialog [draggable]="false" [modal]="true" header="Qual visão você deseja visualizar?" [(visible)]="isDialogVotationOpened">
+
+    <div class="flex flex-between">
+      <p-button (onClick)="showViewUniqueVotation()">
+        Única
+      </p-button>
+      <p-button (onClick)="chosenViewDividerVotation()">
+        Dividida
+      </p-button>
+    </div>
+  
+  </p-dialog>
+  
+  <p-dialog [draggable]="false" [modal]="true" header="Escolha entre, visão direita e esquerda." [(visible)]="isDialogVotationFlexOpened">
+  
+    <div class="flex flex-between">
+      <p-button (onClick)="goToPanel('esquerdo')">
+        Esquerda
+      </p-button>
+      <p-button (onClick)="goToPanel('direito')">
+        Direita
+      </p-button>
+    </div>-
+  
+</p-dialog>
+
 <p-toast position="bottom-center" key="bc"></p-toast>
 <app-home-button></app-home-button>
 <div class="grid">

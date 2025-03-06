@@ -2,34 +2,99 @@
 <div class="card">
     <div class="flex-1 card-container  indigo-container">
         <div class="flex flex-row card-in">
-            <div class="logo">
-              <img src="../../assets/images/logo_rsv.png"/>
-            </div>
-            <p-card header="Login" styleClass="center" class="form-in">
-                <ng-template pTemplate="header">
-                </ng-template>
-                <hr>
+            <div class="image-side"></div>
+            <div class="login-container">
+                <div class="logo"></div>
 
-                <!-- Div de Loading -->
+                <h1 class="login-title">Login</h1>
+
                 <div *ngIf="loading" class="loading-overlay">
                     <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--app-primary-color)" animationDuration=".5s"></p-progressSpinner>
                 </div>
 
-                <form #myForm [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-fluid" style="padding: 30px 5px;">
-                    <div class="p-field" style="margin-bottom: 30px;">
-                        <label for="username" class="input-label">Usuário</label>
-                        <input type="text" pInputText [(ngModel)]="username" id="float-input-login" formControlName="username" class="p-inputtext-lg p-d-block" />
-                        <p-message severity="error" text="O campo login é obrigatório" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].dirty"></p-message>
-                    </div>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+                  <div class="type-account-container">
+                    <h2>Tipo de conta</h2>
+                    <app-select-button
+                      [options]="accountTypes"
+                      [value]="loginForm.get('accountType').value"
+                      (valueChange)="onAccountTypeChange($event)"
+                    ></app-select-button>
+                  </div>
                 
-                    <div class="p-field" style="margin-bottom: 30px;">
-                        <label for="password" class="input-label">Senha</label>
-                        <input id="float-input-password" type="password" pPassword formControlName="password" class="p-inputtext-lg p-d-block" />
+                  <div class="town-hall-container" *ngIf="loginForm.get('accountType').value === 'VEREADOR'">
+                    <div>
+                      <h2>Câmara Municipal</h2>
+                      <p-dropdown
+                        class="dropdown-container"
+                        formControlName="townHallId"
+                        [options]="filteredTownhalls"
+                        optionLabel="name"
+                        optionValue="id"
+                        placeholder="Selecione uma câmara"
+                        [filter]="true"
+                        filterBy="name"
+                        (onChange)="onTownHallChange()"
+                        styleClass="w-full"
+                      ></p-dropdown>
                     </div>
-                
-                    <button type="submit" pButton label="Login" class="p-button-lg"></button>
+                  </div>
+                    
+                  <div class="parlamentar-list-container" *ngIf="loginForm.get('accountType').value === 'VEREADOR'">
+                    <div>
+                      <h2>Escolha o usuário</h2>
+                      <p-dropdown
+                        class="dropdown-container"
+                        formControlName="parlamentarId"
+                        [options]="parlamentares"
+                        optionLabel="name"
+                        optionValue="id"
+                        placeholder="Selecione um vereador"
+                        [filter]="true"
+                        filterBy="name"
+                        styleClass="w-full"
+                      ></p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="parlamentar-list-container" *ngIf="loginForm.get('accountType').value === 'GESTAO'">
+                    <div>
+                      <h2>Escolha o usuário</h2>
+                      <p-dropdown
+                        class="dropdown-container"
+                        formControlName="parlamentarId"
+                        [options]="operadores"
+                        optionLabel="name"
+                        optionValue="id"
+                        placeholder="Selecione um operador"
+                        [filter]="true"
+                        filterBy="name"
+                        styleClass="w-full"
+                      ></p-dropdown>
+                    </div>
+                  </div>
+                    
+                  <div class="password-container">
+                    <h2>Sua senha</h2>
+                    <input 
+                      type="password"
+                      pInputText 
+                      formControlName="password"
+                      placeholder="Digite sua senha"
+                      class="p-inputtext-lg"
+                    />
+                  </div>
+
+                  <button 
+                    pButton 
+                    type="submit" 
+                    label="Entrar"
+                    [loading]="loading"
+                    [disabled]="!loginForm.valid"
+                    class="p-button-lg"
+                  ></button>
                 </form>
-            </p-card>
+            </div>
         </div>
     </div>
 </div>

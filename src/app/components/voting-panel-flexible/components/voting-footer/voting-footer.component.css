@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+  padding: 6.2rem;
+  justify-content: flex-end;
+}
+
+img {
+  width: 31.1rem;
+  margin-left: auto;
+  height: 14.1rem;
+}

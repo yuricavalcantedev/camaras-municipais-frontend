@@ -2,23 +2,35 @@
 .box-header {
   display: flex;
   width: 100%;
-  height: 16rem;
-  justify-content: flex-start;
+  height: 73px;
+  justify-content: space-between;
   align-items: center;
 
   flex-direction: row;
 
-  background-color: var(--app-primary-color);
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  background-color: #FFFFFF;
+}
+
+button {
+  padding: 0;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .box-header .box-header-legislature-photo {
-  margin-left: 2.5rem;
-}
-.box-header .box-header-legislature-photo img {
-  max-width: 7.5rem;
+  background-image: url('/assets/images/logo_rsv.png');
+  margin-left: 68px;
+  width: 89px;
+  height: 89px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .box-header .box-header-info .box-header-info-sub {
@@ -89,4 +101,40 @@
   .box-header .box-header-info .box-panel-title {
     text-align: start;
   }
+}
+
+:host ::ng-deep {
+  .p-button {
+    &:hover {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: inherit !important;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    &:active {
+      background: transparent !important;
+      border-color: transparent !important;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-button.p-button-icon-only {
+    padding: 0 !important;
+    width: unset !important;
+  }
+}
+
+.box-header-buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin-right: 64px;
 }

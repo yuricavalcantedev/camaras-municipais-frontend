@@ -27,6 +27,8 @@ import { Voting } from 'src/app/domain/voting.model';
 })
 
 export class TownHallControlComponent implements OnInit {
+  isDialogVotationOpened: boolean = false;
+  isDialogVotationFlexOpened: boolean = false;
 
   showParlamentarImage: boolean = false;
   townHallCityName: string = '';
@@ -185,12 +187,39 @@ export class TownHallControlComponent implements OnInit {
   }
 
   openEletronicPanel(){
+    this.isDialogVotationOpened = true;
 
+    // this.isVotingPanelTabOpened = this.cookieService.get('isVotingPanelTabOpened') == 'true';
+
+    // if(!this.isVotingPanelTabOpened){
+    //   this.cookieService.set('isVotingPanelTabOpened', 'true');
+    //   window.open('/painel-votacao', "_blank");
+    // }
+  }
+
+  showViewUniqueVotation() {
     this.isVotingPanelTabOpened = this.cookieService.get('isVotingPanelTabOpened') == 'true';
-    if(!this.isVotingPanelTabOpened){
+
+    // if(!this.isVotingPanelTabOpened){
       this.cookieService.set('isVotingPanelTabOpened', 'true');
       window.open('/painel-votacao', "_blank");
-    }
+    // }
+
+    this.isDialogVotationOpened = false;
+  }
+
+  goToPanel(type: "esquerdo" | "direito") {
+    this.isVotingPanelTabOpened = this.cookieService.get('isVotingPanelTabOpened') == 'true';
+
+    // if(!this.isVotingPanelTabOpened){
+      this.cookieService.set('isVotingPanelTabOpened', 'true');
+      window.open(`/painel-votacao/${type}`, "_blank");
+    // }
+  }
+
+  chosenViewDividerVotation() {
+    this.isDialogVotationFlexOpened = true;
+    this.isDialogVotationOpened = false;
   }
 
   onSubmit(){

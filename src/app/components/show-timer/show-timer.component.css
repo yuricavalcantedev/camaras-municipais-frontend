@@ -5,7 +5,6 @@
   flex-direction: row;
   width: 100%;
   height: calc(100% - 150px);
-  background-color: var(--app-background-color);
 }
 
 .app-header {
@@ -22,7 +21,7 @@
   height: 100vh;
 }
 
-:host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component.p-button-icon-only {
+:host ::ng-deep button.p-element.p-button-raised.p-button-rounded.p-button.p-component {
   width: 7rem;
   height: 7rem;
   margin: 0px;

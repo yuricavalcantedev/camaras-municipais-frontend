@@ -202,3 +202,29 @@ html {
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.13);
 }
 
+.fw-bold {
+  font-weight: bold;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-end {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-center-center {
+  justify-content: center;
+  align-items: center;
+}
+

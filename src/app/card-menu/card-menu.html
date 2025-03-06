@@ -1,0 +1,45 @@
+<div class="card-menu">
+    <div class="card-content">
+        <div class="icon-container">
+            <!-- SVG para Inscrição -->
+            <svg *ngIf="iconType === 'inscricao'" width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.83686 22.7919H18.2223V45.2936H7.83686C7.37779 45.2936 6.93753 45.1113 6.61293 44.7867C6.28832 44.4621 6.10596 44.0218 6.10596 43.5627V24.5228C6.10596 24.0638 6.28832 23.6235 6.61293 23.2989C6.93753 22.9743 7.37779 22.7919 7.83686 22.7919V22.7919Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.2222 22.7919L26.8767 5.48294C28.7129 5.48294 30.474 6.21239 31.7724 7.51082C33.0708 8.80924 33.8003 10.5703 33.8003 12.4065V17.5992H47.1931C47.684 17.598 48.1694 17.7019 48.6168 17.9038C49.0642 18.1057 49.4632 18.4011 49.787 18.77C50.1109 19.1389 50.352 19.5728 50.4942 20.0426C50.6364 20.5124 50.6765 21.0072 50.6116 21.4938L48.0153 42.2646C47.9102 43.0984 47.5055 43.8655 46.8765 44.4229C46.2474 44.9802 45.4372 45.2897 44.5968 45.2936H18.2222" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                
+    
+            <!-- SVG para Lista de Oradores -->
+            <svg *ngIf="iconType === 'lista'" width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.9664 33.9892C24.133 33.9892 28.3214 29.8008 28.3214 24.6341C28.3214 19.4675 24.133 15.2791 18.9664 15.2791C13.7997 15.2791 9.61133 19.4675 9.61133 24.6341C9.61133 29.8008 13.7997 33.9892 18.9664 33.9892Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M35.8057 19.0211H58.2578" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M35.8057 30.2472H58.2578" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M41.4185 41.4732H58.2575" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.46631 45.2152C5.29068 41.9956 7.16319 39.1418 9.78862 37.1039C12.4141 35.066 15.6431 33.9598 18.9666 33.9598C22.2902 33.9598 25.5192 35.066 28.1447 37.1039C30.7701 39.1418 32.6426 41.9956 33.467 45.2152" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+    
+            <!-- SVG para Pauta -->
+            <svg *ngIf="iconType === 'pauta'" width="55" height="56" viewBox="0 0 55 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46.2396 45.0209H8.41716C8.21008 45.0209 8.00504 44.9802 7.81373 44.9009C7.62242 44.8217 7.44859 44.7055 7.30217 44.5591C7.15575 44.4127 7.0396 44.2389 6.96036 44.0475C6.88112 43.8562 6.84033 43.6512 6.84033 43.4441V17.7462H46.0479C46.5 17.7462 46.9336 17.9258 47.2532 18.2454C47.5729 18.5651 47.7525 18.9987 47.7525 19.4508V43.508C47.7525 43.9093 47.5931 44.2941 47.3094 44.5778C47.0257 44.8616 46.6409 45.0209 46.2396 45.0209Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.84033 17.7461V12.6321C6.84033 12.18 7.01993 11.7464 7.33962 11.4267C7.65931 11.107 8.0929 10.9274 8.54501 10.9274H19.7746C19.9959 10.9267 20.2152 10.9696 20.42 11.0536C20.6248 11.1377 20.8109 11.2614 20.9678 11.4175L27.2964 17.7461" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22.1821 31.3835H32.4102" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                
+    
+            <!-- SVG para Sair -->
+            <svg *ngIf="iconType === 'sair'" width="58" height="60" viewBox="0 0 58 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M41.1538 20.8362L50.5485 30.4433L41.1538 40.0503" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M25.4961 30.4432H50.5486" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M25.4959 50.5724H12.9696C12.495 50.5724 12.0399 50.3796 11.7043 50.0364C11.3687 49.6932 11.1802 49.2278 11.1802 48.7424V12.144C11.1802 11.6587 11.3687 11.1933 11.7043 10.8501C12.0399 10.5069 12.495 10.3141 12.9696 10.3141H25.4959" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                
+            <!-- SVG para Mais opções -->
+            <svg *ngIf="iconType === 'mais-opcoes'" width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35 41.5625C38.6244 41.5625 41.5625 38.6244 41.5625 35C41.5625 31.3756 38.6244 28.4375 35 28.4375C31.3756 28.4375 28.4375 31.3756 28.4375 35C28.4375 38.6244 31.3756 41.5625 35 41.5625Z" stroke="white" stroke-width="4" stroke-miterlimit="10"/>
+                <path d="M13.125 41.5625C16.7494 41.5625 19.6875 38.6244 19.6875 35C19.6875 31.3756 16.7494 28.4375 13.125 28.4375C9.50063 28.4375 6.5625 31.3756 6.5625 35C6.5625 38.6244 9.50063 41.5625 13.125 41.5625Z" stroke="white" stroke-width="4" stroke-miterlimit="10"/>
+                <path d="M56.875 41.5625C60.4994 41.5625 63.4375 38.6244 63.4375 35C63.4375 31.3756 60.4994 28.4375 56.875 28.4375C53.2506 28.4375 50.3125 31.3756 50.3125 35C50.3125 38.6244 53.2506 41.5625 56.875 41.5625Z" stroke="white" stroke-width="4" stroke-miterlimit="10"/>
+            </svg>
+                
+        </div>
+        <span class="title">{{ title }}</span>
+    </div>
+  </div>

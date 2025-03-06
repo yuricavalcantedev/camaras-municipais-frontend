@@ -1,0 +1,93 @@
+<div class="loading" *ngIf="loading;">
+  <img src="../../assets/images/logo_rsv.png" />
+</div>
+
+<img src="../../../../assets/images/bandeira_brasil.png" alt="Bandeira do Brasil" class="bandeira-brasil">
+
+
+
+<div *ngIf="!loading" class="page-panel-voting">
+  <!-- <app-voting-panel-header
+    sessionName="{{ this.session.name }}"
+    townHallUrlImage="{{ townHallUrlImage }}"
+    townHallName="{{ townHallName }}"
+  ></app-voting-panel-header> -->
+  <h1 class="voting-title">
+    {{townHallName}}
+  </h1>
+
+  <div class="box-body">
+    <div
+      class="box-left"
+      [ngClass]="{ 'box-left-big': parlamentaresTownhall.length <= 8 }"
+    >
+      <div
+        class="item"
+        [ngClass]="{
+          'status-no-presence': item.status != 'PRESENCE',
+          'item-big': parlamentaresTownhall.length <= 8,
+          'item-maior-8': parlamentaresTownhall.length == 9,
+          'item-maior-11':
+            parlamentaresTownhall.length > 9 &&
+            parlamentaresTownhall.length <= 12,
+          'item-maior-13':
+            parlamentaresTownhall.length > 12 &&
+            parlamentaresTownhall.length <= 14,
+          'status-yes':
+            item.result == 'YES' && visibilityVotingType != 'SECRETA',
+          'status-no': item.result == 'NO' && visibilityVotingType != 'SECRETA',
+          'status-abs':
+            item.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA'
+        }"
+        *ngFor="let item of parlamentaresTownhall"
+      >
+        <div
+          class="picture"
+          [ngClass]="{ 'picture-big': parlamentaresTownhall.length <= 8 }"
+          style="--bg-image: url({{ item.parlamentar.urlImage }});"
+        ></div>
+        <div class="parlamentarian-info">
+          <div
+            class="political-party"
+            [ngClass]="{
+              'status-black':
+                (item.result == 'YES' ||
+                  item.result == 'NO' ||
+                  item.result == 'ABSTENTION') &&
+                visibilityVotingType != 'SECRETA'
+            }"
+          >
+            {{ item.parlamentar.politicalParty }}
+            <span
+              class="role"
+              *ngIf="item.role != null"
+              [ngClass]="{
+                'status-black':
+                  (item.result == 'YES' ||
+                    item.result == 'NO' ||
+                    item.result == 'ABSTENTION') &&
+                  visibilityVotingType != 'SECRETA'
+              }"
+            >
+              | {{ item.role }}
+            </span>
+          </div>
+          <div
+            class="name"
+            [ngClass]="{
+              'name-big': parlamentaresTownhall.length <= 8
+            }"
+          >
+            <p>
+              {{ item.parlamentar.name }}
+            </p>
+            <img *ngIf="item.result == 'YES'" src="assets/images/yes.icon.svg" alt="Sim">
+            <img *ngIf="item.result == 'NO'" src="assets/images/no.icon.svg" alt="Não">
+            <img *ngIf="item.result == 'ABSTENTION'" src="assets/images/obs.icon.svg" alt="Abstenção">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-voting-footer></app-voting-footer>
+</div>

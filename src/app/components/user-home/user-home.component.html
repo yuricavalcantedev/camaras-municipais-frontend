@@ -27,11 +27,54 @@
       ></p-progressSpinner>
     </div>
 
+    <!-- *ngIf="(existsOpenVoting && votingTitle) || !existsOpenVoting" -->
     <div
       class="box-right"
-      *ngIf="(existsOpenVoting && votingTitle) || !existsOpenVoting"
     >
-      <div class="header">
+      <h2>
+        {{ getGreeting() }}, {{ parlamentar.name }}
+      </h2>
+      <h4>
+        {{townHallCityName}}
+      </h4>
+      <span>
+        10 (2025 - 2028) - Atual
+      </span>
+      
+      <div *ngIf="!existsOpenVoting" class="cards-grid">
+        <app-card-menu
+          title="Inscrição"
+          iconType="inscricao"
+          (click)="subscriptionInSpeakerList()"
+        ></app-card-menu>
+
+        <app-card-menu
+          title="Lista de oradores"
+          iconType="lista"
+          (click)="showDialog()"
+        ></app-card-menu>
+
+        <app-card-menu
+          *ngIf="this.linkSessao"
+          title="Pauta do dia"
+          iconType="pauta"
+          (click)="goToSaplSession()"
+        ></app-card-menu>
+
+        <app-card-menu
+          title="Sair"
+          iconType="sair"
+          (click)="logOut()"
+        ></app-card-menu>
+
+      </div>
+
+
+
+
+
+
+      <!-- <div class="header">
         <div class="title">Painel de Votação</div>
         <div *ngIf="this.linkSessao" class="pauta-sessao">
           <button
@@ -47,84 +90,69 @@
         <div class="title">
           {{ votingTitle }}
         </div>
+      </div> -->
+      <div *ngIf="existsOpenVoting" class="box-votacao">
+        <h1>Painel de votação:</h1>
+        <div class="voting-options">
+
+          <app-card-voting
+            title="Sim"
+            iconType="yes"
+            (click)="sendVote('YES')"
+          ></app-card-voting>
+
+          <app-card-voting
+            title="Não"
+            iconType="no"
+            (click)="sendVote('NO')"
+          ></app-card-voting>
+
+          <app-card-voting
+            title="Abs"
+            iconType="abs"
+            (click)="sendVote('ABSTENTION')"
+          ></app-card-voting>
+        </div>
+
+        <div class="row-separator"></div>
+
+        <div *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'" (click)="closeVoting()" class="end-voting">
+          <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M26.8125 11.3438H6.1875C5.61796 11.3438 5.15625 11.8055 5.15625 12.375V26.8125C5.15625 27.382 5.61796 27.8438 6.1875 27.8438H26.8125C27.382 27.8438 27.8438 27.382 27.8438 26.8125V12.375C27.8438 11.8055 27.382 11.3438 26.8125 11.3438Z" stroke="#384C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.8594 11.3438V6.70312C11.8594 5.47235 12.3483 4.29199 13.2186 3.42171C14.0889 2.55142 15.2692 2.0625 16.5 2.0625C17.7308 2.0625 18.9111 2.55142 19.7814 3.42171C20.6517 4.29199 21.1406 5.47235 21.1406 6.70312V11.3438" stroke="#384C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="16.7949" cy="19.1518" rx="2.65179" ry="2.65179" fill="#384C6C"/>
+          </svg>
+          <h2>Encerrar votação</h2>  
+        </div>
+
+        <div *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'" (click)="logOut()" class="end-voting">
+          <svg width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.7617 13.5643L34.1602 20.1268L27.7617 26.6893" stroke="#384C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.0977 20.1268H34.1602" stroke="#384C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.0977 33.8768H8.56641C8.24317 33.8768 7.93318 33.7451 7.70462 33.5107C7.47606 33.2763 7.34766 32.9584 7.34766 32.6268V7.62683C7.34766 7.29531 7.47606 6.97737 7.70462 6.74295C7.93318 6.50853 8.24317 6.37683 8.56641 6.37683H17.0977" stroke="#384C6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h2>Sair</h2>  
+        </div>
+
       </div>
-      <div class="voting-options">
-        <app-voting-button
-          [rounded]="true"
-          [state]="existsOpenVoting ? 'button-yes' : 'button-disabled'"
-          [disabled]="!existsOpenVoting || disableYesButton"
-          label="Sim"
-          icon="pi pi-thumbs-up-fill"
-          size="4rem"
-          (click)="sendVote('YES')"
-        >
-          <div class="label">Sim</div>
-        </app-voting-button>
+      
 
-        <app-voting-button
-          [state]="existsOpenVoting ? 'button-no' : 'button-disabled'"
-          [rounded]="true"
-          [disabled]="!existsOpenVoting || disableNoButton"
-          icon="pi pi-thumbs-down-fill"
-          size="4rem"
-          (click)="sendVote('NO')"
-        >
-          <div class="label">Não</div>
-        </app-voting-button>
 
-        <app-voting-button
-          [state]="existsOpenVoting ? 'button-abs' : 'button-disabled'"
-          [rounded]="true"
-          [disabled]="!existsOpenVoting || disableAbstentionButton"
-          icon="pi pi-minus"
-          size="4rem"
-          (click)="sendVote('ABSTENTION')"
-        >
-          <div class="label">Abs</div>
-        </app-voting-button>
-      </div>
-      <div class="footer">
-        <app-button
-          *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'"
-          icon="pi pi-verified"
-          iconSize="3.5rem"
-          [horizontal]="true"
-          label="Inscrição"
-          (click)="subscriptionInSpeakerList()"
-        ></app-button>
 
-        <app-button
-          *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'"
-          label="Opções"
-          icon="pi pi-sliders-v"
-          iconSize="3.5rem"
-          [horizontal]="true"
-          (click)="handleShowOptionDialog()"
-        ></app-button>
 
-        <app-button
-          label="Sair"
-          icon="pi pi-sign-out"
-          iconSize="3.5rem"
-          [horizontal]="true"
-          (click)="logOut()"
-        ></app-button>
-      </div>
+
+
+
+
     </div>
   </div>
-  <button
-    (click)="fullScreen()"
-    pButton
-    icon="pi pi-arrows-alt"
-    class="p-button-raised p-button-rounded"
-  ></button>
 </div>
 
 <p-dialog
   header="Lista de Oradores"
   [(visible)]="showInscriptionListDialog"
   (onHide)="clearInscriptionListDialog()"
-  [style]="{ width: '75vw', height: '35vw' }"
+  [style]="{ width: '429px', height: '561px' }"
   [modal]="true"
 >
   <div class="row" *ngIf="session.speakerSessionList.length != 0">

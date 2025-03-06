@@ -1,0 +1,24 @@
+<div class="custom-select-container">
+    <div 
+      *ngFor="let option of options" 
+      class="select-option" 
+      [class.selected]="option.value === value"
+      (click)="onSelect(option.value)"
+    >
+      <div class="option-content">
+        <div *ngIf="option.value === value" class="icon-button">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8.5" cy="8.5" r="8.5" fill="#13D53D"/>
+                <path d="M12.75 5.66663L6.90625 12.0416L4.25 9.1439" fill="#13D53D"/>
+                <path d="M12.75 5.66663L6.90625 12.0416L4.25 9.1439" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div *ngIf="option.value != value" class="icon-button">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8.5" cy="8.5" r="7.75" stroke="#005F84" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <span>{{ option.label }}</span>
+      </div>
+    </div>
+  </div>

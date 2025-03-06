@@ -23,7 +23,7 @@ export class SessionService {
   private createVotingUrl = '/{uuid}/voting';
   private computeVoteUrl = '/{uuid}/voting';
   private closeVotingUrl = '/{uuid}/voting/close';
-  private subscriptionSpeakerListURL = '/{uuid}/speaker-list';
+  private subscriptionSpeakerListURL = '/{uuid}/speakers';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
   private updateParlamentarPresenceListURL = '/{uuid}/presence-list/manually/';
   private findSessionVotingInfoBySessionAndVotingIdURL = '/{uuid}/voting-info/{id}';

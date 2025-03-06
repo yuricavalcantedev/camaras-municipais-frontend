@@ -1,21 +1,36 @@
 <div class="box-header">
-  <div class='box-header-legislature-photo'>
-    <img
-      src="{{townHallUrlImage}}"
-      alt="municipio-beberibe-brasao-simb-brnece0201502206-removebg-preview">
-  </div>
+  <div class='box-header-legislature-photo'></div>
+  <div class="box-header-buttons">
+    <button
+      pButton
+      class="p-button-icon-only"
+    >
+      <svg *ngIf="isOnline" width="27" height="29" viewBox="0 0 27 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.8636 7.56522V27.7391C20.8636 28.0735 20.7343 28.3942 20.5042 28.6307C20.274 28.8672 19.9619 29 19.6364 29C19.3109 29 18.9987 28.8672 18.7685 28.6307C18.5384 28.3942 18.4091 28.0735 18.4091 27.7391V7.56522C18.4091 7.23081 18.5384 6.91011 18.7685 6.67365C18.9987 6.43719 19.3109 6.30435 19.6364 6.30435C19.9619 6.30435 20.274 6.43719 20.5042 6.67365C20.7343 6.91011 20.8636 7.23081 20.8636 7.56522ZM25.7727 0C25.4472 0 25.1351 0.132841 24.9049 0.3693C24.6748 0.605759 24.5455 0.926466 24.5455 1.26087V27.7391C24.5455 28.0735 24.6748 28.3942 24.9049 28.6307C25.1351 28.8672 25.4472 29 25.7727 29C26.0982 29 26.4104 28.8672 26.6405 28.6307C26.8707 28.3942 27 28.0735 27 27.7391V1.26087C27 0.926466 26.8707 0.605759 26.6405 0.3693C26.4104 0.132841 26.0982 0 25.7727 0ZM13.5 12.6087C13.1745 12.6087 12.8623 12.7415 12.6322 12.978C12.402 13.2145 12.2727 13.5352 12.2727 13.8696V27.7391C12.2727 28.0735 12.402 28.3942 12.6322 28.6307C12.8623 28.8672 13.1745 29 13.5 29C13.8255 29 14.1377 28.8672 14.3678 28.6307C14.598 28.3942 14.7273 28.0735 14.7273 27.7391V13.8696C14.7273 13.5352 14.598 13.2145 14.3678 12.978C14.1377 12.7415 13.8255 12.6087 13.5 12.6087ZM7.36364 18.913C7.03814 18.913 6.72598 19.0459 6.49582 19.2823C6.26567 19.5188 6.13636 19.8395 6.13636 20.1739V27.7391C6.13636 28.0735 6.26567 28.3942 6.49582 28.6307C6.72598 28.8672 7.03814 29 7.36364 29C7.68913 29 8.00129 28.8672 8.23145 28.6307C8.46161 28.3942 8.59091 28.0735 8.59091 27.7391V20.1739C8.59091 19.8395 8.46161 19.5188 8.23145 19.2823C8.00129 19.0459 7.68913 18.913 7.36364 18.913ZM1.22727 25.2174C0.90178 25.2174 0.589618 25.3502 0.35946 25.5867C0.129302 25.8231 0 26.1439 0 26.4783V27.7391C0 28.0735 0.129302 28.3942 0.35946 28.6307C0.589618 28.8672 0.90178 29 1.22727 29C1.55277 29 1.86493 28.8672 2.09509 28.6307C2.32524 28.3942 2.45455 28.0735 2.45455 27.7391V26.4783C2.45455 26.1439 2.32524 25.8231 2.09509 25.5867C1.86493 25.3502 1.55277 25.2174 1.22727 25.2174Z" fill="#13C204"/>
+      </svg>
 
-  <div class="box-header-info">
-    <div class="box-panel-title">
-      Painel Eletrônico
-    </div>
-    <div class="box-header-info-sub">
-      <div class="box-header-info-title">
-        {{townHallName}}
-      </div>
-      <div class="box-header-info-subtitle">
-        10ª (2025 - 2028) (Atual)
-      </div>
-    </div>
+      <svg *ngIf="!isOnline" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34.125 15.8438L26.8125 23.1562" stroke="#C24D04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M34.125 23.1562L26.8125 15.8438" stroke="#C24D04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30.4689 26.4012V31.6875C30.4689 32.0107 30.3405 32.3207 30.1119 32.5493C29.8833 32.7778 29.5733 32.9062 29.2501 32.9062H4.1591C3.91743 32.9058 3.68134 32.8336 3.48083 32.6987C3.28031 32.5638 3.12443 32.3723 3.03299 32.1486C2.94155 31.9249 2.91868 31.6791 2.96729 31.4424C3.0159 31.2056 3.13378 30.9887 3.30597 30.8191L28.3818 5.74336C28.5513 5.57117 28.7683 5.45328 29.005 5.40467C29.2417 5.35607 29.4876 5.37894 29.7113 5.47038C29.935 5.56182 30.1264 5.7177 30.2613 5.91821C30.3962 6.11872 30.4685 6.35482 30.4689 6.59648V12.5988" stroke="#C24D04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button
+      (click)="fullScreen()"
+      pButton
+      class="p-button-icon-only"
+    >
+      <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M29.5312 8.4375H36.5625V15.4688" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26.7188 18.2812L36.5625 8.4375" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15.4688 36.5625H8.4375V29.5312" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18.2812 26.7188L8.4375 36.5625" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M36.5625 29.5312V36.5625H29.5312" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26.7188 26.7188L36.5625 36.5625" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8.4375 15.4688V8.4375H15.4688" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18.2812 18.2812L8.4375 8.4375" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
+  
 </div>

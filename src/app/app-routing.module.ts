@@ -8,11 +8,15 @@ import { TimerControlComponent } from './components/timer-control/timer-control.
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { VotingPanelComponent } from './components/voting-panel/voting-panel.component';
 import { TownhallSettingsComponent } from './components/townhall-settings/townhall-settings.component';
+import { VotingPanelLeftComponent } from './components/voting-panel-flexible/voting-panel-left/voting-panel-left.component';
+import { VotingPanelRightComponent } from './components/voting-panel-flexible/voting-panel-right/voting-panel-right.component';
 
 const routes : Routes = [
   {path: '', component: LoginComponent},
   {path: 'gestao', component: HomeComponent},
   {path: 'painel-votacao', component: VotingPanelComponent},
+  {path: 'painel-votacao/esquerdo', component: VotingPanelLeftComponent},
+  {path: 'painel-votacao/direito', component: VotingPanelRightComponent},
   {path: 'home', component: UserHomeComponent},
   {path: 'admin', component: AdminHomeComponent},
   {path: 'login', component: LoginComponent},

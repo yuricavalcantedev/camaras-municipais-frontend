@@ -1,0 +1,35 @@
+.custom-select-container {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    width: 286px;
+  }
+  
+  .select-option {
+    flex: 1;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 500;
+    color: #BABABA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F0F0;
+    width: 140px;
+    height: 33px;
+    border-radius: 12px;
+  }
+  
+  .option-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .icon-button {
+    display: flex;
+    align-items: center;
+  }
