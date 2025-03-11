@@ -17,5 +17,6 @@ export class Voting{
     result : string;
     description: string;
     legislativeSubjectType: LegislativeSubjectType;
+    subDescription: string;
     author: string;
 }

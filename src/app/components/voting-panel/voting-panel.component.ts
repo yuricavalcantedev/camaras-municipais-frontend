@@ -123,7 +123,6 @@ export class VotingPanelComponent implements OnInit {
           this.cookieService.set('playCloseVoting', 'false');
         }
 
-        console.log(this.session.votingList);
         if (this.existsOpenVoting) {
           votingId = this.session.votingList.find(
             (voting) => voting.status == 'VOTING'
@@ -179,8 +178,8 @@ export class VotingPanelComponent implements OnInit {
 
   extractTitleAndSubTitle(voting: Voting) {
     if (voting != undefined) {
-      this.votingTitle = voting.legislativeSubjectType.title;
-      this.votingSubTitle = voting.description;
+      this.votingTitle = voting.description;
+      this.votingSubTitle = voting.subDescription
     }
   }
 
@@ -198,10 +197,7 @@ export class VotingPanelComponent implements OnInit {
     }
   }
 
-  findSessionVotingInfoBySessionAndVotingId(
-    sessionUUID: string,
-    votingId: number
-  ) {
+  findSessionVotingInfoBySessionAndVotingId(sessionUUID: string, votingId: number) {
     this.sessionService
       .findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId)
       .subscribe({
@@ -211,17 +207,13 @@ export class VotingPanelComponent implements OnInit {
           );
         this.voting = data.voting;
         this.speakerList = data.speakerList;
-          this.visibilityVotingType =
-            this.voting.legislativeSubjectType.visibilityType;
+        this.visibilityVotingType = this.voting.legislativeSubjectType.visibilityType;
         this.computePartialVotes();
         this.extractTitleAndSubTitle(data.voting);
         this.extractAuthor(data.voting);
         this.extractResultFromVoting(this.voting);
 
-          console.log(this.parlamentaresTownhall);
-          console.log(this.voting);
-
-          this.presentCounter = this.parlamentaresTownhall.filter(
+        this.presentCounter = this.parlamentaresTownhall.filter(
             (parlamentar) => parlamentar.status === 'PRESENCE'
           ).length;
         },

@@ -10,4 +10,5 @@ export class Subject{
     status: string;
     saplMateriaId: number;
     originalTextUrl: string;
+    originalEmenta: string;
 }
