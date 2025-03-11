@@ -159,6 +159,36 @@ export class TownHallControlComponent implements OnInit {
     this.showDialog = true;
   }
 
+  addSubjectManually(){
+
+    //TODO: ADAUTO (montar aqui o objeto request com essas proprieades)	
+    //E tambem colocar aqui mensagens de sucesso ou erro para o usuário saber o que tá acontecendo/aconteceu
+    let request = {type: 'ANY TYPE', description: 'Ordem do Dia/Expediente: 1 - Projeto de Lei Ordinária nº 99999999999999', 
+      originalTextUrl: 'http://www.google.com', subjectOrderSapl: 5,
+    year : 2025, author: 'Yuri Amancio', number: 9823};
+
+    this.sessionService.addSubjectManually(this.sessionUUID, request).subscribe({
+      next: result => {
+        console.log(result);
+      },
+      error: err => {
+        console.log(err)
+      }
+    });
+  }
+
+  removeSubjectManually(subjectId: number){
+    this.sessionService.deleteSubjectManually(this.sessionUUID, subjectId).subscribe({
+      next: result => {
+        console.log(result);
+      },
+      error: err => {
+        console.log(err)
+      }
+    });
+
+  }
+
   openVotingDialog(){
     this.showVotingDialog = true;
   }

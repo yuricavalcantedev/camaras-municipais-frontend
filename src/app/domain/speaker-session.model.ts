@@ -10,4 +10,5 @@ export class SpeakerSession{
     parlamentarName: string;
     townHallId: number;
     speakerOrder: number;
+    type: string;
 }

@@ -24,6 +24,7 @@ export class SessionService {
   private computeVoteUrl = '/{uuid}/voting';
   private closeVotingUrl = '/{uuid}/voting/close';
   private subscriptionSpeakerListURL = '/{uuid}/speakers';
+  private unSubscriptionSpeakerListURL = '/{uuid}/speakers/{id}/type/{type}';
   private updateParlamentarPresenceURL = '/{uuid}/presence-list';
   private updateParlamentarPresenceListURL = '/{uuid}/presence-list/manually/';
   private findSessionVotingInfoBySessionAndVotingIdURL = '/{uuid}/voting-info/{id}';
@@ -69,6 +70,11 @@ export class SessionService {
     return this.http.post<SpeakerSession>(this.baseUrl + this.subscriptionSpeakerListURL.replace('{uuid}', sessionUUID), speakerDTO);
   }
 
+  unsubscribeSpeaker(sessionUUID : string, speakerId: number, type: string){
+    let finalUrl = this.unSubscriptionSpeakerListURL.replace('{uuid}', sessionUUID).replace('{id}', speakerId + '').replace('{type}', type);
+    return this.http.delete(this.baseUrl + finalUrl);
+  }
+
   updateParlamentarPresence(sessionUUID : string, parlamentarPresenceDTO : ParlamentarPresenceDTO){
     return this.http.put(this.baseUrl + this.updateParlamentarPresenceURL.replace('{uuid}', sessionUUID), parlamentarPresenceDTO);
   }
@@ -95,6 +101,15 @@ export class SessionService {
 
   findSessionStandardInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
     return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionStandardInfoByUUIDURL.replace('{uuid}', sessionUUID));
+  }
+
+  addSubjectManually(sessionUUID: string, addSubjectRequest) : Observable<Session>{
+    console.log(this.baseUrl + '/' + sessionUUID + '/subjects', sessionUUID, addSubjectRequest);
+    return this.http.post<Session>(this.baseUrl + '/' + sessionUUID + '/subjects', addSubjectRequest);
+  }
+
+  deleteSubjectManually(sessionUUID: string, subjectId: number){
+    return this.http.delete(this.baseUrl + '/' + sessionUUID + '/subjects/' + subjectId, this.httpOptions);
   }
 
 }

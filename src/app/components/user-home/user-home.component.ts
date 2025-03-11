@@ -161,9 +161,12 @@ export class UserHomeComponent implements OnInit {
   }
 
   subscriptionInSpeakerList() {
+
+    //TODO: ADAUTO (remover esse 'GRANDE_EXPEDIENTE que tá hardcoded')
     let speakerDTO = new SpeakerSubscriptionDTO(
       this.townHallId,
-      this.parlamentar.id
+      this.parlamentar.id,
+      'GRANDE_EXPEDIENTE'
     );
     this.sessionService
       .subscriptionInSpeakerList(this.session.uuid, speakerDTO)
@@ -174,6 +177,29 @@ export class UserHomeComponent implements OnInit {
             severity: 'success',
             summary: 'Sucesso!',
             detail: 'Inscrição feita com sucesso!',
+          });
+        },
+        error: (err) => {
+          this.messageService.add({
+            key: 'bc',
+            severity: 'error',
+            summary: 'Erro!',
+            detail: 'Ocorreu um erro inesperado, contate o administrador.',
+          });
+        },
+      });
+  }
+
+  unSubscribeSpeaker() {
+    this.sessionService
+      .unsubscribeSpeaker(this.session.uuid, this.parlamentar.id, 'PEQUENO_EXPEDIENTE')
+      .subscribe({
+        next: (data) => {
+          this.messageService.add({
+            key: 'bc',
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Unsubscribe feita com sucesso!',
           });
         },
         error: (err) => {

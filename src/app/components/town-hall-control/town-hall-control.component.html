@@ -93,7 +93,7 @@
                     </div>
                 </div>
 
-
+                <button pButton pRipple label="Add subject" (click)="addSubjectManually()" class="p-button-secondary"></button>
                 <div style="margin-top: 20px;">
                     <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceIdList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
                     [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
@@ -204,6 +204,8 @@
                                     <a *ngIf="subject.originalTextUrl !== ''" [href]="subject.originalTextUrl" target="_blank">
                                         <p-button label="Abrir PDF" icon="pi pi-file-pdf"></p-button>
                                     </a>
+
+                                    <button pButton pRipple label="Remove subject" (click)="removeSubjectManually(subject.id)" class="p-button-secondary"></button>
                                 </td>
                             </tr>
                         </ng-template>
