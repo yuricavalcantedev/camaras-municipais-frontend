@@ -204,7 +204,7 @@ export class LoginComponent implements OnInit {
   }
 
   onNumberClick(number: string) {
-    if (this.password.length < 6) {
+    if (this.password.length < 8) {
       this.password += number;
       this.maskedPassword = '*'.repeat(this.password.length);
       this.loginForm.patchValue({

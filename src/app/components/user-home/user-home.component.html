@@ -45,13 +45,13 @@
         <app-card-menu
           title="Inscrição"
           iconType="inscricao"
-          (click)="subscriptionInSpeakerList()"
+          (click)="openExpedienteDialog(true)"
         ></app-card-menu>
 
         <app-card-menu
           title="Unsubscribe"
           iconType="inscricao"
-          (click)="unSubscribeSpeaker()"
+          (click)="openUnsubscribeDialog(true)"
         ></app-card-menu>
 
         <app-card-menu
@@ -157,6 +157,44 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header="Tipo de Expediente"
+  [(visible)]="showExpedienteDialog"
+  styleClass="expediente-dialog-inscription"
+  [modal]="true"
+>
+  <div class="expediente-options">
+    <div class="expediente-button" (click)="subscriptionInSpeakerList('GRANDE_EXPEDIENTE')">
+      <h3>Grande Expediente</h3>
+      <p>Inscrição para o Grande Expediente</p>
+    </div>
+    
+    <div class="expediente-button" (click)="subscriptionInSpeakerList('PEQUENO_EXPEDIENTE')">
+      <h3>Pequeno Expediente</h3>
+      <p>Inscrição para o Pequeno Expediente</p>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Tipo de Expediente para Desinscrição"
+  [(visible)]="showUnsubscribeDialog"
+  [style]="{ width: '400px' }"
+  [modal]="true"
+>
+  <div class="expediente-options">
+    <div class="expediente-button" (click)="unSubscribeSpeaker('GRANDE_EXPEDIENTE')">
+      <h3>Grande Expediente</h3>
+      <p>Desinscrição do Grande Expediente</p>
+    </div>
+    
+    <div class="expediente-button" (click)="unSubscribeSpeaker('PEQUENO_EXPEDIENTE')">
+      <h3>Pequeno Expediente</h3>
+      <p>Desinscrição do Pequeno Expediente</p>
+    </div>
+  </div>
+</p-dialog>
 
 <p-dialog
   header="Lista de Oradores"

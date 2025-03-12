@@ -42,6 +42,8 @@ export class UserHomeComponent implements OnInit {
   hasUpdatedPresence: boolean = false;
 
   showInscriptionListDialog: boolean = false;
+  showExpedienteDialog: boolean = false;
+  showUnsubscribeDialog: boolean = false;
 
   votingTitle: string = '';
   parlamentarUserType = 'P';
@@ -160,13 +162,15 @@ export class UserHomeComponent implements OnInit {
       });
   }
 
-  subscriptionInSpeakerList() {
+  openExpedienteDialog(param: boolean) {
+    this.showExpedienteDialog = param;
+  }
 
-    //TODO: ADAUTO (remover esse 'GRANDE_EXPEDIENTE que tá hardcoded')
+  subscriptionInSpeakerList(expedienteType: string) {
     let speakerDTO = new SpeakerSubscriptionDTO(
       this.townHallId,
       this.parlamentar.id,
-      'GRANDE_EXPEDIENTE'
+      expedienteType
     );
     this.sessionService
       .subscriptionInSpeakerList(this.session.uuid, speakerDTO)
@@ -188,11 +192,16 @@ export class UserHomeComponent implements OnInit {
           });
         },
       });
+      this.openExpedienteDialog(false);
   }
 
-  unSubscribeSpeaker() {
+  openUnsubscribeDialog(param: boolean) {
+    this.showUnsubscribeDialog = param;
+  }
+
+  unSubscribeSpeaker(expedienteType: string) {
     this.sessionService
-      .unsubscribeSpeaker(this.session.uuid, this.parlamentar.id, 'PEQUENO_EXPEDIENTE')
+      .unsubscribeSpeaker(this.session.uuid, this.parlamentar.id, expedienteType)
       .subscribe({
         next: (data) => {
           this.messageService.add({
@@ -211,6 +220,7 @@ export class UserHomeComponent implements OnInit {
           });
         },
       });
+      this.openUnsubscribeDialog(false);
   }
 
   sendVote(vote: string) {

@@ -254,7 +254,7 @@ tr {
 
 .cards-grid{
   display: grid;
-  grid-template-columns: repeat(2, 186px);
+  grid-template-columns: repeat(3, 186px);
   grid-template-rows: repeat(2, 198px);
   gap: 24px;
   align-content: center;
@@ -376,4 +376,41 @@ tr {
     padding: 1rem;
   }
 
+}
+
+.expediente-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.expediente-button {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.expediente-button:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.expediente-button h3 {
+  color: #384C6C;
+  margin: 0 0 8px 0;
+  font-family: Poppins;
+  font-weight: 600;
+}
+
+.expediente-button p {
+  color: #6c757d;
+  margin: 0;
+  font-family: Poppins;
+  font-size: 14px;
+}
+
+:host ::ng-deep .expediente-dialog-inscription{
+  width: 500px;
 }
