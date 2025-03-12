@@ -23,7 +23,15 @@ button {
   cursor: pointer;
 }
 
-.box-header .box-header-legislature-photo {
+.box-logos{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+}
+
+.box-header .box-logos .logo-rsv {
   background-image: url('/assets/images/logo_rsv.png');
   margin-left: 68px;
   width: 89px;
@@ -32,6 +40,11 @@ button {
   background-position: center;
   background-size: contain;
 }
+
+.box-header .box-logos .box-header-legislature-photo {
+  height: 50px;
+}
+
 
 .box-header .box-header-info .box-header-info-sub {
   display: flex;

@@ -287,19 +287,59 @@ tr {
 
 .end-voting{
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-voting .end-voting-container{
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background: #005f8499;
+  width: 299px;
+  gap: 8px;
+  padding: 7px;
+  border-radius: 12px;
+  margin-top: -6px;
   cursor: pointer;
 }
 
-.end-voting h2{
+.end-voting .end-voting-container h2{
   font-family: Poppins;
   font-size: 23px;
-  color: #384C6C;
+  color: #FFFFFF !important;
   font-weight: 600;
-  margin-left: 20px;
 }
+
+.logout-voting{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-voting .logout-voting-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: #005f8499;
+  width: 144px;
+  padding: 7px;
+  border-radius: 12px;
+  margin-top: -6px;
+  cursor: pointer;
+}
+
+.logout-voting .logout-voting-container h2{
+  font-family: Poppins;
+  font-size: 23px;
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+
 
 @media screen and (max-width: 1024px) {
   .box-main .page-voting .box-right .header .pauta-sessao button {
