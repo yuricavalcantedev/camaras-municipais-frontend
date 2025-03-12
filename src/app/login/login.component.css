@@ -271,3 +271,73 @@ input{
 .parlamentar-list-container > div {
   width: 100%;
 }
+
+.password-container-input{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.bottons-numbers-password{
+  display: flex;
+  flex-direction: column;
+}
+
+.password-container-input-row{
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+}
+
+.item-number-password{
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 500;
+  color: #2D2D2D;
+}
+
+.view-password{
+  width: 115px;
+  height: 93px;
+  background: #F0F0F0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Poppins;
+  font-size: 18px;
+  color: #BABABA;
+  font-weight: 500;
+}
+
+.password-container-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.actions-password span{
+  font-family: Poppins;
+  font-size: 13px;
+  font-weight: 500;
+  color: #BABABA;
+  cursor: pointer;
+}
+
+.actions-password{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 38px;
+  cursor: pointer;
+}

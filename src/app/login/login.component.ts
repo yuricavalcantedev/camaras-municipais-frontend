@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
     { label: 'Gestão', value: 'GESTAO' },
     { label: 'Vereador(a)', value: 'VEREADOR' }
   ];
+  password: string = '';
+  maskedPassword: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -201,4 +203,31 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  onNumberClick(number: string) {
+    if (this.password.length < 6) {
+      this.password += number;
+      this.maskedPassword = '*'.repeat(this.password.length);
+      this.loginForm.patchValue({
+        password: this.password
+      });
+    }
+  }
+
+  clearPassword() {
+    this.password = '';
+    this.maskedPassword = '';
+    this.loginForm.patchValue({
+      password: ''
+    });
+  }
+
+  deleteLastDigit() {
+    if (this.password.length > 0) {
+      this.password = this.password.slice(0, -1);
+      this.maskedPassword = '*'.repeat(this.password.length);
+      this.loginForm.patchValue({
+        password: this.password
+      });
+    }
+  }
 }
