@@ -49,8 +49,8 @@
         ></app-card-menu>
 
         <app-card-menu
-          title="Unsubscribe"
-          iconType="inscricao"
+          title="Cancelar Inscrição"
+          iconType="desinscricao"
           (click)="openUnsubscribeDialog(true)"
         ></app-card-menu>
 
@@ -177,6 +177,11 @@
       <h3>Pequeno Expediente</h3>
       <p>Inscrição para o Pequeno Expediente</p>
     </div>
+
+    <div class="expediente-button" (click)="subscriptionInSpeakerList('OUTRO')">
+      <h3>Explicações Pessoais</h3>
+      <p>Inscrição para Explicações Pessoais</p>
+    </div>
   </div>
 </p-dialog>
 
@@ -195,6 +200,11 @@
     <div class="expediente-button" (click)="unSubscribeSpeaker('PEQUENO_EXPEDIENTE')">
       <h3>Pequeno Expediente</h3>
       <p>Desinscrição do Pequeno Expediente</p>
+    </div>
+
+    <div class="expediente-button" (click)="unSubscribeSpeaker('OUTRO')">
+      <h3>Explicações Pessoais</h3>
+      <p>Inscrição para Explicações Pessoais</p>
     </div>
   </div>
 </p-dialog>

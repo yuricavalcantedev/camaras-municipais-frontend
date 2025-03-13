@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CardMenuComponent {
   @Input() title: string;
-  @Input() iconType: 'inscricao' | 'lista' | 'pauta' | 'sair' | 'mais-opcoes';
+  @Input() iconType: 'inscricao' | 'lista' | 'pauta' | 'sair' | 'mais-opcoes' | 'desinscricao';
 }
