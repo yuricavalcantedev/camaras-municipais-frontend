@@ -34,13 +34,44 @@
   position: relative;
 }
 
-.voting-title {
+.voting-header-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 54px;
+  padding-bottom: 111px;
+}
+
+.voting-header-container .voting-title-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 70px;
+}
+
+.voting-header-container .voting-title-container .voting-title {
+  padding-bottom: 1.3rem;
   font-size: 8.7rem;
   color: #fff;
+  font-family: Roboto;
   text-align: center;
   font-weight: 700;
-  padding-top: 11.9rem;
-  padding-bottom: 24.8rem;
+}
+
+.voting-header-container .voting-title-container .voting-subtitle {
+  font-size: 6.7rem;
+  color: #fff;
+  font-family: Roboto;
+  text-align: center;
+  font-weight: 700;
+}
+
+.chamber-logo {
+  display: flex;
+  position: absolute;
+  left: 112px;
 }
 
 .status-info {

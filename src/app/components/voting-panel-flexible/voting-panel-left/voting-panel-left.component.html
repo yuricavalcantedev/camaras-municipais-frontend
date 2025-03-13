@@ -12,9 +12,19 @@
     townHallUrlImage="{{ townHallUrlImage }}"
     townHallName="{{ townHallName }}"
   ></app-voting-panel-header> -->
-  <h1 class="voting-title">
-    {{ this.session.name }}
-  </h1>
+  <div class="voting-header-container">
+    <div class="chamber-logo">
+      <img class="chamber-logo-image" src="{{townHallUrlImage}}" alt="{{townHallName}}">
+    </div>
+    <div class="voting-title-container">
+      <h1 class="voting-title">
+        {{ townHallName }}
+      </h1>
+      <h1 class="voting-subtitle">
+        {{ this.session.name }}
+      </h1>
+    </div>
+  </div>
 
   <div class="box-body">
     <div
