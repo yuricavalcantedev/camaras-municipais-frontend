@@ -2,7 +2,7 @@
 <div class="box-main">
   <app-header class="app-header" townHallName="{{townHallName}}" townHallUrlImage="{{townHallUrlImage}}"></app-header>
   <div class='page-stopwatch'>
-    <app-card-parlamentar class="box-left" photo="{{parlamentar.urlImage}}" name="{{parlamentar.name}}"
+    <app-card-parlamentar photo="{{parlamentar.urlImage}}" name="{{parlamentar.name}}"
       politicalParty="{{parlamentar.politicalParty}}" *ngIf="expedientType!='Expedientes diversos'" ></app-card-parlamentar>
     <div class='box-right'>
       <div class='header'>
@@ -33,5 +33,6 @@
       </div>
     </div>
   </div>
-  <button pButton (click)="fullScreen()" icon="pi pi-arrows-alt" class="p-button-raised p-button-rounded"></button>
+
+  <div class='logo-rsv'></div>
 </div>
