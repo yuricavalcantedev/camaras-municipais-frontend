@@ -51,6 +51,7 @@ export class UserHomeComponent implements OnInit {
   showOptionsDialog = false;
   endMainTimer: boolean = false;
   parlamentarObject: ParlamentarTimer = null;
+  selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
 
   constructor(
     private userService: UserService,
@@ -395,5 +396,12 @@ export class UserHomeComponent implements OnInit {
     } else {
       return 'Boa noite';
     }
+  }
+
+  getFilteredSpeakerList() {
+    if (!this.session?.speakerSessionList) return [];
+    return this.session.speakerSessionList.filter(speaker => 
+      speaker.type === this.selectedSpeakerType
+    );
   }
 }

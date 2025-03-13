@@ -216,31 +216,41 @@
   [style]="{ width: '429px', height: '561px' }"
   [modal]="true"
 >
-  <div class="row" *ngIf="session.speakerSessionList.length != 0">
-    <p-table
-      [value]="session.speakerSessionList"
-      styleClass="p-datatable-striped p-datatable-gridlines"
-      responsiveLayout="scroll"
-      [rowHover]="true"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Ordem</th>
-          <th>Nome</th>
-          <th>Partido Politico</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-speaker>
-        <tr>
-          <td>{{ speaker.speakerOrder }}</td>
-          <td>{{ speaker.parlamentarName }}</td>
-          <td>{{ speaker.parlamentarPoliticalParty }}</td>
-        </tr>
-      </ng-template>
+  <div class="speaker-type-selector">
+    <div class="speaker-type-buttons">
+      <p-selectButton [options]="[
+          {label: 'Grande Expediente', value: 'GRANDE_EXPEDIENTE'},
+          {label: 'Pequeno Expediente', value: 'PEQUENO_EXPEDIENTE'},
+          {label: 'Explicações Pessoais', value: 'OUTRO'}
+      ]" [(ngModel)]="selectedSpeakerType" optionLabel="label" optionValue="value">
+      </p-selectButton>
+    </div>
+  </div>
+
+  <div *ngIf="getFilteredSpeakerList().length > 0" style="margin-top: 20px;">
+    <p-table [value]="getFilteredSpeakerList()"  
+        styleClass="p-datatable-striped p-datatable-gridlines" 
+        responsiveLayout="scroll" 
+        [rowHover]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Ordem</th>
+                <th>Nome</th>
+                <th>Partido Politico</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-speaker>
+            <tr>
+                <td>{{speaker.speakerOrder}}</td>
+                <td>{{speaker.parlamentarName}}</td>
+                <td>{{speaker.parlamentarPoliticalParty}}</td>
+            </tr>
+        </ng-template>
     </p-table>
   </div>
-  <div class="row" *ngIf="session.speakerSessionList.length == 0">
-    <p>Ainda não existem oradores inscritos</p>
+  <div *ngIf="getFilteredSpeakerList().length == 0" style="margin-top: 20px;">
+    <p>Não existem vereadores inscritos para {{selectedSpeakerType === 'GRANDE_EXPEDIENTE' ? 'o Grande Expediente' : 
+        selectedSpeakerType === 'PEQUENO_EXPEDIENTE' ? 'o Pequeno Expediente' : 'as Explicações Pessoais'}}.</p>
   </div>
 </p-dialog>
 
