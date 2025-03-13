@@ -414,3 +414,18 @@ tr {
 :host ::ng-deep .expediente-dialog-inscription{
   width: 500px;
 }
+
+.logo-rsv {
+  background-image: url('/assets/images/logo_rsv.png');
+  width: 111px;
+  height: 108px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: flex-end;
+  bottom: 0;
+  right: 26px;
+}

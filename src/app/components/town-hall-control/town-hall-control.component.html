@@ -93,7 +93,6 @@
                     </div>
                 </div>
 
-                <button pButton pRipple label="Add subject" (click)="addSubjectManually()" class="p-button-secondary"></button>
                 <div style="margin-top: 20px;">
                     <p-table [value]="session.parlamentarPresenceList" [(selection)]="selectedParlamentarPresenceIdList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true"
                     [paginator]="true" [rows]="10" [showCurrentPageReport]="true">
@@ -180,9 +179,9 @@
                 <div style="margin-top: 20px;">
                     <div class="grid">
                         <div class="col">
+                            <p-button id="open-voting-button" label="Adicionar matéria" (click)="openAddSubjectManuallyDialog(true)" ></p-button>
                             <button pButton *ngIf="existsOpenVoting" pRipple type="button" id="open-voting-button" class="p-button-danger mr-4" label="Encerrar Votacao" (click)="closeVoting()"></button>
                             <p-button id="open-voting-button" [disabled]="existsOpenVoting" class="mr-4" label="Abrir votacao" (click)="openVotingDialog()"></p-button>
-
                         </div>
                     </div>
                     <p-table [value]="session.subjectList" [(selection)]="selectedSubjectList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
@@ -205,7 +204,7 @@
                                         <p-button label="Abrir PDF" icon="pi pi-file-pdf"></p-button>
                                     </a>
 
-                                    <button pButton pRipple label="Remove subject" (click)="removeSubjectManually(subject.id)" class="p-button-secondary"></button>
+                                    <button pButton pRipple label="Remover matéria" (click)="removeSubjectManually(subject.id)" class="p-button-secondary button-remove-subject"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -314,3 +313,79 @@
               </div>
         </div>
 </p-dialog>
+
+<p-dialog
+   header="Inscrever matéria"
+   [(visible)]="showAddSubjectManuallyDialog"
+   styleClass="dialog-subject"
+   [modal]="true"
+ >
+ <div class="subject-form">
+    <div class="form-field">
+      <label for="type">Tipo*</label>
+      <input 
+        id="type"
+        type="text" 
+        pInputText 
+        [(ngModel)]="subjectType"
+        placeholder="Ex: Projeto de Lei"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="description">Descrição*</label>
+      <textarea 
+        id="description"
+        pInputTextarea 
+        [(ngModel)]="subjectDescription"
+        [rows]="3"
+        placeholder="Descreva a matéria"
+      ></textarea>
+    </div>
+
+    <div class="form-field">
+      <label for="year">Ano*</label>
+      <input 
+        id="year"
+        type="text" 
+        pInputText 
+        [(ngModel)]="subjectYear"
+        placeholder="Ex: 2024"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="author">Autor*</label>
+      <input 
+        id="author"
+        type="text" 
+        pInputText 
+        [(ngModel)]="subjectAuthor"
+        placeholder="Nome do autor"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="number">Número*</label>
+      <input 
+        id="number"
+        type="text" 
+        pInputText 
+        [(ngModel)]="subjectNumber"
+        placeholder="Número da matéria"
+      />
+    </div>
+
+    <div class="dialog-footer">
+      <p-button 
+        label="Cancelar" 
+        styleClass="p-button-text"
+        (click)="openAddSubjectManuallyDialog(false)"
+      ></p-button>
+      <p-button 
+        label="Adicionar" 
+        (click)="addSubjectManually(subjectType, subjectDescription, subjectYear, subjectAuthor, subjectNumber)"
+      ></p-button>
+    </div>
+  </div>
+ </p-dialog>

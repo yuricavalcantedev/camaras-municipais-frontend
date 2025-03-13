@@ -42,6 +42,7 @@ export class TownHallControlComponent implements OnInit {
   showDialog: boolean = false;
   showVotingDialog: boolean = false;
   showDeleteSessionDialog: boolean = false;
+  showAddSubjectManuallyDialog: boolean = false;
   submitted: boolean = false;
   existsSession: boolean = false;
   existsOpenVoting: boolean = false;
@@ -68,6 +69,12 @@ export class TownHallControlComponent implements OnInit {
 
   firstInterval: any;
   secondInterval: any;
+
+  subjectType: string = '';
+  subjectDescription: string = '';
+  subjectYear: string = '';
+  subjectAuthor: string = '';
+  subjectNumber: string = '';
 
   @Output() updateParlamentar = new EventEmitter<boolean>();
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
@@ -159,34 +166,90 @@ export class TownHallControlComponent implements OnInit {
     this.showDialog = true;
   }
 
-  addSubjectManually(){
+  openAddSubjectManuallyDialog(param: boolean) {
+    this.showAddSubjectManuallyDialog = param;
 
-    //TODO: ADAUTO (montar aqui o objeto request com essas proprieades)	
-    //E tambem colocar aqui mensagens de sucesso ou erro para o usuário saber o que tá acontecendo/aconteceu
-    let request = {type: 'ANY TYPE', description: 'Ordem do Dia/Expediente: 1 - Projeto de Lei Ordinária nº 99999999999999', 
-      originalTextUrl: 'http://www.google.com', subjectOrderSapl: 5,
-    year : 2025, author: 'Yuri Amancio', number: 9823};
+    if (!param) {
+      this.subjectType = '';
+      this.subjectDescription = '';
+      this.subjectYear = '';
+      this.subjectAuthor = '';
+      this.subjectNumber = '';
+    }
+  }
+
+  addSubjectManually(type: string, description: string, year: string, author: string, number: string){
+
+    if (!type || !description || !year || !author || !number) {
+      this.messageService.add({
+        key: 'bc',
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Todos os campos são obrigatórios'
+      });
+      return;
+    }
+    // let request = {
+    //   type: type, // tipo 'ANY TYPE',
+    //   description: description, // assunto 'Ordem do Dia/Expediente: 1 - Projeto de Lei Ordinária nº 99999999999999',
+    //   originalTextUrl: 'http://www.google.com', // url do pdf
+    //   subjectOrderSapl: 5, // 5
+    //   year: year, // ano 2025
+    //   author: author, // autor 'Yuri Amancio'
+    //   number: number // numero 9823
+    // };
+    let request = {
+      type: type, // tipo 'ANY TYPE',
+      description: description, // assunto 'Ordem do Dia/Expediente: 1 - Projeto de Lei Ordinária nº 99999999999999',
+      originalTextUrl: description, // url do pdf
+      subjectOrderSapl: '', // 5
+      year: year, // ano 2025
+      author: author, // autor 'Yuri Amancio'
+      number: number // numero 9823
+    };
 
     this.sessionService.addSubjectManually(this.sessionUUID, request).subscribe({
       next: result => {
-        console.log(result);
+        this.messageService.add({
+          key: 'bc',
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Matéria adicionada com sucesso'
+        });
+        this.openAddSubjectManuallyDialog(false);
       },
       error: err => {
-        console.log(err)
+        this.messageService.add({
+          key: 'bc',
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao adicionar matéria'
+        });
       }
     });
+
+    this.showAddSubjectManuallyDialog = false;
   }
 
   removeSubjectManually(subjectId: number){
     this.sessionService.deleteSubjectManually(this.sessionUUID, subjectId).subscribe({
       next: result => {
-        console.log(result);
+        this.messageService.add({
+          key: 'bc',
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Matéria removida com sucesso'
+        });
       },
       error: err => {
-        console.log(err)
+        this.messageService.add({
+          key: 'bc',
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao remover matéria'
+        });
       }
     });
-
   }
 
   openVotingDialog(){
