@@ -219,16 +219,29 @@
                 <ng-template pTemplate="header">
                 </ng-template>
 
-                <h3 style="display: inline; text-align: center;">Lista de Oradores</h3>
+                <div class="speaker-type-selector">
+                    <h3>Lista de Oradores</h3>
+                    
+                    <div class="speaker-type-buttons">
+                        <p-selectButton [options]="[
+                            {label: 'Grande Expediente', value: 'GRANDE_EXPEDIENTE'},
+                            {label: 'Pequeno Expediente', value: 'PEQUENO_EXPEDIENTE'},
+                            {label: 'Explicações Pessoais', value: 'OUTRO'}
+                        ]" [(ngModel)]="selectedSpeakerType" optionLabel="label" optionValue="value">
+                        </p-selectButton>
+                    </div>
+                </div>
 
-                <div *ngIf="session.speakerList.length > 0" style="margin-top: 20px;">
-                    <p-table [value]="session.speakerList"  styleClass="p-datatable-striped p-datatable-gridlines" responsiveLayout="scroll" [rowHover]="true">
+                <div *ngIf="getFilteredSpeakerList().length > 0" style="margin-top: 20px;">
+                    <p-table [value]="getFilteredSpeakerList()"  
+                        styleClass="p-datatable-striped p-datatable-gridlines" 
+                        responsiveLayout="scroll" 
+                        [rowHover]="true">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Ordem</th>
                                 <th>Nome</th>
                                 <th>Partido Politico</th>
-
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-speaker>
@@ -240,8 +253,9 @@
                         </ng-template>
                     </p-table>
                 </div>
-                <div *ngIf="session.speakerList.length == 0"style="margin-top: 20px;">
-                        <p>Nao existem vereadores inscritos na lista de oradores por enqaunto.</p>
+                <div *ngIf="getFilteredSpeakerList().length == 0" style="margin-top: 20px;">
+                    <p>Não existem vereadores inscritos para {{selectedSpeakerType === 'GRANDE_EXPEDIENTE' ? 'o Grande Expediente' : 
+                        selectedSpeakerType === 'PEQUENO_EXPEDIENTE' ? 'o Pequeno Expediente' : 'as Explicações Pessoais'}}.</p>
                 </div>
             </p-card>
         </div>

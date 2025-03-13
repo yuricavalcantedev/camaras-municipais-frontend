@@ -38,6 +38,7 @@ export class TownHallControlComponent implements OnInit {
   selectedParlamentarPresence: ParlamentarPresence = new ParlamentarPresence();
   selectedParlamentarPresenceIdList: ParlamentarPresence[] = new Array();
   selectedSubjectList: Subject[] = new Array();
+  selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
 
   showDialog: boolean = false;
   showVotingDialog: boolean = false;
@@ -555,5 +556,12 @@ export class TownHallControlComponent implements OnInit {
           },
         });
     }
+  }
+
+  getFilteredSpeakerList() {
+    if (!this.session?.speakerList) return [];
+    return this.session.speakerList.filter(speaker => 
+      speaker.type === this.selectedSpeakerType
+    );
   }
 }
