@@ -52,6 +52,7 @@ export class UserHomeComponent implements OnInit {
   endMainTimer: boolean = false;
   parlamentarObject: ParlamentarTimer = null;
   selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
+  selectedVote: string;
 
   constructor(
     private userService: UserService,
@@ -225,6 +226,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   sendVote(vote: string) {
+    this.selectedVote = vote;
     if (this.votingOptions.find((option) => option == vote) == undefined) {
       this.messageService.add({
         key: 'bc',
@@ -265,6 +267,10 @@ export class UserHomeComponent implements OnInit {
         });
       }
     }
+  }
+
+  isVoteSelected(vote: string): boolean {
+    return this.selectedVote === vote;
   }
 
   signOut() {

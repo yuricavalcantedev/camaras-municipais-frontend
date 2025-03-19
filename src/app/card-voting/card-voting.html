@@ -1,6 +1,6 @@
 <div class="card-voting">
     <div class="card-content">
-        <div class="icon-container">
+        <div class="icon-container" [style.background-color]="getBackgroundColor()">
             <svg *ngIf="iconType === 'yes'" width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.83686 22.7919H18.2223V45.2936H7.83686C7.37779 45.2936 6.93753 45.1113 6.61293 44.7867C6.28832 44.4621 6.10596 44.0218 6.10596 43.5627V24.5228C6.10596 24.0638 6.28832 23.6235 6.61293 23.2989C6.93753 22.9743 7.37779 22.7919 7.83686 22.7919V22.7919Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M18.2222 22.7919L26.8767 5.48294C28.7129 5.48294 30.474 6.21239 31.7724 7.51082C33.0708 8.80924 33.8003 10.5703 33.8003 12.4065V17.5992H47.1931C47.684 17.598 48.1694 17.7019 48.6168 17.9038C49.0642 18.1057 49.4632 18.4011 49.787 18.77C50.1109 19.1389 50.352 19.5728 50.4942 20.0426C50.6364 20.5124 50.6765 21.0072 50.6116 21.4938L48.0153 42.2646C47.9102 43.0984 47.5055 43.8655 46.8765 44.4229C46.2474 44.9802 45.4372 45.2897 44.5968 45.2936H18.2222" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>

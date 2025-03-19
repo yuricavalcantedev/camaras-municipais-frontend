@@ -104,18 +104,21 @@
           <app-card-voting
             title="Sim"
             iconType="yes"
+            [isSelected]="isVoteSelected('YES')"
             (click)="sendVote('YES')"
           ></app-card-voting>
 
           <app-card-voting
             title="Não"
             iconType="no"
+            [isSelected]="isVoteSelected('NO')"
             (click)="sendVote('NO')"
           ></app-card-voting>
 
           <app-card-voting
             title="Abs"
             iconType="abs"
+            [isSelected]="isVoteSelected('ABSTENTION')"
             (click)="sendVote('ABSTENTION')"
           ></app-card-voting>
         </div>

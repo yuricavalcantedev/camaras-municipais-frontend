@@ -11,13 +11,13 @@
 .icon-container {
     width: 93px;
     height: 93px;
-    background-color: rgba(0, 95, 132, 0.6);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 24px;
     position: absolute;
+    transition: background-color 0.3s ease;
 
     svg {
       width: 57px;
