@@ -25,7 +25,7 @@
       </div>
     </div>
     
-    <div class="time-container" *ngIf="!loading && isTimeTransmissionActive">
+    <!-- <div class="time-container" *ngIf="!loading && isTimeTransmissionActive">
       <div class="time-container-box">
         <div class="title">
           {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
@@ -34,9 +34,9 @@
           {{mainTextMinutes}}:{{mainTextSeconds}}
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="box-body" *ngIf="!loading && !isTimeTransmissionActive">
+    <div class="box-body" *ngIf="!loading">
   
       <div class="column" [ngStyle]="{
         'justify-content': !existsOpenVoting ? 'center' : null
