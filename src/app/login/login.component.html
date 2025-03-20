@@ -5,14 +5,12 @@
             <div class="image-side"></div>
             <div class="login-container">
                 <div class="logo"></div>
-
-                <h1 class="login-title">Login</h1>
-
                 <div *ngIf="loading" class="loading-overlay">
                     <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--app-primary-color)" animationDuration=".5s"></p-progressSpinner>
                 </div>
 
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+                  <h1 class="login-title">Login</h1>
                   <div class="type-account-container">
                     <h2>Tipo de conta</h2>
                     <app-select-button

@@ -38,7 +38,7 @@ input{
 
 .p-button-lg {
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   background-color: #005F84;
   border: 1px solid #005F84;
@@ -87,7 +87,8 @@ input{
   font-size: 27px;
   font-weight: bold;
   color: #2D2D2D;
-  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .p-field{
@@ -104,7 +105,7 @@ input{
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  top: 37px;
+  top: 17px;
   position: absolute;
 }
 
@@ -144,7 +145,7 @@ input{
 
 .login-form h2{
   font-family: Poppins;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   color: #2D2D2D;
   margin-bottom: 10px;
@@ -170,7 +171,7 @@ input{
       /* Estilo do placeholder e texto selecionado */
       .p-dropdown-label {
         font-family: Poppins;
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 500;
         color: #BABABA;
         padding: 0 11px;
@@ -210,14 +211,14 @@ input{
     /* Estilo do painel de opções */
     .p-dropdown-panel {
       border-radius: 12px;
-      margin-top: 4px;
+      margin-top: 7px;
       
       .p-dropdown-items {
         padding: 8px;
 
         .p-dropdown-item {
           font-family: Poppins;
-          font-size: 14px;
+          font-size: 15px;
           color: #2D2D2D;
           padding: 12px 16px;
           border-radius: 8px;
@@ -299,7 +300,7 @@ input{
   justify-content: center;
   align-items: center;
   font-family: Poppins;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 500;
   color: #2D2D2D;
 }
@@ -328,7 +329,7 @@ input{
 
 .actions-password span{
   font-family: Poppins;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: #BABABA;
   cursor: pointer;
@@ -338,6 +339,6 @@ input{
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 38px;
+  gap: 27px;
   cursor: pointer;
 }

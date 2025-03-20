@@ -2,7 +2,7 @@
     display: flex;
     gap: 10px;
     overflow: hidden;
-    width: 286px;
+    width: 316px;
   }
   
   .select-option {
@@ -11,7 +11,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: Poppins;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: #BABABA;
     display: flex;
@@ -19,7 +19,7 @@
     justify-content: center;
     background-color: #F0F0F0;
     width: 140px;
-    height: 33px;
+    height: 39px;
     border-radius: 12px;
   }
   
