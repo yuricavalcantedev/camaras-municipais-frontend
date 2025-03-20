@@ -25,7 +25,16 @@
       </div>
     </div>
     
-    <div *ngIf="!loading && isTimeTransmissionActive">Colocar conteudo da transmissão Aqui</div>
+    <div class="time-container" *ngIf="!loading && isTimeTransmissionActive">
+      <div class="time-container-box">
+        <div class="title">
+          {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
+        </div>
+        <div class="time">
+          {{mainTextMinutes}}:{{mainTextSeconds}}
+        </div>
+      </div>
+    </div>
 
     <div class="box-body" *ngIf="!loading && !isTimeTransmissionActive">
   

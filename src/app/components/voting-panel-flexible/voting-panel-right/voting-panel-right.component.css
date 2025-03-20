@@ -473,3 +473,41 @@
 .page-panel-voting.ng-enter-active, app-show-timer.ng-enter-active {
   opacity: 1;
 }
+
+.time-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+}
+
+.time-container-box{
+  width: 1596px;
+  height: 952px;
+  background-color: #FFFFFF;
+  border-radius: 90px;
+}
+
+.title{
+  margin-top: 240px;
+  font-family: Poppins;
+  font-size: 97px;
+  font-weight: 700;
+  color: #005F84;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.time{
+  font-family: Poppins;
+  font-size: 341px;
+  font-weight: 700;
+  color: #005F84;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  line-height: 1;
+}

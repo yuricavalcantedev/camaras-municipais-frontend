@@ -4,6 +4,9 @@
   padding: 2rem;
   padding: 6.2rem;
   justify-content: flex-end;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 img {
