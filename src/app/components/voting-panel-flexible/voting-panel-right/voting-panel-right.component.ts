@@ -54,6 +54,9 @@ export class VotingPanelRightComponent implements OnInit {
   closeVoting: boolean;
   lastVoting: number;
 
+  isTimeTransmissionActive: boolean = false;
+  private timeCheckInterval: any;
+
   constructor(
     private cookieService: CookieService,
     private sessionService: SessionService,
@@ -86,6 +89,20 @@ export class VotingPanelRightComponent implements OnInit {
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
+    this.timeCheckInterval = setInterval(() => {
+      try{
+        const parlamentarObject = this.cookieService.get('parlamentarObject');
+        const parlamentarAParteObject = this.cookieService.get('parlamentarAParteObject');
+
+        const hasMainTransmission = parlamentarObject !== '' && parlamentarObject !== 'undefined';
+        const hasAParteTransmission = parlamentarAParteObject !== '' && parlamentarAParteObject !== 'undefined';
+
+        this.isTimeTransmissionActive = hasMainTransmission || hasAParteTransmission;
+      } catch (error) {
+        console.error('Erro ao verificar transmissões:', error);
+      }
+      // this.isTimeTransmissionActive = parlamentarObject !== '' || parlamentarAParteObject !== '';
+    }, 500);
 
     this.sessionInfoInterval = setInterval(() => {
 
@@ -146,6 +163,12 @@ export class VotingPanelRightComponent implements OnInit {
       this.fullScreen();
     };
 
+  }
+
+  ngOnDestroy() {
+    if (this.timeCheckInterval) {
+      clearInterval(this.timeCheckInterval);
+    }
   }
 
   setLoading(state: boolean) {

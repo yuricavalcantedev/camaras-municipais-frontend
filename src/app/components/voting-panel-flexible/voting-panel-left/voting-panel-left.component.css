@@ -76,7 +76,8 @@
 .chamber-logo {
   display: flex;
   position: absolute;
-  left: 112px;
+  left: 130px;
+  height: 10%;
 }
 
 .status-info {

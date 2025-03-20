@@ -71,7 +71,8 @@
 .chamber-logo {
   display: flex;
   position: absolute;
-  left: 112px;
+  left: 130px;
+  height: 10%;
 }
 
 .status-info {
@@ -155,7 +156,6 @@
 
 .expedient-item {
   display: flex;
-  justify-content: center;
   gap: 10rem;
 }
 
@@ -459,4 +459,17 @@
 
 .text-end {
   text-align: end;
+}
+
+.page-panel-voting, app-show-timer {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.page-panel-voting.ng-enter, app-show-timer.ng-enter {
+  opacity: 0;
+}
+
+.page-panel-voting.ng-enter-active, app-show-timer.ng-enter-active {
+  opacity: 1;
 }
