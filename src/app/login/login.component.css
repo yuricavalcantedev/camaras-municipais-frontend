@@ -342,3 +342,13 @@ input{
   gap: 27px;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .mobile-dropdown .p-dropdown-filter {
+    pointer-events: none;
+  }
+  
+  .p-dropdown-panel-open .p-dropdown-filter {
+    pointer-events: auto;
+  }
+}

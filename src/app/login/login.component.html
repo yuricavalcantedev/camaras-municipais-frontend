@@ -24,13 +24,13 @@
                     <div>
                       <h2>Câmara Municipal</h2>
                       <p-dropdown
-                        class="dropdown-container"
+                        class="dropdown-container mobile-dropdown"
                         formControlName="townHallId"
                         [options]="filteredTownhalls"
                         optionLabel="name"
                         optionValue="id"
                         placeholder="Selecione uma câmara"
-                        [filter]="true"
+                        [filter]="isMobileDevice() ? false : true"
                         filterBy="name"
                         (onChange)="onTownHallChange()"
                         styleClass="w-full"
@@ -42,13 +42,13 @@
                     <div>
                       <h2>Escolha o usuário</h2>
                       <p-dropdown
-                        class="dropdown-container"
+                        class="dropdown-container mobile-dropdown"
                         formControlName="parlamentarId"
                         [options]="parlamentares"
                         optionLabel="name"
                         optionValue="id"
                         placeholder="Selecione um vereador"
-                        [filter]="true"
+                        [filter]="isMobileDevice() ? false : true"
                         filterBy="name"
                         styleClass="w-full"
                       ></p-dropdown>
@@ -59,13 +59,13 @@
                     <div>
                       <h2>Escolha o usuário</h2>
                       <p-dropdown
-                        class="dropdown-container"
+                        class="dropdown-container mobile-dropdown"
                         formControlName="parlamentarId"
                         [options]="operadores"
                         optionLabel="name"
                         optionValue="id"
                         placeholder="Selecione um operador"
-                        [filter]="true"
+                        [filter]="isMobileDevice() ? false : true"
                         filterBy="name"
                         styleClass="w-full"
                       ></p-dropdown>
