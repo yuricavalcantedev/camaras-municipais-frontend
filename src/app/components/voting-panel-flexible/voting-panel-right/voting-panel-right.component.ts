@@ -10,6 +10,7 @@ import { SoundService } from 'src/app/service/sound.service';
 import { UtilService } from 'src/app/service/util.service';
 import { Control } from 'src/app/domain/control.model';
 import { ControlService } from 'src/app/service/control.service';
+import {ParlamentarTimer} from "../../../dto/parlamentar-timer.model";
 
 @Component({
   selector: 'app-voting-panel-right',
@@ -70,6 +71,18 @@ export class VotingPanelRightComponent implements OnInit {
   ONE_SECOND: number = 1000;
   parlamentar: any = {};
 
+  countdown: number;
+  countdownAparte: number;
+  timerInterval: any;
+  timerIntervalAparte: any;
+  timeLeft: string;
+  timeAparteLeft: string;
+  parlamentaryData: ParlamentarTimer;
+  parlamentaryAParteData: ParlamentarTimer;
+  countdownRunning = false;
+  countdownAparteRunning = false;
+
+
   constructor(
     private cookieService: CookieService,
     private sessionService: SessionService,
@@ -114,6 +127,9 @@ export class VotingPanelRightComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('parlamentarObject');
+    localStorage.removeItem('parlamentarAParteObject');
+
     if (this.cookieService.get('townHallCityName').length > 0) {
       this.townHallName = this.cookieService.get('townHallCityName');
     }
@@ -129,33 +145,18 @@ export class VotingPanelRightComponent implements OnInit {
     this.townhallId = Number(this.cookieService.get('user-townhall-id'));
     let sessionUUID = this.cookieService.get('session-uuid');
 
-    // this.timeCheckInterval = setInterval(() => {
-    //   try{
-    //     const parlamentarObject = this.cookieService.get('parlamentarObject');
-    //     const parlamentarAParteObject = this.cookieService.get('parlamentarAParteObject');
-
-    //     if (parlamentarObject && parlamentarObject !== 'undefined') {
-    //       const parlamentarData = JSON.parse(parlamentarObject);
-    //       if (!this.isMainTimerRunning && parlamentarData.timeToSpeak) {
-    //         this.isMainTimerRunning = true;
-    //         this.mainTimer(parlamentarData.timeToSpeak);
-    //       }
-    //     }
-
-    //     const hasMainTransmission = parlamentarObject !== '' && parlamentarObject !== 'undefined';
-    //     const hasAParteTransmission = parlamentarAParteObject !== '' && parlamentarAParteObject !== 'undefined';
-
-    //     this.isTimeTransmissionActive = hasMainTransmission || hasAParteTransmission;
-    //   } catch (error) {
-    //     console.error('Erro ao verificar transmissões:', error);
-    //   }
-    //   // this.isTimeTransmissionActive = parlamentarObject !== '' || parlamentarAParteObject !== '';
-    // }, 500);
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'parlamentarObject') {
+        this.handleStorageEvent(event, 'parlamentary');
+      } else if (event.key === 'parlamentarAParteObject') {
+        this.handleStorageEvent(event, 'parlamentaryAParte');
+      }
+    });
 
     setInterval(() => {
       if (this.cookieService.get('parlamentarObject').length > 0) {
         this.parlamentar = JSON.parse(this.cookieService.get('parlamentarObject'));
-        
+
         if (this.parlamentar.id != null && !this.isMainTimerRunning) {
           this.isTimeTransmissionActive = true;
           this.isMainTimerRunning = true;
@@ -169,7 +170,7 @@ export class VotingPanelRightComponent implements OnInit {
         this.cookieService.set('endMainTimer', 'false');
       }
     }, this.ONE_SECOND);
-    
+
     this.sessionInfoInterval = setInterval(() => {
 
       this.setExpiendType();
@@ -272,7 +273,7 @@ export class VotingPanelRightComponent implements OnInit {
 
     if (this.mainTimerInterval) {
       clearInterval(this.mainTimerInterval);
-      this.mainTimerInterval = null; 
+      this.mainTimerInterval = null;
     }
   }
 
@@ -415,6 +416,95 @@ export class VotingPanelRightComponent implements OnInit {
   clearIntervalAndCookie(){
     clearInterval(this.sessionInfoInterval);
     this.cookieService.set('isVotingPanelTabOpened', 'false');
+  }
+
+  //------------------------------
+
+  startTimer(timerType: string) {
+    if (timerType === 'parlamentary') {
+      this.countdownRunning = true;
+      this.countdown = this.parlamentaryData?.timeToSpeak || 0;
+      this.updateTimeLeft('parlamentary');
+
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+      }
+
+      this.timerInterval = setInterval(() => {
+        if (this.countdown > 0) {
+          this.countdown--;
+          this.updateTimeLeft('parlamentary');
+        } else {
+          this.handleTimerEnd('parlamentary');
+        }
+      }, 1000);
+    } else if (timerType === 'parlamentaryAParte') {
+      this.countdownAparteRunning = true;
+      this.countdownAparte = this.parlamentaryAParteData?.timeToSpeak || 0;
+      this.updateTimeLeft('parlamentaryAParte');
+
+      if (this.timerIntervalAparte) {
+        clearInterval(this.timerIntervalAparte);
+      }
+
+      this.timerIntervalAparte = setInterval(() => {
+        if (this.countdownAparte > 0) {
+          this.countdownAparte--;
+          this.updateTimeLeft('parlamentaryAParte');
+        } else {
+          this.handleTimerEnd('parlamentaryAParte');
+        }
+      }, 1000);
+    }
+  }
+
+  updateTimeLeft(timerType: string) {
+    if (timerType === 'parlamentary') {
+      this.timeLeft = this.formatTime(this.countdown);
+    } else if (timerType === 'parlamentaryAParte') {
+      this.timeAparteLeft = this.formatTime(this.countdownAparte);
+    }
+  }
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${this.padWithLeadingZeros(minutes, 2)}:${this.padWithLeadingZeros(remainingSeconds, 2)}`;
+  }
+
+  handleTimerEnd(timerType: string) {
+    if (timerType === 'parlamentary') {
+      clearInterval(this.timerInterval);
+      localStorage.removeItem('parlamentarObject');
+      this.countdownRunning = false;
+    } else if (timerType === 'parlamentaryAParte') {
+      clearInterval(this.timerIntervalAparte);
+      localStorage.removeItem('parlamentarAParteObject');
+      this.countdownAparteRunning = false;
+    }
+
+    // Simulate loading process
+    setTimeout(() => {
+      this.loading = false;
+    }, 500);
+  }
+
+  handleStorageEvent(event: StorageEvent, timerType: string) {
+    const parsedData = JSON.parse(event.newValue || '{}');
+
+    if (parsedData && parsedData.id && parsedData.timeToSpeak != null) {
+      if (timerType === 'parlamentary') {
+        this.parlamentaryData = parsedData;
+        this.startTimer('parlamentary');
+      } else if (timerType === 'parlamentaryAParte') {
+        this.parlamentaryAParteData = parsedData;
+        this.startTimer('parlamentaryAParte');
+      }
+    } else if (event.newValue === null) {
+      this.handleTimerEnd(timerType);
+    } else {
+      console.warn('Invalid object received:', parsedData);
+    }
   }
 
 }

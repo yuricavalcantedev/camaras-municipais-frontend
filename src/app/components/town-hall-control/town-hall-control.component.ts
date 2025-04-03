@@ -388,7 +388,7 @@ export class TownHallControlComponent implements OnInit {
         this.loading = false;
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação aberta!'});
       }, error: error => {
-        
+
         this.selectedSubjectList = [];
         this.onHideVotingDialog();
         this.loading = false;
@@ -441,6 +441,8 @@ export class TownHallControlComponent implements OnInit {
     parlamentarTimer.id = 999;
     parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
     this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
+    localStorage.setItem('parlamentarObject', JSON.stringify(parlamentarTimer));
+
     this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
 
     this.setExpedient();
@@ -466,12 +468,15 @@ export class TownHallControlComponent implements OnInit {
       parlamentarTimer.buildFromParlamentar(parlamentar);
       parlamentarTimer.timeToSpeak = this.selectedTimer.minutes * 60 + this.selectedTimer.seconds;
       this.cookieService.set('parlamentarObject', JSON.stringify(parlamentarTimer));
-      this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
 
-      if(!this.isShowTimerTabOpened){
-        this.cookieService.set('isShowTimerTabOpened', 'true');
-        window.open('/mostrarTempo', "_blank");
-      }
+      localStorage.setItem('parlamentarObject', JSON.stringify(parlamentarTimer));
+
+      // this.isShowTimerTabOpened = this.cookieService.get('isShowTimerTabOpened') == 'true';
+      //
+      // if(!this.isShowTimerTabOpened){
+      //   this.cookieService.set('isShowTimerTabOpened', 'true');
+      //   window.open('/mostrarTempo', "_blank");
+      // }
     }
   }
 
@@ -480,15 +485,18 @@ export class TownHallControlComponent implements OnInit {
     let parlamentarTimer = new ParlamentarTimer();
     parlamentarTimer.buildFromParlamentar(parlamentar);
     parlamentarTimer.timeToSpeak = 120;
+    localStorage.setItem('parlamentarAParteObject', JSON.stringify(parlamentarTimer));
 
     this.cookieService.set('parlamentarAParteObject', JSON.stringify(parlamentarTimer));
   }
 
   onFinalizarTempo(){
+    localStorage.removeItem('parlamentarObject');
     this.cookieService.set('endMainTimer', 'true');
   }
 
   onFinalizarAParte(){
+    localStorage.removeItem('parlamentarAParteObject');
     this.cookieService.set('endSubTimer', 'true');
   }
 
@@ -560,7 +568,7 @@ export class TownHallControlComponent implements OnInit {
 
   getFilteredSpeakerList() {
     if (!this.session?.speakerList) return [];
-    return this.session.speakerList.filter(speaker => 
+    return this.session.speakerList.filter(speaker =>
       speaker.type === this.selectedSpeakerType
     );
   }

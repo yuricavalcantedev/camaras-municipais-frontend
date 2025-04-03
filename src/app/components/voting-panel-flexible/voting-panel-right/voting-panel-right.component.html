@@ -24,20 +24,8 @@
         </h1>
       </div>
     </div>
-    
-    <!-- <div class="time-container" *ngIf="!loading && isTimeTransmissionActive">
-      <div class="time-container-box">
-        <div class="title">
-          {{expedientType=='Expedientes diversos' ? otherExpedient : expedientType}}
-        </div>
-        <div class="time">
-          {{mainTextMinutes}}:{{mainTextSeconds}}
-        </div>
-      </div>
-    </div> -->
 
-    <div class="box-body" *ngIf="!loading">
-  
+    <div class="box-body" *ngIf="!loading && !countdownRunning && !countdownAparteRunning">
       <div class="column" [ngStyle]="{
         'justify-content': !existsOpenVoting ? 'center' : null
       }">
@@ -46,7 +34,7 @@
             expedientType == "Expedientes diversos" ? otherExpedient : expedientType
           }}
         </h2>
-        <div class="expedient-item flex flex-column" style="gap: 5rem">
+        <div class="expedient-item flex flex-column">
           <div class="box-total-presentes">
             <span class="description color-yes fw-bold"> Presentes </span>
             <p class="quantity color-yes fw-bold">
@@ -57,7 +45,7 @@
             <span class="description color-no fw-bold"> Ausentes </span>
             <p class="quantity color-no fw-bold">0</p>
           </div>
-  
+
           <div class="box-total-parlamentar">
             <span class="description fw-bold color-neutral"> Parlamentares </span>
             <p class="quantity fw-bold color-neutral">
@@ -73,7 +61,7 @@
               </strong>
               <p style="margin-top: 6.1rem; margin-bottom: 8.4rem;"
                 class="color-neutral project-description"
-  
+
               >
                 {{ votingSubTitle.slice(0, 350) }}
               </p>
@@ -119,7 +107,40 @@
         </div>
       </div>
     </div>
+
+    <div *ngIf="!loading && countdownRunning" style="display: flex; flex-direction: row; gap: 50px; align-items: center; justify-content: center; margin-top: 100px;">
+      <div>
+        <app-card-parlamentar
+          *ngIf="parlamentaryData.urlImage"
+          photo="{{parlamentaryData.urlImage}}"
+          name="{{parlamentaryData.name}}"
+          politicalParty="{{parlamentaryData.politicalParty}}">
+        </app-card-parlamentar>
+      </div>
+  
+      <div class="card-time-container">
+        <div class="card-time">
+          <h2 class="expedient-title-time">
+            {{
+              expedientType == "Expedientes diversos" ? otherExpedient : expedientType
+            }}
+          </h2>
+          
+          <!-- <p class="countdown-title p-5" *ngIf="parlamentaryData.urlImage">{{parlamentaryData.name}} - {{parlamentaryData.politicalParty}}</p> -->
+          <p class="time-countdown">{{ timeLeft }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="countdownAparteRunning" class="card-time-container">
+        <div class="card-time-aparte">
+          <p class="expedient-title-time">A parte</p>
+          <p class="parlamentary-name-time-aparte">{{parlamentaryAParteData.name}} - {{parlamentaryAParteData.politicalParty}}</p>
+          <p class="time-countdown">{{ timeAparteLeft }}</p>
+        </div>
+      </div>
+    </div>
+
     <app-voting-footer></app-voting-footer>
   </div>
-  
+
 </div>

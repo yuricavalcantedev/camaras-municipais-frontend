@@ -44,8 +44,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-top: 54px;
-  padding-bottom: 111px;
+  padding-top: 23px;
+  padding-bottom: 31px;
 }
 
 .voting-header-container .voting-title-container{
@@ -57,8 +57,8 @@
 }
 
 .voting-header-container .voting-title-container .voting-title {
-  padding-bottom: 1.3rem;
-  font-size: 8.7rem;
+  padding-bottom: 1rem;
+  font-size: 2.7rem;
   color: #fff;
   font-family: Roboto;
   text-align: center;
@@ -66,7 +66,7 @@
 }
 
 .voting-header-container .voting-title-container .voting-subtitle {
-  font-size: 6.7rem;
+  font-size: 3rem;
   color: #fff;
   font-family: Roboto;
   text-align: center;
@@ -77,7 +77,7 @@
   display: flex;
   position: absolute;
   left: 130px;
-  height: 10%;
+  height: 8%;
 }
 
 .status-info {
@@ -121,26 +121,22 @@
 
 .page-panel-voting .box-body {
   display: flex;
-  align-items: center;
   justify-content: center;
   grid-template-rows: 100%;
   height: 100%;
   margin-bottom: 50px;
   padding-right: 0.5rem;
-  width: 100vw;
   flex-grow: 1;
+  margin-top: 26px;
 }
 
 /* BOX LEFT */
 .page-panel-voting .box-body .box-left {
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: repeat(2, minmax(0, 150rem));
-  grid-column-gap: 1.5rem;
-  row-gap: 3.3rem;
+  grid-template-columns: repeat(3, minmax(0, 56rem));
   grid-auto-rows: min-content;
   justify-content: center;
-  width: 90%;
 }
 
 .box-left-big {
@@ -148,13 +144,13 @@
 }
 
 .page-panel-voting .box-body .box-left .item {
-  height: 15.8rem;
+  height: 8rem;
   display: grid;
   align-items: center;
   justify-content: space-around;
   grid-auto-flow: column;
   grid-template-columns: auto 85%;
-  gap: 10px;
+  gap: 12px;
 }
 
 .item-maior-8 {
@@ -191,8 +187,8 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  width: 15.8rem;
-  height: 15.8rem;
+  width: 7rem;
+  height: 7rem;
   margin: 0 auto;
   background-image: var(--bg-image);
   background-size: cover;
@@ -217,7 +213,7 @@
   font-family: "Roboto";
 
   font-weight: 600;
-  font-size: 6.8rem;
+  font-size: 2.5rem;
 
   text-transform: uppercase;
   color: var(--voting-panel-parlamentarian-name-text-color);
@@ -230,14 +226,14 @@
 .page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
   font-family: "Roboto";
   font-weight: 300;
-  font-size: 5.7rem;
+  font-size: 2rem;
   color: var(--voting-panel-parlamentarian-political-party-text-color);
 }
 
 .page-panel-voting .box-body .box-left .item .role {
   font-family: "Roboto";
   font-weight: 700;
-  font-size: 5.7rem;
+  font-size: 2rem;
   color: var(--voting-panel-parlamentarian-role-text-color);
   align-self: center;
   text-transform: uppercase;

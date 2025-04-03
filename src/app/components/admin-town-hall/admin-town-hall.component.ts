@@ -10,18 +10,18 @@ import { TownHallService } from '../../service/townhall.service';
 
 @Component({
   selector: 'app-admin-town-hall',
-  templateUrl: './admin-town-hall.component.html',
-  styleUrls: ['./admin-town-hall.component.css']
+  templateUrl: 'admin-town-hall.component.html',
+  styleUrls: ['admin-town-hall.component.css']
 })
 export class AdminTownHallComponent implements OnInit {
 
 
   townHallList: TownHall[];
   townHallListAux: TownHall[];
-  formTownHall: FormGroup;  
+  formTownHall: FormGroup;
   titleModal: string = 'Adicionar Câmara';
   labelBtConfirmModal: string = '';
-  
+
   showTable:boolean = false;
   submitted: boolean = false;
   isEditting: boolean = false;
@@ -31,13 +31,13 @@ export class AdminTownHallComponent implements OnInit {
 
   showLegislatureDialog: boolean = false;
   showTableDialog: boolean = false;
-  
+
   userOptions: User[] = [];
-  
+
 
   townHallSelectedLegislatureUpdate: TownHall = new TownHall();
 
-  constructor(public townHallService: TownHallService, private cookieService: CookieService, private messageService: MessageService, private router: Router) { 
+  constructor(public townHallService: TownHallService, private cookieService: CookieService, private messageService: MessageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -51,9 +51,9 @@ export class AdminTownHallComponent implements OnInit {
       legislature: new FormControl(''),
       apiURL: new FormControl('', [Validators.required],),
     });
-    
+
     this.formTownHall.controls['legislature'].disable();
-    
+
     if(this.cookieService.get('user-role') != 'ROLE_ADMIN'){
       this.cookieService.deleteAll();
       this.router.navigate(['']);
@@ -76,7 +76,7 @@ export class AdminTownHallComponent implements OnInit {
   }
 
   openModal(townHall: TownHall, isEditing: boolean){
-    
+
     this.showDialog = true;
     this.isEditting = isEditing;
     this.labelBtConfirmModal = isEditing ? 'Atualizar' : 'Adicionar';
@@ -124,7 +124,7 @@ export class AdminTownHallComponent implements OnInit {
 
   createTownhall(townHall : TownHall){
     this.townHallService.createTownHall(townHall).subscribe({
-      
+
       next: data => {
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Câmara criada com sucesso!'});
         this.loading = false;
@@ -150,12 +150,13 @@ export class AdminTownHallComponent implements OnInit {
   }
 
   getTownHallList(){
-
+  this.loading = true;
     this.showTable = false;
     this.townHallService.getTownHallList().subscribe(res => {
       this.townHallList = res;
       this.townHallListAux = res;
       this.showTable = true;
+      this.loading = false;
     });
   }
 
@@ -173,7 +174,7 @@ export class AdminTownHallComponent implements OnInit {
           this.loading = false;
           this.resetEnviroment();
         },
-  
+
         error: error => {
           console.log(error);
           this.messageService.add({severity:'error', summary:'Ocorreu um erro', detail: error.error.message});

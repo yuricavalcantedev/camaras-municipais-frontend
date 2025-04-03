@@ -8,9 +8,9 @@
 }
 
 .column {
-     display: flex;
-    flex-direction: column;
-     gap: 13.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
 }
 
 .bandeira-brasil {
@@ -39,8 +39,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-top: 54px;
-  padding-bottom: 111px;
+  padding-top: 23px;
+  padding-bottom: 31px;
 }
 
 .voting-header-container .voting-title-container{
@@ -52,8 +52,8 @@
 }
 
 .voting-header-container .voting-title-container .voting-title {
-  padding-bottom: 1.3rem;
-  font-size: 8.7rem;
+  padding-bottom: 1rem;
+  font-size: 2.7rem;
   color: #fff;
   font-family: Roboto;
   text-align: center;
@@ -61,7 +61,7 @@
 }
 
 .voting-header-container .voting-title-container .voting-subtitle {
-  font-size: 6.7rem;
+  font-size: 3rem;
   color: #fff;
   font-family: Roboto;
   text-align: center;
@@ -72,7 +72,7 @@
   display: flex;
   position: absolute;
   left: 130px;
-  height: 10%;
+  height: 8%;
 }
 
 .status-info {
@@ -150,13 +150,20 @@
 .expedient-title {
   color: #fff;
   font-weight: 600;
-  font-size: 13rem;
+  font-size: 4rem;
 }
 
+.expedient-title-time {
+  font-family: Poppins;
+  color: #005F84;
+  font-weight: 600;
+  font-size: 5rem;
+  display: flex;
+  line-height: 46px;
+}
 
 .expedient-item {
   display: flex;
-  gap: 10rem;
 }
 
 .w-100 {
@@ -290,7 +297,7 @@
   align-items: center;
 
   font-weight: bold;
-  font-size: 6rem;
+  font-size: 5.7rem;
   text-transform: uppercase;
 
 
@@ -303,7 +310,7 @@
   display: flex;
   justify-content: center;
   font-weight: 900;
-  font-size: 6rem;
+  font-size: 5.7rem;
   color: var(--voting-panel-total-parlamentar-text-color);
 }
 
@@ -311,7 +318,7 @@
   display: flex;
   justify-content: center;
   font-weight: 900;
-  font-size: 6rem;
+  font-size: 5.7rem;
   color: var(--voting-panel-total-parlamentar-text-color);
 }
 
@@ -338,7 +345,7 @@
   flex: 1;
   justify-content: center;
   font-weight: 900;
-  font-size: 27.3rem;
+  font-size: 9.3rem;
 }
 
 .box-yes .description,
@@ -348,7 +355,7 @@
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
-  font-size: 12rem;
+  font-size: 9rem;
 }
 
 .page-panel-voting .footer .yes-no-abs {
@@ -436,7 +443,7 @@
 
 
 .box-total-parlamentar, .box-total-presentes {
-  font-size: 8.7rem;
+  font-size: 5.7rem;
 }
 
 .project-title {
@@ -510,4 +517,54 @@
   display: flex;
   justify-content: center;
   line-height: 1;
+}
+
+.card-time-container{
+  display: flex;
+  justify-content: center;
+}
+
+.card-time{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76rem;
+  height: 46rem;
+  background-color: #fff;
+  border-radius: 90px;
+  flex-direction: column;
+  gap: 19px;
+  line-height: 118px;
+}
+
+.card-time-aparte{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76rem;
+  height: 46rem;
+  background-color: #fff;
+  border-radius: 90px;
+  flex-direction: column;
+  gap: 19px;
+  line-height: 118px;
+}
+
+.time-countdown{
+  font-family: Poppins;
+  font-size: 13rem;
+  color: #005f84;
+  font-weight: 600;
+  display: flex;
+  margin-top: 42px;
+  justify-content: center;
+}
+
+.parlamentary-name-time-aparte{
+  font-family: Poppins;
+  color: #005F84;
+  font-weight: 600;
+  font-size: 4rem;
+  display: flex;
+  line-height: 46px;
 }
