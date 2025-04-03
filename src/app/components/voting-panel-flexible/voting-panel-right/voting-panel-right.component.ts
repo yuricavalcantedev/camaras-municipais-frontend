@@ -11,6 +11,7 @@ import { UtilService } from 'src/app/service/util.service';
 import { Control } from 'src/app/domain/control.model';
 import { ControlService } from 'src/app/service/control.service';
 import {ParlamentarTimer} from "../../../dto/parlamentar-timer.model";
+import { EControlType } from 'src/app/dto/control-type.enum';
 
 @Component({
   selector: 'app-voting-panel-right',
@@ -111,7 +112,8 @@ export class VotingPanelRightComponent implements OnInit {
   }
 
   private handleControlList(minutes: number) {
-    console.log("handleControlList", minutes)
+    if (!this.controllList) return minutes;
+    
     this.controllList.forEach((control, index) => {
       if (control.command === 'add') {
         minutes += 1;
@@ -123,6 +125,7 @@ export class VotingPanelRightComponent implements OnInit {
       this.controllList.splice(index, 1);
       this.deleteControlTime(control.id);
     });
+    
     return minutes;
   }
 
@@ -170,6 +173,25 @@ export class VotingPanelRightComponent implements OnInit {
         this.cookieService.set('endMainTimer', 'false');
       }
     }, this.ONE_SECOND);
+
+    setInterval(() => {
+      if (this.isMainTimerRunning) {
+        this.controlService.findByTypeAndParlamentarIdAll(EControlType.TIME, this.townhallId.toString()).subscribe({
+          next: (res) => {
+            this.controllList = res.sort((a, b) => b.id - a.id);
+            if (this.controllList && this.controllList.length > 0) {
+              let currentMinutes = Math.floor(this.countdown / 60);
+              currentMinutes = this.handleControlList(currentMinutes);
+              this.countdown = currentMinutes * 60 + (this.countdown % 60);
+              this.updateTimeLeft('parlamentary');
+            }
+          },
+          error: (err) => {
+            console.error('Erro ao buscar controles:', err);
+          }
+        });
+      }
+    }, 3000);
 
     this.sessionInfoInterval = setInterval(() => {
 
@@ -460,9 +482,13 @@ export class VotingPanelRightComponent implements OnInit {
 
   updateTimeLeft(timerType: string) {
     if (timerType === 'parlamentary') {
-      this.timeLeft = this.formatTime(this.countdown);
+      const minutes = Math.floor(this.countdown / 60);
+      const seconds = this.countdown % 60;
+      this.timeLeft = `${this.padWithLeadingZeros(minutes, 2)}:${this.padWithLeadingZeros(seconds, 2)}`;
     } else if (timerType === 'parlamentaryAParte') {
-      this.timeAparteLeft = this.formatTime(this.countdownAparte);
+      const minutes = Math.floor(this.countdownAparte / 60);
+      const seconds = this.countdownAparte % 60;
+      this.timeAparteLeft = `${this.padWithLeadingZeros(minutes, 2)}:${this.padWithLeadingZeros(seconds, 2)}`;
     }
   }
 

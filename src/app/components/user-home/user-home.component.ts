@@ -53,6 +53,7 @@ export class UserHomeComponent implements OnInit {
   parlamentarObject: ParlamentarTimer = null;
   selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
   selectedVote: string;
+  showTimeControlDialog: boolean = false;
 
   constructor(
     private userService: UserService,

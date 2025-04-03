@@ -68,6 +68,13 @@
         ></app-card-menu>
 
         <app-card-menu
+          *ngIf="parlamentar.role.name === 'ROLE_MODERATOR_VIEW'"
+          title="Tempo"
+          iconType="tempo"
+          (click)="showTimeControlDialog = true"
+        ></app-card-menu>
+
+        <app-card-menu
           title="Sair"
           iconType="sair"
           (click)="logOut()"
@@ -316,6 +323,25 @@
         [horizontal]="true"
         (click)="hideOptionsDialog()"
       ></app-button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Controle de Tempo"
+  [(visible)]="showTimeControlDialog"
+  [style]="{ width: '450px' }"
+  [modal]="true"
+>
+  <div class="time-control-options">
+    <div class="time-control-button" (click)="handleAddTimeDialog()">
+      <h3>Adicionar Tempo</h3>
+      <p>Adiciona 1 minuto ao tempo de fala atual</p>
+    </div>
+    
+    <div class="time-control-button" (click)="handlerRemoveTimeDialog()">
+      <h3>Remover Tempo</h3>
+      <p>Remove 1 minuto do tempo de fala atual</p>
     </div>
   </div>
 </p-dialog>

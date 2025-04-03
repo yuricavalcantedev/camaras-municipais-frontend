@@ -492,3 +492,38 @@ tr {
   font-family: Poppins;
   color: #6c757d;
 }
+
+.time-control-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.time-control-button {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.time-control-button:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.time-control-button h3 {
+  color: #384C6C;
+  margin: 0 0 8px 0;
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 16px; 
+}
+
+.time-control-button p {
+  color: #6c757d;
+  margin: 0;
+  font-family: Poppins;
+  font-size: 14px;
+}
