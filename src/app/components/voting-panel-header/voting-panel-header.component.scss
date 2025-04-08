@@ -6,7 +6,6 @@
 
 .header .chamber-logo {
   display: flex;
-  background-color: var(--vp-header-chamber-bg);
   justify-content: center;
   align-items: center;
   border-radius: 1rem 0rem 0rem;
@@ -32,6 +31,5 @@
   line-height: 4.375rem;
   letter-spacing: .15rem;
   color: var(--vp-header-session-name);
-  background-color: var(--vp-header-chamber-bg);
   border-radius: 0rem 1rem 0rem 0rem;
 }

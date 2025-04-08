@@ -259,14 +259,11 @@
   color: #FFCD27;
 }
 
-/* BOX LEFT */
-
 /* BOX RIGHT */
 .box-right {
   display: flex;
   flex-direction: column;
 }
-
 
 .page-panel-voting .box-body .box-right .box-right-in .info .title {
   font-family: "Roboto";

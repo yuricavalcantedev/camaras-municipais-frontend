@@ -3,9 +3,20 @@
   width: 100vw;
   height: 100vh;
   padding: 0.5rem;
-  background-color: var(--app-background-color);
+  background-color: #000b0ffa;
   flex-direction: column;
   overflow: hidden;
+  z-index: 2;
+  position: relative;
+}
+
+.bandeira-brasil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vw;
+  width: 100vw;
+  z-index: 1;
 }
 
 .status-info {
@@ -19,39 +30,26 @@
   background-color: transparent  !important;
 }
 
-.status-yes {
-  background-color: var(--app-vote-yes);
-  color: var(--app-primary-color);
+.status-yes .name{
+  color: #5DF06E !important;
 }
 
-.status-black {
-  color: var(--app-primary-color) !important;
+.status-no .name{
+  color: #F11B1B !important;
 }
 
-.status-no {
-  background-color: var(--app-vote-no);
-  color: var(--app-primary-color);
-}
-
-.status-abs {
-  background-color: var(--app-vote-abs);
-  color: var(--app-primary-color);
+.status-abs .name{
+  color: #FFCD27 !important;
 }
 
 .status-total {
   background-color: var(--app-status-total);
 }
 
-.status-presence {
-  background-color: var(--voting-panel-item-background-color) !important;
-}
-
 .status-no-presence {
   -webkit-filter: opacity(0.5);
   filter: opacity(0.5);
   filter: opacity(0.5);
-  /* IE */
-  background-color: var(--voting-panel-item-background-color) !important;
 }
 
 .status-abscense {
@@ -87,20 +85,12 @@
 }
 
 .page-panel-voting .box-body .box-left .item {
-  height: 8.5rem;
+  height: 8rem;
   display: grid;
   align-items: center;
   justify-content: space-around;
   grid-auto-flow: column;
   grid-template-columns: auto 85%;
-
-  border-top: 0px solid #DDDEDA;
-  border-right: 0px solid #DDDEDA;
-  border-bottom: 1px solid #DDDEDA;
-  border-left: 0px solid #DDDEDA;
-  border-width: 0px 0px 1px 0px;
-  border-style: solid solid solid solid;
-  border-color: #DDDEDA #DDDEDA #DDDEDA #DDDEDA;
   gap: 10px;
 }
 
@@ -138,8 +128,8 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
+  width: 7rem;
+  height: 7rem;
   margin: 0 auto;
   background-image: var(--bg-image);
   background-size: cover;
@@ -156,13 +146,51 @@
   flex-grow: 1;
 }
 
+.status-yes {
+  color: #5DF06E !important;
+}
+
+.status-no {
+  color: #F11B1B !important;
+}
+
+.status-abs {
+  color: #FFCD27 !important;
+}
+
+.status-yes .name {
+  color: #5DF06E !important;
+}
+
+.status-no .name {
+  color: #F11B1B !important;
+}
+
+.status-abs .name {
+  color: #FFCD27 !important;
+}
+
 .page-panel-voting .box-body .box-left .item .parlamentarian-info .name {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+
   font-family: "Roboto";
 
   font-weight: 600;
-  font-size: 3.2rem;
+  font-size: 2.5rem;
+
   text-transform: uppercase;
   color: var(--voting-panel-parlamentarian-name-text-color);
+
+  p {
+    margin: 0;
+  }
+  
+  img {
+    height: 2.5rem;
+    width: auto;
+  }
 }
 
 .name-big {
@@ -207,7 +235,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  background-color: var(--voting-panel-box-right-background-color);
 }
 
 .page-panel-voting .box-body .box-right .box-right-in .expedient {
@@ -292,7 +319,6 @@
   margin-right: 5px;
   margin-bottom: 10px;
   width: 100%;
-  background-color: var(--voting-panel-bg);
 }
 
 
@@ -408,18 +434,18 @@
 }
 
 .status-result-yes {
-  background-color: var(--app-vote-yes);
-  border: 2.5px dashed var(--app-vote-yes);
+  background-color: #5DF06E;
+  border-radius: 10px;
 }
 
 .status-result-no {
-  background-color: var(--app-vote-no);
-  border: 2.5px dashed var(--app-vote-no);
+  background-color: #F11B1B;
+  border-radius: 10px;
 }
 
 .status-result-abs {
-  background-color: var(--app-vote-abs);
-  border: 2.5px dashed var(--app-vote-abs);
+  background-color: #FFCD27;
+  border-radius: 10px;
 }
 
 .status-total {
