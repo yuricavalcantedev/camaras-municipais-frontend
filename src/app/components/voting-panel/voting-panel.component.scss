@@ -60,7 +60,7 @@
   background-color: gray;
 }
 
-.page-panel-voting .box-body {
+.page-panel-voting .box-bodyy {
   display: grid;
   grid-template-columns: 56% 43.7%;
   grid-template-rows: 100%;
@@ -71,7 +71,7 @@
 }
 
 /* BOX LEFT */
-.page-panel-voting .box-body .box-left {
+.page-panel-voting .box-bodyy .box-left {
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr 1fr;
@@ -84,7 +84,7 @@
   grid-auto-rows: min-content !important;
 }
 
-.page-panel-voting .box-body .box-left .item {
+.page-panel-voting .box-bodyy .box-left .item {
   height: 8rem;
   display: grid;
   align-items: center;
@@ -124,7 +124,7 @@
   border-radius: 8px;
 }
 
-.page-panel-voting .box-body .box-left .item .picture {
+.page-panel-voting .box-bodyy .box-left .item .picture {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -142,7 +142,7 @@
   height: 10rem !important;
 }
 
-.page-panel-voting .box-body .box-left .item .parlamentarian-info {
+.page-panel-voting .box-bodyy .box-left .item .parlamentarian-info {
   flex-grow: 1;
 }
 
@@ -170,7 +170,7 @@
   color: #FFCD27 !important;
 }
 
-.page-panel-voting .box-body .box-left .item .parlamentarian-info .name {
+.page-panel-voting .box-bodyy .box-left .item .parlamentarian-info .name {
   display: flex;
   align-items: center;
   gap: .4rem;
@@ -197,14 +197,14 @@
   font-size: 3.5rem !important;
 }
 
-.page-panel-voting .box-body .box-left .item .parlamentarian-info .political-party {
+.page-panel-voting .box-bodyy .box-left .item .parlamentarian-info .political-party {
   font-family: "Roboto";
   font-weight: 300;
   font-size: 3rem;
   color: var(--voting-panel-parlamentarian-political-party-text-color);
 }
 
-.page-panel-voting .box-body .box-left .item .role {
+.page-panel-voting .box-bodyy .box-left .item .role {
   font-family: "Roboto";
   font-weight: 700;
   font-size: 3rem;
@@ -237,7 +237,7 @@
   flex-direction: column;
 }
 
-.page-panel-voting .box-body .box-right .box-right-in .expedient {
+.page-panel-voting .box-bodyy .box-right .box-right-in .expedient {
   font-family: "Roboto";
   font-weight: 900;
   font-size: 11rem;
@@ -250,14 +250,14 @@
   margin: auto;
 }
 
-.page-panel-voting .box-body .box-right .box-right-in .info {
+.page-panel-voting .box-bodyy .box-right .box-right-in .info {
   display: flex;
   flex: 1;
   justify-content: flex-start;
   flex-direction: column;
 }
 
-.page-panel-voting .box-body .box-right .box-right-in .info .title {
+.page-panel-voting .box-bodyy .box-right .box-right-in .info .title {
   font-family: "Roboto";
   color: var(--voting-panel-right-info-title-color);
 
@@ -272,7 +272,7 @@
   margin: 2rem;
 }
 
-.page-panel-voting .box-body .box-right .box-right-in .info .author {
+.page-panel-voting .box-bodyy .box-right .box-right-in .info .author {
   font-family: "Roboto";
   color: var(--voting-panel-right-info-title-color);
 
@@ -285,7 +285,7 @@
   margin: 2rem;
 }
 
-.page-panel-voting .box-body .box-right .box-right-in .info .subtitle {
+.page-panel-voting .box-bodyy .box-right .box-right-in .info .subtitle {
   font-family: "Roboto";
   color: var(--voting-panel-right-subtitle-color);
   font-size: 2.75rem;
