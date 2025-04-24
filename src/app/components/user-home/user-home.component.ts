@@ -16,6 +16,7 @@ import { ParlamentarTimer } from 'src/app/dto/parlamentar-timer.model';
 import { ControlService } from 'src/app/service/control.service';
 import { ControlDTO } from 'src/app/dto/control-dto.model';
 import { EControlType } from 'src/app/dto/control-type.enum';
+import { debounceTime, filter, fromEvent, interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-home',
@@ -55,6 +56,11 @@ export class UserHomeComponent implements OnInit {
   selectedVote: string;
   showTimeControlDialog: boolean = false;
 
+  private fullscreenSubscription: Subscription;
+  private resizeSubscription: Subscription;
+  private orientationSubscription: Subscription;
+  private checkFullscreenInterval: Subscription;
+
   constructor(
     private userService: UserService,
     private messageService: MessageService,
@@ -68,11 +74,70 @@ export class UserHomeComponent implements OnInit {
 
   loading: boolean = false;
 
+  private isMobileDevice(): boolean {
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return mobileRegex.test(navigator.userAgent) || window.innerWidth <= 768;
+  }
+
+  private isInFullscreen(): boolean {
+    return !!(
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).mozFullScreenElement ||
+      (document as any).msFullscreenElement
+    );
+  }
+
+  private setupFullscreenMonitoring(): void {
+    if (!this.isMobileDevice()) return;
+
+    this.fullscreenSubscription = fromEvent(document, 'fullscreenchange')
+      .pipe(debounceTime(250))
+      .subscribe(() => {
+        if (!this.isInFullscreen()) {
+          this.utilService.fullScreen();
+        }
+      });
+
+    this.resizeSubscription = fromEvent(window, 'resize')
+      .pipe(
+        debounceTime(250),
+        filter(() => this.isMobileDevice())
+      )
+      .subscribe(() => {
+        if (!this.isInFullscreen()) {
+          this.utilService.fullScreen();
+        }
+      });
+
+    this.orientationSubscription = fromEvent(window, 'orientationchange')
+      .pipe(debounceTime(250))
+      .subscribe(() => {
+        if (!this.isInFullscreen()) {
+          setTimeout(() => this.utilService.fullScreen(), 100);
+        }
+      });
+
+    this.checkFullscreenInterval = interval(2000)
+      .pipe(
+        filter(() => this.isMobileDevice() && !this.isInFullscreen())
+      )
+      .subscribe(() => {
+        this.utilService.fullScreen();
+      });
+  }
+
   ngOnInit(): void {
     this.session = new SessionParlamentarDTO();
     this.votingOptions.push('YES');
     this.votingOptions.push('NO');
     this.votingOptions.push('ABSTENTION');
+
+    this.setupFullscreenMonitoring();
+
+    if (this.isMobileDevice()) {
+      setTimeout(() => this.utilService.fullScreen(), 100);
+    }
 
     this.townHallId = Number.parseInt(
       this.cookieService.get('user-townhall-id')
@@ -110,6 +175,33 @@ export class UserHomeComponent implements OnInit {
           : null;
       console.log(this.parlamentarObject);
     }, 1000);
+
+    if (this.isMobileDevice()) {
+      setTimeout(() => {
+        this.utilService.fullScreen();
+      }, 100);
+    }
+
+    window.addEventListener('orientationchange', () => {
+      if (this.isMobileDevice()) {
+        setTimeout(() => {
+          this.utilService.fullScreen();
+        }, 100);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('orientationchange', () => {
+      if (this.isMobileDevice()) {
+        this.utilService.fullScreen();
+      }
+    });
+
+    this.fullscreenSubscription?.unsubscribe();
+    this.resizeSubscription?.unsubscribe();
+    this.orientationSubscription?.unsubscribe();
+    this.checkFullscreenInterval?.unsubscribe();
   }
 
   logOut() {

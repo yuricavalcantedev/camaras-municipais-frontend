@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService,
     private cookieService: CookieService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private utilService: UtilService
   ) {
     this.initForm();
   }
@@ -234,5 +235,9 @@ export class LoginComponent implements OnInit {
   isMobileDevice(): boolean {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
       || (window.innerWidth <= 768);
+  }
+
+  fullScreen() {
+    this.utilService.fullScreen();
   }
 }

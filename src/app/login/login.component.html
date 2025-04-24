@@ -2,9 +2,17 @@
 <div class="card">
     <div class="flex-1 card-container  indigo-container">
         <div class="flex flex-row card-in">
-            <div class="image-side"></div>
+            <div class="image-side">
+              <div class="logo"></div>
+            </div>
             <div class="login-container">
-                <div class="logo"></div>
+              <button 
+                pButton 
+                icon="pi pi-window-maximize"
+                class="p-button-rounded p-button-text fullscreen-button"
+                (click)="fullScreen()"
+                type="button"
+              ></button>
                 <div *ngIf="loading" class="loading-overlay">
                     <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--app-primary-color)" animationDuration=".5s"></p-progressSpinner>
                 </div>

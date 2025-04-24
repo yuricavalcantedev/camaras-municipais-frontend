@@ -71,6 +71,8 @@ input{
   background-size: cover;
   background-position: center;
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-container {
@@ -96,17 +98,20 @@ input{
 }
 
 .logo {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 122px;
-  height: 113px;
+  width: 180px;
+  height: 170px;
   background-image: url('/assets/images/logo_rsv.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  top: 17px;
-  position: absolute;
+  background-size: 80%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 
 .logo img {
@@ -351,4 +356,35 @@ input{
   .p-dropdown-panel-open .p-dropdown-filter {
     pointer-events: auto;
   }
+}
+
+.fullscreen-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #005F84;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background-color 0.2s;
+}
+
+.fullscreen-button:hover {
+  background-color: #004967;
+}
+
+.fullscreen-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Style for when in fullscreen mode */
+.fullscreen-button.active {
+  background-color: #004967;
 }

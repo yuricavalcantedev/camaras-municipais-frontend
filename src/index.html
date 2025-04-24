@@ -1,13 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
-  <title>CamarasMunicipais</title>
+  <title>Câmaras Municipais</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Câmaras Municipais">
+
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="email=no">
+
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .p-dropdown-panel {
+      overflow: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      touch-action: pan-y !important;
+    }
+
+    .p-dropdown-items-wrapper {
+      overflow: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      touch-action: pan-y !important;
+    }
+
+    .p-dropdown-items {
+      touch-action: pan-y !important;
+    }
+  </style>
+
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo_rsv.png">
+  <link rel="apple-touch-icon" href="assets/images/logo_rsv.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700&family=Source+Sans+Pro&display=swap"
     rel="stylesheet" />
@@ -22,6 +64,46 @@
     $(document).ready(function () {
       $.adaptiveBackground.run()
     });
+  </script>
+
+  <script>
+    document.addEventListener('touchmove', function(event) {
+      let target = event.target;
+      let isDropdown = false;
+      while (target != null) {
+        if (target.classList && (
+            target.classList.contains('p-dropdown-panel') || 
+            target.classList.contains('p-dropdown-items-wrapper') ||
+            target.classList.contains('p-dropdown-items'))) {
+          isDropdown = true;
+          break;
+        }
+        target = target.parentElement;
+      }
+
+      if (!isDropdown && event.scale !== 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchstart', function(event) {
+      let target = event.target;
+      let isDropdown = false;
+      while (target != null) {
+        if (target.classList && (
+            target.classList.contains('p-dropdown-panel') || 
+            target.classList.contains('p-dropdown-items-wrapper') ||
+            target.classList.contains('p-dropdown-items'))) {
+          isDropdown = true;
+          break;
+        }
+        target = target.parentElement;
+      }
+
+      if (!isDropdown && event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
   </script>
 </head>
 
