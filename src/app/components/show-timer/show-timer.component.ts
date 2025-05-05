@@ -32,8 +32,8 @@ export class ShowTimerComponent implements OnInit {
   mainTextMinutes: any = '00';
   mainTextSeconds: any = '00';
   
-  subTextMinutes: any = '00';
-  subTextSeconds: any = '00';
+  subTextMinutes: any;
+  subTextSeconds: any;
 
   showAParteTime: boolean;
 

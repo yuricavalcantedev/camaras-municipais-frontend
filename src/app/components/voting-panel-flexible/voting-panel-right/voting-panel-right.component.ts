@@ -257,8 +257,8 @@ export class VotingPanelRightComponent implements OnInit {
   mainTimer(timeInSeconds: number) {
     let minutes: number = 0;
     let seconds: number = timeInSeconds;
-
-    if (timeInSeconds >= 60) {
+  
+    if(timeInSeconds >= 60){
       minutes = Math.floor(timeInSeconds / 60);
       seconds = timeInSeconds % 60;
     } else {
@@ -273,11 +273,16 @@ export class VotingPanelRightComponent implements OnInit {
       this.mainTextSeconds = seconds < 10 ? '0' + seconds : seconds;
 
       if (minutes == -1 && seconds == 0) {
-        this.clearMainTimer(true);
         this.soundService.playSound("assets/sounds/main_sound.mp3");
-        this.isMainTimerRunning = false;
-        this.isTimeTransmissionActive = false;
-        this.cookieService.set('parlamentarObject', '');
+
+        setTimeout(() => {
+          this.clearMainTimer(true);
+          this.isMainTimerRunning = false;
+          this.isTimeTransmissionActive = false;
+          this.cookieService.set('parlamentarObject', '');
+        }, 5000);
+
+        clearInterval(this.mainTimerInterval);
       }
     }, this.ONE_SECOND);
   }
