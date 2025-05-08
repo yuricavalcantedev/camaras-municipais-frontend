@@ -499,6 +499,14 @@
    box-shadow: none;
 }
 
+.subtitle-limit {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  max-height: calc(1.5em * 4);
+}
 
 /* LOADING */
 
