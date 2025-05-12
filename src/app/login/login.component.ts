@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   ];
   password: string = '';
   maskedPassword: string = '';
+  showPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -115,6 +116,10 @@ export class LoginComponent implements OnInit {
       this.loadParlamentares(townHallId);
       this.selectedParlamentarImage = '';
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   loadParlamentares(townHallId: number) {
@@ -212,6 +217,16 @@ export class LoginComponent implements OnInit {
         password: this.password
       });
     }
+
+    if ('vibrate' in navigator) {
+      navigator.vibrate(100);
+    }
+
+    const button = event.currentTarget as HTMLElement;
+  button.classList.add('button-clicked');
+  setTimeout(() => {
+    button.classList.remove('button-clicked');
+  }, 200);
   }
 
   clearPassword() {
