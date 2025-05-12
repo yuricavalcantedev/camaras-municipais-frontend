@@ -225,21 +225,33 @@ export class UserHomeComponent implements OnInit {
           this.session = res;
           this.voting = this.session.voting;
           this.linkSessao = this.session.sessionSubjectURL;
+
+          if (this.voting && this.voting.id !== this.lastVotingId) {
+            this.selectedVote = null;
+            this.userHasVoted = false;
+            this.lastVotingId = this.voting.id;
+          }
+
           this.existsOpenVoting =
             this.voting != null && this.session.voting.status == 'VOTING';
+
           if (this.voting == null) {
-            this.userHasVoted = false;
+            this.userHasVoted = false
+            this.selectedVote = null;
             this.disableAbstentionButton = false;
             this.disableNoButton = false;
             this.disableYesButton = false;
           }
+
           if (!this.hasUpdatedPresence) {
             this.updatePresence('PRESENCE');
           }
+
           if (this.existsOpenVoting) {
             this.votingTitle = this.voting.description;
           } else {
             this.votingTitle = '';
+            this.selectedVote = null;
           }
         }
       },
