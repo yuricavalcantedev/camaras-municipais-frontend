@@ -98,7 +98,7 @@ export class VotingPanelRightComponent implements OnInit {
   }
 
   padWithLeadingZeros(num: number, totalLength: number) {
-    return String(num).length == 1 ? num : String(num).padStart(totalLength, '0');
+    return String(num).padStart(totalLength, '0');
   }
 
   deleteControlTime(id: number) {
