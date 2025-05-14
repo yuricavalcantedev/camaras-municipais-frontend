@@ -43,7 +43,9 @@
           </div>
           <div class="box-total-presentes box-total-ausentes">
             <span class="description color-no fw-bold"> Ausentes </span>
-            <p class="quantity color-no fw-bold">0</p>
+            <p class="quantity color-no fw-bold">
+              {{ padWithLeadingZeros(parlamentaresTownhall.length - presentCounter, 2) }}
+            </p>
           </div>
 
           <div class="box-total-parlamentar">
