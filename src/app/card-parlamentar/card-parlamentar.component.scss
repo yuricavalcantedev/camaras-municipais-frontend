@@ -24,7 +24,7 @@
 }
 
 .parlamentarian-info-personal{
-  background: #73D7CA;
+  background: #005F84;
     padding: 7px;
     font-family: Poppins;
     font-size: 18px;
@@ -35,16 +35,32 @@
     border-radius: 10px;
 }
 
+.parlamentarian-name {
+  max-width: 160px;
+  flex-shrink: 1;
+}
+
+.parlamentarian-office {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .parlamentarian-electoral-party{
   background: #005F84;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px;
-    border-radius: 10px;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 600;
-    display: flex;
-    color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
 }

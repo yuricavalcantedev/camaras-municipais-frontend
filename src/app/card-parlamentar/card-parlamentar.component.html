@@ -1,11 +1,11 @@
 <div class='parliamentarian' style="background-image: url({{photo}})" data-adaptive-background data-ab-css-background>
   <div class="parliamentarian-info-all">
     <div class="parlamentarian-info-personal">
-      <div class='parlamentarian-name'>
+      <div class='parlamentarian-name text-truncate' [title]="name">
         {{name}}
       </div>
       <div class="parlamentarian-office">
-        - Vereador
+        &nbsp;(Vereador)
       </div>
     </div>
     <div class='parlamentarian-electoral-party'>
