@@ -448,6 +448,10 @@ export class VotingPanelRightComponent implements OnInit {
   //------------------------------
 
   startTimer(timerType: string) {
+    setTimeout(() => {
+      this.soundService.playSound('assets/sounds/em_votacao.mp3');
+    }, 1500);
+
     if (timerType === 'parlamentary') {
       this.countdownRunning = true;
       this.countdown = this.parlamentaryData?.timeToSpeak || 0;
@@ -460,6 +464,9 @@ export class VotingPanelRightComponent implements OnInit {
       this.timerInterval = setInterval(() => {
         if (this.countdown > 0) {
           this.countdown--;
+          if (this.countdown == 30 || this.countdown == 59 || this.countdown == 120) {
+            this.soundService.playSound("assets/sounds/warning_sound.mp3");
+          }
           this.updateTimeLeft('parlamentary');
         } else {
           this.handleTimerEnd('parlamentary');
@@ -504,6 +511,7 @@ export class VotingPanelRightComponent implements OnInit {
   }
 
   handleTimerEnd(timerType: string) {
+    this.soundService.playSound('assets/sounds/main_sound.mp3');
     if (timerType === 'parlamentary') {
       clearInterval(this.timerInterval);
       localStorage.removeItem('parlamentarObject');
@@ -514,7 +522,10 @@ export class VotingPanelRightComponent implements OnInit {
       this.countdownAparteRunning = false;
     }
 
-    // Simulate loading process
+    setTimeout(() => {
+      this.soundService.playSound('assets/sounds/votacao_encerrada.mp3');
+    }, 5000);
+
     setTimeout(() => {
       this.loading = false;
     }, 500);
