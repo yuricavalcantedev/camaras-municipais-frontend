@@ -448,10 +448,6 @@ export class VotingPanelRightComponent implements OnInit {
   //------------------------------
 
   startTimer(timerType: string) {
-    setTimeout(() => {
-      this.soundService.playSound('assets/sounds/em_votacao.mp3');
-    }, 1500);
-
     if (timerType === 'parlamentary') {
       this.countdownRunning = true;
       this.countdown = this.parlamentaryData?.timeToSpeak || 0;
@@ -521,10 +517,6 @@ export class VotingPanelRightComponent implements OnInit {
       localStorage.removeItem('parlamentarAParteObject');
       this.countdownAparteRunning = false;
     }
-
-    setTimeout(() => {
-      this.soundService.playSound('assets/sounds/votacao_encerrada.mp3');
-    }, 5000);
 
     setTimeout(() => {
       this.loading = false;
