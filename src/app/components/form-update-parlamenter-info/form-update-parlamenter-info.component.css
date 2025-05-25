@@ -1,0 +1,11 @@
+input{
+    width: 100%;
+}
+
+.closer{
+    margin-bottom: -10px;
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+}

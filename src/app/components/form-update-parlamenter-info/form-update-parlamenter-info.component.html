@@ -1,0 +1,24 @@
+<form #updateInfoForm [formGroup]="formUpdateInfo" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-10">
+                    <label>Nome antigo: {{parlamentarOldName}}</label>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>Novo nome:</label>
+                </div>
+                <div class="col-10 modal-div">
+                    <input type="text" formControlName="newName" class="form-control" pInputText>
+                </div>
+            </div>
+        <div class="row" style="margin-top: 10px;">
+            <button style="margin-left:10px;" pButton pRipple type="submit" label="Atualizar" icon="pi pi-save" class="p-button-rounded p-button-success"></button>
+            <button style="margin-left:10px;" pButton pRipple label="Cancelar" (click)="onCancel()" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+        </div>
+        </div>
+    </div>
+</form>

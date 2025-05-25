@@ -34,6 +34,7 @@
                         <td style="display: flex; justify-content: center;">
                             
                             <p-chip styleClass="custom-chip" *ngIf="user.roles[0].name == 'ROLE_MODERATOR_VIEW'" label="Presidente da Câmara"></p-chip>
+                            <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-pencil" (click)="openModalUpdateInfo(user.id, user.name)" label="Atual. Info"class="p-button-outlined p-button-rounded p-button-primary"></button>
                             <button pButton style="margin-left: 10px;" pRipple type="button" icon="pi pi-history" (click)="openModalUpdatePassword(user.id, user.username)" label="Atual. Senha"class="p-button-outlined p-button-rounded p-button-secondary">
                                 <label *ngIf="user.isRecoveringPassword" class="pi pi-bell" style="margin-right: 10px;"></label>
                             </button>
@@ -46,3 +47,5 @@
         </div>
     </p-card>
 </div>
+
+

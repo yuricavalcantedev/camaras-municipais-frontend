@@ -66,6 +66,7 @@ import { SelectButtonComponent } from './components/select-button/select-button.
 import { VotingPanelLeftComponent } from './components/voting-panel-flexible/voting-panel-left/voting-panel-left.component';
 import { VotingPanelRightComponent } from './components/voting-panel-flexible/voting-panel-right/voting-panel-right.component';
 import { VotingFooterComponent } from './components/voting-panel-flexible/components/voting-footer/voting-footer.component';
+import { FormUpdateParlamenterInfoComponent } from './components/form-update-parlamenter-info/form-update-parlamenter-info.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { VotingFooterComponent } from './components/voting-panel-flexible/compon
     SelectButtonComponent,
     VotingPanelLeftComponent,
     VotingPanelRightComponent,
-    VotingFooterComponent
+    VotingFooterComponent,
+    FormUpdateParlamenterInfoComponent
   ],
   imports: [
     BrowserModule,

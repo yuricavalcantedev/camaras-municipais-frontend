@@ -12,6 +12,7 @@ export class ParlamentarService {
 
   private baseUrl = environment.apiUrl + '/parlamentares';
   private updateRoleURL = '/update-role'
+  private updateInfoURL = '/update-info';
 
   constructor(private http: HttpClient) {}
   
@@ -31,6 +32,10 @@ export class ParlamentarService {
 
   updateRole(updateUserRoleDTO: UpdateUserRoleDTO) : Observable<Parlamentar>{
     return this.http.put<Parlamentar>(this.baseUrl + this.updateRoleURL, updateUserRoleDTO);
+  }
+
+  updateInfo(updateParlamentarInfoDTO: any): Observable<Parlamentar> {
+    return this.http.put<Parlamentar>(this.baseUrl + this.updateInfoURL, updateParlamentarInfoDTO);
   }
   
   errorHandl(error: any) {

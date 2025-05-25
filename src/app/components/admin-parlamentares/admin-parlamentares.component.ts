@@ -7,7 +7,7 @@ import { UpdateUserRoleDTO } from '../../dto/update-user-role-dto.model';
 import { FormResetPasswordComponent } from '../../form-reset-password/form-reset-password.component';
 import { ParlamentarService } from '../../service/parlamentar.service';
 import { TownHallService } from '../../service/townhall.service';
-import { UserService } from '../../service/user.service';
+import { FormUpdateParlamenterInfoComponent } from '../form-update-parlamenter-info/form-update-parlamenter-info.component';
 
 @Component({
   selector: 'app-admin-parlamentares',
@@ -21,7 +21,6 @@ export class AdminParlamentaresComponent implements OnInit {
   townhalls: TownHall[];
   parlamentarList: Parlamentar[];
   selectedTownhall: TownHall = new TownHall();
-
   showTable: boolean = false;
 
   constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService,
@@ -61,6 +60,23 @@ export class AdminParlamentaresComponent implements OnInit {
       }
     });
   }
+
+  openModalUpdateInfo(id: number, oldName: string){
+    
+    const refModal = this.dialogService.open(FormUpdateParlamenterInfoComponent, {
+      header: 'Atualizar informações do parlamantar',
+      width: '50%',
+      data:{
+        id: id,
+        oldName: oldName,
+      }
+    });
+
+    refModal.onClose.subscribe(data => {      
+      this.searchParlamentar();
+    });
+  }
+    
 
   openModalUpdatePassword(id: number, username: string){
     
