@@ -154,9 +154,9 @@
 }
 
 .expedient-title-time {
-  font-family: Poppins;
-  color: #005F84;
-  font-weight: 600;
+  font-family: Montserrat;
+  color: black;
+  font-weight: 800;
   font-size: 5rem;
   display: flex;
   line-height: 46px;
@@ -481,6 +481,13 @@
   opacity: 1;
 }
 
+.timers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 300px;
+}
+
 .time-container{
   display: flex;
   justify-content: center;
@@ -548,13 +555,21 @@
   flex-direction: column;
   gap: 19px;
   line-height: 118px;
+
+  &.aparte-only {
+    margin: auto;
+  }
+}
+
+.card-time, .card-time-aparte {
+  text-align: center;
 }
 
 .time-countdown{
-  font-family: Poppins;
-  font-size: 13rem;
-  color: #005f84;
-  font-weight: 600;
+  font-family: Montserrat;
+  font-size: 15rem;
+  color: black;
+  font-weight: 700;
   display: flex;
   margin-top: 42px;
   justify-content: center;
@@ -568,3 +583,4 @@
   display: flex;
   line-height: 46px;
 }
+

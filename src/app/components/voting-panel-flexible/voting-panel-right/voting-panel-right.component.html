@@ -5,7 +5,46 @@
 <div>
   <img src="../../../../assets/images/bandeira_brasil.png" alt="Bandeira do Brasil" class="bandeira-brasil">
 
-  <div class="page-panel-voting">
+  <div class="page-panel-voting" *ngIf="!loading && (countdownRunning || countdownAparteRunning)" style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 100px;">
+    <div>
+      <app-card-parlamentar
+        *ngIf="countdownRunning && !countdownAparteRunning && parlamentaryData.urlImage"
+        photo="{{parlamentaryData.urlImage}}"
+        name="{{parlamentaryData.name}}"
+        politicalParty="{{parlamentaryData.politicalParty}}">
+      </app-card-parlamentar>
+
+      <app-card-parlamentar
+        *ngIf="countdownAparteRunning && parlamentaryAParteData.urlImage"
+        photo="{{parlamentaryAParteData.urlImage}}"
+        name="{{parlamentaryAParteData.name}}"
+        politicalParty="{{parlamentaryAParteData.politicalParty}}">
+      </app-card-parlamentar>
+    </div>
+
+    <div class="timers-container">
+      <!-- Timer Principal -->
+      <div *ngIf="countdownRunning && !countdownAparteRunning" class="card-time-container">
+        <div class="card-time">
+          <h2 class="expedient-title-time">
+            {{expedientType == "Expedientes diversos" ? otherExpedient : expedientType}}
+          </h2>
+          <p class="time-countdown">{{ timeLeft }}</p>
+        </div>
+      </div>
+
+      <!-- Timer do Aparte -->
+      <div *ngIf="countdownAparteRunning" class="card-time-container" [class.aparte-only]="!countdownRunning">
+        <div class="card-time-aparte">
+          <p class="expedient-title-time">A parte</p>
+          <p class="parlamentary-name-time-aparte">{{parlamentaryAParteData.name}} - {{parlamentaryAParteData.politicalParty}}</p>
+          <p class="time-countdown">{{ timeAparteLeft }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-panel-voting" *ngIf="!loading && !countdownRunning && !countdownAparteRunning">
     <!-- <app-voting-panel-header
       sessionName="{{ this.session.name }}"
       townHallUrlImage="{{ townHallUrlImage }}"
@@ -25,7 +64,7 @@
       </div>
     </div>
 
-    <div class="box-body" *ngIf="!loading && !countdownRunning && !countdownAparteRunning">
+    <div class="box-body">
       <div class="column" [ngStyle]="{
         'justify-content': !existsOpenVoting ? 'center' : null
       }">
@@ -106,38 +145,6 @@
             >
               {{ resultType }}
             </p>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="!loading && countdownRunning" style="display: flex; flex-direction: row; gap: 50px; align-items: center; justify-content: center; margin-top: 100px;">
-      <div>
-        <app-card-parlamentar
-          *ngIf="parlamentaryData.urlImage"
-          photo="{{parlamentaryData.urlImage}}"
-          name="{{parlamentaryData.name}}"
-          politicalParty="{{parlamentaryData.politicalParty}}">
-        </app-card-parlamentar>
-      </div>
-  
-      <div class="card-time-container">
-        <div class="card-time">
-          <h2 class="expedient-title-time">
-            {{
-              expedientType == "Expedientes diversos" ? otherExpedient : expedientType
-            }}
-          </h2>
-          
-          <!-- <p class="countdown-title p-5" *ngIf="parlamentaryData.urlImage">{{parlamentaryData.name}} - {{parlamentaryData.politicalParty}}</p> -->
-          <p class="time-countdown">{{ timeLeft }}</p>
-        </div>
-      </div>
-
-      <div *ngIf="countdownAparteRunning" class="card-time-container">
-        <div class="card-time-aparte">
-          <p class="expedient-title-time">A parte</p>
-          <p class="parlamentary-name-time-aparte">{{parlamentaryAParteData.name}} - {{parlamentaryAParteData.politicalParty}}</p>
-          <p class="time-countdown">{{ timeAparteLeft }}</p>
         </div>
       </div>
     </div>

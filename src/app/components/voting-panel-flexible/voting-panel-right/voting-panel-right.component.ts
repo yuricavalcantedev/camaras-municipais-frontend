@@ -82,7 +82,7 @@ export class VotingPanelRightComponent implements OnInit {
   parlamentaryAParteData: ParlamentarTimer;
   countdownRunning = false;
   countdownAparteRunning = false;
-
+  isAParteActive: boolean = false;
 
   constructor(
     private cookieService: CookieService,
@@ -449,6 +449,9 @@ export class VotingPanelRightComponent implements OnInit {
 
   startTimer(timerType: string) {
     if (timerType === 'parlamentary') {
+      if (this.isAParteActive) {
+        return;
+      }
       this.countdownRunning = true;
       this.countdown = this.parlamentaryData?.timeToSpeak || 0;
       this.updateTimeLeft('parlamentary');
@@ -516,6 +519,7 @@ export class VotingPanelRightComponent implements OnInit {
       clearInterval(this.timerIntervalAparte);
       localStorage.removeItem('parlamentarAParteObject');
       this.countdownAparteRunning = false;
+      this.isAParteActive = false;
     }
 
     setTimeout(() => {
