@@ -159,7 +159,7 @@ export class TownHallControlComponent implements OnInit {
 
   computeSessionVoting() {
     this.someVoting = this.session.votingList.find(
-      (voting) => voting.parlamentarVotingList.some(parlamentarVoting => parlamentarVoting.result !== 'NULL')
+      (voting) => voting.parlamentarVotingList.length > 0
     );
   }
 
@@ -550,6 +550,7 @@ export class TownHallControlComponent implements OnInit {
       }
     });
   }
+
 
   async cleanPanel() {
     if (this.someVoting && this.someVoting.id) {
