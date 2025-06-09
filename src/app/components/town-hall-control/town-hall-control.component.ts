@@ -355,16 +355,32 @@ export class TownHallControlComponent implements OnInit {
   }
 
   deleteSession(){
-
     this.showDeleteSessionDialog = false;
     this.sessionService.delete(this.session.uuid).subscribe({
       next: data => {
         clearInterval(this.firstInterval);
         clearInterval(this.secondInterval);
-        this.cookieService.deleteAll();
-        this.router.navigate(['login']);
-      }, error: error => {
-        this.messageService.add({key: 'bc', severity:'error', summary:'Erro!', detail:error.error.description});
+
+        this.cookieService.delete('session-uuid');
+        this.cookieService.delete('playInVoting');
+        this.cookieService.delete('playCloseVoting');
+
+        this.existsSession = false;
+        this.session = new Session();
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Sessão deletada com sucesso'
+        });
+      },
+      error: error => {
+        this.messageService.add({
+          key: 'bc',
+          severity: 'error',
+          summary: 'Erro!',
+          detail: error.error.description
+        });
       }
     });
   }
