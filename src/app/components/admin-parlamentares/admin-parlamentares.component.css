@@ -1,12 +1,172 @@
-:host ::ng-deep .p-chip.custom-chip {
-    background: var(--primary-color);
-    color: var(--primary-color-text);
+.container {
+    padding: 0; /* Remover preenchimento padrão do contêiner se houver */
 }
 
-th{
-    font-size: 17px;
+/* Estilo do componente p-card */
+:host ::ng-deep .p-card {
+    background-color: #fbfbfb; /* Fundo mais claro para cartões aninhados */
+    border-radius: 12px; /* Cantos ligeiramente menos arredondados que a visualização principal da aba */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05); /* Sombra mais visível */
+    border: 1px solid #e0e0e0; /* Borda sutil para dar um "recorte" de painel */
 }
-  
-tr{
-    font-size: 15px;
+
+:host ::ng-deep .p-card .p-card-header {
+    display: none; /* Ocultar cabeçalho padrão se estiver vazio */
+}
+
+:host ::ng-deep .p-card .p-card-body {
+    padding: 25px; /* Aumentado o preenchimento dentro do corpo do cartão */
+}
+
+/* Ajustar títulos do cartão */
+:host ::ng-deep .p-card h2 {
+    font-size: 1.8rem; /* Título maior para melhor visibilidade */
+    font-weight: bold;
+    color: #2c3e50; /* Cor mais escura para o título */
+    margin-bottom: 25px; /* Mais espaço abaixo do título */
+}
+
+/* Estilo dos botões - comum em todos os componentes administrativos */
+:host ::ng-deep .p-button {
+    border-radius: 10px; /* Botões mais arredondados */
+    padding: 12px 20px; /* Aumentado o preenchimento */
+    font-weight: 600;
+    font-size: 1.05rem; /* Aumentado o tamanho da fonte */
+    transition: all 0.2s ease-in-out;
+    border: none; /* Remover borda padrão */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para um efeito 3D */
+}
+
+:host ::ng-deep .p-button.p-button-success {
+    background-color: #28a745; /* Verde padrão */
+    color: #ffffff;
+}
+
+:host ::ng-deep .p-button.p-button-danger {
+    background-color: #dc3545; /* Vermelho padrão */
+    color: #ffffff;
+}
+
+:host ::ng-deep .p-button.p-button-warning {
+    background-color: #ffc107; /* Amarelo/Laranja padrão */
+    color: #333;
+}
+
+:host ::ng-deep .p-button.p-button-secondary {
+    background-color: #6c757d; /* Cinza padrão */
+    color: #ffffff;
+}
+
+/* Botões com contorno - torná-los consistentes com o novo tema */
+:host ::ng-deep .p-button.p-button-outlined {
+    background-color: transparent !important;
+    border: 2px solid; /* Borda mais grossa */
+    color: #007bff; /* Azul padrão para contornos */
+    box-shadow: none; /* Remover sombra para contornados */
+}
+
+:host ::ng-deep .p-button.p-button-outlined.p-button-success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+:host ::ng-deep .p-button.p-button-outlined.p-button-warning {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+:host ::ng-deep .p-button.p-button-outlined.p-button-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+/* Efeitos de hover para botões */
+:host ::ng-deep .p-button:hover {
+    opacity: 0.95;
+    transform: translateY(-2px); /* Efeito sutil de elevação mais pronunciado */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Sombra de hover */
+}
+:host ::ng-deep .p-button.p-button-outlined:hover {
+    background-color: rgba(0, 123, 255, 0.05) !important; /* Fundo sutil no hover para contornados */
+    box-shadow: none;
+}
+
+
+/* Estilo da tabela */
+:host ::ng-deep .p-table {
+    border: 1px solid #dcdcdc; /* Borda clara para a tabela */
+    border-radius: 10px; /* Cantos arredondados para a tabela */
+    overflow: hidden; /* Garante que os cantos arredondados sejam aplicados */
+    margin-top: 25px; /* Mais espaço acima da tabela */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.03); /* Sombra para a tabela */
+}
+
+:host ::ng-deep .p-table .p-datatable-header {
+    background-color: #eef2f6; /* Fundo do cabeçalho */
+    border-bottom: 1px solid #dcdcdc;
+    padding: 18px; /* Mais preenchimento */
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1rem; /* Aumentado o tamanho da fonte */
+}
+
+:host ::ng-deep .p-table .p-datatable-thead > tr > th {
+    background-color: #eef2f6; /* Fundo das células do cabeçalho */
+    color: #333;
+    font-weight: 700; /* Mais negrito */
+    padding: 15px 20px; /* Aumentado o preenchimento */
+    border: none;
+    font-size: 1rem; /* Aumentado o tamanho da fonte */
+    text-transform: uppercase; /* Para um visual mais de "painel" */
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody > tr {
+    transition: background-color 0.2s;
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #fdfdfd; /* Listras de zebra */
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody > tr:hover {
+    background-color: #e0e0e0; /* Efeito de hover mais visível */
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody > tr > td {
+    padding: 15px 20px; /* Aumentado o preenchimento */
+    border-top: 1px solid #f0f0f0; /* Borda mais clara */
+    color: #444; /* Cor mais escura para o texto */
+    font-size: 1rem; /* Aumentar o tamanho da fonte */
+}
+
+/* Estilo da paginação */
+:host ::ng-deep .p-paginator {
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    border-radius: 0 0 10px 10px; /* Cantos inferiores arredondados */
+    padding: 15px 20px; /* Mais preenchimento */
+    font-size: 1rem; /* Aumentar o tamanho da fonte */
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 8px; /* Mais arredondado */
+    margin: 0 5px; /* Mais espaço */
+    min-width: 35px; /* Tamanho mínimo maior */
+    height: 35px; /* Altura maior */
+    line-height: 35px;
+    color: #333;
+    font-weight: 600;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: #007bff; /* Fundo da página ativa */
+    color: #ffffff;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-page:not(.p-highlight):hover {
+    background-color: #d8e6f2; /* Efeito de hover mais pronunciado */
+}
+
+input {
+    width: 100%;
 }

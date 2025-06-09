@@ -1,0 +1,63 @@
+.admin-home-container {
+    background-color: #f0f2f5; /* Cor de fundo clara, similar à imagem */
+    min-height: 100vh; /* Garante que cubra a altura total da tela */
+    padding: 30px; /* Aumentado o preenchimento para mais "ar" */
+    font-family: 'Inter', sans-serif; /* Usar uma fonte moderna (certifique-se de importá-la globalmente) */
+    color: #333; /* Cor de texto escura */
+}
+
+/* Estilo para o componente p-tabview */
+:host ::ng-deep .p-tabview {
+    border: none;
+    border-radius: 15px; /* Cantos arredondados para toda a área da aba */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08); /* Sombra ligeiramente mais pronunciada */
+    background-color: #ffffff; /* Fundo branco para a área de conteúdo da aba */
+}
+
+/* Estilo para os cabeçalhos das abas */
+:host ::ng-deep .p-tabview .p-tabview-nav {
+    background-color: #f8f8f8; /* Fundo ligeiramente diferente para os cabeçalhos */
+    border: none;
+    border-radius: 15px 15px 0 0; /* Cantos superiores arredondados */
+    padding: 0 25px; /* Aumentado o preenchimento para os itens da aba */
+}
+
+/* Estilo dos itens individuais da aba */
+:host ::ng-deep .p-tabview .p-tabview-nav li {
+    margin-right: 10px; /* Mais espaço entre as abas */
+}
+
+/* Estilo do cabeçalho da aba ativa */
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background-color: #ffffff; /* Fundo branco para a aba ativa */
+    border-color: #007bff; /* Cor de destaque (azul) */
+    color: #007bff; /* Cor do texto para a aba ativa */
+    border-radius: 10px 10px 0 0; /* Cantos superiores arredondados */
+    border-bottom: 4px solid #007bff; /* Borda inferior de destaque mais grossa */
+    font-weight: bold;
+    font-size: 1.1rem; /* Aumentado o tamanho da fonte */
+    padding: 15px 20px; /* Aumentado o preenchimento */
+}
+
+/* Estilo dos cabeçalhos das abas inativas */
+:host ::ng-deep .p-tabview .p-tabview-nav li:not(.p-highlight) .p-tabview-nav-link {
+    background-color: transparent;
+    border: none;
+    color: #666; /* Cor de texto mais clara para abas inativas */
+    transition: background-color 0.3s;
+    font-size: 1.05rem; /* Aumentado o tamanho da fonte */
+    padding: 15px 20px; /* Aumentado o preenchimento */
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li:not(.p-highlight) .p-tabview-nav-link:hover {
+    background-color: #e9ecef; /* Efeito de hover suave */
+    color: #333;
+}
+
+/* Estilo da área de conteúdo da aba */
+:host ::ng-deep .p-tabview .p-tabview-panels {
+    background-color: #ffffff; /* Fundo branco para o conteúdo */
+    border: none;
+    border-radius: 0 0 15px 15px; /* Cantos inferiores arredondados */
+    padding: 30px; /* Aumentado o preenchimento dentro da área de conteúdo */
+}
