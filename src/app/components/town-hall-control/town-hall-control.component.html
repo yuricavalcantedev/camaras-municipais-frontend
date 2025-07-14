@@ -31,9 +31,9 @@
 <p-toast position="bottom-center" key="bc"></p-toast>
 <app-home-button></app-home-button>
 <div class="grid">
-    <div class="col aux">
+    <div class="col aux" style="margin-top: 10px;">
         <p-card header="Controle de Expediente" styleClass="p-card-shadow abc">
-            <div class="col-6 ml-6" style="margin-left: 1rem !important">
+            <div style="margin-left: 1rem !important; display: flex; flex-direction: row; gap: 20px; font-size: 12px; font-family: Poppins; align-items: center;">
                 <div class="field-radiobutton flex align-items-center ">
                     <p-radioButton name="expediente" value="Grande Expediente" [(ngModel)]="expediente" (onClick)="chooseExpediente(true)" inputId="expediente1"></p-radioButton>
                     <label for="expediente1">Grande Expediente</label>
@@ -49,7 +49,7 @@
                 <div class="field-radiobutton flex align-items-center">
                     <p-radioButton name="expediente" value="Expedientes diversos" [(ngModel)]="expediente" (onClick)="chooseExpediente(false)" inputId="expediente4"></p-radioButton>
                     <label for="expediente4">Expedientes diversos</label>
-                    <input class="ml-3" type="text" [disabled]="disableInput" [(ngModel)]="outroExpediente" pInputText />
+                    <input class="ml-3" style="width: 20rem" type="text" [disabled]="disableInput" [(ngModel)]="outroExpediente" pInputText />
                     <p-dropdown class="ml-3" [options]="timers" [(ngModel)]="selectedTimer" placeholder="Tempo"></p-dropdown>
                     <button pButton pRipple type="button" label="Transmitir" class="p-button-raised"  [disabled]="disableExpedientDiversos" (click)="onTransmitirOther()" style="margin-left: 15px;"></button>
                 </div>
@@ -61,8 +61,11 @@
     <p-card styleClass="p-card-shadow" *ngIf="!existsSession">
         <ng-template pTemplate="header">
         </ng-template>
-        <p class="p-session">Ainda não existe uma sessão aberta</p>
-        <p-button class="mr-4 open-session-button" label="Abrir sessão" (click)="openDialog()"></p-button>
+        <div style="display: flex; align-items: center; margin-top: -10px;">
+            <p class="p-session">Ainda não existe uma sessão aberta</p>
+            <p-button class="mr-4 open-session-button" label="Abrir sessão" (click)="openDialog()"></p-button>
+        </div>
+        
     </p-card>
 </div>
 <div class="">

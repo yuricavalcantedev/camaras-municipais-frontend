@@ -1,117 +1,112 @@
-.container{
-    width: 100%;
-    height: 100%;
-    margin-top: 20px;
-    float: left;
-    overflow: hidden;
+.container {
+  font-family: 'Poppins';
+  color: #333;
 }
 
-.p-session{
-    font-size: 20px;
-    display: inline;
-    font-weight: bold;
+:host ::ng-deep .p-tabview {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
 }
 
-.p-session-role-info{
-    display: inline;
+:host ::ng-deep .p-tabview .p-tabview-nav {
+  border: none;
+  border-radius: 15px 15px 0 0;
+  padding: 0 25px;
 }
 
-.p-bolder{
-    font-weight: bolder;
-    font-size: 18px;
+:host ::ng-deep .p-tabview .p-tabview-nav li {
+  margin-right: 10px;
 }
 
-.p-info{
-    margin-left: 15px;
-    font-size: 18px;
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #ffffff;
+  border-color: #007bff;
+  color: #007bff;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 4px solid #007bff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 15px 20px;
 }
 
-.open-session-button{
-    margin-left: 20px;
+:host ::ng-deep .p-tabview .p-tabview-nav li:not(.p-highlight) .p-tabview-nav-link {
+  background-color: transparent;
+  border: none;
+  color: #666;
+  transition: background-color 0.3s;
+  font-size: 1.05rem;
+  padding: 15px 20px;
 }
 
-#open-voting-button{
-    float: right;
-    margin-top: -10px;
-    margin-right: 10px !important;
+:host ::ng-deep .p-tabview .p-tabview-nav li:not(.p-highlight) .p-tabview-nav-link:hover {
+  background-color: #e9ecef;
+  color: #333;
 }
 
-#clean-voting-button{
-    float: right;
-    margin-top: -10px;
-    margin-right: 10px !important;
+:host ::ng-deep .p-tabview .p-tabview-panels {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 0 0 15px 15px;
+  padding: 30px;
 }
 
-#update-presence-list{
-    float: right;
-    margin-top: -10px;
-    margin-right: 0px !important;
+:host ::ng-deep .p-card, :host ::ng-deep .p-card.p-card-shadow {
+  background-color: #fbfbfb;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+  margin-bottom: 30px;
 }
 
-.subject-disable{
-    background-color: #e2dcdc;
+:host ::ng-deep .p-card .p-card-header {
+  display: none;
+}
+
+:host ::ng-deep .p-card .p-card-body {
+  padding: 25px;
+}
+
+.p-session {
+  font-size: 20px;
+  display: inline;
+  font-weight: bold;
+}
+
+.p-session-role-info {
+  display: inline;
+}
+
+.p-bolder {
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.p-info {
+  margin-left: 15px;
+  font-size: 18px;
+}
+
+.open-session-button {
+  margin-left: 20px;
+}
+
+#open-voting-button, #clean-voting-button, #update-presence-list {
+  float: right;
+  margin-top: -10px;
+  margin-right: 10px !important;
+}
+
+.subject-disable {
+  background-color: #e2dcdc;
 }
 
 :host ::ng-deep .p-dropdown {
-    width: 20rem;
+  width: 10rem;
 }
 
-:host ::ng-deep .p-card-body{
-    height: 75%;
-    background-color: whitesmoke;
-}
-
-
-:host ::ng-deep .aux .p-card-body{
-    background-color: bisque;
-}
-
-:host ::ng-deep .dialog-subject {
-    width: 500px;
-  }
-  
-  .subject-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .form-field label {
-    font-family: Poppins;
-    font-weight: 500;
-    color: #384C6C;
-  }
-  
-  .form-field input, 
-  .form-field textarea {
-    width: 100%;
-    font-family: Poppins;
-  }
-  
-  .dialog-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  :host ::ng-deep .p-inputtext {
-    padding: 0.75rem;
-    border-radius: 8px;
-  }
-  
-  :host ::ng-deep .p-inputtext:enabled:focus {
-    border-color: #005F84;
-    box-shadow: 0 0 0 1px #005F84;
-  }
-
-.button-remove-subject{
+.button-remove-subject {
   margin-left: 7px;
 }
 
@@ -160,4 +155,9 @@
 
 :host ::ng-deep .p-selectbutton .p-button.p-highlight:hover {
   background: #004d6b;
+}
+
+:host ::ng-deep .p-card.p-card-shadow {
+  box-shadow: none !important;
+  border: none !important;
 }
