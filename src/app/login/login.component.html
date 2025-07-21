@@ -108,6 +108,9 @@
                     </div>
                     
                     <div class="password-container-input">
+                      <div class="view-password">
+                        {{ showPassword ? password : maskedPassword }}
+                      </div>
                       <div class="bottons-numbers-password">
                         <div class="password-container-input-row">
                           <div class="item-number-password number-button ripple-effect" (click)="onNumberClick('0')">
@@ -125,8 +128,6 @@
                           <div class="item-number-password number-button ripple-effect" (click)="onNumberClick('4')">
                             4
                           </div>
-                        </div>
-                        <div class="password-container-input-row" style="margin-top: 8px">
                           <div class="item-number-password number-button ripple-effect" (click)="onNumberClick('5')">
                             5
                           </div>
@@ -143,9 +144,8 @@
                             9
                           </div>
                         </div>
-                      </div>
-                      <div class="view-password">
-                        {{ showPassword ? password : maskedPassword }}
+                        <!-- <div class="password-container-input-row" style="margin-top: 8px">
+                        </div> -->
                       </div>
                     </div>
                     <!-- <input 
