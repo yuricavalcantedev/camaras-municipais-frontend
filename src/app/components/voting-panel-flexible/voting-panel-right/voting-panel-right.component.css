@@ -39,8 +39,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-top: 23px;
-  padding-bottom: 31px;
+  height: 20%;
 }
 
 .voting-header-container .voting-title-container{
@@ -70,9 +69,7 @@
 
 .chamber-logo {
   display: flex;
-  position: absolute;
-  left: 130px;
-  height: 8%;
+  height: 55%;
 }
 
 .status-info {
