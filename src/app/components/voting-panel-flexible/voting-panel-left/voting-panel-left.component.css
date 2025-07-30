@@ -106,6 +106,10 @@
 
 .status-no-presence {
   opacity: .3;
+
+  .picture {
+    border: 2px solid red !important;
+  }
 }
 
 .status-abscense {
@@ -191,7 +195,7 @@
   background-size: cover;
   filter: none;
   margin-left: 1.5rem;
-
+  border: 2px solid green;
 }
 
 .picture-big {
