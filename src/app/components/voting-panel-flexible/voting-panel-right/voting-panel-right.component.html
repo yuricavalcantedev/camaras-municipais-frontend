@@ -45,12 +45,7 @@
   </div>
 
   <div class="page-panel-voting" *ngIf="!loading && !countdownRunning && !countdownAparteRunning">
-    <!-- <app-voting-panel-header
-      sessionName="{{ this.session.name }}"
-      townHallUrlImage="{{ townHallUrlImage }}"
-      townHallName="{{ townHallName }}"
-    ></app-voting-panel-header> -->
-    <div class="voting-header-container">
+    <div class="voting-header-container" *ngIf="!existsOpenVoting && !showResultTemporarily">
       <div class="chamber-logo">
         <img class="chamber-logo-image" src="{{townHallUrlImage}}" alt="{{townHallName}}">
       </div>
@@ -64,7 +59,87 @@
       </div>
     </div>
 
-    <div class="box-body">
+    <div class="status-container-wrapper" *ngIf="!existsOpenVoting && !showResultTemporarily">
+      <div class="status-cards-container">
+        <div class="status-card neutral">
+          <span class="description">Total de Parlamentares</span>
+          <p class="quantity">
+            {{ parlamentaresTownhall.length }}
+          </p>
+        </div>
+
+        <div class="status-card present">
+          <span class="description">Presentes</span>
+          <p class="quantity">
+            {{ presentCounter }}
+          </p>
+        </div>
+
+        <div class="status-card absent">
+          <span class="description">Ausentes</span>
+          <p class="quantity">
+            {{ parlamentaresTownhall.length - presentCounter }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="voting-container" *ngIf="existsOpenVoting || showResultTemporarily">
+      <div class="voting-header">
+        <h1 class="voting-title">{{ votingTitle }}</h1>
+        <p class="voting-subtitle">{{ votingSubTitle.slice(0, 350) }}</p>
+        <p class="voting-author">Autor(es): {{ votingAuthor }}</p>
+      </div>
+
+      <div class="voting-results">
+        <div class="vote-card yes">
+          <span class="label">SIM</span>
+          <p class="quantity">{{ padWithLeadingZeros(yesCounter, 2) }}</p>
+        </div>
+
+        <div class="vote-card no">
+          <span class="label">NÃO</span>
+          <p class="quantity">{{ padWithLeadingZeros(noCounter, 2) }}</p>
+        </div>
+
+        <div class="vote-card abs">
+          <span class="label">ABST</span>
+          <p class="quantity">{{ padWithLeadingZeros(absCounter, 2) }}</p>
+        </div>
+      </div>
+
+      <div class="voting-extra">
+        <div class="extra-card">
+          <span class="label">Presentes</span>
+          <p class="quantity color-yes">{{ padWithLeadingZeros(presentCounter, 2) }}</p>
+        </div>
+        <div class="extra-card">
+          <span class="label">Ausentes</span>
+          <p class="quantity color-no">{{ padWithLeadingZeros(parlamentaresTownhall.length - presentCounter, 2) }}</p>
+        </div>
+        <div class="extra-card">
+          <span class="label">Total Parlamentares</span>
+          <p class="quantity">{{ padWithLeadingZeros(parlamentaresTownhall.length, 2) }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="resultType" class="voting-final">
+        <span class="label">Resultado:</span>
+        <span
+          class="result"
+          [ngClass]="{
+            'color-yes': resultType == 'APROVADA',
+            'color-no': resultType == 'REJEITADA'
+          }"
+        >
+          {{ resultType }}
+        </span>
+      </div>
+    </div>
+
+    <!-- <div class="box-body" *ngIf="existsOpenVoting">
       <div class="column" [ngStyle]="{
         'justify-content': !existsOpenVoting ? 'center' : null
       }">
@@ -144,7 +219,7 @@
             </p>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <app-voting-footer></app-voting-footer>
   </div>

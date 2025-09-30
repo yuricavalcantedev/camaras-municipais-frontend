@@ -84,6 +84,10 @@ export class VotingPanelRightComponent implements OnInit {
   countdownAparteRunning = false;
   isAParteActive: boolean = false;
 
+  showResultTemporarily: boolean = false;
+  private resultTimer: any;
+  private wasVotingOpen: boolean = false;
+
   constructor(
     private cookieService: CookieService,
     private sessionService: SessionService,
@@ -214,6 +218,19 @@ export class VotingPanelRightComponent implements OnInit {
                   .status == 'VOTED';
         }
 
+        if (this.wasVotingOpen && !this.existsOpenVoting) {
+          this.showResultTemporarily = true;
+
+          if (this.resultTimer) {
+            clearTimeout(this.resultTimer);
+          }
+
+          this.resultTimer = setTimeout(() => {
+            this.showResultTemporarily = false;
+          }, 15000);
+        }
+
+        this.wasVotingOpen = this.existsOpenVoting;
         let votingId;
 
         this.playInVoting = this.cookieService.get('playInVoting') == 'true';
@@ -246,6 +263,7 @@ export class VotingPanelRightComponent implements OnInit {
           this.findSessionStandardInfoByUUID(sessionUUID);
         }
       });
+
     }, this.TIME_TO_GET_DATA);
 
     window.onload = () => {

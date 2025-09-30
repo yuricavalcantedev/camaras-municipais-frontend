@@ -581,3 +581,182 @@
   line-height: 46px;
 }
 
+.status-container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.status-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: -10%;
+}
+
+.status-card {
+  background-color: #111a1d;
+  border-radius: 2rem;
+  padding: 3rem 5rem;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.status-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.status-card .description {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.status-card .quantity {
+  font-size: 6rem;
+  font-weight: 900;
+}
+
+.status-card.neutral .quantity {
+  color: #fff;
+}
+
+.status-card.present .quantity {
+  color: #5DF06E; /* mesmo verde do projeto */
+}
+
+.status-card.absent .quantity {
+  color: #F11B1B; /* mesmo vermelho do projeto */
+}
+
+.voting-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 4rem;
+  color: #fff;
+  border-radius: 1.5rem;
+  flex: 1;
+  height: 100%;
+}
+
+.voting-header {
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.voting-title {
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.voting-subtitle {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.voting-author {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #bbb;
+}
+
+.voting-results {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.vote-card {
+  flex: 1;
+  min-width: 220px;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.vote-card .label {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.vote-card .quantity {
+  font-size: 4.5rem;
+  font-weight: 900;
+}
+
+.vote-card.yes {
+  background: rgba(93, 240, 110, 0.15);
+  border: 2px solid #5df06e;
+  color: #5df06e;
+}
+
+.vote-card.no {
+  background: rgba(241, 27, 27, 0.15);
+  border: 2px solid #f11b1b;
+  color: #f11b1b;
+}
+
+.vote-card.abs {
+  background: rgba(255, 205, 39, 0.15);
+  border: 2px solid #ffcd27;
+  color: #ffcd27;
+}
+
+.voting-extra {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.extra-card {
+  background: #111a1d;
+  border-radius: 1rem;
+  padding: 1.5rem 3rem;
+  text-align: center;
+  min-width: 200px;
+}
+
+.extra-card .label {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ccc;
+  display: block;
+}
+
+.extra-card .quantity {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.voting-final {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.voting-final .result {
+  margin-left: 1rem;
+}
+
