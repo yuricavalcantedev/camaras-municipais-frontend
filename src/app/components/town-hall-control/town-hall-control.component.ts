@@ -19,6 +19,7 @@ import { TownHallService } from '../../service/townhall.service';
 import { UtilService } from 'src/app/service/util.service';
 import { VoteDTO } from 'src/app/dto/vote-dto.model';
 import { Voting } from 'src/app/domain/voting.model';
+import { SoundService } from 'src/app/service/sound.service';
 
 @Component({
   selector: 'app-town-hall-control',
@@ -81,7 +82,7 @@ export class TownHallControlComponent implements OnInit {
   @Output() updateFlagTransmitir = new EventEmitter<boolean>();
 
   constructor(public parlamentarService: ParlamentarService, public townHallService: TownHallService, private cookieService: CookieService,
-    private messageService: MessageService, private sessionService: SessionService, private router: Router) {
+    private messageService: MessageService, private sessionService: SessionService, private router: Router, private soundService: SoundService) {
 
       this.selectedTimer = null;
       this.timers = [
@@ -392,7 +393,6 @@ export class TownHallControlComponent implements OnInit {
   }
 
   onOpeningVoting(){
-
     this.loading = true;
     let subjectDTOList = this.selectedSubjectList.map((subject) => new SubjectVotingDTO(subject));
     this.sessionService.createVoting(this.session.uuid, subjectDTOList).subscribe({
@@ -400,7 +400,10 @@ export class TownHallControlComponent implements OnInit {
         this.session.votingList.push(data);
         this.onHideVotingDialog();
         this.existsOpenVoting = true;
-        this.cookieService.set('playInVoting', 'true');
+
+        this.soundService.playSound('assets/sounds/em_votacao.mp3');
+        // this.cookieService.set('playInVoting', 'true');
+
         this.loading = false;
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação aberta!'});
       }, error: error => {
@@ -554,12 +557,14 @@ export class TownHallControlComponent implements OnInit {
   }
 
   closeVoting(){
-
     this.sessionService.closeVoting(this.session.uuid).subscribe({
       next: res => {
         this.selectedSubjectList = [];
+
+        this.soundService.playSound('assets/sounds/votacao_encerrada.mp3');
+        
         this.messageService.add({severity:'success', summary:'Sucesso!', detail:'Votação encerrada!'});
-        this.cookieService.set('playCloseVoting', 'true');
+        // this.cookieService.set('playCloseVoting', 'true');
       },
       error: err => {
         this.messageService.add({severity:'error', summary:'Erro!', detail: err.error.description});
