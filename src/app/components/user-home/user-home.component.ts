@@ -42,7 +42,6 @@ export class UserHomeComponent implements OnInit {
   disableAbstentionButton: boolean = false;
   hasUpdatedPresence: boolean = false;
 
-  showInscriptionListDialog: boolean = false;
   showExpedienteDialog: boolean = false;
   showUnsubscribeDialog: boolean = false;
 
@@ -52,7 +51,6 @@ export class UserHomeComponent implements OnInit {
   showOptionsDialog = false;
   endMainTimer: boolean = false;
   parlamentarObject: ParlamentarTimer = null;
-  selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
   selectedVote: string;
   showTimeControlDialog: boolean = false;
 
@@ -211,7 +209,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   showDialog() {
-    this.showInscriptionListDialog = true;
+    this.router.navigate(['lista-oradores']);
   }
 
   hideOptionsDialog() {
@@ -424,9 +422,6 @@ export class UserHomeComponent implements OnInit {
     return '';
   }
 
-  clearInscriptionListDialog() {
-    this.showInscriptionListDialog = false;
-  }
 
   handleShowOptionDialog() {
     this.showOptionsDialog = true;
@@ -509,10 +504,4 @@ export class UserHomeComponent implements OnInit {
     }
   }
 
-  getFilteredSpeakerList() {
-    if (!this.session?.speakerSessionList) return [];
-    return this.session.speakerSessionList.filter(speaker => 
-      speaker.type === this.selectedSpeakerType
-    );
-  }
 }

@@ -1,0 +1,56 @@
+<div class="speaker-list-container">
+  <div class="speaker-list-header">
+    <button class="back-button" (click)="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Voltar</span>
+    </button>
+    <h1>Lista de Oradores</h1>
+  </div>
+
+  <div class="speaker-list-content">
+    <div class="speaker-type-selector">
+      <div class="speaker-type-buttons">
+        <p-selectButton 
+          [options]="[
+            {label: 'Grande Expediente', value: 'GRANDE_EXPEDIENTE'},
+            {label: 'Pequeno Expediente', value: 'PEQUENO_EXPEDIENTE'},
+            {label: 'Explicações Pessoais', value: 'OUTRO'}
+          ]" 
+          [(ngModel)]="selectedSpeakerType" 
+          optionLabel="label" 
+          optionValue="value">
+        </p-selectButton>
+      </div>
+    </div>
+
+    <div *ngIf="getFilteredSpeakerList().length > 0" class="table-container">
+      <p-table 
+        [value]="getFilteredSpeakerList()"  
+        styleClass="p-datatable-striped p-datatable-gridlines" 
+        responsiveLayout="scroll" 
+        [rowHover]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Ordem</th>
+            <th>Nome</th>
+            <th>Partido Político</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-speaker>
+          <tr>
+            <td>{{speaker.speakerOrder}}</td>
+            <td>{{speaker.parlamentarName}}</td>
+            <td>{{speaker.parlamentarPoliticalParty || '-'}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="getFilteredSpeakerList().length == 0" class="empty-message">
+      <p>Não existem vereadores inscritos para {{getSpeakerTypeLabel()}}.</p>
+    </div>
+  </div>
+</div>
+
