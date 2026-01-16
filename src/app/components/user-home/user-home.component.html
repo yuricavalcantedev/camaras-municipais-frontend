@@ -6,9 +6,10 @@
     townHallName="{{ townHallCityName }}"
     townHallUrlImage="{{ townHallUrlImage }}"
   ></app-header>
-  <div class="page-voting">
+  <div class="page-voting" [ngClass]="{'moderator-voting-layout': existsOpenVoting && isModerator()}">
     <app-card-parlamentar
       class="box-left"
+      *ngIf="!(existsOpenVoting && isModerator())"
       photo="{{ parlamentar.urlImage }}"
       name="{{ parlamentar.name }}"
       politicalParty="{{ parlamentar.politicalParty }}"
@@ -30,16 +31,19 @@
     <!-- *ngIf="(existsOpenVoting && votingTitle) || !existsOpenVoting" -->
     <div
       class="box-right"
+      [ngClass]="{'box-right-full-width': existsOpenVoting && isModerator()}"
     >
-      <h2>
-        {{ getGreeting() }}, {{ parlamentar.name }}
-      </h2>
-      <h4>
-        {{townHallCityName}}
-      </h4>
-      <span>
-        10ª (2025 - 2028) (Atual)
-      </span>
+      <div *ngIf="!(existsOpenVoting && isModerator())">
+        <h2>
+          {{ getGreeting() }}, {{ parlamentar.name }}
+        </h2>
+        <h4>
+          {{townHallCityName}}
+        </h4>
+        <span>
+          10ª (2025 - 2028) (Atual)
+        </span>
+      </div>
       
       <div *ngIf="!existsOpenVoting" class="cards-grid">
         <app-card-menu
@@ -104,7 +108,104 @@
           {{ votingTitle }}
         </div>
       </div> -->
-      <div *ngIf="existsOpenVoting" class="box-votacao">
+      <!-- Visualização para moderador durante votação -->
+      <div *ngIf="existsOpenVoting && isModerator()" class="moderator-voting-container-wrapper">
+        <div class="moderator-voting-container">
+        <div class="moderator-voting-header">
+          <h1>Painel de Votação - Moderador</h1>
+        </div>
+
+        <!-- Contadores de votos -->
+        <div class="vote-counters">
+          <div class="vote-counter-box vote-yes">
+            <div class="counter-number">{{ padWithLeadingZeros(yesCounter, 2) }}</div>
+          </div>
+          <div class="vote-counter-box vote-no">
+            <div class="counter-number">{{ padWithLeadingZeros(noCounter, 2) }}</div>
+          </div>
+          <div class="vote-counter-box vote-abs">
+            <div class="counter-number">{{ padWithLeadingZeros(absCounter, 2) }}</div>
+          </div>
+          <div class="vote-counter-box vote-present">
+            <div class="counter-number">{{ padWithLeadingZeros(presentCounter, 2) }}</div>
+            <div class="counter-label">Presentes</div>
+          </div>
+        </div>
+
+        <!-- Opções de voto para o moderador -->
+        <div class="voting-options-moderator">
+          <app-card-voting
+            title="Sim"
+            iconType="yes"
+            [isSelected]="isVoteSelected('YES')"
+            (click)="sendVote('YES')"
+          ></app-card-voting>
+
+          <app-card-voting
+            title="Não"
+            iconType="no"
+            [isSelected]="isVoteSelected('NO')"
+            (click)="sendVote('NO')"
+          ></app-card-voting>
+
+          <app-card-voting
+            title="Abs"
+            iconType="abs"
+            [isSelected]="isVoteSelected('ABSTENTION')"
+            (click)="sendVote('ABSTENTION')"
+          ></app-card-voting>
+        </div>
+
+        <!-- Lista de parlamentares -->
+        <div class="parlamentares-list-container">
+          <h3>Parlamentares Presentes</h3>
+          <div class="parlamentares-list">
+            <div 
+              *ngFor="let parlamentarItem of parlamentaresTownhall" 
+              class="parlamentar-item"
+              [ngClass]="{
+                'status-presence': parlamentarItem.result == 'NULL' && parlamentarItem.status == 'PRESENCE',
+                'status-no-presence': parlamentarItem.status != 'PRESENCE',
+                'status-yes': parlamentarItem.result == 'YES' && visibilityVotingType != 'SECRETA',
+                'status-no': parlamentarItem.result == 'NO' && visibilityVotingType != 'SECRETA',
+                'status-abs': parlamentarItem.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA'
+              }"
+            >
+              <div class="parlamentar-photo" [style.background-image]="'url(' + parlamentarItem.parlamentar.urlImage + ')'"></div>
+              <div class="parlamentar-info">
+                <div class="parlamentar-name">{{ parlamentarItem.parlamentar.name }}</div>
+                <div class="parlamentar-party">{{ parlamentarItem.parlamentar.politicalParty }}</div>
+              </div>
+              <div class="parlamentar-vote" *ngIf="parlamentarItem.status == 'PRESENCE'">
+                <span *ngIf="parlamentarItem.result == 'NULL' && visibilityVotingType != 'SECRETA'" class="vote-status pending">Aguardando voto</span>
+                <span *ngIf="parlamentarItem.result == 'YES' && visibilityVotingType != 'SECRETA'" class="vote-status yes">✓ Sim</span>
+                <span *ngIf="parlamentarItem.result == 'NO' && visibilityVotingType != 'SECRETA'" class="vote-status no">✗ Não</span>
+                <span *ngIf="parlamentarItem.result == 'ABSTENTION' && visibilityVotingType != 'SECRETA'" class="vote-status abs">○ Abst</span>
+                <span *ngIf="visibilityVotingType == 'SECRETA'" class="vote-status secret">Votação Secreta</span>
+              </div>
+              <div class="parlamentar-vote" *ngIf="parlamentarItem.status != 'PRESENCE'">
+                <span class="vote-status absent">Ausente</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão de encerrar votação -->
+        <div (click)="closeVoting()" class="end-voting">
+          <div class="end-voting-container">
+            <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M26.8125 11.3438H6.1875C5.61796 11.3438 5.15625 11.8055 5.15625 12.375V26.8125C5.15625 27.382 5.61796 27.8438 6.1875 27.8438H26.8125C27.382 27.8438 27.8438 27.382 27.8438 26.8125V12.375C27.8438 11.8055 27.382 11.3438 26.8125 11.3438Z" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.8594 11.3438V6.70312C11.8594 5.47235 12.3483 4.29199 13.2186 3.42171C14.0889 2.55142 15.2692 2.0625 16.5 2.0625C17.7308 2.0625 18.9111 2.55142 19.7814 3.42171C20.6517 4.29199 21.1406 5.47235 21.1406 6.70312V11.3438" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <ellipse cx="16.7949" cy="19.1518" rx="2.65179" ry="2.65179" fill="#FFFFFF"/>
+            </svg>
+            <h2>Encerrar votação</h2>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Visualização padrão para não-moderadores durante votação -->
+      <div *ngIf="existsOpenVoting && !isModerator()" class="box-votacao">
         <h1>Painel de votação:</h1>
         <div class="voting-options">
 
@@ -132,18 +233,7 @@
 
         <div class="row-separator"></div>
 
-        <div *ngIf="parlamentar.role.name == 'ROLE_MODERATOR_VIEW'" (click)="closeVoting()" class="end-voting">
-          <div class="end-voting-container">
-            <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M26.8125 11.3438H6.1875C5.61796 11.3438 5.15625 11.8055 5.15625 12.375V26.8125C5.15625 27.382 5.61796 27.8438 6.1875 27.8438H26.8125C27.382 27.8438 27.8438 27.382 27.8438 26.8125V12.375C27.8438 11.8055 27.382 11.3438 26.8125 11.3438Z" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M11.8594 11.3438V6.70312C11.8594 5.47235 12.3483 4.29199 13.2186 3.42171C14.0889 2.55142 15.2692 2.0625 16.5 2.0625C17.7308 2.0625 18.9111 2.55142 19.7814 3.42171C20.6517 4.29199 21.1406 5.47235 21.1406 6.70312V11.3438" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              <ellipse cx="16.7949" cy="19.1518" rx="2.65179" ry="2.65179" fill="#FFFFFF"/>
-            </svg>
-            <h2>Encerrar votação</h2>
-          </div>
-        </div>
-
-        <div *ngIf="parlamentar.role.name != 'ROLE_MODERATOR_VIEW'" (click)="logOut()" class="logout-voting">
+        <div (click)="logOut()" class="logout-voting">
           <div class="logout-voting-container">
             <svg width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M27.7617 13.5643L34.1602 20.1268L27.7617 26.6893" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

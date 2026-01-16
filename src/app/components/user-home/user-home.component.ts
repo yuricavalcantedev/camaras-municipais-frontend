@@ -17,6 +17,7 @@ import { ControlService } from 'src/app/service/control.service';
 import { ControlDTO } from 'src/app/dto/control-dto.model';
 import { EControlType } from 'src/app/dto/control-type.enum';
 import { debounceTime, filter, fromEvent, interval, Subscription } from 'rxjs';
+import { ParlamentarInfoStatusDTO } from '../../dto/parlamentar-info-status-dto.model';
 
 @Component({
   selector: 'app-user-home',
@@ -53,6 +54,16 @@ export class UserHomeComponent implements OnInit {
   parlamentarObject: ParlamentarTimer = null;
   selectedVote: string;
   showTimeControlDialog: boolean = false;
+
+  // Propriedades para visualização do moderador
+  parlamentaresTownhall: ParlamentarInfoStatusDTO[] = [];
+  yesCounter: number = 0;
+  noCounter: number = 0;
+  absCounter: number = 0;
+  presentCounter: number = 0;
+  votingSubTitle: string = '';
+  votingAuthor: string = '';
+  visibilityVotingType: string = '';
 
   private fullscreenSubscription: Subscription;
   private resizeSubscription: Subscription;
@@ -247,9 +258,21 @@ export class UserHomeComponent implements OnInit {
 
           if (this.existsOpenVoting) {
             this.votingTitle = this.voting.description;
+            // Se for moderador, buscar informações detalhadas da votação
+            if (this.isModerator()) {
+              this.findSessionVotingInfoBySessionAndVotingId(this.session.uuid, this.voting.id);
+            }
           } else {
             this.votingTitle = '';
             this.selectedVote = null;
+            // Limpar dados quando não houver votação
+            if (this.isModerator()) {
+              this.parlamentaresTownhall = [];
+              this.yesCounter = 0;
+              this.noCounter = 0;
+              this.absCounter = 0;
+              this.presentCounter = 0;
+            }
           }
         }
       },
@@ -504,4 +527,75 @@ export class UserHomeComponent implements OnInit {
     }
   }
 
+  getFilteredSpeakerList() {
+    if (!this.session?.speakerSessionList) return [];
+    return this.session.speakerSessionList.filter(speaker => 
+      speaker.type === this.selectedSpeakerType
+    );
+  }
+
+  findSessionVotingInfoBySessionAndVotingId(sessionUUID: string, votingId: number) {
+    this.sessionService
+      .findSessionVotingInfoBySessionAndVotingId(sessionUUID, votingId)
+      .subscribe({
+        next: (data) => {
+          this.parlamentaresTownhall = data.parlamentarTableList.concat(
+            data.parlamentarList
+          );
+          this.voting = data.voting;
+          this.visibilityVotingType = this.voting.legislativeSubjectType.visibilityType;
+          this.computePartialVotes();
+          this.extractTitleAndSubTitle(data.voting);
+          this.extractAuthor(data.voting);
+
+          this.presentCounter = this.parlamentaresTownhall.filter(
+            (parlamentar) => parlamentar.status === 'PRESENCE'
+          ).length;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  computePartialVotes() {
+    this.yesCounter = 0;
+    this.noCounter = 0;
+    this.absCounter = 0;
+
+    this.parlamentaresTownhall.forEach((parlamentar) => {
+      switch (parlamentar.result) {
+        case 'YES':
+          this.yesCounter++;
+          break;
+        case 'NO':
+          this.noCounter++;
+          break;
+        case 'ABSTENTION':
+          this.absCounter++;
+          break;
+      }
+    });
+  }
+
+  extractTitleAndSubTitle(voting: Voting) {
+    if (voting != undefined) {
+      this.votingTitle = voting.description;
+      this.votingSubTitle = voting.subDescription;
+    }
+  }
+
+  extractAuthor(voting: Voting) {
+    if (voting != undefined) {
+      this.votingAuthor = voting.author;
+    }
+  }
+
+  padWithLeadingZeros(num: number, totalLength: number) {
+    return String(num).padStart(totalLength, '0');
+  }
+
+  isModerator(): boolean {
+    return this.parlamentar.role && this.parlamentar.role.name === 'ROLE_MODERATOR_VIEW';
+  }
 }

@@ -64,6 +64,13 @@ tr {
   margin-top: 38px;
 }
 
+.box-right-full-width {
+  width: 100% !important;
+  height: 100% !important;
+  margin-top: 0 !important;
+  overflow: hidden;
+}
+
 .box-main .page-voting .box-right h2{
   font-family: Poppins;
   font-size: 24px;
@@ -291,6 +298,11 @@ tr {
   align-items: center;
 }
 
+.moderator-voting-container .end-voting {
+  flex-shrink: 0;
+  margin-top: 12px;
+}
+
 .end-voting .end-voting-container{
   display: flex;
   flex-direction: row;
@@ -464,4 +476,338 @@ tr {
   margin: 0;
   font-family: Poppins;
   font-size: 14px;
+}
+
+/* Layout especial para moderador em votação */
+.moderator-voting-layout {
+  justify-content: center !important;
+}
+
+.moderator-voting-layout .box-left {
+  display: none;
+}
+
+.box-right-full-width {
+  width: 100% !important;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Estilos para visualização do moderador durante votação */
+.moderator-voting-container-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.moderator-voting-container {
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.moderator-voting-header {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.moderator-voting-header h1 {
+  font-family: Poppins;
+  font-size: 22px;
+  font-weight: 600;
+  color: #005F84;
+  margin: 0 0 8px 0;
+}
+
+.voting-info {
+  margin-top: 12px;
+}
+
+.voting-subtitle {
+  font-family: Poppins;
+  font-size: 16px;
+  color: #2D2D2D;
+  margin: 0 0 8px 0;
+}
+
+.voting-author {
+  font-family: Poppins;
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Contadores de votos */
+.vote-counters {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.vote-counter-box {
+  flex: 1;
+  min-width: 100px;
+  background-color: #F8F9FA;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.vote-counter-box.vote-yes {
+  border-color: #4bc853;
+}
+
+.vote-counter-box.vote-no {
+  border-color: #eb606b;
+}
+
+.vote-counter-box.vote-abs {
+  border-color: #fbcb60;
+}
+
+.vote-counter-box.vote-present {
+  border-color: #005F84;
+}
+
+.counter-number {
+  font-family: Poppins;
+  font-size: 52px;
+  font-weight: 700;
+  color: #2D2D2D;
+  margin-bottom: 4px;
+}
+
+.vote-counter-box.vote-yes .counter-number {
+  color: white;
+}
+
+.vote-counter-box.vote-no .counter-number {
+  color: white;
+}
+
+.vote-counter-box.vote-abs .counter-number {
+  color: black;
+}
+
+.vote-counter-box.vote-present .counter-number {
+  color: #005F84;
+}
+
+.counter-label {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+/* Opções de voto para moderador */
+.voting-options-moderator {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  margin: 12px 0;
+  padding: 12px;
+  background-color: #F8F9FA;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Lista de parlamentares */
+.parlamentares-list-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.parlamentares-list-container h3 {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  color: #005F84;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.parlamentares-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px;
+  min-height: 0;
+}
+
+.parlamentar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px;
+  background-color: #F8F9FA;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.parlamentar-item.status-presence {
+  border-color: #005F84;
+  background-color: #E8F4F8;
+}
+
+.parlamentar-item.status-no-presence {
+  opacity: 0.6;
+  border-color: #BABABA;
+}
+
+.parlamentar-item.status-yes {
+  border-color: #4bc853;
+  background-color: #E8F8E8;
+}
+
+.parlamentar-item.status-no {
+  border-color: #eb606b;
+  background-color: #F8E8E8;
+}
+
+.parlamentar-item.status-abs {
+  border-color: #fbcb60;
+  background-color: #FFF8E8;
+}
+
+.parlamentar-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.parlamentar-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.parlamentar-name {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2D2D2D;
+}
+
+.parlamentar-party {
+  font-family: Poppins;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.parlamentar-vote {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.vote-status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vote-status.pending {
+  background-color: #FFF3CD;
+  color: #856404;
+}
+
+.vote-status.yes {
+  background-color: #D4EDDA;
+  color: #155724;
+}
+
+.vote-status.no {
+  background-color: #F8D7DA;
+  color: #721C24;
+}
+
+.vote-status.abs {
+  background-color: #FFF3CD;
+  color: #856404;
+}
+
+.vote-status.secret {
+  background-color: #E2E3E5;
+  color: #383D41;
+}
+
+.vote-status.absent {
+  background-color: #F8F9FA;
+  color: #6c757d;
+}
+
+/* Scrollbar personalizada para lista de parlamentares */
+.parlamentares-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.parlamentares-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.parlamentares-list::-webkit-scrollbar-thumb {
+  background: #005F84;
+  border-radius: 10px;
+}
+
+.parlamentares-list::-webkit-scrollbar-thumb:hover {
+  background: #004d6b;
+}
+
+/* Responsividade */
+@media screen and (max-width: 1024px) {
+  .moderator-voting-container {
+    padding: 16px;
+  }
+
+  .vote-counters {
+    flex-direction: column;
+  }
+
+  .vote-counter-box {
+    min-width: 100%;
+  }
+
+  .voting-options-moderator {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
