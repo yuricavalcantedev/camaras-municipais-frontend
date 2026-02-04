@@ -64,6 +64,7 @@ export class UserHomeComponent implements OnInit {
   votingSubTitle: string = '';
   votingAuthor: string = '';
   visibilityVotingType: string = '';
+  selectedSpeakerType: string = 'GRANDE_EXPEDIENTE';
 
   private fullscreenSubscription: Subscription;
   private resizeSubscription: Subscription;
