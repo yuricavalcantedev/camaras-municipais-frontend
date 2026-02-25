@@ -52,8 +52,10 @@
 
 .speaker-list-content {
   flex: 1;
+  min-height: 0; /* permite o flex item encolher e ativar overflow/scroll */
   padding: 24px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
 }
@@ -102,7 +104,9 @@
 
 .table-container {
   flex: 1;
+  min-height: 0;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #FFFFFF;
   border-radius: 8px;
   padding: 16px;
