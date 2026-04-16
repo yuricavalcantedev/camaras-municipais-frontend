@@ -573,16 +573,21 @@ export class TownHallControlComponent implements OnInit {
   }
 
 
-  async cleanPanel() {
+  cleanPanel() {
     if (this.someVoting && this.someVoting.id) {
       this.sessionService
         .resetSessionVotingInfoBySessionAndVotingId(this.sessionUUID, this.someVoting.id)
         .subscribe({
-          next: (data) => {
-            console.log({ findSessionVotingInfoBySessionAndVotingId: data })
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'Painel de votação atualizado.',
+            });
           },
-          error: (error) => {
-            console.log(error);
+          error: (err) => {
+            const detail = err?.error?.description ?? err?.message ?? 'Não foi possível limpar o painel.';
+            this.messageService.add({ severity: 'error', summary: 'Erro!', detail });
           },
         });
     }
