@@ -258,19 +258,25 @@
   [modal]="true"
 >
   <div class="expediente-options">
-    <div class="expediente-button" (click)="subscriptionInSpeakerList('GRANDE_EXPEDIENTE')">
+    <div
+      class="expediente-button expediente-button--palette-primary"
+      (click)="subscriptionInSpeakerList('GRANDE_EXPEDIENTE')"
+    >
       <h3>Grande Expediente</h3>
-      <p>Inscrição para o Grande Expediente</p>
-    </div>
-    
-    <div class="expediente-button" (click)="subscriptionInSpeakerList('PEQUENO_EXPEDIENTE')">
-      <h3>Pequeno Expediente</h3>
-      <p>Inscrição para o Pequeno Expediente</p>
     </div>
 
-    <div class="expediente-button" (click)="subscriptionInSpeakerList('OUTRO')">
+    <div
+      class="expediente-button expediente-button--palette-yes"
+      (click)="subscriptionInSpeakerList('PEQUENO_EXPEDIENTE')"
+    >
+      <h3>Pequeno Expediente</h3>
+    </div>
+
+    <div
+      class="expediente-button expediente-button--palette-accent"
+      (click)="subscriptionInSpeakerList('OUTRO')"
+    >
       <h3>Explicações Pessoais</h3>
-      <p>Inscrição para Explicações Pessoais</p>
     </div>
   </div>
 </p-dialog>
@@ -278,23 +284,29 @@
 <p-dialog
   header="Tipo de Expediente para Desinscrição"
   [(visible)]="showUnsubscribeDialog"
-  [style]="{ width: '400px' }"
+  styleClass="expediente-dialog-inscription"
   [modal]="true"
 >
   <div class="expediente-options">
-    <div class="expediente-button" (click)="unSubscribeSpeaker('GRANDE_EXPEDIENTE')">
+    <div
+      class="expediente-button expediente-button--palette-primary"
+      (click)="unSubscribeSpeaker('GRANDE_EXPEDIENTE')"
+    >
       <h3>Grande Expediente</h3>
-      <p>Desinscrição do Grande Expediente</p>
-    </div>
-    
-    <div class="expediente-button" (click)="unSubscribeSpeaker('PEQUENO_EXPEDIENTE')">
-      <h3>Pequeno Expediente</h3>
-      <p>Desinscrição do Pequeno Expediente</p>
     </div>
 
-    <div class="expediente-button" (click)="unSubscribeSpeaker('OUTRO')">
+    <div
+      class="expediente-button expediente-button--palette-yes"
+      (click)="unSubscribeSpeaker('PEQUENO_EXPEDIENTE')"
+    >
+      <h3>Pequeno Expediente</h3>
+    </div>
+
+    <div
+      class="expediente-button expediente-button--palette-accent"
+      (click)="unSubscribeSpeaker('OUTRO')"
+    >
       <h3>Explicações Pessoais</h3>
-      <p>Inscrição para Explicações Pessoais</p>
     </div>
   </div>
 </p-dialog>

@@ -397,30 +397,55 @@ tr {
 }
 
 .expediente-button {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 22px 16px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  border: none;
 }
 
 .expediente-button:hover {
-  background-color: #e9ecef;
+  filter: brightness(1.06);
   transform: translateY(-2px);
 }
 
 .expediente-button h3 {
-  color: #384C6C;
-  margin: 0 0 8px 0;
+  margin: 0;
+  width: 100%;
   font-family: Poppins;
   font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.35;
+  text-align: center;
 }
 
-.expediente-button p {
-  color: #6c757d;
-  margin: 0;
-  font-family: Poppins;
-  font-size: 14px;
+.expediente-button--palette-primary {
+  background-color: var(--app-primary-color);
+}
+
+.expediente-button--palette-primary h3 {
+  color: var(--app-header-text-color);
+}
+
+.expediente-button--palette-yes {
+  background-color: var(--app-vote-yes-100);
+}
+
+.expediente-button--palette-yes h3 {
+  color: var(--app-vote-label-color);
+}
+
+.expediente-button--palette-accent {
+  background-color: var(--app-a-parte-info-color);
+}
+
+.expediente-button--palette-accent h3 {
+  color: var(--app-result-color);
 }
 
 :host ::ng-deep .expediente-dialog-inscription{
