@@ -530,9 +530,18 @@ export class UserHomeComponent implements OnInit {
 
   getFilteredSpeakerList() {
     if (!this.session?.speakerSessionList) return [];
-    return this.session.speakerSessionList.filter(speaker => 
-      speaker.type === this.selectedSpeakerType
-    );
+    return this.session.speakerSessionList
+      .filter((speaker) => speaker.type === this.selectedSpeakerType)
+      .sort((a, b) => this.getSpeakerOrderValue(a.speakerOrder) - this.getSpeakerOrderValue(b.speakerOrder));
+  }
+
+  private getSpeakerOrderValue(order: number | string | null | undefined): number {
+    if (typeof order === 'number' && !Number.isNaN(order)) {
+      return order;
+    }
+
+    const parsedOrder = Number(order);
+    return Number.isNaN(parsedOrder) ? Number.MAX_SAFE_INTEGER : parsedOrder;
   }
 
   findSessionVotingInfoBySessionAndVotingId(sessionUUID: string, votingId: number) {

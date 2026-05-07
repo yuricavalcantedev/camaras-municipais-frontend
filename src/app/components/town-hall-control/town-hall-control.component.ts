@@ -595,8 +595,17 @@ export class TownHallControlComponent implements OnInit {
 
   getFilteredSpeakerList() {
     if (!this.session?.speakerList) return [];
-    return this.session.speakerList.filter(speaker =>
-      speaker.type === this.selectedSpeakerType
-    );
+    return this.session.speakerList
+      .filter((speaker) => speaker.type === this.selectedSpeakerType)
+      .sort((a, b) => this.getSpeakerOrderValue(a.speakerOrder) - this.getSpeakerOrderValue(b.speakerOrder));
+  }
+
+  private getSpeakerOrderValue(order: number | string | null | undefined): number {
+    if (typeof order === 'number' && !Number.isNaN(order)) {
+      return order;
+    }
+
+    const parsedOrder = Number(order);
+    return Number.isNaN(parsedOrder) ? Number.MAX_SAFE_INTEGER : parsedOrder;
   }
 }
