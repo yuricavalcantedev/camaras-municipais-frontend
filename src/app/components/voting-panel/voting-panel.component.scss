@@ -560,3 +560,82 @@
 }
 
 /* LOADING */
+
+.page-panel-voting-timer {
+  justify-content: center;
+}
+
+.expedient-title-time {
+  font-family: Montserrat;
+  color: black;
+  font-weight: 800;
+  font-size: 5rem;
+  display: flex;
+  line-height: 46px;
+}
+
+.timers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 300px;
+}
+
+.card-time-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76rem;
+  height: 46rem;
+  background-color: #fff;
+  border-radius: 90px;
+  flex-direction: column;
+  gap: 19px;
+  line-height: 118px;
+}
+
+.card-time-aparte {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76rem;
+  height: 46rem;
+  background-color: #fff;
+  border-radius: 90px;
+  flex-direction: column;
+  gap: 19px;
+  line-height: 118px;
+}
+
+.card-time-container.aparte-only .card-time-aparte {
+  margin: auto;
+}
+
+.card-time,
+.card-time-aparte {
+  text-align: center;
+}
+
+.time-countdown {
+  font-family: Montserrat;
+  font-size: 15rem;
+  color: black;
+  font-weight: 700;
+  display: flex;
+  margin-top: 42px;
+  justify-content: center;
+}
+
+.parlamentary-name-time-aparte {
+  font-family: Poppins;
+  color: #005F84;
+  font-weight: 600;
+  font-size: 4rem;
+  display: flex;
+  line-height: 46px;
+}
