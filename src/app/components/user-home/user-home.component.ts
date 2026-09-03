@@ -295,6 +295,19 @@ export class UserHomeComponent implements OnInit {
     this.showExpedienteDialog = param;
   }
 
+  openInscricaoDialog() {
+    if (this.session?.speakerSubscriptionsBlocked) {
+      this.messageService.add({
+        key: 'bc',
+        severity: 'warn',
+        summary: 'Inscrições bloqueadas',
+        detail: 'O operador bloqueou novas inscrições para esta sessão.',
+      });
+      return;
+    }
+    this.openExpedienteDialog(true);
+  }
+
   subscriptionInSpeakerList(expedienteType: string) {
     let speakerDTO = new SpeakerSubscriptionDTO(
       this.townHallId,
@@ -317,7 +330,7 @@ export class UserHomeComponent implements OnInit {
             key: 'bc',
             severity: 'error',
             summary: 'Erro!',
-            detail: 'Ocorreu um erro inesperado, contate o administrador.',
+            detail: err?.error?.description ?? 'Ocorreu um erro inesperado, contate o administrador.',
           });
         },
       });

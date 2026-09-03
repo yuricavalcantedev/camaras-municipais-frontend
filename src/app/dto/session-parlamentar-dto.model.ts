@@ -9,5 +9,6 @@ export class SessionParlamentarDTO{
     speakerSessionList: SpeakerSession[] = [];
     sessionSubjectURL: string;
     voting: Voting;
+    speakerSubscriptionsBlocked: boolean = false;
 
 }
