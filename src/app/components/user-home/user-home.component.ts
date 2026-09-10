@@ -224,6 +224,10 @@ export class UserHomeComponent implements OnInit {
     this.router.navigate(['lista-oradores']);
   }
 
+  goToResults() {
+    this.router.navigate(['resultados']);
+  }
+
   hideOptionsDialog() {
     this.showOptionsDialog = false;
   }

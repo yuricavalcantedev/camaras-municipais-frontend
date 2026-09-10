@@ -51,7 +51,15 @@
                 <path d="M25 33L34.9 23.1" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M19 3H31" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-                
+
+            <!-- SVG para Resultados -->
+            <svg *ngIf="iconType === 'resultados'" width="55" height="56" viewBox="0 0 55 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.875 49.4453H48.125" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14.6667 49.4453V29.7188" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M27.5 49.4453V17.4844" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40.3333 49.4453V6.5547" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
         </div>
         <span class="title">{{ title }}</span>
     </div>

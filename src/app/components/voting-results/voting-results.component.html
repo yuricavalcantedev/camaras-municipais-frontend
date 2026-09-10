@@ -1,0 +1,36 @@
+<div class="voting-results-container">
+  <div class="voting-results-header">
+    <button class="back-button" (click)="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Voltar</span>
+    </button>
+    <h1>Resultados</h1>
+  </div>
+
+  <div class="voting-results-content">
+    <div *ngIf="loading" class="empty-message">
+      <p>Carregando resultados...</p>
+    </div>
+
+    <div *ngIf="!loading && errorMessage" class="empty-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <div *ngIf="!loading && !errorMessage && votingHistoryList.length > 0" class="results-list">
+      <div class="result-card" *ngFor="let item of votingHistoryList">
+        <div class="result-card-header">
+          <span class="result-order">{{ item.order }}ª votação</span>
+          <span class="result-badge" [ngClass]="getResultClass(item.result)">{{ getResultLabel(item.result) }}</span>
+        </div>
+        <div class="result-description">{{ item.description }}</div>
+        <div class="result-summary">{{ getResultLabel(item.result) }} com {{ item.totalVotes }} votos</div>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && !errorMessage && votingHistoryList.length == 0" class="empty-message">
+      <p>Ainda não há matérias votadas nesta sessão.</p>
+    </div>
+  </div>
+</div>

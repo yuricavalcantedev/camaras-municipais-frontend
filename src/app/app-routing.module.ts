@@ -11,6 +11,7 @@ import { TownhallSettingsComponent } from './components/townhall-settings/townha
 import { VotingPanelLeftComponent } from './components/voting-panel-flexible/voting-panel-left/voting-panel-left.component';
 import { VotingPanelRightComponent } from './components/voting-panel-flexible/voting-panel-right/voting-panel-right.component';
 import { SpeakerListComponent } from './components/speaker-list/speaker-list.component';
+import { VotingResultsComponent } from './components/voting-results/voting-results.component';
 
 const routes : Routes = [
   {path: '', component: LoginComponent},
@@ -20,6 +21,7 @@ const routes : Routes = [
   {path: 'painel-votacao/direito', component: VotingPanelRightComponent},
   {path: 'home', component: UserHomeComponent},
   {path: 'lista-oradores', component: SpeakerListComponent},
+  {path: 'resultados', component: VotingResultsComponent},
   {path: 'admin', component: AdminHomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'controleTempo', component: TimerControlComponent},

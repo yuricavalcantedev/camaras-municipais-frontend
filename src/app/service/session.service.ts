@@ -11,6 +11,7 @@ import { SessionParlamentarDTO } from '../dto/session-parlamentar-dto.model';
 import { SessionVotingInfoDTO } from '../dto/session-voting-info-dto.model';
 import { SubjectVotingDTO } from '../dto/subject-voting-dto.model';
 import { VoteDTO } from '../dto/vote-dto.model';
+import { VotingHistoryDTO } from '../dto/voting-history-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class SessionService {
   private findSessionVotingInfoBySessionAndVotingIdURL = '/{uuid}/voting-info/{id}';
   private resetSessionVotingInfoBySessionAndVotingIdURL = '/{uuid}/voting-info/reset/{id}';
   private findSessionStandardInfoByUUIDURL = '/{uuid}/voting-info/standard';
+  private findVotingHistoryByUUIDURL = '/{uuid}/voting-history';
 
   constructor(private http: HttpClient) {
   }
@@ -101,6 +103,10 @@ export class SessionService {
 
   findSessionStandardInfoByUUID(sessionUUID: string) : Observable<SessionVotingInfoDTO>{
     return this.http.get<SessionVotingInfoDTO>(this.baseUrl + this.findSessionStandardInfoByUUIDURL.replace('{uuid}', sessionUUID));
+  }
+
+  findVotingHistory(sessionUUID: string) : Observable<VotingHistoryDTO[]>{
+    return this.http.get<VotingHistoryDTO[]>(this.baseUrl + this.findVotingHistoryByUUIDURL.replace('{uuid}', sessionUUID));
   }
 
   addSubjectManually(sessionUUID: string, addSubjectRequest) : Observable<Session>{

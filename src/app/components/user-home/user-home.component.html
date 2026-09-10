@@ -72,6 +72,12 @@
         ></app-card-menu>
 
         <app-card-menu
+          title="Resultados"
+          iconType="resultados"
+          (click)="goToResults()"
+        ></app-card-menu>
+
+        <app-card-menu
           *ngIf="parlamentar.role.name === 'ROLE_MODERATOR_VIEW'"
           title="Tempo"
           iconType="tempo"
